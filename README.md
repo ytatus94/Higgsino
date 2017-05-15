@@ -5,7 +5,8 @@ The NUHM2 Higgsino study
 
 * The Indico page of Higgsino Working Group: 
 [https://indico.cern.ch/category/3818/](https://indico.cern.ch/category/3818/)
-
+* The indico page: [https://indico.cern.ch/category/3818/](https://indico.cern.ch/category/3818/)
+* Meeting time: Monday at 2pm.
 * The common framework
   * Discussion: [https://indico.cern.ch/event/610940/](https://indico.cern.ch/event/610940/)
   * Joey's talk: [https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf](https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf)
@@ -13,10 +14,8 @@ The NUHM2 Higgsino study
 ---
 
 * Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
-
 * Baer's paper: [https://arxiv.org/abs/1604.07438](https://arxiv.org/abs/1604.07438)
 * Baer's talk at SUSY16 conference: [https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf](https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf)
-
 * Judita's presentation: [https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf](https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf)
 
 ---
@@ -26,7 +25,6 @@ The NUHM2 Higgsino study
   * Here is the JIRA ticket:
 [https://its.cern.ch/jira/browse/ATLSUSYDPD-879?filter=-2](https://its.cern.ch/jira/browse/ATLSUSYDPD-879?filter=-2)
   * I confirmed with Joey that p2952 is the current tag they are using now.
-
 * 20170502
   * The train for SUSY16 p2952: [https://prodtask-dev.cern.ch/prodtask/task_table/#/?time_period=all&task_type=production&request=11931](https://prodtask-dev.cern.ch/prodtask/task_table/#/?time_period=all&task_type=production&request=11931)
   * The SUSY16 p2952 are downloaded to
