@@ -8,6 +8,7 @@ The NUHM2 Higgsino study
 
 * The common framework
   * Discussion: [https://indico.cern.ch/event/610940/](https://indico.cern.ch/event/610940/)
+  * Joey's talk: [https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf](https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf)
   
 ---
 
@@ -15,6 +16,10 @@ The NUHM2 Higgsino study
 
 * Baer's paper: [https://arxiv.org/abs/1604.07438](https://arxiv.org/abs/1604.07438)
 * Baer's talk at SUSY16 conference: [https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf](https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf)
+
+* Judita's presentation: [https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf](https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf)
+
+---
 
 * 20170424
   * I request SUSY16 with p2952 for NUHM2. 
