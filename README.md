@@ -10,6 +10,7 @@ The NUHM2 Higgsino study
 * The common framework
   * Discussion: [https://indico.cern.ch/event/610940/](https://indico.cern.ch/event/610940/)
   * Joey's talk: [https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf](https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf)
+  * SVN: [https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt](https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt)
   
 ---
 
