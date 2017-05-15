@@ -1,8 +1,10 @@
 # Higgsino
 The NUHM2 Higgsino study
-
+---
 * The Indico page of Higgsino Working Group: 
 [https://indico.cern.ch/category/3818/](https://indico.cern.ch/category/3818/)
+
+* Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
 
 * 20170424
   * I request SUSY16 with p2952 for NUHM2. 
