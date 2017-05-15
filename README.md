@@ -12,7 +12,8 @@ The NUHM2 Higgsino study
   * SVN: [https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt](https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt)
   * JIRA ticket for the production notification: [https://its.cern.ch/jira/browse/HIGGSINO-16](https://its.cern.ch/jira/browse/HIGGSINO-16)
   * Spreadsheet for cutflow comparison: [https://docs.google.com/spreadsheets/d/15gDZOmVWXdwX_1LQgPdSk_EhdbcNeFzuqZK12Wm7HHI/edit#gid=0](https://docs.google.com/spreadsheets/d/15gDZOmVWXdwX_1LQgPdSk_EhdbcNeFzuqZK12Wm7HHI/edit#gid=0)
-  
+* Discussion of Interpretations for Compressed Paper [https://its.cern.ch/jira/browse/HIGGSINO-24](https://its.cern.ch/jira/browse/HIGGSINO-24)
+
 ---
 
 * Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
