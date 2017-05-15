@@ -1,8 +1,15 @@
 # Higgsino
 The NUHM2 Higgsino study
+
 ---
+
 * The Indico page of Higgsino Working Group: 
 [https://indico.cern.ch/category/3818/](https://indico.cern.ch/category/3818/)
+
+* The common framework
+  * Discussion: [https://indico.cern.ch/event/610940/](https://indico.cern.ch/event/610940/)
+  
+---
 
 * Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
 
