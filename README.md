@@ -6,6 +6,8 @@ The NUHM2 Higgsino study
 
 * Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
 
+* Baer's paper: [https://arxiv.org/abs/1604.07438](https://arxiv.org/abs/1604.07438)
+
 * 20170424
   * I request SUSY16 with p2952 for NUHM2. 
   * Here is the JIRA ticket:
