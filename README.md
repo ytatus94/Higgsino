@@ -11,7 +11,7 @@ The NUHM2 Higgsino study
   * Joey's talk: [https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf](https://indico.cern.ch/event/610949/contributions/2563784/attachments/1448277/2232107/2017-04-24_Framework_and_Ntuple_Updates.pdf)
   * SVN: [https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt](https://gitlab.cern.ch/atlas-phys-susy-higgsino/SusySkimHiggsino/blob/master/data/samples/SUSY16_Signal/MGPy8EG_A14N23LO_SM_C1C1_2LMET50_MadSpin.txt)
 * The common ntuples:
-  * JIRA ticket for the production notification: [https://its.cern.ch/jira/browse/HIGGSINO-16](https://its.cern.ch/jira/browse/HIGGSINO-16)
+  * JIRA ticket for the production notification: [https://its.cern.ch/jira/browse/HIGGSINO-16](https://its.cern.ch/jira/browse/HIGGSINO-16)
   * The common ntuples are downloaded to
     * ouhep04@cern: `/UserDisk2/yushen/Higgsino`
     * ouhep05@nhn: `/raid05/atlas/data/Higgsino`
