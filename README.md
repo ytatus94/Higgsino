@@ -42,5 +42,6 @@ The NUHM2 Higgsino study
     `mc15_13TeV.370621.MGPy8EG_A14N23LO_NUHM2_m12_600_weak.merge.DAOD_SUSY16.e4209_a766_a821_r7676_p2952`
     `mc15_13TeV.370622.MGPy8EG_A14N23LO_NUHM2_m12_700_weak.merge.DAOD_SUSY16.e4209_a766_a821_r7676_p2952`
     `mc15_13TeV.370623.MGPy8EG_A14N23LO_NUHM2_m12_800_weak.merge.DAOD_SUSY16.e4209_a766_a821_r7676_p2952`
+    They were downloaded to `ouhep05@nhn:/raid05/atlas/data/NUHM2/SUSY_DAOD/p2952`
 
 ---
