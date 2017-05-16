@@ -20,10 +20,10 @@ The NUHM2 Higgsino study
 
 ---
 
-* Pat's presentation in the Higgsino working group kick off meeting: [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
+* Pat's presentation in the Higgsino working group kick off meeting (20160711): [https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf](https://indico.cern.ch/event/544559/contributions/2240365/attachments/1307337/1954512/Oklahoma_plans.pdf)
 * Baer's paper: [https://arxiv.org/abs/1604.07438](https://arxiv.org/abs/1604.07438)
 * Baer's talk at SUSY16 conference: [https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf](https://indico.cern.ch/event/443176/contributions/2195542/attachments/1303038/1946804/SUSY2016.pdf)
-* Judita's presentation: [https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf](https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf)
+* Judita's presentation (20170424): [https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf](https://indico.cern.ch/event/610949/contributions/2566984/attachments/1448261/2232347/NUHM2_Higgsino.pdf)
 
 ---
 
