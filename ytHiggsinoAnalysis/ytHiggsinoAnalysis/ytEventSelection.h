@@ -11,7 +11,8 @@
 // #include <TLegend.h>
 #include <TH1.h>
 
-// #include "ytEWK23LAnalysis/yt_regions.h"
+#include "ytHiggsinoAnalysis/yt_regions.h"
+#include "ytHiggsinoAnalysis/yt_cutflows.h"
 
 #include <iostream>
 #include <vector>
@@ -28,9 +29,14 @@ class ytEventSelection : public EL::Algorithm
 public:
     // float cutValue;
 
-    // yt_regions *m_region; //!
+    yt_regions *m_region; //!
+    yt_cutflows *m_cutflows; //!
+
+    bool isCutflow;
     bool isOptimization;
     string analysis_type;
+    string sample_type;
+    float luminosity;
 
     // double weighted_event_counts[6]; //!
 
@@ -708,9 +714,48 @@ public:
     TBranch        *b_FS;   //!
 
     // Histograms
-    // TH1F *h_SR2L0J_DirSlep; //!
-    // TH1F *h_SR2L0J; //!
-    // TH1F *h_SR2L2J_Conv_High_Med_Low; //!
+    TH1F *h_yields; //!
+    TH1F *h_weighted_yields; //!
+
+    // Distributions
+    TH1F *h_NJets; //! includes forward jets
+    TH1F *h_NJet30; //! signal jets
+    TH1F *h_NJet25; //! signal jets
+
+    TH1F *h_jets_pT; //!
+    TH1F *h_jet1_pT; //!
+    TH1F *h_jet2_pT; //!
+    TH1F *h_jet3_pT; //!
+    TH1F *h_jet4_pT; //!
+
+    TH1F *h_Nbjets; //!
+    TH1F *h_bJets_pT; //!
+
+    TH1F *h_NLepts_baseline; //!
+    TH1F *h_lepts_pT_baseline; //!
+    TH1F *h_lept1_pT_baseline; //!
+    TH1F *h_lept2_pT_baseline; //!
+    TH1F *h_lept3_pT_baseline; //!
+    TH1F *h_lept4_pT_baseline; //!
+
+    TH1F *h_NLepts_signal; //!
+    TH1F *h_lepts_pT_signal; //!
+    TH1F *h_lept1_pT_signal; //!
+    TH1F *h_lept2_pT_signal; //!
+    TH1F *h_lept3_pT_signal; //!
+    TH1F *h_lept4_pT_signal; //!
+
+    TH1F *h_met; //!
+    TH1F *h_HT; //!
+    TH1F *h_METOverHT; //!
+    TH1F *h_METOverHTLep12; //!
+    TH1F *h_mT2; //!
+    TH1F *h_mll; //!
+
+    TH1F *h_METOverHT_no_cut; //!
+    TH1F *h_METOverHT_with_cut; //!
+    TH1F *h_METOverHTLep12_no_cut; //!
+    TH1F *h_METOverHTLep12_with_cut; //!
 
     // this is a standard constructor
     ytEventSelection ();
@@ -726,8 +771,13 @@ public:
     virtual EL::StatusCode finalize ();
     virtual EL::StatusCode histFinalize ();
 
+    void set_isCutflow(bool b) { isCutflow = b; }
     void set_isOptimization(bool b) { isOptimization = b; }
     void set_analysis_type(string s) { analysis_type = s; }
+    void set_sample_type(string s) { sample_type = s; }
+    void set_luminosity(float f) { luminosity = f; }
+
+    void debug_print(bool cut_MET, bool cut_NJets, bool cut_leading_jet_pT, bool cut_NBjets, bool cut_dPhiMETJ1, bool cut_MTauTau, bool cut_METOverHT);
 
     // this is needed to distribute the algorithm to the workers
     ClassDef(ytEventSelection, 1);

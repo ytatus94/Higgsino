@@ -18,4 +18,4 @@ rc compile
 
 # For python scripts
 export PYTHONPATH=$PYTHONPATH:$PWD/ytHiggsinoAnalysis/pythons
-
+export PATH=$PATH:$PWD/ytHiggsinoAnalysis/scripts

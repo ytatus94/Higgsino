@@ -16,6 +16,9 @@ ytEventSelection :: ytEventSelection ()
     // called on both the submission and the worker node.  Most of your
     // initialization code will go into histInitialize() and
     // initialize().
+
+    m_region = new yt_regions;
+    m_cutflows = new yt_cutflows;
 }
 
 
@@ -40,6 +43,133 @@ EL::StatusCode ytEventSelection :: histInitialize ()
     // beginning on each worker node, e.g. create histograms and output
     // trees.  This method gets called before any input files are
     // connected.
+
+    h_yields = new TH1F("h_yields", " in SR", 5, 0, 5);
+    h_weighted_yields = new TH1F("h_weighted_yields", "Number of weighted events in SR", 5, 0, 5);
+
+    h_yields->Sumw2();
+    h_weighted_yields->Sumw2();
+
+    wk()->addOutput(h_yields);
+    wk()->addOutput(h_weighted_yields);
+
+    h_NJets = new TH1F("h_NJets", "Number of Jets;N_{jets};", 15, 0, 15);
+    h_NJet30 = new TH1F("h_NJet30", "Number of Jets;N_{jets};", 15, 0, 15);
+    h_NJet25 = new TH1F("h_NJet25", "Number of Jets;N_{jets};", 15, 0, 15);
+
+    h_jets_pT = new TH1F("h_jets_pT", "Jets p_{T};p_{T} [GeV];", 200, 0, 1000);
+    h_jet1_pT = new TH1F("h_jet1_pT", "Jet1 p_{T};p_{T} [GeV];", 200, 0, 1000);
+    h_jet2_pT = new TH1F("h_jet2_pT", "Jet2 p_{T};p_{T} [GeV];", 200, 0, 1000);
+    h_jet3_pT = new TH1F("h_jet3_pT", "Jet3 p_{T};p_{T} [GeV];", 200, 0, 1000);
+    h_jet4_pT = new TH1F("h_jet4_pT", "Jet4 p_{T};p_{T} [GeV];", 200, 0, 1000);
+
+    h_Nbjets = new TH1F("h_Nbjets", "Number of b-jets;N_{b-jets};", 15, 0, 15);
+    h_bJets_pT = new TH1F("h_bJets_pT", "b-jets p_{T};p_{T} [GeV];", 200, 0, 1000);
+
+    h_NLepts_baseline = new TH1F("h_NLepts_baseline", "Number of baseline leptons;N_{lept};", 7, 0, 7);
+    h_lepts_pT_baseline = new TH1F("h_lepts_pT_baseline", "Baseline leptons p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept1_pT_baseline = new TH1F("h_lept1_pT_baseline", "Baseline lepton1 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept2_pT_baseline = new TH1F("h_lept2_pT_baseline", "Baseline lepton2 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept3_pT_baseline = new TH1F("h_lept3_pT_baseline", "Baseline lepton3 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept4_pT_baseline = new TH1F("h_lept4_pT_baseline", "Baseline lepton4 p_{T};p_{T} [GeV];",  200, 0, 1000);
+
+    h_NLepts_signal = new TH1F("h_NLepts_signal", "Number of signal leptons;N_{lept};", 7, 0, 7);
+    h_lepts_pT_signal = new TH1F("h_lepts_pT_signal", "Signal leptons p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept1_pT_signal = new TH1F("h_lept1_pT_signal", "Signal lepton1 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept2_pT_signal = new TH1F("h_lept2_pT_signal", "Signal lepton2 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept3_pT_signal = new TH1F("h_lept3_pT_signal", "Signal lepton3 p_{T};p_{T} [GeV];",  200, 0, 1000);
+    h_lept4_pT_signal = new TH1F("h_lept4_pT_signal", "Signal lepton4 p_{T};p_{T} [GeV];",  200, 0, 1000);
+
+    h_met = new TH1F("h_met", "E_{T}^{miss};MET [GeV];", 200, 0, 1000);
+    h_HT = new TH1F("h_HT", "HT;HT [GeV];", 200, 0, 2000);
+    h_METOverHT = new TH1F("h_METOverHT", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    h_METOverHTLep12 = new TH1F("h_METOverHTLep12", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    h_mT2 = new TH1F("h_mT2", "MT2", 200, 0, 1000);
+    h_mll = new TH1F("h_mll", "M_{ll};M_{ll} [GeV];", 200, 0, 1000);
+
+    h_NJets->Sumw2();
+    h_NJet30->Sumw2();
+    h_NJet25->Sumw2();
+
+    h_jets_pT->Sumw2();
+    h_jet1_pT->Sumw2();
+    h_jet2_pT->Sumw2();
+    h_jet3_pT->Sumw2();
+    h_jet4_pT->Sumw2();
+
+    h_Nbjets->Sumw2();
+    h_bJets_pT->Sumw2();
+
+    h_NLepts_baseline->Sumw2();
+    h_lepts_pT_baseline->Sumw2();
+    h_lept1_pT_baseline->Sumw2();
+    h_lept2_pT_baseline->Sumw2();
+    h_lept3_pT_baseline->Sumw2();
+    h_lept4_pT_baseline->Sumw2();
+
+    h_NLepts_signal->Sumw2();
+    h_lepts_pT_signal->Sumw2();
+    h_lept1_pT_signal->Sumw2();
+    h_lept2_pT_signal->Sumw2();
+    h_lept3_pT_signal->Sumw2();
+    h_lept4_pT_signal->Sumw2();
+
+    h_met->Sumw2();
+    h_HT->Sumw2();
+    h_METOverHT->Sumw2();
+    h_METOverHTLep12->Sumw2();
+    h_mT2->Sumw2();
+    h_mll->Sumw2();
+
+    wk()->addOutput(h_NJets);
+    wk()->addOutput(h_NJet30);
+    wk()->addOutput(h_NJet25);
+
+    wk()->addOutput(h_jets_pT);
+    wk()->addOutput(h_jet1_pT);
+    wk()->addOutput(h_jet2_pT);
+    wk()->addOutput(h_jet3_pT);
+    wk()->addOutput(h_jet4_pT);
+
+    wk()->addOutput(h_Nbjets);
+    wk()->addOutput(h_bJets_pT);
+
+    wk()->addOutput(h_NLepts_baseline);
+    wk()->addOutput(h_lepts_pT_baseline);
+    wk()->addOutput(h_lept1_pT_baseline);
+    wk()->addOutput(h_lept2_pT_baseline);
+    wk()->addOutput(h_lept3_pT_baseline);
+    wk()->addOutput(h_lept4_pT_baseline);
+
+    wk()->addOutput(h_NLepts_signal);
+    wk()->addOutput(h_lepts_pT_signal);
+    wk()->addOutput(h_lept1_pT_signal);
+    wk()->addOutput(h_lept2_pT_signal);
+    wk()->addOutput(h_lept3_pT_signal);
+    wk()->addOutput(h_lept4_pT_signal);
+
+    wk()->addOutput(h_met);
+    wk()->addOutput(h_HT);
+    wk()->addOutput(h_METOverHT);
+    wk()->addOutput(h_METOverHTLep12);
+    wk()->addOutput(h_mT2);
+    wk()->addOutput(h_mll);
+
+    h_METOverHT_no_cut = new TH1F("h_METOverHT_no_cut", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    h_METOverHT_with_cut = new TH1F("h_METOverHT_with_cut", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    h_METOverHTLep12_no_cut = new TH1F("h_METOverHTLep12_no_cut", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    h_METOverHTLep12_with_cut = new TH1F("h_METOverHTLep12_with_cut", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+
+
+    h_METOverHT_no_cut->Sumw2();
+    h_METOverHT_with_cut->Sumw2();
+    h_METOverHTLep12_no_cut->Sumw2();
+    h_METOverHTLep12_with_cut->Sumw2();
+
+    wk()->addOutput(h_METOverHT_no_cut);
+    wk()->addOutput(h_METOverHT_with_cut);
+    wk()->addOutput(h_METOverHTLep12_no_cut);
+    wk()->addOutput(h_METOverHTLep12_with_cut);
 
     return EL::StatusCode::SUCCESS;
 }
@@ -430,7 +560,232 @@ EL::StatusCode ytEventSelection :: execute ()
 
     wk()->tree()->GetEntry(wk()->treeEntry());
 
+    float weight = eventWeight * leptonWeight * bTagWeight * jvtWeight * pileupWeight * genWeight;
+    // cout << "weight=" << weight << endl;
+    // cout << "luminosity * weight=" << luminosity * weight << endl;
+    weight *= luminosity;
+    // weight = 1;
 
+    // All events
+    bool cut_all_events = m_cutflows->pass_all_events();
+    m_cutflows->update(all_events, cut_all_events, weight);
+
+    //
+    // Pre-selection
+    //
+    // Event cleaning
+    bool cut1 = m_cutflows->pass_event_cleaning();
+    m_cutflows->update(event_cleaning, cut1, weight);
+    // GRL
+    bool cut2 = m_cutflows->pass_GRL();
+    m_cutflows->update(grl, cut2, weight);
+    // LAr/Tile/SCT errors and core flags
+    bool cut3 = m_cutflows->pass_global_flags();
+    m_cutflows->update(global_flags, cut3, weight);
+    // Primary vertex
+    bool cut4 = m_cutflows->pass_primary_vertex();
+    m_cutflows->update(primary_vertex, cut4, weight);
+    // Bad muon
+    bool cut5 = m_cutflows->pass_bad_muon();
+    m_cutflows->update(bad_muon, cut5, weight);
+    // Bad jet
+    bool cut6 = m_cutflows->pass_bad_jet();
+    m_cutflows->update(bad_jet, cut6, weight);
+
+    //
+    // Distributions
+    //
+    h_NJets->Fill(nTotalJet, weight);
+    h_NJet30->Fill(nJet30, weight);
+    h_NJet25->Fill(nJet25, weight);
+
+    if (jetPt->size() > 0) {
+        for (unsigned int i = 0; i < jetPt->size(); i++) {
+            h_jets_pT->Fill(jetPt->at(i), weight);
+        }
+
+        h_jet1_pT->Fill(jetPt->at(0), weight);
+        if (jetPt->size() > 1) h_jet2_pT->Fill(jetPt->at(1), weight);
+        if (jetPt->size() > 2) h_jet3_pT->Fill(jetPt->at(2), weight);
+        if (jetPt->size() > 3) h_jet3_pT->Fill(jetPt->at(3), weight);
+    }
+
+    h_Nbjets->Fill(nBJet30_MV2c10, weight);
+    // h_bJets_pT->Fill(, weight); // not support
+
+    h_NLepts_baseline->Fill(nLep_base, weight);
+    // All leptons pT
+    h_lepts_pT_baseline->Fill(lep1Pt, weight);
+    h_lepts_pT_baseline->Fill(lep2Pt, weight);
+    h_lepts_pT_baseline->Fill(lep3Pt, weight);
+    h_lepts_pT_baseline->Fill(lep4Pt, weight);
+    // Each lepton pT
+    h_lept1_pT_baseline->Fill(lep1Pt, weight);
+    h_lept2_pT_baseline->Fill(lep2Pt, weight);
+    h_lept3_pT_baseline->Fill(lep3Pt, weight);
+    h_lept4_pT_baseline->Fill(lep4Pt, weight);
+
+    h_NLepts_signal->Fill(nLep_signal, weight);
+    if (lep1Signal > 0) {
+        h_lepts_pT_signal->Fill(lep1Pt, weight); // All leptons pT
+        h_lept1_pT_signal->Fill(lep1Pt, weight);
+    }
+    if (lep2Signal > 0) {
+        h_lepts_pT_signal->Fill(lep2Pt, weight); // All leptons pT
+        h_lept2_pT_signal->Fill(lep2Pt, weight);
+    }
+    if (lep3Signal > 0) {
+        h_lepts_pT_signal->Fill(lep3Pt, weight); // All leptons pT
+        h_lept3_pT_signal->Fill(lep3Pt, weight);
+    }
+    if (lep4Signal > 0) {
+        h_lepts_pT_signal->Fill(lep4Pt, weight); // All leptons pT
+        h_lept4_pT_signal->Fill(lep4Pt, weight);
+    }
+
+    h_met->Fill(met_Et, weight);
+    h_HT->Fill(Ht30, weight);
+    h_METOverHT->Fill(METOverHT, weight);
+    // h_mT2->Fill(, weight); // not support
+    h_mll->Fill(mll, weight);
+
+    //
+    // Non-sequential cutflows
+    //
+    // No way to know it is a electron or a muon
+    // the cut7 to cut22 are problematic.
+    bool cut7 = m_cutflows->pass_at_least_one_baseline_electron(nLep_base);
+    m_cutflows->update(at_least_one_baseline_electron, cut7, weight);
+
+    bool cut8 = m_cutflows->pass_at_least_one_signal_electron(nLep_signal);
+    m_cutflows->update(at_least_one_signal_electron, cut8, weight);
+
+    bool cut9 = m_cutflows->pass_at_least_one_baseline_muon(nLep_base);
+    m_cutflows->update(at_least_one_baseline_muon, cut9, weight);
+
+    bool cut10 = m_cutflows->pass_at_least_one_signal_muon(nLep_signal);
+    m_cutflows->update(at_least_one_signal_muon, cut10, weight);
+
+    bool cut11 = m_cutflows->pass_at_least_two_baseline_electrons(nLep_base);
+    m_cutflows->update(at_least_two_baseline_electron, cut11, weight);
+
+    bool cut12 = m_cutflows->pass_at_least_two_signal_electrons(nLep_signal);
+    m_cutflows->update(at_least_two_signal_electron, cut12, weight);
+
+    bool cut13 = m_cutflows->pass_at_least_two_baseline_muons(nLep_base);
+    m_cutflows->update(at_least_two_baseline_muon, cut13, weight);
+
+    bool cut14 = m_cutflows->pass_at_least_two_signal_muons(nLep_signal);
+    m_cutflows->update(at_least_two_signal_muon, cut14, weight);
+
+    bool cut15 = m_cutflows->pass_at_least_two_baseline_leptons(nLep_base);
+    m_cutflows->update(at_least_two_baseline_leptons, cut15, weight);
+
+    bool cut16 = m_cutflows->pass_at_least_two_signal_leptons(nLep_signal);
+    m_cutflows->update(at_least_two_signal_leptons, cut16, weight);
+
+    bool cut17 = m_cutflows->pass_exactly_three_baseline_electrons(nLep_base);
+    m_cutflows->update(exactly_three_baseline_electrons, cut17, weight);
+
+    bool cut18 = m_cutflows->pass_exactly_three_signal_electrons(nLep_signal);
+    m_cutflows->update(exactly_three_signal_electrons, cut18, weight);
+
+    bool cut19 = m_cutflows->pass_exactly_three_baseline_muons(nLep_base);
+    m_cutflows->update(exactly_three_baseline_muons, cut19, weight);
+
+    bool cut20 = m_cutflows->pass_exactly_three_signal_muons(nLep_signal);
+    m_cutflows->update(exactly_three_signal_muons, cut20, weight);
+
+    bool cut21 = m_cutflows->pass_exactly_three_baseline_leptons(nLep_base);
+    m_cutflows->update(exactly_three_baseline_leptons, cut21, weight);
+
+    bool cut22 = m_cutflows->pass_exactly_three_signal_leptons(nLep_signal);
+    m_cutflows->update(exactly_three_signal_leptons, cut22, weight);
+
+    bool cut23 = m_cutflows->pass_at_least_one_baseline_jet(nTotalJet);
+    m_cutflows->update(at_least_one_baseline_jet, cut23, weight);
+
+    bool cut24 = m_cutflows->pass_at_least_one_signal_jet(nJet30);
+    m_cutflows->update(at_least_one_signal_jet, cut24, weight);
+
+    bool cut25 = m_cutflows->pass_zero_bjet(nBJet30_MV2c10);
+    m_cutflows->update(zero_bjet, cut25, weight);
+
+    bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht);
+    m_cutflows->update(cut_mu4_j125_xe90_mht, cut26, weight);
+
+    bool cut27 = m_cutflows->pass_2mu4_j85_xe50_mht(HLT_2mu4_j85_xe50_mht);
+    m_cutflows->update(cut_2mu4_j85_xe50_mht, cut27, weight);
+
+    bool cut28 = m_cutflows->pass_met110_mht(HLT_xe110_mht_L1XE50);
+    m_cutflows->update(cut_met110_mht, cut28, weight);
+
+/*
+    //
+    // Signal region:
+    //
+
+    // For the signal region, a SFOS pair is used, with (currently) exactly two baseline and two signal leptons.
+    bool cut_same_flavor = false;
+    bool cut_opposite_sign = false;
+    bool cut_number_of_baseline_and_signal_leptons = false;
+
+    if ((lep1Flavor == 1 && lep2Flavor == 1) || // electron
+        (lep1Flavor == 2 && lep2Flavor == 2))   // muon
+        cut_same_flavor = true;
+
+    if (lep1Charge * lep2Charge == -1)
+        cut_opposite_sign = true;
+
+    if (nLep_base == 2 && nLep_signal == 2)
+        cut_number_of_baseline_and_signal_leptons = true;
+
+    if ( !(cut_same_flavor && cut_opposite_sign && cut_number_of_baseline_and_signal_leptons) )
+        return EL::StatusCode::SUCCESS;
+
+    // Only SFOS events are considered
+    bool cut_MET = m_region->pass_MET(met_Et);
+    bool cut_NJets = m_region->pass_NJets(nJet30);
+    bool cut_leading_jet_pT = false;
+    if (jetPt->size() > 0)
+        cut_leading_jet_pT = m_region->pass_leading_jet_pT( jetPt->at(0) );
+    bool cut_NBjets = m_region->pass_NBjets(nBJet30_MV2c10);
+    bool cut_dPhiMETJ1 = m_region->pass_deltaPhi_MET_leading_jet(DPhiJ1Met);
+    bool cut_MTauTau = m_region->pass_Mtautau(MTauTau);
+    bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHT, mll);
+
+    // debug_print(cut_MET, cut_NJets, cut_leading_jet_pT, cut_NBjets, cut_dPhiMETJ1, cut_MTauTau, cut_METOverHT);
+
+    // if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau && cut_METOverHT) {
+    if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau) {
+        // cout << "pass cuts EventNumber=" << EventNumber << endl;
+
+        h_METOverHT_no_cut->Fill(METOverHT, weight);
+        if (cut_METOverHT)
+            h_METOverHT_with_cut->Fill(METOverHT, weight);
+
+        // Fill the h_yields and h_weighted_yields.
+        // Retrieve the values in the bin using GetBinContent()
+        if (sample_type == "data") {
+            // h_yields->AddBinContent(1);
+            // h_weighted_yields->AddBinContent(1, weight);
+            h_yields->Fill(1);
+            h_weighted_yields->Fill(1, weight);
+        }
+        else if (sample_type == "signals") {
+            // h_yields->AddBinContent(2);
+            // h_weighted_yields->AddBinContent(2, weight);
+            h_yields->Fill(2);
+            h_weighted_yields->Fill(2, weight);
+        }
+        else if (sample_type == "backgrounds") {
+            // h_yields->AddBinContent(3);
+            // h_weighted_yields->AddBinContent(3, weight);
+            h_yields->Fill(3);
+            h_weighted_yields->Fill(3, weight);
+        }
+    }
+*/
 
     return EL::StatusCode::SUCCESS;
 }
@@ -458,6 +813,10 @@ EL::StatusCode ytEventSelection :: finalize ()
     // submission node after all your histogram outputs have been
     // merged.  This is different from histFinalize() in that it only
     // gets called on worker nodes that processed input events.
+
+    delete m_region;
+    delete m_cutflows;
+
     return EL::StatusCode::SUCCESS;
 }
 
@@ -476,4 +835,77 @@ EL::StatusCode ytEventSelection :: histFinalize ()
     // that it gets called on all worker nodes regardless of whether
     // they processed input events.
     return EL::StatusCode::SUCCESS;
+}
+
+
+void ytEventSelection :: debug_print(bool cut_MET, bool cut_NJets, bool cut_leading_jet_pT, bool cut_NBjets, bool cut_dPhiMETJ1, bool cut_MTauTau, bool cut_METOverHT)
+{
+    cout << "***** EventNumber=" << EventNumber << endl;
+
+    cout << "RunNumber=" << RunNumber << ", RandomRunNumber=" << RandomRunNumber << endl;
+    cout << "eventWeight=" << eventWeight << ", pileupWeight=" << pileupWeight << ", genWeight=" << genWeight << endl;
+    cout << "leptonWeight=" << leptonWeight << endl;
+    cout << "bTagWeight=" << bTagWeight << ", jvtWeight=" << jvtWeight << endl;
+
+    cout << "FS=" << FS << ", xsec=" << xsec << endl;
+
+    cout << "luminosity=" << luminosity << endl;
+    float weight = xsec * eventWeight * leptonWeight * bTagWeight * jvtWeight * pileupWeight * genWeight;
+    cout << "Total weight=" << weight << endl;
+    cout << "luminosity * total weight=" << luminosity * weight << endl;
+
+    cout << "nTotalJet=" << nTotalJet << endl;
+    cout << "nJet30=" << nJet30 << endl;
+    cout << "nJet25=" << nJet25 << endl;
+
+    cout << "jetPt->size()=" << jetPt->size() << endl;
+    if (jetPt->size() >  0) {
+        for (unsigned int i = 0; i < jetPt->size(); i++) {
+            cout << "jetPt->at(" << i << ")=" << jetPt->at(i) << endl;
+        }
+    }
+    cout << "jetEta->size()=" << jetEta->size() << endl;
+    if (jetEta->size() >  0) {
+        for (unsigned int i = 0; i < jetEta->size(); i++) {
+            cout << "jetEta->at(" << i << ")=" << jetEta->at(i) << endl;
+        }
+    }
+    cout << "jetPhi->size()=" << jetPhi->size() << endl;
+    if (jetPhi->size() >  0) {
+        for (unsigned int i = 0; i < jetPhi->size(); i++) {
+            cout << "jetPhi->at(" << i << ")=" << jetPhi->at(i) << endl;
+        }
+    }
+    cout << "jetM->size()=" << jetM->size() << endl;
+    if (jetM->size() >  0) {
+        for (unsigned int i = 0; i < jetM->size(); i++) {
+            cout << "jetM->at(" << i << ")=" << jetM->at(i) << endl;
+        }
+    }
+
+    cout << "nBJet30_MV2c10=" << nBJet30_MV2c10 << endl;
+
+    cout << "nLep_base=" << nLep_base << endl;
+    cout << "nLep_signal=" << nLep_signal << endl;
+    cout << "lep1Pt=" << lep1Pt << ", lep1Eta=" << lep1Eta << ", lep1Phi=" << lep1Phi << ", lep1Signal=" << lep1Signal << endl;
+    cout << "lep2Pt=" << lep2Pt << ", lep2Eta=" << lep2Eta << ", lep2Phi=" << lep2Phi << ", lep2Signal=" << lep2Signal << endl;
+    cout << "lep3Pt=" << lep3Pt << ", lep3Eta=" << lep3Eta << ", lep3Phi=" << lep3Phi << ", lep3Signal=" << lep3Signal << endl;
+    cout << "lep4Pt=" << lep4Pt << ", lep4Eta=" << lep4Eta << ", lep4Phi=" << lep4Phi << ", lep4Signal=" << lep4Signal << endl;
+
+    cout << "met_Et=" << met_Et << ", met_Phi=" << met_Phi << endl;
+    cout << "Ht30=" << Ht30 << endl;
+    cout << "METOverHT=" << METOverHT << endl;
+
+    cout << "DPhiJ1Met=" << DPhiJ1Met << endl;
+    cout << "MTauTau=" << MTauTau << endl;
+    cout << "mll=" << mll << endl;
+
+    cout << "* Signal Region cuts:" << endl;
+    cout << "cut_MET=" << cut_MET << endl;
+    cout << "cut_NJets=" << cut_NJets << endl;
+    cout << "cut_leading_jet_pT=" << cut_leading_jet_pT << endl;
+    cout << "cut_NBjets=" << cut_NBjets << endl;
+    cout << "cut_dPhiMETJ1=" << cut_dPhiMETJ1 << endl;
+    cout << "cut_MTauTau=" << cut_MTauTau << endl;
+    cout << "cut_METOverHT=" << cut_METOverHT << endl;
 }

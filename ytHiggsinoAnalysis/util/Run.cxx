@@ -1,8 +1,18 @@
 // Usage:
+// Run cutflow analysis_type=abc sample_type=def sample=ghi [PROOF/Condor/Grid]
 // Run optimization analysis_type=abc sample_type=def sample=ghi [PROOF/Condor/Grid]
-// abc = 2L0J_DirSlep/2L0J/2L2J_Conv_High/2L2J_Conv_Med/2L2J_Conv_Low/
+// abc = MC/Data
 // def = data/signals/backgrounds
-// ghi = Vgamma/ttbar/higgs/VV/VVV
+// ghi = MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root
+//       or the background sample root files
+//       or the data sample root files (data_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root)
 
 #include "SampleHandler/SampleHandler.h"
 //#include "SampleHandler/Sample.h"
@@ -32,6 +42,7 @@ int main( int argc, char* argv[] )
     // if( argc > 1 ) submitDir = argv[ 1 ];
     std::string submitDir;
 
+    bool isCutflow = false;
     bool isOptimization = false;
 
     string analysis_type;
@@ -47,6 +58,8 @@ int main( int argc, char* argv[] )
         const char* key = strtok(argv[i], "=");
         const char* val = strtok(0, " ");
 
+        if (strcmp(key, "cutflow") == 0)
+            isCutflow = true;
         if (strcmp(key, "optimization") == 0)
             isOptimization = true;
         if (strcmp(key, "analysis_type") == 0)
@@ -67,9 +80,13 @@ int main( int argc, char* argv[] )
     }
 
     // Print out input arguments
+    if (isCutflow) {
+        printf("Running cutflow for analysis_type=%s, sample_type=%s, and sample=%s\n", analysis_type.c_str(), sample_type.c_str(), sample.c_str());
+        submitDir = "cutflow" + analysis_type + "_" + sample;
+    }
     if (isOptimization) {
         printf("Running SR optimization for analysis_type=%s, sample_type=%s, and sample=%s\n", analysis_type.c_str(), sample_type.c_str(), sample.c_str());
-        submitDir = "optimization_" + analysis_type;
+        submitDir = "optimization_" + analysis_type + "_" + sample;
     }
     cout << "submitDir = " << submitDir << endl;
 
@@ -90,32 +107,92 @@ int main( int argc, char* argv[] )
     SH::SampleHandler sh;
 
     // use SampleHandler to scan all of the subdirectories of a directory for particular MC single file:
-    const char* inputFilePath = "../Data/Sarah"; // no slash (/) at the end
-    if (sample_type == "signals")
-        SH::ScanDir().filePattern("CentralSignals.root").scan(sh, inputFilePath);
-    else if (sample_type == "backgrounds")
-        SH::ScanDir().filePattern("CentralBackgrounds.root").scan(sh, inputFilePath);
-    else if (sample_type == "data")
-        SH::ScanDir().filePattern("CentralData.root").scan(sh, inputFilePath);
+    const char* inputFilePath;
+    if (analysis_type == "MC") {
+        if (sample_type == "signals") {
+            inputFilePath = "../MC/SusySkimHiggsino_v1.4_SUSY16_Signal_tree"; // no slash (/) at the end
+            SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
+        }
+        else if (sample_type == "backgrounds") {
+            inputFilePath = "../MC/SusySkimHiggsino_v1.4_SUSY16_Bkgs_tree"; // no slash (/) at the end
+            SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
+        }
+    }
+    else if (analysis_type == "Data") {
+        inputFilePath = "../Data";
+        SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
+    }
 
     // Set the name of the input TTree.
-    cout << "Load TTree: " << sample << "_CENTRAL tree ..." << endl;
-    if (sample_type == "Data")
-        sh.setMetaString("nc_tree", "Data_CENTRAL");
-    else if (sample_type == "signals")
-        cout << "Sorry, not support sample_type = signals yet" << endl;
-    else if (sample_type == "backgrounds") {
-        if (sample == "Vgamma")
-            sh.setMetaString("nc_tree", "Vgamma_CENTRAL");
-        else if (sample == "ttbar")
-            sh.setMetaString("nc_tree", "ttbar_CENTRAL");
-        else if (sample == "higgs")
-            sh.setMetaString("nc_tree", "higgs_CENTRAL");
-        else if (sample == "VV")
-            sh.setMetaString("nc_tree", "VV_CENTRAL");
-        else if (sample == "VVV")
-            sh.setMetaString("nc_tree", "VVV_CENTRAL");
+    string tree_name;
+    if (sample_type == "data") {
+        tree_name = "data";
     }
+    else if (sample_type == "signals") {
+        // NUHM2
+        if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_NoSys";
+        // Higgsino
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_NoSys";
+    }
+    else if (sample_type == "backgrounds") {
+        if (sample == "alt_DY_PowPy_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "alt_DY_PowPy_NoSys";
+        else if (sample == "alt_ttbar_nonallhad_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_nonallhad_NoSys";
+        else if (sample == "diboson0L_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "diboson0L_NoSys";
+        else if (sample == "diboson1L_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "diboson1L_NoSys";
+        else if (sample == "diboson2L_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "diboson2L_NoSys";
+        else if (sample == "diboson3L_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "diboson3L_NoSys";
+        else if (sample == "diboson4L_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "diboson4L_NoSys";
+        else if (sample == "higgs_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "higgs_NoSys";
+        else if (sample == "singletop_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "singletop_NoSys";
+        else if (sample == "topOther_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "topOther_NoSys";
+        else if (sample == "triboson_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "triboson_NoSys";
+        else if (sample == "ttbar_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "ttbar_NoSys";
+        else if (sample == "ttV_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "ttV_NoSys";
+        else if (sample == "tZ_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "tZ_NoSys";
+        else if (sample == "Wgamma_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Wgamma_NoSys";
+        else if (sample == "Wjets_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Wjets_NoSys";
+        else if (sample == "Zgamma_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Zgamma_NoSys";
+        else if (sample == "Zjets_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Zjets_NoSys";
+        else if (sample == "Zttgamma_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Zttgamma_NoSys";
+        else if (sample == "Zttjets_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root")
+            tree_name = "Zttjets_NoSys";
+    }
+
+    sh.setMetaString("nc_tree", tree_name);
+    cout << "Load TTree: " << tree_name << endl;
 
     // Print what we found:
     sh.print(); // list all the root files in the dataset
@@ -124,12 +201,15 @@ int main( int argc, char* argv[] )
     // Create an EventLoop job:
     EL::Job job;
     job.sampleHandler( sh );
-    job.options()->setDouble (EL::Job::optMaxEvents, 50);
+    // job.options()->setDouble (EL::Job::optMaxEvents, 50);
 
     // Add our analysis to the job:
     ytEventSelection *alg = new ytEventSelection();
+    alg->set_isCutflow(isCutflow);
     alg->set_isOptimization(isOptimization);
     alg->set_analysis_type(analysis_type);
+    alg->set_sample_type(sample_type);
+    alg->set_luminosity(36100); // pb^{-1}
 
     job.algsAdd( alg );
 
