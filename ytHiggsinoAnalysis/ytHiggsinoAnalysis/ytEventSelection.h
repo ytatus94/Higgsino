@@ -32,10 +32,12 @@ public:
     yt_regions *m_region; //!
     yt_cutflows *m_cutflows; //!
 
+    bool isMC;
     bool isCutflow;
     bool isOptimization;
     string analysis_type;
     string sample_type;
+    string sample;
     float luminosity;
 
     // double weighted_event_counts[6]; //!
@@ -771,10 +773,12 @@ public:
     virtual EL::StatusCode finalize ();
     virtual EL::StatusCode histFinalize ();
 
+    void set_isMC(bool b) { isMC = b; }
     void set_isCutflow(bool b) { isCutflow = b; }
     void set_isOptimization(bool b) { isOptimization = b; }
     void set_analysis_type(string s) { analysis_type = s; }
     void set_sample_type(string s) { sample_type = s; }
+    void set_sample(string s) { sample = s; }
     void set_luminosity(float f) { luminosity = f; }
 
     void debug_print(bool cut_MET, bool cut_NJets, bool cut_leading_jet_pT, bool cut_NBjets, bool cut_dPhiMETJ1, bool cut_MTauTau, bool cut_METOverHT);

@@ -560,37 +560,65 @@ EL::StatusCode ytEventSelection :: execute ()
 
     wk()->tree()->GetEntry(wk()->treeEntry());
 
-    float weight = eventWeight * leptonWeight * bTagWeight * jvtWeight * pileupWeight * genWeight;
-    // cout << "weight=" << weight << endl;
-    // cout << "luminosity * weight=" << luminosity * weight << endl;
-    weight *= luminosity;
-    // weight = 1;
+    if (isCutflow) {
+        bool isHiggsino = (sample.find("Higgsino_105_100_2LMET50_MadSpin") != string::npos) ? true : false;
+        bool isSlepton = (sample.find("SlepSlep_direct_110p0_100p0_MET50") != string::npos) ? true : false;
+        bool isWZ = (sample.find("diboson3L") != string::npos) ? true : false;
+
+        if (isHiggsino &&
+            DatasetNumber != 393408) {
+                return EL::StatusCode::SUCCESS;
+        }
+        else if (isSlepton &&
+                 DatasetNumber != 393162) {
+                return EL::StatusCode::SUCCESS;
+        }
+        else if (isWZ &&
+                 DatasetNumber != 363491) {
+                return EL::StatusCode::SUCCESS;
+        }
+    }
+
+    float weight = 1;
+    if (isMC) {
+        // genWeight = (xs * filtEffic * lumi) / (N sum of weights)
+        weight = eventWeight * leptonWeight * bTagWeight * jvtWeight * pileupWeight * genWeight;
+        // cout << "weight=" << weight << endl;
+        // cout << "luminosity * weight=" << luminosity * weight << endl;
+        weight *= luminosity;
+    }
 
     // All events
     bool cut_all_events = m_cutflows->pass_all_events();
     m_cutflows->update(all_events, cut_all_events, weight);
 
     //
-    // Pre-selection
+    // Pre-selection (sequential)
     //
     // Event cleaning
     bool cut1 = m_cutflows->pass_event_cleaning();
     m_cutflows->update(event_cleaning, cut1, weight);
+    if (!cut1) return EL::StatusCode::SUCCESS;
     // GRL
     bool cut2 = m_cutflows->pass_GRL();
     m_cutflows->update(grl, cut2, weight);
+    if (!cut2) return EL::StatusCode::SUCCESS;
     // LAr/Tile/SCT errors and core flags
     bool cut3 = m_cutflows->pass_global_flags();
     m_cutflows->update(global_flags, cut3, weight);
+    if (!cut3) return EL::StatusCode::SUCCESS;
     // Primary vertex
     bool cut4 = m_cutflows->pass_primary_vertex();
     m_cutflows->update(primary_vertex, cut4, weight);
+    if (!cut4) return EL::StatusCode::SUCCESS;
     // Bad muon
     bool cut5 = m_cutflows->pass_bad_muon();
     m_cutflows->update(bad_muon, cut5, weight);
+    if (!cut5) return EL::StatusCode::SUCCESS;
     // Bad jet
     bool cut6 = m_cutflows->pass_bad_jet();
     m_cutflows->update(bad_jet, cut6, weight);
+    if (!cut6) return EL::StatusCode::SUCCESS;
 
     //
     // Distributions
@@ -650,7 +678,7 @@ EL::StatusCode ytEventSelection :: execute ()
     h_mll->Fill(mll, weight);
 
     //
-    // Non-sequential cutflows
+    // Non-sequential cutflows (after cleaning)
     //
     // No way to know it is a electron or a muon
     // the cut7 to cut22 are problematic.
@@ -678,10 +706,10 @@ EL::StatusCode ytEventSelection :: execute ()
     bool cut14 = m_cutflows->pass_at_least_two_signal_muons(nLep_signal);
     m_cutflows->update(at_least_two_signal_muon, cut14, weight);
 
-    bool cut15 = m_cutflows->pass_at_least_two_baseline_leptons(nLep_base);
+    bool cut15 = m_cutflows->pass_at_least_two_baseline_leptons(nLep_base); // correct
     m_cutflows->update(at_least_two_baseline_leptons, cut15, weight);
 
-    bool cut16 = m_cutflows->pass_at_least_two_signal_leptons(nLep_signal);
+    bool cut16 = m_cutflows->pass_at_least_two_signal_leptons(nLep_signal); // correct
     m_cutflows->update(at_least_two_signal_leptons, cut16, weight);
 
     bool cut17 = m_cutflows->pass_exactly_three_baseline_electrons(nLep_base);
@@ -696,30 +724,83 @@ EL::StatusCode ytEventSelection :: execute ()
     bool cut20 = m_cutflows->pass_exactly_three_signal_muons(nLep_signal);
     m_cutflows->update(exactly_three_signal_muons, cut20, weight);
 
-    bool cut21 = m_cutflows->pass_exactly_three_baseline_leptons(nLep_base);
+    bool cut21 = m_cutflows->pass_exactly_three_baseline_leptons(nLep_base); // correct
     m_cutflows->update(exactly_three_baseline_leptons, cut21, weight);
 
-    bool cut22 = m_cutflows->pass_exactly_three_signal_leptons(nLep_signal);
+    bool cut22 = m_cutflows->pass_exactly_three_signal_leptons(nLep_signal); // correct
     m_cutflows->update(exactly_three_signal_leptons, cut22, weight);
 
-    bool cut23 = m_cutflows->pass_at_least_one_baseline_jet(nTotalJet);
+    bool cut23 = m_cutflows->pass_at_least_one_baseline_jet(nTotalJet); // correct
     m_cutflows->update(at_least_one_baseline_jet, cut23, weight);
 
-    bool cut24 = m_cutflows->pass_at_least_one_signal_jet(nJet30);
+    bool cut24 = m_cutflows->pass_at_least_one_signal_jet(nJet30); // correct
     m_cutflows->update(at_least_one_signal_jet, cut24, weight);
 
-    bool cut25 = m_cutflows->pass_zero_bjet(nBJet30_MV2c10);
+    bool cut25 = m_cutflows->pass_zero_bjet(nBJet30_MV2c10); // correct
     m_cutflows->update(zero_bjet, cut25, weight);
 
-    bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht);
+    bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht); // correct
     m_cutflows->update(cut_mu4_j125_xe90_mht, cut26, weight);
 
-    bool cut27 = m_cutflows->pass_2mu4_j85_xe50_mht(HLT_2mu4_j85_xe50_mht);
+    bool cut27 = m_cutflows->pass_2mu4_j85_xe50_mht(HLT_2mu4_j85_xe50_mht); // correct
     m_cutflows->update(cut_2mu4_j85_xe50_mht, cut27, weight);
 
-    bool cut28 = m_cutflows->pass_met110_mht(HLT_xe110_mht_L1XE50);
+    bool cut28 = m_cutflows->pass_met110_mht(HLT_xe110_mht_L1XE50); // correct
     m_cutflows->update(cut_met110_mht, cut28, weight);
 
+    //
+    // Sequential (after cleaning)
+    //
+    bool cut_seq1 = m_cutflows->pass_seq_at_least_two_baseline_leptons(nLep_base);
+    m_cutflows->update(seq_at_least_two_baseline_leptons, cut_seq1, weight);
+    if (!cut_seq1) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq2 = m_cutflows->pass_seq_at_least_two_signal_leptons(nLep_signal);
+    m_cutflows->update(seq_at_least_two_signal_leptons, cut_seq2, weight);
+    if (!cut_seq2) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq3 = m_cutflows->pass_seq_SFOS(lep1Charge, lep2Charge, lep1Flavor, lep2Flavor);
+    m_cutflows->update(seq_SFOS, cut_seq3, weight);
+    if (!cut_seq3) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq4 = m_cutflows->pass_seq_leading_lepton_pT_less_than_50_GeV(lep1Pt);
+    m_cutflows->update(seq_leading_lepton_pT_less_than_50_GeV, cut_seq4, weight);
+    if (!cut_seq4) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq5 = m_cutflows->pass_seq_at_least_one_signal_jet(nJet30);
+    m_cutflows->update(seq_at_least_one_signal_jet, cut_seq5, weight);
+    if (!cut_seq5) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq6 = false;
+    if (jetPt->size() > 0) {
+        cut_seq6 = m_cutflows->pass_seq_leading_jet_pT_greater_than_150_GeV(jetPt->at(0));
+    }
+    m_cutflows->update(seq_leading_jet_pT_greater_than_150_GeV, cut_seq6, weight);
+    if (!cut_seq6) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq7 = m_cutflows->pass_seq_bjet_veto(nBJet30_MV2c10);
+    m_cutflows->update(seq_bjet_veto, cut_seq7, weight);
+    if (!cut_seq7) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq8 = m_cutflows->pass_seq_MET_greater_than_150_GeV(met_Et);
+    m_cutflows->update(seq_MET_greater_than_150_GeV, cut_seq8, weight);
+    if (!cut_seq8) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq9 = m_cutflows->pass_seq_Dphi_jet_MET_greater_than_2dot5(DPhiJ1Met);
+    m_cutflows->update(seq_Dphi_jet_MET_greater_than_2dot5, cut_seq9, weight);
+    if (!cut_seq9) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq10 = m_cutflows->pass_seq_mll_less_than_50_GeV(mll);
+    m_cutflows->update(seq_mll_less_than_50_GeV, cut_seq10, weight);
+    if (!cut_seq10) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq11 = m_cutflows->pass_seq_Rll_less_than_1dot5(Rll);
+    m_cutflows->update(seq_Rll_less_than_1dot5, cut_seq11, weight);
+    if (!cut_seq11) return EL::StatusCode::SUCCESS;
+
+    bool cut_seq12 = m_cutflows->pass_seq_mtt_less_than_0(MTauTau);
+    m_cutflows->update(seq_mtt_less_than_zero, cut_seq12, weight);
+    if (!cut_seq12) return EL::StatusCode::SUCCESS;
 /*
     //
     // Signal region:
@@ -813,6 +894,8 @@ EL::StatusCode ytEventSelection :: finalize ()
     // submission node after all your histogram outputs have been
     // merged.  This is different from histFinalize() in that it only
     // gets called on worker nodes that processed input events.
+
+    m_cutflows->print();
 
     delete m_region;
     delete m_cutflows;

@@ -3,6 +3,31 @@ The NUHM2 Higgsino study
 
 ---
 
+### v04. Finish implement the cutflow and add all signal samples.
+* `yt_cutflows.h`:
+  * Add numbers for enumeration.
+  * Remove argument of `print()` method.
+  * Remove `float weight` from sequential cut methods.
+* `ytEventSelection.h`:
+  * Add `isMC` and `sample`.
+  * Add `set_isMC()` and `set_sample()`.
+* `yt_cutflows.cxx`:
+  * Add numbers for `cut_name`.
+  * Modify `print()`.
+  * Modify all `pass_xxx()` methods.
+* `ytEventSelection.cxx`:
+  * Select sample depends on DSID for cutflow study.
+  * Calculate weight for MC only.
+  * Add sequential cuts.
+  * print out cutflow results.
+* `Run.cxx`
+  * Add `isMC` and related codes.
+  * Fix typo for `submitDir` for cutflow.
+  * Change the data `inputFilePath`.
+  * Add all signal samples for Higgsino and Slepton.
+* Add new script `Run.sh`
+
+
 ### v03. Add two new classes
 * `yt_regions`:
   * Add this new class files: `yt_regions.h` and `yt_regions.cxx`.
@@ -22,7 +47,7 @@ The NUHM2 Higgsino study
   * Add weight calculation.
   * Add cutflows.
   * Implement `debug_print()`.
-* `Run.cxx`
+* `Run.cxx`:
   * Add descriptions for the usage
   * Add `isCutflow` and the related things.
   * Change the input files path and file name.
