@@ -3,6 +3,21 @@ The NUHM2 Higgsino study
 
 ---
 
+### v05. Update to common ntuple v1.5
+* `Run.sh`: Update to common ntuple v1.5
+* `Run.cxx`: Update to common ntuple v1.5
+* `ytEventSelection.h`: Comment some histograms related to `METOverHT` and `METOverHTLep12`
+* `ytEventSelection.cxx`: 
+  * Comment some histograms related to `METOverHT` and `METOverHTLep12`
+  * Add FS protection to reject FS=86 in NUHM2 m12=600.
+  * Remove `bTagWeight` from the weight calculation.
+  * Move cutflow related code into `if` condition
+  * Modify same flavor, opposit sign, and number of baseline and signal lepton requirement.
+  * Use all SR cuts including METOverHT cut.
+* `get_yields.py`: Recoding this script.
+* `plots_making.py`: Add some new histograms
+
+
 ### v04. Finish implement the cutflow and add all signal samples.
 * `yt_cutflows.h`:
   * Add numbers for enumeration.
