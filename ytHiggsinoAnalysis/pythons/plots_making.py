@@ -1,10 +1,12 @@
 #!/usr/bin/python
 import ROOT
 from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kCyan,kTeal,kGreen,kSpring,kYellow,kOrange,kDashed
+import AtlasStyle
 
 def main():
-    f_NUHM2 = 'optimization_MC_MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v1.4_SUSY16_Signal_tree.root'
-    f_Higgsino = 'optimization_MC_MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.4_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v1.4_SUSY16_Signal_tree.root'
+    version = 1.5
+    f_NUHM2 = "optimization_MC_MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v%s_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v%s_SUSY16_Signal_tree.root" % version, version
+    f_Higgsino = "optimization_MC_MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v%s_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v%s_SUSY16_Signal_tree.root" % version, version
 
     vars = ["h_NJets", "h_NJet30", "h_NJet25",
             "h_jets_pT", "h_jet1_pT", "h_jet2_pT", "h_jet3_pT", #"h_jet4_pT",
@@ -16,10 +18,12 @@ def main():
 
     for var in vars:
         print var
-        compare_two_curves(f_NUHM2, f_Higgsino, var, False)
+        compare_two_curves(f_NUHM2, f_Higgsino, var, True)
 
 def compare_two_curves(file1, file2, var, normalize):
     canvas = ROOT.TCanvas("c","", 800,600)
+    if var not in ["h_NJets", "h_NJet30", "h_NJet25", "h_Nbjets", "h_NLepts_baseline", "h_NLepts_signal"]:
+        ROOT.gPad.SetLogy()
 
     f1 = ROOT.TFile(file1)
     var_in_f1 = f1.Get(var)
@@ -38,10 +42,12 @@ def compare_two_curves(file1, file2, var, normalize):
     var_in_f1.SetStats(0)
     var_in_f1.SetLineColor(kBlue)
     if normalize is True:
-        var_in_f1.SetYTitle("normalized event count")
+        var_in_f1.SetYTitle("Normalized event counts")
     else:
-        var_in_f1.SetYTitle("event count")
+        var_in_f1.SetYTitle("Event counts")
     var_in_f1.SetMaximum(y_maximum * 1.2)
+    if var is "h_mll":
+        var_in_f1.GetXaxis().SetRangeUser(0, 300)
     var_in_f1.Draw("hist")
 
     var_in_f2.SetLineColor(kRed)
@@ -56,6 +62,11 @@ def compare_two_curves(file1, file2, var, normalize):
     legend.SetFillColor(0);
     legend.SetFillStyle(0);
     legend.Draw()
+
+    AtlasStyle.ATLASLabel(0.15, 0.85, "ATLAS internal", kBlack)
+    if normalize is not True:
+        AtlasStyle.myText(0.3, 0.85, kBlack, "36.1fb^{-1}")
+    #AtlasStyle.myText(0.6, 0.4, kBlack, "#sqrt{s}=13TeV")
 
     output = var + ".pdf"
     canvas.SaveAs(output)

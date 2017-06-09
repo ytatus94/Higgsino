@@ -588,7 +588,7 @@ EL::StatusCode ytEventSelection :: execute ()
 
     float weight = 1;
     if (isMC) {
-        // genWeight = (xs * filtEffic * lumi) / (N sum of weights)
+        // Note: genWeight = (xs * filtEffic * lumi) / (N sum of weights)
         weight = genWeight* eventWeight * leptonWeight * jvtWeight * pileupWeight;
         // cout << "weight=" << weight << endl;
         // cout << "luminosity * weight=" << luminosity * weight << endl;
@@ -748,10 +748,10 @@ EL::StatusCode ytEventSelection :: execute ()
         bool cut25 = m_cutflows->pass_zero_bjet(nBJet30_MV2c10); // correct
         m_cutflows->update(zero_bjet, cut25, weight);
 
-        bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht); // correct
+        bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht_emul); // correct
         m_cutflows->update(cut_mu4_j125_xe90_mht, cut26, weight);
 
-        bool cut27 = m_cutflows->pass_2mu4_j85_xe50_mht(HLT_2mu4_j85_xe50_mht); // correct
+        bool cut27 = m_cutflows->pass_2mu4_j85_xe50_mht(HLT_2mu4_j85_xe50_mht_emul); // correct
         m_cutflows->update(cut_2mu4_j85_xe50_mht, cut27, weight);
 
         bool cut28 = m_cutflows->pass_met110_mht(HLT_xe110_mht_L1XE50); // correct
@@ -845,6 +845,9 @@ EL::StatusCode ytEventSelection :: execute ()
     bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep12, mll);
 
     // debug_print(cut_MET, cut_NJets, cut_leading_jet_pT, cut_NBjets, cut_dPhiMETJ1, cut_MTauTau, cut_METOverHT);
+
+    // if (!(lep1Signal ==1 && lep2Signal == 1))
+    //     return EL::StatusCode::SUCCESS;
 
     if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau && cut_METOverHT) {
     // if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau) {

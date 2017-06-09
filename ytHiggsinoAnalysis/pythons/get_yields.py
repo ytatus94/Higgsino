@@ -9,7 +9,7 @@ def main():
         # if directory.startswith("optimization_MC_MGPy8EG_A14N23LO_NUHM2_m12_"):
         if directory.startswith("optimization_"):
             for file in sorted(os.listdir(path + directory)):
-                if file.startswith("hist-SusySkimHiggsino_v1.4_SUSY16_") and file.endswith("root"):
+                if file.startswith("hist-SusySkimHiggsino_v1.5_SUSY16_") and file.endswith("root"):
                     # print directory + "/" + file
                     name = get_sample_name(directory)
                     yields, weighted_yields = get_yields(path + directory + "/" + file)

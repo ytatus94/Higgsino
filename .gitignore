@@ -14,3 +14,5 @@ Thumbs.db
 *.tgz
 *.tar.gz
 *.gz
+# python file
+*.pyc

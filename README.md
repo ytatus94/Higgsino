@@ -3,6 +3,18 @@ The NUHM2 Higgsino study
 
 ---
 
+### v06. New script for significance
+* `AtlasStyle.py`: New script
+* `significance.py`: New script
+* `plots_making.py`:
+  * Add version for the input file.
+  * Add ATLASLabel
+  * Add plot cosmetics
+* `get_yields.py`: change version of the input file to v1.5
+* `.gitignore`: ignores python `.pyc` file
+* `ytEventSelection.cxx`:
+  * Use emul triggers: `HLT_mu4_j125_xe90_mht_emul` and `HLT_2mu4_j85_xe50_mht_emul`
+
 ### v05. Update to common ntuple v1.5
 * `Run.sh`: Update to common ntuple v1.5
 * `Run.cxx`: Update to common ntuple v1.5
