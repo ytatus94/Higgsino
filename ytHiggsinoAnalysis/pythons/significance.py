@@ -18,6 +18,7 @@ def main():
     make_significance_plot(zn)
     # make_significance_plot([20.0, 20.0, 15.66, 6.98, 2.48, 0.01, 0.01])
 
+#----------------------------#
 
 def read_number_of_events_in_signal_region():
     NUHM2_yields = []
@@ -86,12 +87,14 @@ def read_number_of_events_in_signal_region():
     # print bkg_yields
     return NUHM2_yields, bkg_yields
 
+#----------------------------#
 
 def calculate_Zn(nsig, nbkg):
     uncert = 0.3
     Zn = ROOT.RooStats.NumberCountingUtils.BinomialExpZ(nsig, nbkg, uncert)
     return Zn
 
+#----------------------------#
 
 def make_significance_plot(zn):
     # Create a TH2F histogram and fill it.
@@ -130,6 +133,7 @@ def make_significance_plot(zn):
     # --- END extracting and drawing contours
     c1.SaveAs("sig.pdf")
 
+#----------------------------#
 
 def TH2toTGraph2D(h_TH2F, g_TGraph2D):
     firstxbin = 1
@@ -162,6 +166,7 @@ def TH2toTGraph2D(h_TH2F, g_TGraph2D):
 
     return npoints
 
+#----------------------------#
 
 if __name__ == "__main__":
     main()

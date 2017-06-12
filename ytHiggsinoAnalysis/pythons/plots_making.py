@@ -20,6 +20,8 @@ def main():
         print var
         compare_two_curves(f_NUHM2, f_Higgsino, var, True)
 
+#----------------------------#
+
 def compare_two_curves(file1, file2, var, normalize):
     canvas = ROOT.TCanvas("c","", 800,600)
     if var not in ["h_NJets", "h_NJet30", "h_NJet25", "h_Nbjets", "h_NLepts_baseline", "h_NLepts_signal"]:
@@ -70,6 +72,8 @@ def compare_two_curves(file1, file2, var, normalize):
 
     output = var + ".pdf"
     canvas.SaveAs(output)
+
+#----------------------------#
 
 if __name__ == '__main__':
     main()
