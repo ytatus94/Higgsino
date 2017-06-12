@@ -4,7 +4,7 @@ from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kC
 import AtlasStyle
 
 def main():
-    version = 1.5
+    version = 1.6
     f_NUHM2 = "optimization_MC_MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v%s_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v%s_SUSY16_Signal_tree.root" % version, version
     f_Higgsino = "optimization_MC_MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v%s_SUSY16_tree_NoSys.root/hist-SusySkimHiggsino_v%s_SUSY16_Signal_tree.root" % version, version
 
