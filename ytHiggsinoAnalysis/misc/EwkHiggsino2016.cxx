@@ -10,8 +10,41 @@ void EwkHiggsino2016::Init()
     addRegions({"VR_SS", "VR_dPhi", "VR_DF_MLL", "VR_DR_MT2"});
 
     // Book 1/2D histograms
-    // addHistogram("SRbRPV_mll",100,0,5000);
+    addHistogram("met_Et", 100, 0, 1000);
+    addHistogram("MTauTau", 24, -600, 600);
+    addHistogram("mll", 25, 0, 100);
+    addHistogram("mT2", 20, 90, 190);
+    addHistogram("METOverHTLep12", 40, 0, 40);
 
+}
+
+// // The MT2 variable generalised so the hypothesis invisible mass mn can be non-zero
+// // This is copied form Jesse's simple analysis.
+// static float calc_massive_MT2(const AnalysisObject &o1, const AnalysisObject &o2, const AnalysisObject &met, float mn) {
+//     double patr[3] = {o1.M(),o1.Px(),o1.Py()};
+//     double pbtr[3] = {o2.M(),o2.Px(),o2.Py()};
+//     double pmisstr[3] = { 0, met.Px(), met.Py()};
+
+//     mt2_bisect::mt2 mt2calculator;
+//     mt2calculator.set_momenta(patr, pbtr, pmisstr);
+//     mt2calculator.set_mn(mn);
+//     return mt2calculator.get_mt2();
+// }
+
+// The MTauTau variable
+// This is copied from Jesse's simple analysis but it is the same as what I did.
+static float calc_MTauTau(const AnalysisObject &o1, const AnalysisObject &o2, const AnalysisObject &met) {
+    float determinant = o1.Px() * o2.Py() - o1.Py() * o2.Px();
+    float xi_1 = (met.Px() * o2.Py() - o2.Px() * met.Py())/determinant;
+    float xi_2 = (met.Py() * o1.Px() - o1.Px() * met.Px())/determinant;
+
+    float MSqTauTau = (1. + xi_1) * (1. + xi_2) * 2 * o1.Dot(o2);
+
+    float MTauTau = 0.;
+    if (MSqTauTau >= 0) MTauTau =   sqrt( MSqTauTau );
+    if (MSqTauTau < 0)  MTauTau = - sqrt( fabs( MSqTauTau ) );
+
+    return MTauTau;
 }
 
 void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
@@ -28,19 +61,24 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     int    channel_number   = event->getMCNumber();
     float  mc_weight        = event->getMCWeights()[0];
 
+    // Higgsino samples has MET filter.
+    // if (met < 50) return;
+
     // Loose bad jet veto for central jets -- this is truth, so we don't really need this...
     if (countObjects(baselineJets, 20, 2.8, NOT(LooseBadJet))!=0) return;
     // No bad muon veto implemented
     // No cosmic muon veto implemented
 
     // Overlap removal
-    auto radiusCalcJet  = [] (const AnalysisObject& , const AnalysisObject& muon) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
-    auto radiusCalcMuon = [] (const AnalysisObject& muon, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
-    auto radiusCalcElec = [] (const AnalysisObject& elec, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/elec.Pt()); };
+    // auto radiusCalcJet  = [] (const AnalysisObject& , const AnalysisObject& muon) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
+    // auto radiusCalcMuon = [] (const AnalysisObject& muon, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
+    // auto radiusCalcElec = [] (const AnalysisObject& elec, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/elec.Pt()); };
   
     baselineJets        = overlapRemoval(baselineJets, baselineElectrons, 0.2, NOT(BTag85MV2c20));
+    // baselineJets        = overlapRemoval(baselineJets, baselineMuons, 0.4, LessThan3Tracks);
     baselineElectrons   = overlapRemoval(baselineElectrons, baselineJets, 0.4);
     baselineMuons       = overlapRemoval(baselineMuons, baselineJets, 0.4);
+    // baseElectrons       = overlapRemoval(baselineElectrons, baselineMuons, 0.01);
 
     auto signalElectrons = filterObjects(baselineElectrons, 4.5, 2.47, ETightLH|ED0Sigma5|EZ05mm|EIsoGradientLoose);
     auto signalMuons     = filterObjects(baselineMuons, 4, 2.5, MuD0Sigma3|MuZ05mm|MuIsoFixedCutTightTrackOnly|MuNotCosmic);
@@ -113,16 +151,21 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     float meffIncl          = met + sumObjectsPt(signalJets) + sumObjectsPt(signalLeptons); // Meff from MET, jets and leptons
     float HTIncl            = sumObjectsPt(signalJets);
     float HT30              = sumObjectsPt(signalJets, 999, 30);
-    float HTLep12           = sumObjectsPt(baselineLeptons, 2);
+    float HTLep12           = 0; // sumObjectsPt(baselineLeptons, 2); // up to 2 leptons
     float METOverHT         = met / HT30;
-    float METOverHTLep12    = met / HTLep12;
+    float METOverHTLep12    = 0; // met / HTLep12;
     float mll               = 0;
     float pTll              = 0;
     float Rll               = -99999;
-    float MTauTau           = -99999;
+    // float MTauTau           = -99999;
+    float MTauTau           = calc_MTauTau(baselineLeptons[0], baselineLeptons[1], metVec);
 
-    if (signalLeptons.size()>0)
+    if (nSignalLeptons > 0)
         mT = calcMT(signalLeptons[0], metVec); // MT from leading lepton
+    if (nSignalLeptons >= 2) {
+        // Leading two leptons
+        mT2  = calcMT2(signalLeptons[0],signalLeptons[1],metVec);
+    }
 
     if (nBaselineLeptons >= 2) {
         TLorentzVector dilepton(baselineLeptons[0].Px() + baselineLeptons[1].Px(),
@@ -132,47 +175,44 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
         mll  = dilepton.M();
         pTll = dilepton.Pt();
         Rll = baselineLeptons[0].DeltaR(baselineLeptons[1]);
+        HTLep12 = baselineLeptons[0].Pt() + baselineLeptons[1].Pt();
+        METOverHTLep12 = met / HTLep12;
     }
 
-    if (nSignalLeptons >= 2) {
-        // Leading two leptons
-        mT2  = calcMT2(signalLeptons[0],signalLeptons[1],metVec);
-    }
+    // // Calculate MTauTau
+    // // Copy version 2 from https://gitlab.cern.ch/SusySkimAna/SusySkimMaker/blob/master/Root/Observables.cxx#L1326
+    // float MSqTauTau = -99999.;
+    // if (nBaselineLeptons >= 2) {
+    //     // ================================================
+    //     // get components of transverse momenta
+    //     float pmiss_x = metVec.Px();
+    //     float pmiss_y = metVec.Py();
 
-    // Calculate MTauTau
-    // Copy version 2 from https://gitlab.cern.ch/SusySkimAna/SusySkimMaker/blob/master/Root/Observables.cxx#L1326
-    float MSqTauTau = -99999.;
-    if (nBaselineLeptons >= 2) {
-        // ================================================
-        // get components of transverse momenta
-        float pmiss_x = metVec.Px();
-        float pmiss_y = metVec.Py();
+    //     float pL1_E   = baselineLeptons[0].E();
+    //     float pL1_x   = baselineLeptons[0].Px();
+    //     float pL1_y   = baselineLeptons[0].Py();
+    //     float pL1_z   = baselineLeptons[0].Pz();
 
-        float pL1_E   = baselineLeptons[0].E();
-        float pL1_x   = baselineLeptons[0].Px();
-        float pL1_y   = baselineLeptons[0].Py();
-        float pL1_z   = baselineLeptons[0].Pz();
+    //     float pL2_E   = baselineLeptons[1].E();
+    //     float pL2_x   = baselineLeptons[1].Px();
+    //     float pL2_y   = baselineLeptons[1].Py();
+    //     float pL2_z   = baselineLeptons[1].Pz();
 
-        float pL2_E   = baselineLeptons[1].E();
-        float pL2_x   = baselineLeptons[1].Px();
-        float pL2_y   = baselineLeptons[1].Py();
-        float pL2_z   = baselineLeptons[1].Pz();
+    //     // calculate the xi (scale factor of tau daughter neutrinos to observed lepton pT)
+    //     // we solved this simultaneous equation by hand here (matrix inversion)
+    //     float determinant = pL1_x * pL2_y - pL1_y * pL2_x;
+    //     float xi_1 = (pmiss_x * pL2_y - pL2_x * pmiss_y)/determinant;
+    //     float xi_2 = (pmiss_y * pL1_x - pL1_y * pmiss_x)/determinant;
 
-        // calculate the xi (scale factor of tau daughter neutrinos to observed lepton pT)
-        // we solved this simultaneous equation by hand here (matrix inversion)
-        float determinant = pL1_x * pL2_y - pL1_y * pL2_x;
-        float xi_1 = (pmiss_x * pL2_y - pL2_x * pmiss_y)/determinant;
-        float xi_2 = (pmiss_y * pL1_x - pL1_y * pmiss_x)/determinant;
+    //     // else if ( version == 2 ) {
+    //       // xi remains unrestricted for energy and momentum like parts
+    //       // TLorentzVector* sigLep2 = dynamic_cast<TLorentzVector*>( baselineLeptons.at(1) );
+    //       MSqTauTau = (1. + xi_1) * (1. + xi_2) * 2 * baselineLeptons[0].Dot( baselineLeptons.at(1) );
+    //     // }
+    // }
 
-        // else if ( version == 2 ) {
-          // xi remains unrestricted for energy and momentum like parts 
-          // TLorentzVector* sigLep2 = dynamic_cast<TLorentzVector*>( baselineLeptons.at(1) );
-          MSqTauTau = (1. + xi_1) * (1. + xi_2) * 2 * baselineLeptons[0].Dot( baselineLeptons.at(1) );
-        // }
-    }
-
-    if (MSqTauTau >= 0) MTauTau = sqrt( MSqTauTau );
-    if (MSqTauTau < 0) MTauTau = -1 * sqrt( fabs(MSqTauTau) );
+    // if (MSqTauTau >= 0) MTauTau = sqrt( MSqTauTau );
+    // if (MSqTauTau < 0) MTauTau = -1 * sqrt( fabs(MSqTauTau) );
 
     // Signal region
     if (met > 200 &&

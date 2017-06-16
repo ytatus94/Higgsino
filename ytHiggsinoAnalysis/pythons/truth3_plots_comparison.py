@@ -4,11 +4,13 @@ from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kC
 import AtlasStyle
 
 def main():
-    f_NUHM2_judita = "../../../SimpleAnalysis/user.judita.TestJob.root"
-    f_NUHM2_10k_unfiltered = "../../../SimpleAnalysis/user.pskubic.10k.TestJob.root"
-    f_NUHM2_100k_unfiltered = "../../../SimpleAnalysis/user.chris.100k.unfiltered.TestJob.root"
-    f_NUHM2_100k_filtered = "../../../SimpleAnalysis/user.chris.100k.filtered.TestJob.root"
-    f_Higgsino = "../../../SimpleAnalysis/user.yushen.SM_N2N1_160_150_2LMET50.root"
+    f_Higgsino = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.yushen.SM_N2N1_160_150_2LMET50.no.MET.cut.root"
+    f_NUHM2_judita = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.judita.TestJob.root"
+    f_NUHM2_10k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.pskubic.10k.TestJob.root"
+    f_NUHM2_100k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.unfiltered.TestJob.root"
+    f_NUHM2_100k_filtered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.filtered.TestJob.root"
+    f_NUHM2_100k_CC_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.CC.unfiltered.TestJob.root"
+    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.CC.filtered.TestJob.root"
 
     # kinematic_vars = ["pt", "eta", "phi", "charge", "id"]
     kinematic_vars = ["pt", "eta", "phi"]
@@ -65,7 +67,9 @@ def main():
 def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     canvas = ROOT.TCanvas("c","", 800,600)
     canvas.SetLeftMargin(0.12)
-    if var in ["HTIncl", "HT30", "mll", "mT", "mT2", "MTauTau", "pTll"]:
+    logY = False
+    if var in ["HTIncl", "HT30", "HTLep12", "METOverHTLep12", "mll", "mT", "mT2", "MTauTau", "pTll", "Rll"]:
+        logY = True
         ROOT.gPad.SetLogy()
 
     if "_pt" in var:
@@ -101,7 +105,7 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     elif "METOverHTLep12" in var:
         nbins, xmin, xmax = 5, 0, 50
     elif "mll" in var:
-        nbins, xmin, xmax = 100, 0, 10
+        nbins, xmin, xmax = 100, 0, 50
     elif "pTll" in var:
         nbins, xmin, xmax = 50, 0, 50
     elif "Rll" in var:
@@ -109,10 +113,37 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     elif "MTauTau" in var:
         nbins, xmin, xmax = 60, -300, 300
 
+    cut = ""
+    if "HT30" in var:
+        cut = "HT30>0"
+    elif "HTIncl" in var:
+        cut = "HTIncl>0"
+    elif "HTLep12" in var:
+        cut = "HTLep12>0"
+    elif "METOverHT" in var and "METOverHTLep12" not in var:
+        cut = "METOverHT"
+    elif "meffIncl" in var:
+        cut = "meffIncl>0"
+    elif "Rll" in var:
+        cut = "Rll>0"
+    elif "dphiMin1" in var:
+        cut = "dphiMin1>0"
+    elif "mT" in var and "mT2" not in var:
+        cut = "mT>0"
+    elif "mT2" in var:
+        cut = "mT2>0"
+    elif "met" in var:
+        cut = "met>0"
+    elif "mll" in var:
+        cut = "mll>0"
+    elif "pTll" in var:
+        cut = "pTll>0"
+
+
     f1 = ROOT.TFile(file1)
     t1 = f1.Get("EwkHiggsino2016__ntuple")
     h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
-    t1.Project("h1_" + var, var)
+    t1.Project("h1_" + var, var, cut)
     integral1 = h1.Integral()
     # print integral1
     if normalize is True:
@@ -122,7 +153,7 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     f2 = ROOT.TFile(file2)
     t2 = f2.Get("EwkHiggsino2016__ntuple")
     h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
-    t2.Project("h2_" + var, var)
+    t2.Project("h2_" + var, var, cut)
     integral2 = h2.Integral()
     # print integral2
     if normalize is True:
@@ -132,7 +163,7 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     f3 = ROOT.TFile(file3)
     t3 = f3.Get("EwkHiggsino2016__ntuple")
     h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
-    t3.Project("h3_" + var, var)
+    t3.Project("h3_" + var, var, cut)
     integral3 = h3.Integral()
     # print integral3
     if normalize is True:
@@ -142,7 +173,7 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     f4 = ROOT.TFile(file4)
     t4 = f4.Get("EwkHiggsino2016__ntuple")
     h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
-    t4.Project("h4_" + var, var)
+    t4.Project("h4_" + var, var, cut)
     integral4 = h4.Integral()
     # print integral4
     if normalize is True:
@@ -152,7 +183,7 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     f5 = ROOT.TFile(file5)
     t5 = f5.Get("EwkHiggsino2016__ntuple")
     h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
-    t5.Project("h5_" + var, var)
+    t5.Project("h5_" + var, var, cut)
     integral5 = h5.Integral()
     # print integral5
     if normalize is True:
@@ -173,7 +204,10 @@ def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
     else:
         h1.SetYTitle("Event counts")
     h1.GetYaxis().SetTitleOffset(1.5)
-    h1.SetMaximum(y_maximum * 1.2)
+    if logY is True:
+        h1.SetMaximum(y_maximum * 100)
+    else:
+        h1.SetMaximum(y_maximum * 1.2)
     # if var is "h_mll":
     #     var_in_f1.GetXaxis().SetRangeUser(0, 300)
     h1.SetFillColor(kOrange)
