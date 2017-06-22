@@ -40,7 +40,7 @@ static float calc_MTauTau(const AnalysisObject &o1, const AnalysisObject &o2, co
 
     float MSqTauTau = (1. + xi_1) * (1. + xi_2) * 2 * o1.Dot(o2);
 
-    float MTauTau = 0.;
+    float MTauTau = -99999.;
     if (MSqTauTau >= 0) MTauTau =   sqrt( MSqTauTau );
     if (MSqTauTau < 0)  MTauTau = - sqrt( fabs( MSqTauTau ) );
 
@@ -55,6 +55,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     auto baselineElectrons  = event->getElectrons(4.5, 2.47, EVeryLooseLH|EZ05mm);
     auto baselineMuons      = event->getMuons(4.0, 2.5, MuMedium|MuZ05mm);
     auto baselineJets       = event->getJets(20., 2.8);
+    auto baselineTaus       = event->getTaus(4., 2.47);
 
     auto   metVec           = event->getMET();
     double met              = metVec.Et();
@@ -62,6 +63,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     float  mc_weight        = event->getMCWeights()[0];
 
     // Higgsino samples has MET filter.
+    // Reomve this cut in the simple analysis and add it when make plots.
     // if (met < 50) return;
 
     // Loose bad jet veto for central jets -- this is truth, so we don't really need this...
@@ -97,6 +99,8 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     sortObjectsByPt( baselineLeptons );
     sortObjectsByPt( signalLeptons );
 
+    sortObjectsByPt( baselineTaus );
+
     // Object counting
     int nBaselineLeptons    = baselineLeptons.size(); // Object lists are essentially std::vectors so .size() works
     int nSignalLeptons      = signalLeptons.size();
@@ -106,6 +110,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     int nJet30              = countObjects(signalJets, 30, 2.8);
     int nJet25              = countObjects(signalJets, 30, 2.8);
     int nBjets              = signalBjets.size();
+    int nTaus               = baselineTaus.size();
 
     // require exactly 2 baseline and 2 signal leptons for the 2L channel.
     // if (nBaselineLeptons != 2) return;
@@ -157,8 +162,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     float mll               = 0;
     float pTll              = 0;
     float Rll               = -99999;
-    // float MTauTau           = -99999;
-    float MTauTau           = calc_MTauTau(baselineLeptons[0], baselineLeptons[1], metVec);
+    float MTauTau           = -99999;
 
     if (nSignalLeptons > 0)
         mT = calcMT(signalLeptons[0], metVec); // MT from leading lepton
@@ -177,6 +181,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
         Rll = baselineLeptons[0].DeltaR(baselineLeptons[1]);
         HTLep12 = baselineLeptons[0].Pt() + baselineLeptons[1].Pt();
         METOverHTLep12 = met / HTLep12;
+        MTauTau = calc_MTauTau(baselineLeptons[0], baselineLeptons[1], metVec);
     }
 
     // // Calculate MTauTau
@@ -328,6 +333,7 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     ntupVar("nJet30", nJet30);
     ntupVar("nJet25", nJet25);
     ntupVar("nBjets", nBjets);
+    ntupVar("nTaus", nTaus);
     ntupVar("is2LChannel", is2LChannel);
     ntupVar("isSameSign", isSameSign);
     ntupVar("channel", channel);

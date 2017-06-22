@@ -2,6 +2,19 @@
 The NUHM2 Higgsino study
 
 ---
+### v09. Add stack plots function and mll study python script
+* `RunSimpleAnalysis.sh`: Add new samples for the truth study
+* `EwkHiggsino2016.cxx`:
+  * Add `baselineTaus` and `nTaus`
+  * Set `MTauTau` initial to -99999
+  * Comment met cut
+  * Move `MTauTau` calculation to `if` condition
+* `truth3_plots_comparison.py`:
+  * Add more samples
+  * Add new function `compare_stack_curves` and make stack plots
+  * Bugs fix
+* `truth3_mll_study.py`: New python script
+
 
 ### v08. Bugs fixed in `EwkHiggsino2016.cxx`
 * `RunSimpleAnalysis.sh`: Add new samples for the truth study
