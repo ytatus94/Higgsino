@@ -5,18 +5,18 @@ import AtlasStyle
 
 def main():
     # f_Higgsino = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.yushen.SM_N2N1_160_150_2LMET50.no.MET.cut.root"
-    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170619/user.yushen.SM_N2N1_170_150_2LMET50.root"
+    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2N1_170_150_2LMET50.root"
     # f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170617/user.yushen.SM_N2C1p_155_150_2LMET50.root"
     # f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170617/user.yushen.SM_N2C1m_155_150_2LMET50.root"
-    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170619/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170619/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2C1m_170_150_2LMET50.root"
     # f_NUHM2_judita = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.judita.TestJob.root"
     # f_NUHM2_10k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.pskubic.10k.TestJob.root"
     # f_NUHM2_100k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.unfiltered.TestJob.root"
     # f_NUHM2_100k_filtered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.filtered.TestJob.root"
     # f_NUHM2_100k_CC_unfiltered = "../../../SimpleAnalysis/Results/20170617/user.chris.100k.CC.unfiltered.TestJob.root"
-    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170619/user.chris.100k.CC.filtered.TestJob.root"
-    f_NUHM2_10k_no_x1_filtered = "../../../SimpleAnalysis/Results/20170619/user.chris.10k.CC.no.x1.filtered.TestJob.root"
+    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.100k.CC.filtered.TestJob.root"
+    f_NUHM2_10k_no_x1_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.10k.CC.no.x1.filtered.TestJob.root"
 
     # kinematic_vars = ["pt", "eta", "phi", "charge", "id"]
     kinematic_vars = ["pt", "eta", "phi"]
@@ -319,34 +319,35 @@ def compare_stack_curves(file1, file2, file3, file4, file5, var, normalize):
     elif "MTauTau" in var:
         nbins, xmin, xmax = 60, -300, 300
 
-    # Add cut
+    # Add cuts
+    # HT30, HTIncl, and mT2 have == 0
     cut = ""
     if "HT30" in var:
         cut = "HT30>0"
     elif "HTIncl" in var:
         cut = "HTIncl>0"
-    elif "HTLep12" in var and "METOverHTLep12" not in var:
-        cut = "HTLep12>0"
-    elif "METOverHT" in var and "METOverHTLep12" not in var:
-        cut = "METOverHT>0"
-    elif "meffIncl" in var:
-        cut = "meffIncl>0"
-    elif "Rll" in var:
-        cut = "Rll>0"
-    elif "dphiMin1" in var:
-        cut = "dphiMin1>0"
-    elif "mT" in var and "mT2" not in var:
-        cut = "mT>0"
+    # elif "HTLep12" in var and "METOverHTLep12" not in var:
+    #     cut = "HTLep12>0"
+    # elif "METOverHT" in var and "METOverHTLep12" not in var:
+    #     cut = "METOverHT>0"
+    # elif "meffIncl" in var:
+    #     cut = "meffIncl>0"
+    # elif "Rll" in var:
+    #     cut = "Rll>0"
+    # elif "dphiMin1" in var:
+    #     cut = "dphiMin1>0"
+    # elif "mT" in var and "mT2" not in var:
+    #     cut = "mT>0"
     elif "mT2" in var:
         cut = "mT2>0"
-    elif "met" in var:
-        cut = "met>0"
-    elif "mll" in var:
-        cut = "mll>0"
-    elif "pTll" in var:
-        cut = "pTll>0"
-    elif "MTauTau" in var:
-        cut = "MTauTau!=0"
+    # elif "met" in var:
+    #     cut = "met>0"
+    # elif "mll" in var:
+    #     cut = "mll>0"
+    # elif "pTll" in var:
+    #     cut = "pTll>0"
+    # elif "MTauTau" in var:
+    #     cut = "MTauTau!=0"
 
     f1 = ROOT.TFile(file1)
     t1 = f1.Get("EwkHiggsino2016__ntuple")
@@ -375,7 +376,10 @@ def compare_stack_curves(file1, file2, file3, file4, file5, var, normalize):
     f4 = ROOT.TFile(file4)
     t4 = f4.Get("EwkHiggsino2016__ntuple")
     h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
-    t4.Project("h4_" + var, var, cut)
+    if "HT30" in var or "HTIncl" in var or "mT2" in var:
+        t4.Project("h4_" + var, var, cut+"&&met>50")
+    else:
+        t4.Project("h4_" + var, var, "met>50")
     integral4 = h4.Integral()
     h4.Scale(1/integral4)
     h4.SetDirectory(ROOT.gROOT)
@@ -383,7 +387,10 @@ def compare_stack_curves(file1, file2, file3, file4, file5, var, normalize):
     f5 = ROOT.TFile(file5)
     t5 = f5.Get("EwkHiggsino2016__ntuple")
     h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
-    t5.Project("h5_" + var, var, cut)
+    if "HT30" in var or "HTIncl" in var or "mT2" in var:
+        t5.Project("h5_" + var, var, cut+"&&met>50")
+    else:
+        t5.Project("h5_" + var, var, "met>50")
     integral5 = h5.Integral()
     h5.Scale(1/integral5)
     h5.SetDirectory(ROOT.gROOT)

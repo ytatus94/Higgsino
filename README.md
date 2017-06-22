@@ -2,6 +2,19 @@
 The NUHM2 Higgsino study
 
 ---
+### v10. Variables are nitialized to -99999
+* `truth3_plots_comparison.py`:
+  * Change the samples for making plots.
+  * Add met > 50 cut for NUHM2
+  * Remove most of other cuts and only keep HT30, HTIncl, and mT2 because they have 0
+* `EwkHiggsino2016.cxx`:
+  * Comment `addHistogram()` 
+  * Sort baseline and signal objects after we get them.
+  * Remove met cut.
+  * Add number of baseline electrons and baseline muons in the ntuple
+  * Change the initializatin value from 0 to -99999.
+
+
 ### v09. Add stack plots function and mll study python script
 * `RunSimpleAnalysis.sh`: Add new samples for the truth study
 * `EwkHiggsino2016.cxx`:

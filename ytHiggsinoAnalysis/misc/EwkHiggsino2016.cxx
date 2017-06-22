@@ -10,11 +10,11 @@ void EwkHiggsino2016::Init()
     addRegions({"VR_SS", "VR_dPhi", "VR_DF_MLL", "VR_DR_MT2"});
 
     // Book 1/2D histograms
-    addHistogram("met_Et", 100, 0, 1000);
-    addHistogram("MTauTau", 24, -600, 600);
-    addHistogram("mll", 25, 0, 100);
-    addHistogram("mT2", 20, 90, 190);
-    addHistogram("METOverHTLep12", 40, 0, 40);
+    // addHistogram("met_Et", 100, 0, 1000);
+    // addHistogram("MTauTau", 24, -600, 600);
+    // addHistogram("mll", 25, 0, 100);
+    // addHistogram("mT2", 20, 90, 190);
+    // addHistogram("METOverHTLep12", 40, 0, 40);
 
 }
 
@@ -57,52 +57,50 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     auto baselineJets       = event->getJets(20., 2.8);
     auto baselineTaus       = event->getTaus(4., 2.47);
 
+    sortObjectsByPt(baselineElectrons);
+    sortObjectsByPt(baselineMuons);
+    sortObjectsByPt(baselineJets);
+    sortObjectsByPt(baselineTaus);
+
     auto   metVec           = event->getMET();
     double met              = metVec.Et();
     int    channel_number   = event->getMCNumber();
     float  mc_weight        = event->getMCWeights()[0];
 
-    // Higgsino samples has MET filter.
-    // Reomve this cut in the simple analysis and add it when make plots.
-    // if (met < 50) return;
-
-    // Loose bad jet veto for central jets -- this is truth, so we don't really need this...
+    // Bad jet veto
     if (countObjects(baselineJets, 20, 2.8, NOT(LooseBadJet))!=0) return;
     // No bad muon veto implemented
     // No cosmic muon veto implemented
 
     // Overlap removal
-    // auto radiusCalcJet  = [] (const AnalysisObject& , const AnalysisObject& muon) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
-    // auto radiusCalcMuon = [] (const AnalysisObject& muon, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/muon.Pt()); };
-    // auto radiusCalcElec = [] (const AnalysisObject& elec, const AnalysisObject& ) { return std::min(0.4, 0.04 + 10/elec.Pt()); };
-  
     baselineJets        = overlapRemoval(baselineJets, baselineElectrons, 0.2, NOT(BTag85MV2c20));
     // baselineJets        = overlapRemoval(baselineJets, baselineMuons, 0.4, LessThan3Tracks);
     baselineElectrons   = overlapRemoval(baselineElectrons, baselineJets, 0.4);
     baselineMuons       = overlapRemoval(baselineMuons, baselineJets, 0.4);
-    // baseElectrons       = overlapRemoval(baselineElectrons, baselineMuons, 0.01);
+    // baselineElectrons   = overlapRemoval(baselineElectrons, baselineMuons, 0.01);
 
     auto signalElectrons = filterObjects(baselineElectrons, 4.5, 2.47, ETightLH|ED0Sigma5|EZ05mm|EIsoGradientLoose);
     auto signalMuons     = filterObjects(baselineMuons, 4, 2.5, MuD0Sigma3|MuZ05mm|MuIsoFixedCutTightTrackOnly|MuNotCosmic);
     auto signalJets      = filterObjects(baselineJets, 20, 2.8);
     auto signalBjets     = filterObjects(signalJets, 20, 2.8, BTag85MV2c20);
 
-    // Lists of objects can be merged by simple addition
-    auto baselineLeptons    = baselineElectrons + baselineMuons;
-    auto signalLeptons      = signalElectrons + signalMuons;
-
     sortObjectsByPt( signalElectrons );
     sortObjectsByPt( signalMuons );
     sortObjectsByPt( signalJets );
     sortObjectsByPt( signalBjets );
 
+    // Lists of objects can be merged by simple addition
+    auto baselineLeptons    = baselineElectrons + baselineMuons;
+    auto signalLeptons      = signalElectrons + signalMuons;
+
     sortObjectsByPt( baselineLeptons );
     sortObjectsByPt( signalLeptons );
 
-    sortObjectsByPt( baselineTaus );
-
     // Object counting
     int nBaselineLeptons    = baselineLeptons.size(); // Object lists are essentially std::vectors so .size() works
+    int nBaselineElectrons  = baselineElectrons.size();
+    int nBaselineMuons      = baselineMuons.size();
+    int nBaselineTaus       = baselineTaus.size();
     int nSignalLeptons      = signalLeptons.size();
     int nElectrons          = signalElectrons.size();
     int nMuons              = signalMuons.size();
@@ -110,7 +108,6 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     int nJet30              = countObjects(signalJets, 30, 2.8);
     int nJet25              = countObjects(signalJets, 30, 2.8);
     int nBjets              = signalBjets.size();
-    int nTaus               = baselineTaus.size();
 
     // require exactly 2 baseline and 2 signal leptons for the 2L channel.
     // if (nBaselineLeptons != 2) return;
@@ -151,21 +148,22 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
 
     // Calculate a few kinematic variables - add your favorites to AnalysisClass.cxx
     float dphiMin1          = minDphi(metVec, signalJets, 1); // Smallest Delta Phi between the 1st leading jet and MET
-    float mT                = 0;
-    float mT2               = 0;
+    float mT                = -99999;
+    float mT2               = -99999;
     float meffIncl          = met + sumObjectsPt(signalJets) + sumObjectsPt(signalLeptons); // Meff from MET, jets and leptons
     float HTIncl            = sumObjectsPt(signalJets);
     float HT30              = sumObjectsPt(signalJets, 999, 30);
-    float HTLep12           = 0; // sumObjectsPt(baselineLeptons, 2); // up to 2 leptons
+    float HTLep12           = -99999;
     float METOverHT         = met / HT30;
-    float METOverHTLep12    = 0; // met / HTLep12;
-    float mll               = 0;
-    float pTll              = 0;
+    float METOverHTLep12    = -99999; // met / HTLep12;
+    float mll               = -99999;
+    float pTll              = -99999;
     float Rll               = -99999;
     float MTauTau           = -99999;
 
     if (nSignalLeptons > 0)
         mT = calcMT(signalLeptons[0], metVec); // MT from leading lepton
+
     if (nSignalLeptons >= 2) {
         // Leading two leptons
         mT2  = calcMT2(signalLeptons[0],signalLeptons[1],metVec);
@@ -178,46 +176,13 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
                                 baselineLeptons[0].E()  + baselineLeptons[1].E());
         mll  = dilepton.M();
         pTll = dilepton.Pt();
+        // mll = (baselineLeptons[0] + baselineLeptons[1]).M();
+        // pTll = (baselineLeptons[0] + baselineLeptons[1]).Pt();
         Rll = baselineLeptons[0].DeltaR(baselineLeptons[1]);
         HTLep12 = baselineLeptons[0].Pt() + baselineLeptons[1].Pt();
         METOverHTLep12 = met / HTLep12;
         MTauTau = calc_MTauTau(baselineLeptons[0], baselineLeptons[1], metVec);
     }
-
-    // // Calculate MTauTau
-    // // Copy version 2 from https://gitlab.cern.ch/SusySkimAna/SusySkimMaker/blob/master/Root/Observables.cxx#L1326
-    // float MSqTauTau = -99999.;
-    // if (nBaselineLeptons >= 2) {
-    //     // ================================================
-    //     // get components of transverse momenta
-    //     float pmiss_x = metVec.Px();
-    //     float pmiss_y = metVec.Py();
-
-    //     float pL1_E   = baselineLeptons[0].E();
-    //     float pL1_x   = baselineLeptons[0].Px();
-    //     float pL1_y   = baselineLeptons[0].Py();
-    //     float pL1_z   = baselineLeptons[0].Pz();
-
-    //     float pL2_E   = baselineLeptons[1].E();
-    //     float pL2_x   = baselineLeptons[1].Px();
-    //     float pL2_y   = baselineLeptons[1].Py();
-    //     float pL2_z   = baselineLeptons[1].Pz();
-
-    //     // calculate the xi (scale factor of tau daughter neutrinos to observed lepton pT)
-    //     // we solved this simultaneous equation by hand here (matrix inversion)
-    //     float determinant = pL1_x * pL2_y - pL1_y * pL2_x;
-    //     float xi_1 = (pmiss_x * pL2_y - pL2_x * pmiss_y)/determinant;
-    //     float xi_2 = (pmiss_y * pL1_x - pL1_y * pmiss_x)/determinant;
-
-    //     // else if ( version == 2 ) {
-    //       // xi remains unrestricted for energy and momentum like parts
-    //       // TLorentzVector* sigLep2 = dynamic_cast<TLorentzVector*>( baselineLeptons.at(1) );
-    //       MSqTauTau = (1. + xi_1) * (1. + xi_2) * 2 * baselineLeptons[0].Dot( baselineLeptons.at(1) );
-    //     // }
-    // }
-
-    // if (MSqTauTau >= 0) MTauTau = sqrt( MSqTauTau );
-    // if (MSqTauTau < 0) MTauTau = -1 * sqrt( fabs(MSqTauTau) );
 
     // Signal region
     if (met > 200 &&
@@ -326,6 +291,9 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     ntupVar("baselineLeptons", baselineLeptons);
     ntupVar("signalLeptons", signalLeptons);
     ntupVar("nBaselineLeptons", nBaselineLeptons);
+    ntupVar("nBaselineElectrons", nBaselineElectrons);
+    ntupVar("nBaselineMuons", nBaselineMuons);
+    ntupVar("nBaselineTaus", nBaselineTaus);
     ntupVar("nSignalLeptons", nSignalLeptons);
     ntupVar("nElectrons", nElectrons);
     ntupVar("nMuons", nMuons);
@@ -333,7 +301,6 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
     ntupVar("nJet30", nJet30);
     ntupVar("nJet25", nJet25);
     ntupVar("nBjets", nBjets);
-    ntupVar("nTaus", nTaus);
     ntupVar("is2LChannel", is2LChannel);
     ntupVar("isSameSign", isSameSign);
     ntupVar("channel", channel);
