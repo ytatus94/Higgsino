@@ -2,6 +2,13 @@
 The NUHM2 Higgsino study
 
 ---
+### v11. Finish spectrum.py
+* `spectrum.py`:
+  * Modify `read_cross_section()`
+  * Rename `Xsec_plots()` to `Xsec_plots_all_FS()`
+  * Add new functions `Xsec_plots_weak()`, `sum_of_Xsec()`, `read_slha()`, `mass_spectra()`, and `mass_difference_spectra()`
+
+
 ### v10. Variables are nitialized to -99999
 * `truth3_plots_comparison.py`:
   * Change the samples for making plots.
