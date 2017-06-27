@@ -92,7 +92,7 @@ def Xsec_plots_all_FS(Xsec_list):
         g.SetLineColor(list_TGraph.index(g) + 1)
         mg.Add(g)
 
-    mg.Draw("AC")
+    mg.Draw("Al")
     mg.GetXaxis().SetTitle("m_{1/2} [GeV]")
     mg.GetXaxis().SetTitleOffset(1.5)
     mg.GetYaxis().SetTitle("cross-section [pb]")
@@ -185,7 +185,10 @@ def Xsec_plots_weak(Xsec_list, combined = True, individual = False):
     Xsec_canvas.SetBottomMargin(0.13)
     Xsec_canvas.SetLogy()
 
-    mg.Draw("AC")
+    if combined:
+        mg.Draw("AC")
+    if individual:
+        mg.Draw("Al")
     mg.GetXaxis().SetTitle("m_{1/2} [GeV]")
     mg.GetXaxis().SetTitleOffset(1.5)
     mg.GetYaxis().SetTitle("NUHM2 cross-section [pb]")
