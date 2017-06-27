@@ -6,7 +6,8 @@ import AtlasStyle
 def main():
     # mll_components()
     # mll_C1_test()
-    mll_no_Hadronic_Tau()
+    # mll_no_Hadronic_Tau()
+    mll_shape()
 
 #----------------------------#
 
@@ -264,6 +265,140 @@ def mll_no_Hadronic_Tau():
     AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
 
     canvas.SaveAs("mll_no_Hadronic_Tau.pdf")
+
+#----------------------------#
+
+def mll_shape():
+    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2N1_170_150_2LMET50.root"
+    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170627/user.chris.100k.CC.filtered.TestJob.root"
+    f_NUHM2_10k_n2_decay_filtered = "../../../SimpleAnalysis/Results/20170627/user.chris.10k.n2.decay.TestJob.root"
+
+    file1 = f_Higgsino_N2N1
+    file2 = f_Higgsino_N2C1p
+    file3 = f_Higgsino_N2C1m
+    file4 = f_NUHM2_100k_CC_filtered
+    file5 = f_NUHM2_10k_n2_decay_filtered
+
+    canvas = ROOT.TCanvas("c","", 800,600)
+    canvas.SetLeftMargin(0.12)
+    ROOT.gPad.SetLogy()
+
+    var = "mll"
+    nbins, xmin, xmax = 100, 0, 50
+    cut = "mll>0"
+    normalize = True
+
+    f1 = ROOT.TFile(file1)
+    t1 = f1.Get("EwkHiggsino2016__ntuple")
+    h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
+    t1.Project("h1_" + var, var, cut)
+    integral1 = h1.Integral()
+    # print integral1
+    if normalize is True:
+        h1.Scale(1/integral1)
+    h1.SetDirectory(ROOT.gROOT)
+
+    f2 = ROOT.TFile(file2)
+    t2 = f2.Get("EwkHiggsino2016__ntuple")
+    h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
+    t2.Project("h2_" + var, var, cut)
+    integral2 = h2.Integral()
+    # print integral2
+    if normalize is True:
+        h2.Scale(1/integral2)
+    h2.SetDirectory(ROOT.gROOT)
+
+    f3 = ROOT.TFile(file3)
+    t3 = f3.Get("EwkHiggsino2016__ntuple")
+    h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
+    t3.Project("h3_" + var, var, cut)
+    integral3 = h3.Integral()
+    # print integral3
+    if normalize is True:
+        h3.Scale(1/integral3)
+    h3.SetDirectory(ROOT.gROOT)
+
+    f4 = ROOT.TFile(file4)
+    t4 = f4.Get("EwkHiggsino2016__ntuple")
+    h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
+    t4.Project("h4_" + var, var, cut)
+    integral4 = h4.Integral()
+    # print integral4
+    if normalize is True:
+        h4.Scale(1/integral4)
+    h4.SetDirectory(ROOT.gROOT)
+
+    f5 = ROOT.TFile(file5)
+    t5 = f5.Get("EwkHiggsino2016__ntuple")
+    h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
+    t5.Project("h5_" + var, var, cut)
+    integral5 = h5.Integral()
+    # print integral5
+    if normalize is True:
+        h5.Scale(1/integral5)
+    h5.SetDirectory(ROOT.gROOT)
+
+    ROOT.gROOT.cd()
+
+    h1.SetLineColor(ROOT.kOrange)
+    h1.SetFillColor(ROOT.kOrange)
+    h1.SetFillStyle(1001) # Solid
+    h2.SetLineColor(ROOT.kOrange-3)
+    h2.SetFillColor(ROOT.kOrange-3)
+    h2.SetFillStyle(1001) # Solid
+    h3.SetLineColor(ROOT.kOrange-6)
+    h3.SetFillColor(ROOT.kOrange-6)
+    h3.SetFillStyle(1001) # Solid
+
+    hs = ROOT.THStack()
+
+    h1.Scale(integral1 / (integral1+integral2+integral3) )
+    h2.Scale(integral2 / (integral1+integral2+integral3) )
+    h3.Scale(integral3 / (integral1+integral2+integral3) )
+
+    hs.Add(h1)
+    hs.Add(h2)
+    hs.Add(h3)
+
+    hs.Draw("hist")
+
+    y_stack = h1.GetMaximum() + h2.GetMaximum() + h3.GetMaximum()
+    y_maximum = max( y_stack, h4.GetMaximum() )
+
+    hs.GetHistogram().SetStats(0)
+    hs.SetTitle(var)
+    hs.GetHistogram().SetXTitle(var + " [GeV]")
+    hs.GetHistogram().SetYTitle("Normalized event counts")
+    hs.SetMaximum(y_maximum * 20)
+    hs.GetHistogram().GetYaxis().SetTitleOffset(1.5)
+
+    hs.Draw() # re-draw to make the y axis range setting working
+
+    h4.SetLineColor(ROOT.kBlue)
+    h4.Draw("hist,same")
+
+    h5.SetLineColor(ROOT.kRed)
+    h5.Draw("hist,same")
+
+    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
+    legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
+    legend.AddEntry(h2, "Higgsino_N2C1p_170_150", "f")
+    legend.AddEntry(h3, "Higgsino_N2C1m_170_150", "f")
+    legend.AddEntry(h4, "NUHM2_m12_600 (100k, C+C(+j), filtered)", "l")
+    legend.AddEntry(h5, "NUHM2_m12_600 (10k, n2>l+l-n1, filtered)", "l")
+    legend.SetBorderSize(0);
+    legend.SetTextFont(42);
+    legend.SetTextSize(0.02);
+    legend.SetFillColor(0);
+    legend.SetFillStyle(0);
+    legend.Draw()
+
+    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+
+    output = var + ".pdf"
+    canvas.SaveAs(output)
 
 #----------------------------#
 
