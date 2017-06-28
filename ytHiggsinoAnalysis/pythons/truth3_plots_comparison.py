@@ -16,7 +16,8 @@ def main():
     # f_NUHM2_100k_filtered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.filtered.TestJob.root"
     # f_NUHM2_100k_CC_unfiltered = "../../../SimpleAnalysis/Results/20170617/user.chris.100k.CC.unfiltered.TestJob.root"
     f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.100k.CC.filtered.TestJob.root"
-    f_NUHM2_10k_no_x1_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.10k.CC.no.x1.filtered.TestJob.root"
+    #f_NUHM2_10k_no_x1_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.10k.CC.no.x1.filtered.TestJob.root"
+    f_NUHM2_10k_n2_decay_no_jet = "../../../SimpleAnalysis/Results/20170628/user.chris.10k.n2.decay.no.jet.TestJob.root"
 
     # kinematic_vars = ["pt", "eta", "phi", "charge", "id"]
     kinematic_vars = ["pt", "eta", "phi"]
@@ -58,7 +59,7 @@ def main():
         # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
         # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
         # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
-        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
+        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
 
     for var in signal_vars:
         # print var
@@ -66,7 +67,7 @@ def main():
         # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
         # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
         # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
-        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
+        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
 
     for var in variables:
         # print var
@@ -74,7 +75,7 @@ def main():
         # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
         # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
         # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
-        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
+        compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
 
 #----------------------------#
 
@@ -484,7 +485,7 @@ def compare_stack_curves(file1, file2, file3, file4, file5, var, normalize):
     legend.AddEntry(h2, "Higgsino_N2C1p_170_150", "f")
     legend.AddEntry(h3, "Higgsino_N2C1m_170_150", "f")
     legend.AddEntry(h4, "NUHM2_m12_600 (100k, C+C(+j), filtered)", "l")
-    legend.AddEntry(h5, "NUHM2_m12_600 (10k, C+C(+j), no C1, filtered)", "l")
+    legend.AddEntry(h5, "NUHM2_m12_600 (10k, n2>l+l-n1, no jet, filtered)", "l")
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
     legend.SetTextSize(0.02);

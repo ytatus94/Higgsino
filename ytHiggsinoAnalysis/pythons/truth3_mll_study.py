@@ -269,17 +269,19 @@ def mll_no_Hadronic_Tau():
 #----------------------------#
 
 def mll_shape():
-    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2N1_170_150_2LMET50.root"
-    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170627/user.yushen.SM_N2C1m_170_150_2LMET50.root"
-    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170627/user.chris.100k.CC.filtered.TestJob.root"
-    f_NUHM2_10k_n2_decay_filtered = "../../../SimpleAnalysis/Results/20170627/user.chris.10k.n2.decay.TestJob.root"
+    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2N1_170_150_2LMET50.root"
+    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170628/user.chris.100k.CC.filtered.TestJob.root"
+    f_NUHM2_10k_n2_decay_no_jet = "../../../SimpleAnalysis/Results/20170628/user.chris.10k.n2.decay.no.jet.TestJob.root"
+    f_NUHM2_10k_n2_decay_with_jet = "../../../SimpleAnalysis/Results/20170628/user.chris.10k.n2.decay.with.jet.TestJob.root"
 
     file1 = f_Higgsino_N2N1
     file2 = f_Higgsino_N2C1p
     file3 = f_Higgsino_N2C1m
     file4 = f_NUHM2_100k_CC_filtered
-    file5 = f_NUHM2_10k_n2_decay_filtered
+    file5 = f_NUHM2_10k_n2_decay_no_jet
+    file6 = f_NUHM2_10k_n2_decay_with_jet
 
     canvas = ROOT.TCanvas("c","", 800,600)
     canvas.SetLeftMargin(0.12)
@@ -340,6 +342,16 @@ def mll_shape():
         h5.Scale(1/integral5)
     h5.SetDirectory(ROOT.gROOT)
 
+    f6 = ROOT.TFile(file6)
+    t6 = f6.Get("EwkHiggsino2016__ntuple")
+    h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
+    t6.Project("h6_" + var, var, cut)
+    integral6 = h6.Integral()
+    # print integral6
+    if normalize is True:
+        h6.Scale(1/integral6)
+    h6.SetDirectory(ROOT.gROOT)
+
     ROOT.gROOT.cd()
 
     h1.SetLineColor(ROOT.kOrange)
@@ -382,12 +394,16 @@ def mll_shape():
     h5.SetLineColor(ROOT.kRed)
     h5.Draw("hist,same")
 
-    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
+    h6.SetLineColor(ROOT.kGreen)
+    h6.Draw("hist,same")
+
+    legend = ROOT.TLegend(0.4, 0.6, 0.9, 0.8)
     legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
     legend.AddEntry(h2, "Higgsino_N2C1p_170_150", "f")
     legend.AddEntry(h3, "Higgsino_N2C1m_170_150", "f")
     legend.AddEntry(h4, "NUHM2_m12_600 (100k, C+C(+j), filtered)", "l")
-    legend.AddEntry(h5, "NUHM2_m12_600 (10k, n2>l+l-n1, filtered)", "l")
+    legend.AddEntry(h5, "NUHM2_m12_600 (10k, n2>l+l-n1, no jet, filtered)", "l")
+    legend.AddEntry(h6, "NUHM2_m12_600 (10k, n2>l+l-n1, with jet, filtered)", "l")
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
     legend.SetTextSize(0.02);

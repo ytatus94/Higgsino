@@ -41,6 +41,10 @@ simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris
 # C+C, C+C+j, 10k no Hadronic Tau
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.simplified.no.HadTau.TestJob.pool.root -o user.chris.10k.simplified.no.HadTau.TestJob
 
-# n2 > l+ l- n1
+# p p > n2 x1+ (j), n2 > l+ l- n1
 simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.n2.decay.pool.root -o user.chris.10k.n2.decay.TestJob
+# p p  > n2 x1+/-, n2 > l+ l- n1
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.no.jet.pool.root -o user.chris.10k.n2.decay.no.jet.TestJob
+# p p  > n2 x1+/- j, n2 > l+ l- n1
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.with.jet.pool.root -o user.chris.10k.n2.decay.with.jet.TestJob
 
