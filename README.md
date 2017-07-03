@@ -2,6 +2,13 @@
 The NUHM2 Higgsino study
 
 ---
+
+### v12. Add new script
+* `sum_BR.py`: new script to calculate the summation of BR.
+* `spectrum.py`: `Xsec_plots_weak()` function call with different arguments.
+* `truth3_mll_study.py`: new function `compare_pythia_madgraph_madspin()`.
+
+
 ### v11. Finish spectrum.py
 * `spectrum.py`:
   * Modify `read_cross_section()`

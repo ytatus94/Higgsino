@@ -7,7 +7,8 @@ def main():
     # mll_components()
     # mll_C1_test()
     # mll_no_Hadronic_Tau()
-    mll_shape()
+    # mll_shape()
+    compare_pythia_madgraph_madspin()
 
 #----------------------------#
 
@@ -418,6 +419,149 @@ def mll_shape():
 
 #----------------------------#
 
+def compare_pythia_madgraph_madspin():
+    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170628/user.chris.100k.CC.filtered.TestJob.root"
+    f_NUHM2_10k_n2_decay_no_jet = "../../../SimpleAnalysis/Results/20170628/user.chris.10k.n2.decay.no.jet.TestJob.root"
+    f_MadSpin_N2C1p = "../../../SimpleAnalysis/Results/20170629/user.Judita.10k.N2C1p.TestJob.root"
+    f_MadSpin_N2C1m = "../../../SimpleAnalysis/Results/20170629/user.Judita.10k.N2C1m.TestJob.root"
+
+    file1 = f_Higgsino_N2C1p
+    file2 = f_Higgsino_N2C1m
+    file3 = f_NUHM2_100k_CC_filtered
+    file4 = f_NUHM2_10k_n2_decay_no_jet
+    file5 = f_MadSpin_N2C1p
+    file6 = f_MadSpin_N2C1m
+
+    canvas = ROOT.TCanvas("c","", 800,600)
+    canvas.SetLeftMargin(0.12)
+    ROOT.gPad.SetLogy()
+
+    var = "mll"
+    nbins, xmin, xmax = 100, 0, 50
+    cut = "mll>0"
+    normalize = True
+
+    f1 = ROOT.TFile(file1)
+    t1 = f1.Get("EwkHiggsino2016__ntuple")
+    h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
+    t1.Project("h1_" + var, var, cut)
+    # integral1 = h1.Integral()
+    # # print integral1
+    # if normalize is True:
+    #     h1.Scale(1/integral1)
+    h1.SetDirectory(ROOT.gROOT)
+
+    f2 = ROOT.TFile(file2)
+    t2 = f2.Get("EwkHiggsino2016__ntuple")
+    h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
+    t2.Project("h2_" + var, var, cut)
+    # integral2 = h2.Integral()
+    # # print integral2
+    # if normalize is True:
+    #     h2.Scale(1/integral2)
+    h2.SetDirectory(ROOT.gROOT)
+
+    f3 = ROOT.TFile(file3)
+    t3 = f3.Get("EwkHiggsino2016__ntuple")
+    h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
+    t3.Project("h3_" + var, var, cut)
+    integral3 = h3.Integral()
+    # print integral3
+    if normalize is True:
+        h3.Scale(1/integral3)
+    h3.SetDirectory(ROOT.gROOT)
+
+    f4 = ROOT.TFile(file4)
+    t4 = f4.Get("EwkHiggsino2016__ntuple")
+    h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
+    t4.Project("h4_" + var, var, cut)
+    integral4 = h4.Integral()
+    # print integral4
+    if normalize is True:
+        h4.Scale(1/integral4)
+    h4.SetDirectory(ROOT.gROOT)
+
+    f5 = ROOT.TFile(file5)
+    t5 = f5.Get("EwkHiggsino2016__ntuple")
+    h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
+    t5.Project("h5_" + var, var, cut)
+    # integral5 = h5.Integral()
+    # # print integral5
+    # if normalize is True:
+    #     h5.Scale(1/integral5)
+    h5.SetDirectory(ROOT.gROOT)
+
+    f6 = ROOT.TFile(file6)
+    t6 = f6.Get("EwkHiggsino2016__ntuple")
+    h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
+    t6.Project("h6_" + var, var, cut)
+    # integral6 = h6.Integral()
+    # # print integral6
+    # if normalize is True:
+    #     h6.Scale(1/integral6)
+    h6.SetDirectory(ROOT.gROOT)
+
+    ROOT.gROOT.cd()
+
+    h12 = h1.Clone()
+    h12.Add(h2)
+    integral12 = h12.Integral()
+    h12.Scale(1/integral12)
+
+    h56 = h5.Clone()
+    h56.Add(h6)
+    integral56 = h56.Integral()
+    h56.Scale(1/integral56)
+
+    y_maximum = max( h12.GetMaximum(), h56.GetMaximum() )
+
+    h12.SetStats(0)
+    h12.SetTitle(var)
+    h12.SetXTitle(var + " [GeV]")
+    h12.SetYTitle("Normalized event counts")
+    h12.SetMaximum(y_maximum * 20)
+    h12.SetMinimum(0.0003)
+    h12.GetYaxis().SetTitleOffset(1.5)
+    h12.SetLineColor(ROOT.kOrange)
+    h12.SetFillColor(ROOT.kOrange)
+    h12.SetFillStyle(1001) # Solid
+    h12.Draw()
+
+    h3.SetLineColor(ROOT.kBlue)
+    h3.SetFillColor(ROOT.kBlue)
+    h3.SetFillStyle(0)
+    h3.Draw("hist,same")
+
+    h4.SetLineColor(ROOT.kRed)
+    h4.SetFillColor(ROOT.kRed)
+    h4.SetFillStyle(0)
+    h4.Draw("hist,same")
+
+    h56.SetLineColor(ROOT.kGreen)
+    h56.SetFillColor(ROOT.kGreen)
+    h56.SetFillStyle(0)
+    h56.Draw("hist,same")
+
+    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
+    legend.AddEntry(h12, "Higgsino_N2C1p/m_170_150", "f")
+    legend.AddEntry(h3, "NUHM2_m12_600 (Pythia)", "l")
+    legend.AddEntry(h4, "NUHM2_m12_600 (N2C1p/m, MadGraph)", "l")
+    legend.AddEntry(h56, "NUHM2_m12_600 (N2C1p/m, MadSpin)", "l")
+    legend.SetBorderSize(0);
+    legend.SetTextFont(42);
+    legend.SetTextSize(0.02);
+    legend.SetFillColor(0);
+    legend.SetFillStyle(0);
+    legend.Draw()
+
+    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+
+    output = var + ".pdf"
+    canvas.SaveAs(output)
+
+#----------------------------#
 # def nBaselineLeptons():
 #     f_filtered = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/user.chris.100k.CC.filtered.TestJob.root"
 #     f_unfiltered = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/user.chris.100k.CC.unfiltered.TestJob.root"

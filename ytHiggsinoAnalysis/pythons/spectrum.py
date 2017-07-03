@@ -15,6 +15,7 @@ def main():
     Xsec_list = read_cross_section(path + weak_Xsec)
     Xsec_plots_all_FS(Xsec_list)
     Xsec_plots_weak(Xsec_list) # only works for weak
+    # Xsec_plots_weak(Xsec_list, False, True) # only works for weak
     particles_dict = read_slha(path + weak_slha)
     mass_spectra(particles_dict, ("z1ss", "z2ss", "z3ss", "z4ss", "w1ss", "w2ss"))
     mass_difference_spectra(particles_dict, ("z1ss", "z2ss", "z3ss", "z4ss", "w1ss", "w2ss"))
