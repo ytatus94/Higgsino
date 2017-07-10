@@ -8,7 +8,8 @@ def main():
     # mll_C1_test()
     # mll_no_Hadronic_Tau()
     # mll_shape()
-    compare_pythia_madgraph_madspin()
+    # compare_pythia_madgraph_madspin()
+    compare_n2_decay()
 
 #----------------------------#
 
@@ -448,7 +449,7 @@ def compare_pythia_madgraph_madspin():
     h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
     t1.Project("h1_" + var, var, cut)
     # integral1 = h1.Integral()
-    # # print integral1
+    # print integral1
     # if normalize is True:
     #     h1.Scale(1/integral1)
     h1.SetDirectory(ROOT.gROOT)
@@ -458,7 +459,7 @@ def compare_pythia_madgraph_madspin():
     h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
     t2.Project("h2_" + var, var, cut)
     # integral2 = h2.Integral()
-    # # print integral2
+    # print integral2
     # if normalize is True:
     #     h2.Scale(1/integral2)
     h2.SetDirectory(ROOT.gROOT)
@@ -488,7 +489,7 @@ def compare_pythia_madgraph_madspin():
     h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
     t5.Project("h5_" + var, var, cut)
     # integral5 = h5.Integral()
-    # # print integral5
+    # print integral5
     # if normalize is True:
     #     h5.Scale(1/integral5)
     h5.SetDirectory(ROOT.gROOT)
@@ -498,7 +499,7 @@ def compare_pythia_madgraph_madspin():
     h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
     t6.Project("h6_" + var, var, cut)
     # integral6 = h6.Integral()
-    # # print integral6
+    # print integral6
     # if normalize is True:
     #     h6.Scale(1/integral6)
     h6.SetDirectory(ROOT.gROOT)
@@ -562,6 +563,281 @@ def compare_pythia_madgraph_madspin():
     canvas.SaveAs(output)
 
 #----------------------------#
+
+def compare_n2_decay():
+    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_run_12p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_12p.TestJob.root"
+    f_run_12m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_12m.TestJob.root"
+    f_run_13p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_13p.TestJob.root"
+    f_run_13m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_13m.TestJob.root"
+    f_run_14p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_14p.TestJob.root"
+    f_run_14m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_14m.TestJob.root"
+    f_run_15p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_15p.TestJob.root"
+    f_run_15m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_15m.TestJob.root"
+
+    file1 = f_Higgsino_N2C1p
+    file2 = f_Higgsino_N2C1m
+    file3 = f_run_12p
+    file4 = f_run_12m
+    file5 = f_run_13p
+    file6 = f_run_13m
+    file7 = f_run_14p
+    file8 = f_run_14m
+    file9 = f_run_15p
+    file10 = f_run_15m
+
+    canvas = ROOT.TCanvas("c","", 800,600)
+    canvas.SetLeftMargin(0.12)
+    ROOT.gPad.SetLogy()
+
+    var = "mll"
+    nbins, xmin, xmax = 100, 0, 50
+    cut = "mll>0"
+    normalize = True
+
+    f1 = ROOT.TFile(file1)
+    t1 = f1.Get("EwkHiggsino2016__ntuple")
+    h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
+    t1.Project("h1_" + var, var, cut)
+    h1.SetDirectory(ROOT.gROOT)
+
+    f2 = ROOT.TFile(file2)
+    t2 = f2.Get("EwkHiggsino2016__ntuple")
+    h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
+    t2.Project("h2_" + var, var, cut)
+    h2.SetDirectory(ROOT.gROOT)
+
+    f3 = ROOT.TFile(file3)
+    t3 = f3.Get("EwkHiggsino2016__ntuple")
+    h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
+    t3.Project("h3_" + var, var, cut+"&&met>50")
+    # print "h3.Integral()=", h3.Integral()
+    h3.SetDirectory(ROOT.gROOT)
+
+    f4 = ROOT.TFile(file4)
+    t4 = f4.Get("EwkHiggsino2016__ntuple")
+    h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
+    t4.Project("h4_" + var, var, cut+"&&met>50")
+    # print "h4.Integral()=", h4.Integral()
+    h4.SetDirectory(ROOT.gROOT)
+
+    f5 = ROOT.TFile(file5)
+    t5 = f5.Get("EwkHiggsino2016__ntuple")
+    h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
+    t5.Project("h5_" + var, var, cut+"&&met>50")
+    # print "h5.Integral()=", h5.Integral()
+    h5.SetDirectory(ROOT.gROOT)
+
+    f6 = ROOT.TFile(file6)
+    t6 = f6.Get("EwkHiggsino2016__ntuple")
+    h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
+    t6.Project("h6_" + var, var, cut+"&&met>50")
+    # print "h6.Integral()=", h6.Integral()
+    h6.SetDirectory(ROOT.gROOT)
+
+    f7 = ROOT.TFile(file7)
+    t7 = f7.Get("EwkHiggsino2016__ntuple")
+    h7 = ROOT.TH1F("h7_" + var, var, nbins, xmin, xmax)
+    t7.Project("h7_" + var, var, cut+"&&met>50")
+    # print "h7.Integral()=", h7.Integral()
+    h7.SetDirectory(ROOT.gROOT)
+
+    f8 = ROOT.TFile(file8)
+    t8 = f8.Get("EwkHiggsino2016__ntuple")
+    h8 = ROOT.TH1F("h8_" + var, var, nbins, xmin, xmax)
+    t8.Project("h8_" + var, var, cut+"&&met>50")
+    # print "h8.Integral()=", h8.Integral()
+    h8.SetDirectory(ROOT.gROOT)
+
+    f9 = ROOT.TFile(file9)
+    t9 = f9.Get("EwkHiggsino2016__ntuple")
+    h9 = ROOT.TH1F("h9_" + var, var, nbins, xmin, xmax)
+    t9.Project("h9_" + var, var, cut+"&&met>50")
+    # print "h9.Integral()=", h9.Integral()
+    h9.SetDirectory(ROOT.gROOT)
+
+    f10 = ROOT.TFile(file10)
+    t10 = f10.Get("EwkHiggsino2016__ntuple")
+    h10 = ROOT.TH1F("h10_" + var, var, nbins, xmin, xmax)
+    t10.Project("h10_" + var, var, cut+"&&met>50")
+    # print "h10.Integral()=", h10.Integral()
+    h10.SetDirectory(ROOT.gROOT)
+
+    # Filter efficiency
+    eff_run_12p = 0.605510
+    eff_run_12m = 0.619579
+    eff_run_13p = 0.0009555
+    eff_run_13m = 0.010037
+    eff_run_14p = 0.029174
+    eff_run_14m = 0.028922
+    eff_run_15p = 0.117129
+    eff_run_15m = 0.123213
+
+    h3.Scale(eff_run_12p)
+    h4.Scale(eff_run_12m)
+    h5.Scale(eff_run_13p)
+    h6.Scale(eff_run_13m)
+    h7.Scale(eff_run_14p)
+    h8.Scale(eff_run_14m)
+    h9.Scale(eff_run_15p)
+    h10.Scale(eff_run_15m)
+
+    ROOT.gROOT.cd()
+
+    # Higgsino
+    h12 = h1.Clone()
+    h12.Add(h2)
+    integral12 = h12.Integral()
+    # print "h12.Integral()=", h12.Integral()
+    h12.Scale(1/integral12)
+
+    # run_12
+    h34 = h3.Clone()
+    h34.Add(h4)
+    integral34 = h34.Integral()
+    # print "integral34=", integral34
+    # h34.Scale(1/integral34)
+
+    # run_13
+    h56 = h5.Clone()
+    h56.Add(h6)
+    integral56 = h56.Integral()
+    # print "integral56=", integral56
+    # h56.Scale(1/integral56)
+
+    # run_14
+    h78 = h7.Clone()
+    h78.Add(h8)
+    integral78 = h78.Integral()
+    # print "integral78=", integral78
+    # h78.Scale(1/integral78)
+
+    # run_15
+    h910 = h9.Clone()
+    h910.Add(h10)
+    integral910 = h910.Integral()
+    # print "integral910=", integral910
+    # h910.Scale(1/integral910)
+
+    br_run_12 = 1.07E-01
+    br_run_13 = 2.19E-01
+    br_run_14 = 6.65E-01
+    br_run_15 = 4.47E-03
+
+    # Above calculation is based on the assumption that BR=100% for that specific n2 decay
+    # The integral value is the number of events when the BR=100%
+    # But we have to consider the real situation that BR is not equal to 100%, i.e. scale to BR
+    # For example, if N=5 when BR=100%, then N=1 when BR=20%
+    h34.Scale(br_run_12)
+    h56.Scale(br_run_13)
+    h78.Scale(br_run_14)
+    h910.Scale(br_run_15)
+
+    integral34_new = h34.Integral()
+    integral56_new = h56.Integral()
+    integral78_new = h78.Integral()
+    integral910_new = h910.Integral()
+
+    print "integral34_new=", integral34_new
+    print "integral56_new=", integral56_new
+    print "integral78_new=", integral78_new
+    print "integral910_new=", integral910_new
+
+    integral_total = integral34_new + integral56_new + integral78_new + integral910_new
+    print "integral_total=", integral_total
+
+    # print "integral34_new / integral_total=", integral34_new / integral_total
+    # print "integral56_new / integral_total=", integral56_new / integral_total
+    # print "integral78_new / integral_total=", integral78_new / integral_total
+    # print "integral910_new / integral_total=", integral910_new / integral_total
+
+    # Then we normalize the total n2 decays to one.
+    # h34.Scale(1/integral34_new)
+    # h56.Scale(1/integral56_new)
+    # h78.Scale(1/integral78_new)
+    # h910.Scale(1/integral910_new)
+    h34.Scale(1/integral_total)
+    h56.Scale(1/integral_total)
+    h78.Scale(1/integral_total)
+    h910.Scale(1/integral_total)
+    # Each decay should be normalized based on their proportion
+    print "h34.Integral()=", h34.Integral() * 100
+    print "h56.Integral()=", h56.Integral() * 100
+    print "h78.Integral()=", h78.Integral() * 100
+    print "h910.Integral()=", h910.Integral() * 100
+
+    y_maximum = max( h12.GetMaximum(), h34.GetMaximum() )
+
+    h12.SetStats(0)
+    h12.SetTitle(var)
+    h12.SetXTitle(var + " [GeV]")
+    h12.SetYTitle("Normalized event counts")
+    h12.SetMaximum(y_maximum * 20)
+    h12.SetMinimum(0.00001)
+    h12.GetYaxis().SetTitleOffset(1.5)
+    h12.SetLineColor(ROOT.kOrange)
+    h12.SetFillColor(ROOT.kOrange)
+    h12.SetFillStyle(1001) # Solid
+    h12.Draw()
+
+    # h34.Scale(br_run_12)
+    h34.SetLineColor(ROOT.kBlue)
+    h34.SetFillColor(ROOT.kBlue)
+    h34.SetFillStyle(0)
+    # h34.Draw("hist,same")
+
+    # h56.Scale(br_run_13)
+    h56.SetLineColor(ROOT.kGreen)
+    h56.SetFillColor(ROOT.kGreen)
+    h56.SetFillStyle(0)
+    # h56.Draw("hist,same")
+
+    # h78.Scale(br_run_14)
+    h78.SetLineColor(ROOT.kMagenta)
+    h78.SetFillColor(ROOT.kMagenta)
+    h78.SetFillStyle(0)
+    # h78.Draw("hist,same")
+
+    # h910.Scale(br_run_15)
+    h910.SetLineColor(ROOT.kCyan)
+    h910.SetFillColor(ROOT.kCyan)
+    h910.SetFillStyle(0)
+    # h910.Draw("hist,same")
+
+    hs = ROOT.THStack()
+    hs.Add(h56)
+    hs.Add(h78)
+    hs.Add(h910)
+    hs.Add(h34)
+
+    # By default the background of the histograms is erased before drawing the
+    # histograms. The option "noclear" avoid this behaviour. This is useful
+    # when drawing a THStack on top of an other plot. If the patterns used to
+    # draw the histograms in the stack are transparents, then the plot behind
+    # will be visible.
+    hs.Draw("hist,same,noclear")
+
+    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
+    legend.AddEntry(h12, "Higgsino_N2C1p/m_170_150", "f")
+    legend.AddEntry(h34, "NUHM2_m12_600 (n2 > l+ l- n1)", "l")
+    legend.AddEntry(h56, "NUHM2_m12_600 (n2 > #nu #bar{#nu} n1)", "l")
+    legend.AddEntry(h78, "NUHM2_m12_600 (n2 > q #bar{q} n1)", "l")
+    legend.AddEntry(h910, "NUHM2_m12_600 (n2 > f f c1)", "l")
+    legend.SetBorderSize(0);
+    legend.SetTextFont(42);
+    legend.SetTextSize(0.02);
+    legend.SetFillColor(0);
+    legend.SetFillStyle(0);
+    legend.Draw()
+
+    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+
+    output = var + ".pdf"
+    canvas.SaveAs(output)
+
+#----------------------------#
+
 # def nBaselineLeptons():
 #     f_filtered = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/user.chris.100k.CC.filtered.TestJob.root"
 #     f_unfiltered = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/user.chris.100k.CC.unfiltered.TestJob.root"

@@ -3,6 +3,12 @@ The NUHM2 Higgsino study
 
 ---
 
+
+### v13. Add new function
+* `RunSimpleAnalysis.sh`: Add new samples for the truth study
+* `truth3_mll_study.py`: Add new function `compare_n2_decay()`
+
+
 ### v12. Add new script
 * `sum_BR.py`: new script to calculate the summation of BR.
 * `spectrum.py`: `Xsec_plots_weak()` function call with different arguments.

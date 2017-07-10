@@ -2,7 +2,7 @@
 # Higgsino N2=160 N1=150 (dm = 10)
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999250._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999250._000002.pool.root -o user.yushen.SM_N2N1_160_150_2LMET50
 # Higgsino N2=170 N1=150 (dm = 20)
- simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999255._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999255._000002.pool.root -o user.yushen.SM_N2N1_170_150_2LMET50
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999255._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999255._000002.pool.root -o user.yushen.SM_N2N1_170_150_2LMET50
 # Higgsino N2=170 C1=150
  simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998720._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998720._000002.pool.root -o user.yushen.SM_N2C1p_170_150_2LMET50
  simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998992._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998992._000002.pool.root -o user.yushen.SM_N2C1m_170_150_2LMET50
@@ -27,7 +27,7 @@
 
 # C+C, C+C+j 100k w/ and w/o filter
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.100k.CC.unfiltered.TestJob.pool.root -o user.chris.100k.CC.unfiltered.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.100k.CC.filtered.TestJob.pool.root -o user.chris.100k.CC.filtered.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.100k.CC.filtered.TestJob.pool.root -o user.chris.100k.CC.filtered.TestJob
 
 # C+C, C+C+j 10k w/ filter no C1
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.CC.no.x1.filtered.TestJob.pool.root -o user.chris.10k.CC.no.x1.filtered.TestJob
@@ -42,9 +42,22 @@ simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.simplified.no.HadTau.TestJob.pool.root -o user.chris.10k.simplified.no.HadTau.TestJob
 
 # p p > n2 x1+ (j), n2 > l+ l- n1
-simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.n2.decay.pool.root -o user.chris.10k.n2.decay.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.n2.decay.pool.root -o user.chris.10k.n2.decay.TestJob
 # p p  > n2 x1+/-, n2 > l+ l- n1
-simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.no.jet.pool.root -o user.chris.10k.n2.decay.no.jet.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.no.jet.pool.root -o user.chris.10k.n2.decay.no.jet.TestJob
 # p p  > n2 x1+/- j, n2 > l+ l- n1
-simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.with.jet.pool.root -o user.chris.10k.n2.decay.with.jet.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Chris/DAOD_TRUTH3.chris.10k.n2.decay.with.jet.pool.root -o user.chris.10k.n2.decay.with.jet.TestJob
 
+# add MadSpin
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Judita/DAOD_TRUTH3.Judita.10k.N2C1p.pool.root -o user.Judita.10k.N2C1p.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Judita/DAOD_TRUTH3.Judita.10k.N2C1m.pool.root -o user.Judita.10k.N2C1m.TestJob
+
+# n2 decay comparison
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12p.pool.root -o user.yushen.run_12p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12m.pool.root -o user.yushen.run_12m.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13p.pool.root -o user.yushen.run_13p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13m.pool.root -o user.yushen.run_13m.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14p.pool.root -o user.yushen.run_14p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14m.pool.root -o user.yushen.run_14m.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15p.pool.root -o user.yushen.run_15p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15m.pool.root -o user.yushen.run_15m.TestJob
