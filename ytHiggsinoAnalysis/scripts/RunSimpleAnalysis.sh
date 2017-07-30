@@ -4,11 +4,13 @@
 # Higgsino N2=170 N1=150 (dm = 20)
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999255._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999255._000002.pool.root -o user.yushen.SM_N2N1_170_150_2LMET50
 # Higgsino N2=170 C1=150
- simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998720._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998720._000002.pool.root -o user.yushen.SM_N2C1p_170_150_2LMET50
- simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998992._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998992._000002.pool.root -o user.yushen.SM_N2C1m_170_150_2LMET50
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998720._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998720._000002.pool.root -o user.yushen.SM_N2C1p_170_150_2LMET50
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998992._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998992._000002.pool.root -o user.yushen.SM_N2C1m_170_150_2LMET50
 # Higgsino N2=155 C1=150
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998712._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998712._000002.pool.root -o user.yushen.SM_N2C1p_155_150_2LMET50
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998979._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998979._000002.pool.root -o user.yushen.SM_N2C1m_155_150_2LMET50
+# Higgsino C1C1
+# simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999559._000004.pool.root ../test_truth_study/DAOD_TRUTH3.09999559._000005.pool.root -o user.yushen.SM_C1C1_170_150_2LMET50
 
 # NUHM2 samples 
 # A+A, C+A, C+C 1k w/o filter
@@ -53,11 +55,59 @@
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/Judita/DAOD_TRUTH3.Judita.10k.N2C1m.pool.root -o user.Judita.10k.N2C1m.TestJob
 
 # n2 decay comparison
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12p.pool.root -o user.yushen.run_12p.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12m.pool.root -o user.yushen.run_12m.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13p.pool.root -o user.yushen.run_13p.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13m.pool.root -o user.yushen.run_13m.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14p.pool.root -o user.yushen.run_14p.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14m.pool.root -o user.yushen.run_14m.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15p.pool.root -o user.yushen.run_15p.TestJob
-simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15m.pool.root -o user.yushen.run_15m.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12p.pool.root -o user.yushen.run_12p.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_12m.pool.root -o user.yushen.run_12m.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13p.pool.root -o user.yushen.run_13p.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_13m.pool.root -o user.yushen.run_13m.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14p.pool.root -o user.yushen.run_14p.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_14m.pool.root -o user.yushen.run_14m.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15p.pool.root -o user.yushen.run_15p.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_15m.pool.root -o user.yushen.run_15m.TestJob
+
+# new JO 10k
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_20.pool.root -o user.yushen.run_20.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_21.pool.root -o user.yushen.run_21.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_22.pool.root -o user.yushen.run_22.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_23.pool.root -o user.yushen.run_23.TestJob
+
+# new JO 10k 2L filter fixed
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_24.pool.root -o user.yushen.run_24.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_25.pool.root -o user.yushen.run_25.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_26.pool.root -o user.yushen.run_26.TestJob
+# simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_27.pool.root -o user.yushen.run_27.TestJob
+
+# new MC samples 5k events
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_300_N2N1.pool.root -o user.yushen.run_300_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_300_C1C1.pool.root -o user.yushen.run_300_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_300_N2C1p.pool.root -o user.yushen.run_300_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_300_N2C1m.pool.root -o user.yushen.run_300_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_350_N2N1.pool.root -o user.yushen.run_350_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_350_C1C1.pool.root -o user.yushen.run_350_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_350_N2C1p.pool.root -o user.yushen.run_350_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_350_N2C1m.pool.root -o user.yushen.run_350_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_400_N2N1.pool.root -o user.yushen.run_400_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_400_C1C1.pool.root -o user.yushen.run_400_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_400_N2C1p.pool.root -o user.yushen.run_400_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_400_N2C1m.pool.root -o user.yushen.run_400_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_500_N2N1.pool.root -o user.yushen.run_500_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_500_C1C1.pool.root -o user.yushen.run_500_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_500_N2C1p.pool.root -o user.yushen.run_500_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_500_N2C1m.pool.root -o user.yushen.run_500_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_600_N2N1.pool.root -o user.yushen.run_600_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_600_C1C1.pool.root -o user.yushen.run_600_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_600_N2C1p.pool.root -o user.yushen.run_600_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_600_N2C1m.pool.root -o user.yushen.run_600_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_700_N2N1.pool.root -o user.yushen.run_700_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_700_C1C1.pool.root -o user.yushen.run_700_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_700_N2C1p.pool.root -o user.yushen.run_700_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_700_N2C1m.pool.root -o user.yushen.run_700_N2C1m.TestJob
+
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_800_N2N1.pool.root -o user.yushen.run_800_N2N1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_800_C1C1.pool.root -o user.yushen.run_800_C1C1.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_800_N2C1p.pool.root -o user.yushen.run_800_N2C1p.TestJob
+simpleAnalysis -n -a EwkHiggsino2016 ../yt/DAOD_TRUTH3.yushen.run_800_N2C1m.pool.root -o user.yushen.run_800_N2C1m.TestJob

@@ -186,18 +186,24 @@ void EwkHiggsino2016::ProcessEvent(AnalysisEvent *event)
 
     // Signal region
     if (met > 200 &&
-        nJet30 > 0 && nJet30 < 5 &&
+        nJet30 > 0 && // nJet30 < 5 &&
         signalJets[0].Pt() > 100 &&
         // signalJets[1].Pt() > 30 && signalJets[2].Pt() > 30 && signalJets[3].Pt() > 30 && // list on the int note but not on the slide?
         dphiMin1 > 2. &&
         nBjets == 0 &&
         is2LChannel &&
         (channel == 0 || channel == 1) && (!isSameSign) &&
-        // signalElectrons[0].Pt() > 5 && signalElectrons[0].Pt() > 4.5 && // list on the int note but not on the slide?
-        // signalMuons[0].Pt() > 5 && signalMuons[0].Pt() > 4 && // list on the int note but not on the slide?
+        // signalElectrons[0].Pt() > 5 && signalElectrons[1].Pt() > 4.5 && // list on the int note but not on the slide?
+        // signalMuons[0].Pt() > 5 && signalMuons[1].Pt() > 4 && // list on the int note but not on the slide?
         (MTauTau < 0 || MTauTau > 160) &&
-        METOverHTLep12 > 5)
-        accept("SR");
+        ((mll > 1 && mll < 3.) || (mll > 3.2 && mll < 60.)) &&
+        Rll > 0.05) {
+        // METOverHTLep12 > 5)
+            if (channel == 0 && signalMuons[0].Pt() > 5 && signalMuons[1].Pt() > 4)
+                accept("SR");
+            if (channel == 1 && signalElectrons[0].Pt() > 5 && signalElectrons[1].Pt() > 4.5)
+                accept("SR");
+        }
     // Top CR: SR, except > 0 b-tags
     if (met > 200 &&
         nJet30 > 0 && nJet30 < 5 &&

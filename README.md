@@ -4,6 +4,14 @@ The NUHM2 Higgsino study
 ---
 
 
+### v14. Use new SR definitions
+* `RunSimpleAnalysis.sh`: Add new samples for the truth study
+* `convert_EVNT_to_TRUTH.sh`: Add new script
+* `MGPy8EG_A14N23LO_Higgsino_2L.txt`: Add Higgsino simplified model file
+* `read_Xsec.py`: Add new python script.
+* `EwkHiggsino2016.cxx`: Use new SR definitions
+
+
 ### v13. Add new function
 * `RunSimpleAnalysis.sh`: Add new samples for the truth study
 * `truth3_mll_study.py`: Add new function `compare_n2_decay()`
