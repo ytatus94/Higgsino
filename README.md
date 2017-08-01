@@ -3,11 +3,12 @@ The NUHM2 Higgsino study
 
 ---
 
+
 ### v16. Add new branches
 * `NUHM2.h`: New TSelector for v1.8
 * `ytEventSelection.h`: Add new branches
 * `ytEventSelection.cxx`: Add new branches
-
+* Fix `METOverHTLep12`
 
 ### v15. Add new scripts
 * `NUHM2_DSID.tar`: Judita's JO

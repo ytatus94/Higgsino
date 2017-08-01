@@ -83,7 +83,7 @@ EL::StatusCode ytEventSelection :: histInitialize ()
     h_met = new TH1F("h_met", "E_{T}^{miss};MET [GeV];", 200, 0, 1000);
     h_HT = new TH1F("h_HT", "HT;HT [GeV];", 200, 0, 2000);
     h_METOverHT = new TH1F("h_METOverHT", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
-    h_METOverHTLep12 = new TH1F("h_METOverHTLep12", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
+    // h_METOverHTLep12 = new TH1F("h_METOverHTLep12", "E_{T}^{miss}/HT;MET/HT;", 150, 0, 15);
     h_mT2 = new TH1F("h_mT2", "MT2", 200, 0, 1000);
     h_mll = new TH1F("h_mll", "M_{ll};M_{ll} [GeV];", 200, 0, 1000);
 
@@ -117,7 +117,7 @@ EL::StatusCode ytEventSelection :: histInitialize ()
     h_met->Sumw2();
     h_HT->Sumw2();
     h_METOverHT->Sumw2();
-    h_METOverHTLep12->Sumw2();
+    // h_METOverHTLep12->Sumw2();
     h_mT2->Sumw2();
     h_mll->Sumw2();
 
@@ -151,7 +151,7 @@ EL::StatusCode ytEventSelection :: histInitialize ()
     wk()->addOutput(h_met);
     wk()->addOutput(h_HT);
     wk()->addOutput(h_METOverHT);
-    wk()->addOutput(h_METOverHTLep12);
+    // wk()->addOutput(h_METOverHTLep12);
     wk()->addOutput(h_mT2);
     wk()->addOutput(h_mll);
 
@@ -768,7 +768,7 @@ EL::StatusCode ytEventSelection :: execute ()
     h_met->Fill(met_Et, weight);
     h_HT->Fill(Ht30, weight);
     h_METOverHT->Fill(METOverHT, weight);
-    h_METOverHTLep12->Fill(METOverHTLep12, weight);
+    // h_METOverHTLep12->Fill(METOverHTLep12, weight);
     // h_mT2->Fill(, weight); // not support
     h_mll->Fill(mll, weight);
 
@@ -929,7 +929,8 @@ EL::StatusCode ytEventSelection :: execute ()
     bool cut_NBjets = m_region->pass_NBjets(nBJet30_MV2c10);
     bool cut_dPhiMETJ1 = m_region->pass_deltaPhi_MET_leading_jet(DPhiJ1Met);
     bool cut_MTauTau = m_region->pass_Mtautau(MTauTau);
-    bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep12, mll);
+    // bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep12, mll);
+    bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep, mll);
 
     // debug_print(cut_MET, cut_NJets, cut_leading_jet_pT, cut_NBjets, cut_dPhiMETJ1, cut_MTauTau, cut_METOverHT);
 
@@ -1080,7 +1081,7 @@ void ytEventSelection :: debug_print(bool cut_MET, bool cut_NJets, bool cut_lead
     cout << "met_Et=" << met_Et << ", met_Phi=" << met_Phi << endl;
     cout << "Ht30=" << Ht30 << endl;
     cout << "METOverHT=" << METOverHT << endl;
-    cout << "METOverHTLep12=" << METOverHTLep12 << endl;
+    // cout << "METOverHTLep12=" << METOverHTLep12 << endl;
 
     cout << "DPhiJ1Met=" << DPhiJ1Met << endl;
     cout << "MTauTau=" << MTauTau << endl;
