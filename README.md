@@ -8,7 +8,7 @@ The NUHM2 Higgsino study
 * `NUHM2.h`: New TSelector for v1.8
 * `ytEventSelection.h`: Add new branches
 * `ytEventSelection.cxx`: Add new branches
-* Fix `METOverHTLep12`
+* Joey removed METOverHTLep12 on Jun/20. Fix `METOverHTLep12` to `METOverHT`
 
 ### v15. Add new scripts
 * `NUHM2_DSID.tar`: Judita's JO
