@@ -3,6 +3,12 @@ The NUHM2 Higgsino study
 
 ---
 
+### v16. Add new branches
+* `NUHM2.h`: New TSelector for v1.8
+* `ytEventSelection.h`: Add new branches
+* `ytEventSelection.cxx`: Add new branches
+
+
 ### v15. Add new scripts
 * `NUHM2_DSID.tar`: Judita's JO
 * `BR_calculation.py`: new script
@@ -16,6 +22,7 @@ The NUHM2 Higgsino study
   * Use 20170716 results to compare the plots
   * Remove `met>50` cut because it already applied in MET50 filter.
   * Add new function `weight()`
+
 
 ### v14. Use new SR definitions
 * `RunSimpleAnalysis.sh`: Add new samples for the truth study

@@ -68,6 +68,7 @@ public:
     Int_t           nLep_signal; //!
     Int_t           lep1Flavor; //!
     Int_t           lep1Charge; //!
+    Int_t           lep1Author; //!
     Float_t         lep1Pt; //!
     Float_t         lep1Eta; //!
     Float_t         lep1Phi; //!
@@ -85,6 +86,8 @@ public:
     Bool_t          lep1PassOR; //!
     Int_t           lep1Type; //!
     Int_t           lep1Origin; //!
+    Int_t           lep1EgMotherType; //!
+    Int_t           lep1EgMotherOrigin; //!
     Int_t           lep1NPix; //!
     Bool_t          lep1PassBL; //!
     Bool_t          lep1VeryLoose; //!
@@ -108,7 +111,7 @@ public:
     Bool_t          lep1IsoCorrFixedCutTight; //!
     Bool_t          lep1IsoCorrFixedCutTightTrackOnly; //!
     Bool_t          lep1Signal; //!
-    Bool_t          lep1MatchesTrigger; //!
+    Bool_t          lep1TruthMatched; //!
     Int_t           lep1TruthCharge; //!
     Float_t         lep1TruthPt; //!
     Float_t         lep1TruthEta; //!
@@ -116,6 +119,7 @@ public:
     Float_t         lep1TruthM; //!
     Int_t           lep2Flavor; //!
     Int_t           lep2Charge; //!
+    Int_t           lep2Author; //!
     Float_t         lep2Pt; //!
     Float_t         lep2Eta; //!
     Float_t         lep2Phi; //!
@@ -133,6 +137,8 @@ public:
     Bool_t          lep2PassOR; //!
     Int_t           lep2Type; //!
     Int_t           lep2Origin; //!
+    Int_t           lep2EgMotherType; //!
+    Int_t           lep2EgMotherOrigin; //!
     Int_t           lep2NPix; //!
     Bool_t          lep2PassBL; //!
     Bool_t          lep2VeryLoose; //!
@@ -156,7 +162,7 @@ public:
     Bool_t          lep2IsoCorrFixedCutTight; //!
     Bool_t          lep2IsoCorrFixedCutTightTrackOnly; //!
     Bool_t          lep2Signal; //!
-    Bool_t          lep2MatchesTrigger; //!
+    Bool_t          lep2TruthMatched; //!
     Int_t           lep2TruthCharge; //!
     Float_t         lep2TruthPt; //!
     Float_t         lep2TruthEta; //!
@@ -164,6 +170,7 @@ public:
     Float_t         lep2TruthM; //!
     Int_t           lep3Flavor; //!
     Int_t           lep3Charge; //!
+    Int_t           lep3Author; //!
     Float_t         lep3Pt; //!
     Float_t         lep3Eta; //!
     Float_t         lep3Phi; //!
@@ -181,6 +188,8 @@ public:
     Bool_t          lep3PassOR; //!
     Int_t           lep3Type; //!
     Int_t           lep3Origin; //!
+    Int_t           lep3EgMotherType; //!
+    Int_t           lep3EgMotherOrigin; //!
     Int_t           lep3NPix; //!
     Bool_t          lep3PassBL; //!
     Bool_t          lep3VeryLoose; //!
@@ -204,7 +213,7 @@ public:
     Bool_t          lep3IsoCorrFixedCutTight; //!
     Bool_t          lep3IsoCorrFixedCutTightTrackOnly; //!
     Bool_t          lep3Signal; //!
-    Bool_t          lep3MatchesTrigger; //!
+    Bool_t          lep3TruthMatched; //!
     Int_t           lep3TruthCharge; //!
     Float_t         lep3TruthPt; //!
     Float_t         lep3TruthEta; //!
@@ -212,6 +221,7 @@ public:
     Float_t         lep3TruthM; //!
     Int_t           lep4Flavor; //!
     Int_t           lep4Charge; //!
+    Int_t           lep4Author; //!
     Float_t         lep4Pt; //!
     Float_t         lep4Eta; //!
     Float_t         lep4Phi; //!
@@ -229,6 +239,8 @@ public:
     Bool_t          lep4PassOR; //!
     Int_t           lep4Type; //!
     Int_t           lep4Origin; //!
+    Int_t           lep4EgMotherType; //!
+    Int_t           lep4EgMotherOrigin; //!
     Int_t           lep4NPix; //!
     Bool_t          lep4PassBL; //!
     Bool_t          lep4VeryLoose; //!
@@ -252,7 +264,7 @@ public:
     Bool_t          lep4IsoCorrFixedCutTight; //!
     Bool_t          lep4IsoCorrFixedCutTightTrackOnly; //!
     Bool_t          lep4Signal; //!
-    Bool_t          lep4MatchesTrigger; //!
+    Bool_t          lep4TruthMatched; //!
     Int_t           lep4TruthCharge; //!
     Float_t         lep4TruthPt; //!
     Float_t         lep4TruthEta; //!
@@ -260,21 +272,36 @@ public:
     Float_t         lep4TruthM; //!
     Int_t           nJet30; //!
     Int_t           nJet25; //!
+    Int_t           nJet20; //!
     Int_t           nTotalJet; //!
+    Int_t           nTotalJet20; //!
     Int_t           nBJet30_MV2c10; //!
+    Int_t           nBJet20_MV2c10; //!
     Int_t           nBJet30_MV2c10_FixedCutBEff_60; //!
     Int_t           nBJet30_MV2c10_FixedCutBEff_70; //!
     Int_t           nBJet30_MV2c10_FixedCutBEff_77; //!
     Int_t           nBJet30_MV2c10_FixedCutBEff_85; //!
+    Int_t           nBJet20_MV2c10_FixedCutBEff_60; //!
+    Int_t           nBJet20_MV2c10_FixedCutBEff_70; //!
+    Int_t           nBJet20_MV2c10_FixedCutBEff_77; //!
+    Int_t           nBJet20_MV2c10_FixedCutBEff_85; //!
     Int_t           DecayModeTTbar; //!
     vector<float>   *jetPt; //!
     vector<float>   *jetEta; //!
     vector<float>   *jetPhi; //!
     vector<float>   *jetM; //!
+    vector<float>   *jetTileEnergy; //!
+    Float_t         vectorSumJetsPt; //!
+    Float_t         vectorSumJetsEta; //!
+    Float_t         vectorSumJetsPhi; //!
+    Float_t         vectorSumJetsM; //!
+    Float_t         dPhiVectorSumJetsMET; //!
     Float_t         met_Et; //!
     Float_t         met_Phi; //!
     Float_t         TST_Et; //!
     Float_t         TST_Phi; //!
+    Float_t         met_track_Et; //!
+    Float_t         met_track_Phi; //!
     Float_t         deltaPhi_MET_TST_Phi; //!
     Float_t         mt; //!
     Float_t         meffInc30; //!
@@ -293,15 +320,44 @@ public:
     Float_t         mt_lep2; //!
     Float_t         mt_lep3; //!
     Float_t         mt_lep4; //!
+    Float_t         mt_lep1_metTrack; //!
+    Float_t         mt_lep2_metTrack; //!
+    Float_t         mt_lep3_metTrack; //!
+    Float_t         mt_lep4_metTrack; //!
     Float_t         METOverHT; //!
     Float_t         METOverJ1pT; //!
+    Float_t         METTrackOverHT; //!
+    Float_t         METTrackOverJ1pT; //!
     Float_t         DPhiJ1Met; //!
-    Float_t         METOverHTLep12; //!
+    Float_t         DPhiJ2Met; //!
+    Float_t         DPhiJ3Met; //!
+    Float_t         DPhiJ4Met; //!
+    Float_t         minDPhi4JetsMet; //!
+    Float_t         minDPhiAllJetsMet; //!
+    Float_t         DPhiJ1MetTrack; //!
+    Float_t         DPhiJ2MetTrack; //!
+    Float_t         DPhiJ3MetTrack; //!
+    Float_t         DPhiJ4MetTrack; //!
+    Float_t         minDPhi4JetsMetTrack; //!
+    Float_t         minDPhiAllJetsMetTrack; //!
+    Float_t         METOverHTLep; //!
+    Float_t         METTrackOverHTLep; //!
     Float_t         mll; //!
     Float_t         Rll; //!
+    Float_t         Ptll; //!
+    Float_t         dPhiPllMet; //!
+    Float_t         dPhiPllMetTrack; //!
+    Float_t         METRel; //!
+    Float_t         METTrackRel; //!
+    Float_t         dPhiNearMet; //!
+    Float_t         dPhiNearMetTrack; //!
+    Float_t         dPhiMetAndMetTrack; //!
     Float_t         MSqTauTau_1; //!
     Float_t         MSqTauTau_2; //!
     Float_t         MTauTau; //!
+    Float_t         MSqTauTau_1_metTrack; //!
+    Float_t         MSqTauTau_2_metTrack; //!
+    Float_t         MTauTau_metTrack; //!
     Float_t         RjlOverEl; //!
     Float_t         LepCosThetaLab; //!
     Float_t         LepCosThetaCoM; //!
@@ -317,6 +373,26 @@ public:
     Float_t         mt2leplsp_115; //!
     Float_t         mt2leplsp_120; //!
     Float_t         mt2leplsp_150; //!
+    Float_t         mt2leplsp_175; //!
+    Float_t         mt2leplsp_200; //!
+    Float_t         mt2leplsp_250; //!
+    Float_t         mt2leplsp_300; //!
+    Float_t         mt2leplsp_0_metTrack; //!
+    Float_t         mt2leplsp_25_metTrack; //!
+    Float_t         mt2leplsp_50_metTrack; //!
+    Float_t         mt2leplsp_75_metTrack; //!
+    Float_t         mt2leplsp_90_metTrack; //!
+    Float_t         mt2leplsp_95_metTrack; //!
+    Float_t         mt2leplsp_100_metTrack; //!
+    Float_t         mt2leplsp_105_metTrack; //!
+    Float_t         mt2leplsp_110_metTrack; //!
+    Float_t         mt2leplsp_115_metTrack; //!
+    Float_t         mt2leplsp_120_metTrack; //!
+    Float_t         mt2leplsp_150_metTrack; //!
+    Float_t         mt2leplsp_175_metTrack; //!
+    Float_t         mt2leplsp_200_metTrack; //!
+    Float_t         mt2leplsp_250_metTrack; //!
+    Float_t         mt2leplsp_300_metTrack; //!
     Double_t        pileupWeight; //!
     Double_t        leptonWeight; //!
     Double_t        eventWeight; //!
@@ -325,7 +401,18 @@ public:
     Double_t        jvtWeight; //!
     Double_t        genWeightUp; //!
     Double_t        genWeightDown; //!
-    Double_t        SherpaVjetsNjetsWeight; //!
+    vector<float>   *LHE3Weights; //!
+    Double_t        FFWeight; //!
+    Int_t           nLep_antiID; //!
+    Bool_t          lep1AntiID; //!
+    Bool_t          lep2AntiID; //!
+    Bool_t          lep3AntiID; //!
+    Bool_t          lep4AntiID; //!
+    Int_t           nLep_signalActual; //!
+    Bool_t          lep1SignalActual; //!
+    Bool_t          lep2SignalActual; //!
+    Bool_t          lep3SignalActual; //!
+    Bool_t          lep4SignalActual; //!
     Bool_t          HLT_mu4; //!
     Bool_t          HLT_2mu4; //!
     Bool_t          HLT_2mu10; //!
@@ -399,6 +486,7 @@ public:
     TBranch        *b_nLep_signal;   //!
     TBranch        *b_lep1Flavor;   //!
     TBranch        *b_lep1Charge;   //!
+    TBranch        *b_lep1Author;   //!
     TBranch        *b_lep1Pt;   //!
     TBranch        *b_lep1Eta;   //!
     TBranch        *b_lep1Phi;   //!
@@ -416,6 +504,8 @@ public:
     TBranch        *b_lep1PassOR;   //!
     TBranch        *b_lep1Type;   //!
     TBranch        *b_lep1Origin;   //!
+    TBranch        *b_lep1EgMotherType;   //!
+    TBranch        *b_lep1EgMotherOrigin;   //!
     TBranch        *b_lep1NPix;   //!
     TBranch        *b_lep1PassBL;   //!
     TBranch        *b_lep1VeryLoose;   //!
@@ -439,7 +529,7 @@ public:
     TBranch        *b_lep1IsoCorrFixedCutTight;   //!
     TBranch        *b_lep1IsoCorrFixedCutTightTrackOnly;   //!
     TBranch        *b_lep1Signal;   //!
-    TBranch        *b_lep1MatchesTrigger;   //!
+    TBranch        *b_lep1TruthMatched;   //!
     TBranch        *b_lep1TruthCharge;   //!
     TBranch        *b_lep1TruthPt;   //!
     TBranch        *b_lep1TruthEta;   //!
@@ -447,6 +537,7 @@ public:
     TBranch        *b_lep1TruthM;   //!
     TBranch        *b_lep2Flavor;   //!
     TBranch        *b_lep2Charge;   //!
+    TBranch        *b_lep2Author;   //!
     TBranch        *b_lep2Pt;   //!
     TBranch        *b_lep2Eta;   //!
     TBranch        *b_lep2Phi;   //!
@@ -464,6 +555,8 @@ public:
     TBranch        *b_lep2PassOR;   //!
     TBranch        *b_lep2Type;   //!
     TBranch        *b_lep2Origin;   //!
+    TBranch        *b_lep2EgMotherType;   //!
+    TBranch        *b_lep2EgMotherOrigin;   //!
     TBranch        *b_lep2NPix;   //!
     TBranch        *b_lep2PassBL;   //!
     TBranch        *b_lep2VeryLoose;   //!
@@ -487,7 +580,7 @@ public:
     TBranch        *b_lep2IsoCorrFixedCutTight;   //!
     TBranch        *b_lep2IsoCorrFixedCutTightTrackOnly;   //!
     TBranch        *b_lep2Signal;   //!
-    TBranch        *b_lep2MatchesTrigger;   //!
+    TBranch        *b_lep2TruthMatched;   //!
     TBranch        *b_lep2TruthCharge;   //!
     TBranch        *b_lep2TruthPt;   //!
     TBranch        *b_lep2TruthEta;   //!
@@ -495,6 +588,7 @@ public:
     TBranch        *b_lep2TruthM;   //!
     TBranch        *b_lep3Flavor;   //!
     TBranch        *b_lep3Charge;   //!
+    TBranch        *b_lep3Author;   //!
     TBranch        *b_lep3Pt;   //!
     TBranch        *b_lep3Eta;   //!
     TBranch        *b_lep3Phi;   //!
@@ -512,6 +606,8 @@ public:
     TBranch        *b_lep3PassOR;   //!
     TBranch        *b_lep3Type;   //!
     TBranch        *b_lep3Origin;   //!
+    TBranch        *b_lep3EgMotherType;   //!
+    TBranch        *b_lep3EgMotherOrigin;   //!
     TBranch        *b_lep3NPix;   //!
     TBranch        *b_lep3PassBL;   //!
     TBranch        *b_lep3VeryLoose;   //!
@@ -535,7 +631,7 @@ public:
     TBranch        *b_lep3IsoCorrFixedCutTight;   //!
     TBranch        *b_lep3IsoCorrFixedCutTightTrackOnly;   //!
     TBranch        *b_lep3Signal;   //!
-    TBranch        *b_lep3MatchesTrigger;   //!
+    TBranch        *b_lep3TruthMatched;   //!
     TBranch        *b_lep3TruthCharge;   //!
     TBranch        *b_lep3TruthPt;   //!
     TBranch        *b_lep3TruthEta;   //!
@@ -543,6 +639,7 @@ public:
     TBranch        *b_lep3TruthM;   //!
     TBranch        *b_lep4Flavor;   //!
     TBranch        *b_lep4Charge;   //!
+    TBranch        *b_lep4Author;   //!
     TBranch        *b_lep4Pt;   //!
     TBranch        *b_lep4Eta;   //!
     TBranch        *b_lep4Phi;   //!
@@ -560,6 +657,8 @@ public:
     TBranch        *b_lep4PassOR;   //!
     TBranch        *b_lep4Type;   //!
     TBranch        *b_lep4Origin;   //!
+    TBranch        *b_lep4EgMotherType;   //!
+    TBranch        *b_lep4EgMotherOrigin;   //!
     TBranch        *b_lep4NPix;   //!
     TBranch        *b_lep4PassBL;   //!
     TBranch        *b_lep4VeryLoose;   //!
@@ -583,7 +682,7 @@ public:
     TBranch        *b_lep4IsoCorrFixedCutTight;   //!
     TBranch        *b_lep4IsoCorrFixedCutTightTrackOnly;   //!
     TBranch        *b_lep4Signal;   //!
-    TBranch        *b_lep4MatchesTrigger;   //!
+    TBranch        *b_lep4TruthMatched;   //!
     TBranch        *b_lep4TruthCharge;   //!
     TBranch        *b_lep4TruthPt;   //!
     TBranch        *b_lep4TruthEta;   //!
@@ -591,21 +690,36 @@ public:
     TBranch        *b_lep4TruthM;   //!
     TBranch        *b_nJet30;   //!
     TBranch        *b_nJet25;   //!
+    TBranch        *b_nJet20;   //!
     TBranch        *b_nTotalJet;   //!
+    TBranch        *b_nTotalJet20;   //!
     TBranch        *b_nBJet30_MV2c10;   //!
+    TBranch        *b_nBJet20_MV2c10;   //!
     TBranch        *b_nBJet30_MV2c10_FixedCutBEff_60;   //!
     TBranch        *b_nBJet30_MV2c10_FixedCutBEff_70;   //!
     TBranch        *b_nBJet30_MV2c10_FixedCutBEff_77;   //!
     TBranch        *b_nBJet30_MV2c10_FixedCutBEff_85;   //!
+    TBranch        *b_nBJet20_MV2c10_FixedCutBEff_60;   //!
+    TBranch        *b_nBJet20_MV2c10_FixedCutBEff_70;   //!
+    TBranch        *b_nBJet20_MV2c10_FixedCutBEff_77;   //!
+    TBranch        *b_nBJet20_MV2c10_FixedCutBEff_85;   //!
     TBranch        *b_DecayModeTTbar;   //!
     TBranch        *b_jetPt;   //!
     TBranch        *b_jetEta;   //!
     TBranch        *b_jetPhi;   //!
     TBranch        *b_jetM;   //!
+    TBranch        *b_jetTileEnergy;   //!
+    TBranch        *b_vectorSumJetsPt;   //!
+    TBranch        *b_vectorSumJetsEta;   //!
+    TBranch        *b_vectorSumJetsPhi;   //!
+    TBranch        *b_vectorSumJetsM;   //!
+    TBranch        *b_dPhiVectorSumJetsMET;   //!
     TBranch        *b_met_Et;   //!
     TBranch        *b_met_Phi;   //!
     TBranch        *b_TST_Et;   //!
     TBranch        *b_TST_Phi;   //!
+    TBranch        *b_met_track_Et;   //!
+    TBranch        *b_met_track_Phi;   //!
     TBranch        *b_deltaPhi_MET_TST_Phi;   //!
     TBranch        *b_mt;   //!
     TBranch        *b_meffInc30;   //!
@@ -624,15 +738,44 @@ public:
     TBranch        *b_mt_lep2;   //!
     TBranch        *b_mt_lep3;   //!
     TBranch        *b_mt_lep4;   //!
+    TBranch        *b_mt_lep1_metTrack;   //!
+    TBranch        *b_mt_lep2_metTrack;   //!
+    TBranch        *b_mt_lep3_metTrack;   //!
+    TBranch        *b_mt_lep4_metTrack;   //!
     TBranch        *b_METOverHT;   //!
     TBranch        *b_METOverJ1pT;   //!
+    TBranch        *b_METTrackOverHT;   //!
+    TBranch        *b_METTrackOverJ1pT;   //!
     TBranch        *b_DPhiJ1Met;   //!
-    TBranch        *b_METOverHTLep12;   //!
+    TBranch        *b_DPhiJ2Met;   //!
+    TBranch        *b_DPhiJ3Met;   //!
+    TBranch        *b_DPhiJ4Met;   //!
+    TBranch        *b_minDPhi4JetsMet;   //!
+    TBranch        *b_minDPhiAllJetsMet;   //!
+    TBranch        *b_DPhiJ1MetTrack;   //!
+    TBranch        *b_DPhiJ2MetTrack;   //!
+    TBranch        *b_DPhiJ3MetTrack;   //!
+    TBranch        *b_DPhiJ4MetTrack;   //!
+    TBranch        *b_minDPhi4JetsMetTrack;   //!
+    TBranch        *b_minDPhiAllJetsMetTrack;   //!
+    TBranch        *b_METOverHTLep;   //!
+    TBranch        *b_METTrackOverHTLep;   //!
     TBranch        *b_mll;   //!
     TBranch        *b_Rll;   //!
+    TBranch        *b_Ptll;   //!
+    TBranch        *b_dPhiPllMet;   //!
+    TBranch        *b_dPhiPllMetTrack;   //!
+    TBranch        *b_METRel;   //!
+    TBranch        *b_METTrackRel;   //!
+    TBranch        *b_dPhiNearMet;   //!
+    TBranch        *b_dPhiNearMetTrack;   //!
+    TBranch        *b_dPhiMetAndMetTrack;   //!
     TBranch        *b_MSqTauTau_1;   //!
     TBranch        *b_MSqTauTau_2;   //!
     TBranch        *b_MTauTau;   //!
+    TBranch        *b_MSqTauTau_1_metTrack;   //!
+    TBranch        *b_MSqTauTau_2_metTrack;   //!
+    TBranch        *b_MTauTau_metTrack;   //!
     TBranch        *b_RjlOverEl;   //!
     TBranch        *b_LepCosThetaLab;   //!
     TBranch        *b_LepCosThetaCoM;   //!
@@ -648,6 +791,26 @@ public:
     TBranch        *b_mt2leplsp_115;   //!
     TBranch        *b_mt2leplsp_120;   //!
     TBranch        *b_mt2leplsp_150;   //!
+    TBranch        *b_mt2leplsp_175;   //!
+    TBranch        *b_mt2leplsp_200;   //!
+    TBranch        *b_mt2leplsp_250;   //!
+    TBranch        *b_mt2leplsp_300;   //!
+    TBranch        *b_mt2leplsp_0_metTrack;   //!
+    TBranch        *b_mt2leplsp_25_metTrack;   //!
+    TBranch        *b_mt2leplsp_50_metTrack;   //!
+    TBranch        *b_mt2leplsp_75_metTrack;   //!
+    TBranch        *b_mt2leplsp_90_metTrack;   //!
+    TBranch        *b_mt2leplsp_95_metTrack;   //!
+    TBranch        *b_mt2leplsp_100_metTrack;   //!
+    TBranch        *b_mt2leplsp_105_metTrack;   //!
+    TBranch        *b_mt2leplsp_110_metTrack;   //!
+    TBranch        *b_mt2leplsp_115_metTrack;   //!
+    TBranch        *b_mt2leplsp_120_metTrack;   //!
+    TBranch        *b_mt2leplsp_150_metTrack;   //!
+    TBranch        *b_mt2leplsp_175_metTrack;   //!
+    TBranch        *b_mt2leplsp_200_metTrack;   //!
+    TBranch        *b_mt2leplsp_250_metTrack;   //!
+    TBranch        *b_mt2leplsp_300_metTrack;   //!
     TBranch        *b_pileupWeight;   //!
     TBranch        *b_leptonWeight;   //!
     TBranch        *b_eventWeight;   //!
@@ -656,7 +819,18 @@ public:
     TBranch        *b_jvtWeight;   //!
     TBranch        *b_genWeightUp;   //!
     TBranch        *b_genWeightDown;   //!
-    TBranch        *b_SherpaVjetsNjetsWeight;   //!
+    TBranch        *b_LHE3Weights;   //!
+    TBranch        *b_FFWeight;   //!
+    TBranch        *b_nLep_antiID;   //!
+    TBranch        *b_lep1AntiID;   //!
+    TBranch        *b_lep2AntiID;   //!
+    TBranch        *b_lep3AntiID;   //!
+    TBranch        *b_lep4AntiID;   //!
+    TBranch        *b_nLep_signalActual;   //!
+    TBranch        *b_lep1SignalActual;   //!
+    TBranch        *b_lep2SignalActual;   //!
+    TBranch        *b_lep3SignalActual;   //!
+    TBranch        *b_lep4SignalActual;   //!
     TBranch        *b_HLT_mu4;   //!
     TBranch        *b_HLT_2mu4;   //!
     TBranch        *b_HLT_2mu10;   //!
