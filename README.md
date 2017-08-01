@@ -3,6 +3,19 @@ The NUHM2 Higgsino study
 
 ---
 
+### v15. Add new scripts
+* `NUHM2_DSID.tar`: Judita's JO
+* `BR_calculation.py`: new script
+* `Nevents.py`: new script
+* `sum_BR.py`: remove this script (move the function to `BR_calculation.py`)
+* `list_trees.py`: change to v1.8
+* `Run.sh`: Add v1.8 new samples
+* `Run.cxx`: Add v1.8 new samples
+* `truth3_plots_comparison.py`:
+  * Read the cross-section, branching ratio, and filter efficiency from the files.
+  * Use 20170716 results to compare the plots
+  * Remove `met>50` cut because it already applied in MET50 filter.
+  * Add new function `weight()`
 
 ### v14. Use new SR definitions
 * `RunSimpleAnalysis.sh`: Add new samples for the truth study
