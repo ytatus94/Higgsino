@@ -4,6 +4,15 @@ The NUHM2 Higgsino study
 ---
 
 
+### v17. Add new Higgsino samples and scripts for these new samples
+* `RunSimpleAnalysis.sh`: Add new Higgsino samples
+* `check_slha.py`: Add new script
+* `get_mass_difference.py`: Add new script
+* `Xsec.pdf`: Cross section for N2N1, C1C1, N2C1p, N2C1m
+* `convert_EVNT_to_TRUTH.sh`: modified for new Higgsino samples
+* `test_fit.py`: Add new script
+
+
 ### v16. Add new branches
 * `NUHM2.h`: New TSelector for v1.8
 * `ytEventSelection.h`: Add new branches
