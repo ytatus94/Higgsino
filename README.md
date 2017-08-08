@@ -4,6 +4,19 @@ The NUHM2 Higgsino study
 ---
 
 
+### v18. Add scripts for reweighting
+* `test_fit.C`: Add new script. This works for FuncMllDistr.
+* `get_combined_hist.C`: Add new script.
+* `fit_common_ntuple.C`: Add new script. This works for FuncMllDistr.
+* `FuncMllDistr.C`: Add new script.
+* `GetWeightFunction.C`: Add Lorenzo's script as an example.
+* `test_fit.py`:
+  * Add new functions `get_histogram()`, `funcMllDistr()`, `reweight_method_1()`, and `reweight_method_2()`
+* `overlap_histograms.C`: Add new script.
+* `reweight_common_ntuple.C`: Add new script.
+* `reweight_truth3.C`: Add new script.
+
+
 ### v17. Add new Higgsino samples and scripts for these new samples
 * `RunSimpleAnalysis.sh`: Add new Higgsino samples
 * `check_slha.py`: Add new script
