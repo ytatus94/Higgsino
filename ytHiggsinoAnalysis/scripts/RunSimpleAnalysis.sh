@@ -19,6 +19,12 @@ simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998992._0
 # Higgsino N2=155 C1=150
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998712._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998712._000002.pool.root -o user.yushen.SM_N2C1p_155_150_2LMET50
 # simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998979._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998979._000002.pool.root -o user.yushen.SM_N2C1m_155_150_2LMET50
+# Higgsino N2=190 N1=150 (dm = 40)
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999258._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999258._000002.pool.root -o user.yushen.SM_N2N1_190_150_2LMET50
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999566._000004.pool.root ../test_truth_study/DAOD_TRUTH3.09999566._000005.pool.root -o user.yushen.SM_C1C1_190_150_2LMET50
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09998723._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09998723._000002.pool.root -o user.yushen.SM_N2C1p_190_150_2LMET50
+simpleAnalysis -n -a EwkHiggsino2016 ../test_truth_study/DAOD_TRUTH3.09999001._000001.pool.root ../test_truth_study/DAOD_TRUTH3.09999001._000002.pool.root -o user.yushen.SM_N2C1m_190_150_2LMET50
+
 
 # NUHM2 samples 
 # A+A, C+A, C+C 1k w/o filter

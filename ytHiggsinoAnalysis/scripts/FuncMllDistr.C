@@ -1,3 +1,4 @@
+// Copy from Lorenzo
 double FuncMllDistr(double *x, double *par){ 
 
     //taken from https://arxiv.org/abs/0704.2515
@@ -12,7 +13,6 @@ double FuncMllDistr(double *x, double *par){
     double M=m1+m2;
     double m_Z=91;
     double norm=par[0]*m;
-
 
     double radice=sqrt( pow(m,4) -pow(m,2)*(pow(mu,2) + pow(M,2) ) + pow(mu*M,2) );
 

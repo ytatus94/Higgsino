@@ -1,19 +1,24 @@
 #!/usr/bin/python
 import ROOT
 import AtlasStyle
+import math
 
 def main():
-    path_higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170802/"
-    n2_n1 = "160_100"
+    # path_higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170802/"
+    path_higgsino = "/Users/ytshen/Desktop/20170802/"
+    n2_n1 = "170_150"
     f_higgsino_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root"
     f_higgsino_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root"
     f_higgsino_N2C1p = "user.yushen.SM_N2C1p_" + n2_n1 + "_2LMET50.root"
     f_higgsino_N2C1m = "user.yushen.SM_N2C1m_" + n2_n1 + "_2LMET50.root"
 
-    higgsino_dm = int( n2_n1[:n2_n1.find("_")] ) - int( n2_n1[n2_n1.find("_")+1:] )
+    n2 = int( n2_n1[:n2_n1.find("_")] )
+    n1 = int( n2_n1[n2_n1.find("_")+1:] )
+    higgsino_dm = n2 - n1
 
-    path_nuhm2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170730/"
-    m12 = 300
+    # path_nuhm2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170730/"
+    path_nuhm2 = "/Users/ytshen/Desktop/20170730/"
+    m12 = 600
     f_nuhm2_N2N1 = "user.yushen.run_" + str(m12) + "_N2N1.TestJob.root"
     f_nuhm2_C1C1 = "user.yushen.run_" + str(m12) + "_C1C1.TestJob.root"
     f_nuhm2_N2C1p = "user.yushen.run_" + str(m12) + "_N2C1p.TestJob.root"
@@ -45,9 +50,144 @@ def main():
     file8 = path_nuhm2 + f_nuhm2_N2C1m
 
     var = "mll"
-    nbins, xmin, xmax = 200, 0, 100
-    if m12 == 300 or m12 == 350 or m12 == 400:
-        nbins, xmin, xmax = 400, 0, 200
+
+    h_higgsino = get_histogram(file1, file2, file3, file4)
+    h_higgsino.SetLineColor(ROOT.kBlack)
+
+    h_nuhm2 = get_histogram(file5, file6, file7, file8)
+    h_nuhm2.SetLineColor(ROOT.kBlue)
+
+    # Method 1
+    # Use a Gaussian to fit the core and an exponential function to fit the tail
+    # Firstly, fit core and tail separately to get the parameters,
+    # then use the parameters as initial parameters for combined fit.
+
+    # Fitting histogram (with predefined function):
+    fit_higgsino_core = ROOT.TF1("fit_higgsino_core", "gaus", 0, higgsino_dm)
+    fit_higgsino_core.SetLineColor(ROOT.kRed-8)
+    fit_higgsino_core.SetLineWidth(3)
+    # fit_higgsino_core = ROOT.TF1("fit_higgsino_core", funcMllDistr, 0, higgsino_dm, 3) # need to provide number of parameters as the last argument
+    # fit_higgsino_core.SetParameters(1, n1, -1.*n2) # n1 and n2 should be opposite sign
+    # fit_higgsino_core.FixParameter(1, n1)
+    # fit_higgsino_core.FixParameter(2, -1.*n2)
+    h_higgsino.Fit(fit_higgsino_core, "R0")  # “R” Use the range specified in the function range
+    h_higgsino.Fit(fit_higgsino_core, "R0")
+    h_higgsino.Fit(fit_higgsino_core, "R0+")
+    higgsino_core_parameters = fit_higgsino_core.GetParameters()
+
+    fit_higgsino_tail = ROOT.TF1("fit_higgsino_tail", "expo", higgsino_dm, h_higgsino.GetXaxis().GetXmax())
+    fit_higgsino_tail.SetLineColor(ROOT.kRed-8)
+    fit_higgsino_tail.SetLineWidth(3)
+    h_higgsino.Fit(fit_higgsino_tail, "R0")
+    h_higgsino.Fit(fit_higgsino_tail, "R0")
+    h_higgsino.Fit(fit_higgsino_tail, "R0+")
+    higgsino_tail_parameters = fit_higgsino_tail.GetParameters()
+
+    # print "Fit higgsino total:"
+    fit_higgsino_total = ROOT.TF1("fit_higgsino_total", "gaus(0)+expo(3)", h_higgsino.GetXaxis().GetXmin(), h_higgsino.GetXaxis().GetXmax())
+    fit_higgsino_total.SetLineColor(ROOT.kRed-8)
+    fit_higgsino_total.SetLineWidth(3)
+    fit_higgsino_total.SetParameters(higgsino_core_parameters[0],
+                                     higgsino_core_parameters[1],
+                                     higgsino_core_parameters[2],
+                                     higgsino_tail_parameters[0], 
+                                     higgsino_tail_parameters[1])
+    h_higgsino.Fit(fit_higgsino_total, "R0")
+    h_higgsino.Fit(fit_higgsino_total, "R0")
+    h_higgsino.Fit(fit_higgsino_total, "R0+")
+
+    # Fitting histogram (with predefined function):
+    fit_nuhm2_core = ROOT.TF1("fit_nuhm2_core", "gaus", 0, nuhm2_dm)
+    fit_nuhm2_core.SetLineColor(ROOT.kGreen-7)
+    fit_nuhm2_core.SetLineWidth(3)
+    h_nuhm2.Fit(fit_nuhm2_core, "R0")
+    h_nuhm2.Fit(fit_nuhm2_core, "R0")
+    h_nuhm2.Fit(fit_nuhm2_core, "R0+")
+    nuhm2_core_parameters = fit_nuhm2_core.GetParameters()
+
+    fit_nuhm2_tail = ROOT.TF1("fit_nuhm2_tail", "expo", nuhm2_dm, h_nuhm2.GetXaxis().GetXmax())
+    fit_nuhm2_tail.SetLineColor(ROOT.kGreen-7)
+    fit_nuhm2_tail.SetLineWidth(3)
+    h_nuhm2.Fit(fit_nuhm2_tail, "R0")
+    h_nuhm2.Fit(fit_nuhm2_tail, "R0")
+    h_nuhm2.Fit(fit_nuhm2_tail, "R0+")
+    nuhm2_tail_parameters = fit_nuhm2_tail.GetParameters()
+
+    # print "Fit NUHM2 total"
+    fit_nuhm2_total = ROOT.TF1("fit_nuhm2_total", "gaus(0)+expo(3)", h_nuhm2.GetXaxis().GetXmin(), h_nuhm2.GetXaxis().GetXmax())
+    fit_nuhm2_total.SetLineColor(ROOT.kGreen-7)
+    fit_nuhm2_total.SetLineWidth(3)
+    fit_nuhm2_total.SetParameters(nuhm2_core_parameters[0],
+                                  nuhm2_core_parameters[1],
+                                  nuhm2_core_parameters[2],
+                                  nuhm2_tail_parameters[0], 
+                                  nuhm2_tail_parameters[1])
+    h_nuhm2.Fit(fit_nuhm2_total, "R0")
+    h_nuhm2.Fit(fit_nuhm2_total, "R0")
+    h_nuhm2.Fit(fit_nuhm2_total, "R0+")
+
+    h_reweight_higgsino_1 = reweight_method_1(h_higgsino,
+                                              fit_higgsino_total.GetParameters(),
+                                              fit_nuhm2_tail.GetParameters())
+    h_reweight_higgsino_1.SetLineColor(ROOT.kRed)
+
+    # Method 2
+    # Reweight higgsino mll using the ratio between dm(nuhm2) and dm(higgsino)
+
+    # Reweight higgsino
+    h_reweight_higgsino_2 = reweight_method_2(h_higgsino, float(nuhm2_dm) / float(higgsino_dm) )
+    h_reweight_higgsino_2.SetLineColor(ROOT.kRed)
+
+    canvas = ROOT.TCanvas("c","", 800,600)
+    canvas.SetLeftMargin(0.12)
+    # ROOT.gStyle.SetOptFit(1111) # show fitting results in stats box
+    logY = True
+
+    if logY:
+        ROOT.gPad.SetLogy()
+
+    h_higgsino.SetStats(0) # no stats box
+    h_nuhm2.SetStats(0) # no stats box
+
+    max_value = max(h_higgsino.GetMaximum(), h_nuhm2.GetMaximum()) * 10
+    h_higgsino.SetMinimum(0.0001)
+    h_higgsino.SetMaximum(max_value)
+    h_higgsino.Draw()
+    h_nuhm2.Draw("same")
+    # h_reweight_higgsino.Draw("same")
+
+    legend = ROOT.TLegend(0.5, 0.7, 0.9, 0.8)
+    legend.AddEntry(h_higgsino, "Higgsino" + n2_n1, "l")
+    legend.AddEntry(h_nuhm2, "NUHM2 m12=" + str(m12), "l")
+    # legend.AddEntry(fit_higgsino_total, "fitting Higgsino", "l")
+    # legend.AddEntry(fit_nuhm2_total, "fitting NUHM2", "l")
+    legend.AddEntry(h_reweight_higgsino, "Reweighted Higgsino", "l")
+    legend.SetBorderSize(0);
+    legend.SetTextFont(42);
+    legend.SetTextSize(0.02);
+    legend.SetFillColor(0);
+    legend.SetFillStyle(0);
+    legend.Draw()
+
+    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+
+    output = "fit_" + var + "_" + str(m12) + ".pdf"
+    # output = "reweighted_" + var + "_" + str(m12) + ".pdf"
+    canvas.SaveAs(output)
+
+#----------------------------#
+
+def get_histogram(f_N2N1, f_C1C1, f_N2C1p, f_N2C1m):
+    '''
+    Get the combined histogram
+    '''
+    file1 = f_N2N1
+    file2 = f_C1C1
+    file3 = f_N2C1p
+    file4 = f_N2C1m
+
+    var = "mll"
+    nbins, xmin, xmax = 200, 0, 200
     cut = ""
 
     f1 = ROOT.TFile(file1)
@@ -82,38 +222,6 @@ def main():
     h4.Scale(1/integral4)
     h4.SetDirectory(ROOT.gROOT)
 
-    f5 = ROOT.TFile(file5)
-    t5 = f5.Get("EwkHiggsino2016__ntuple")
-    h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
-    t5.Project("h5_" + var, var, cut)
-    integral5 = h5.Integral()
-    h5.Scale(1/integral5)
-    h5.SetDirectory(ROOT.gROOT)
-
-    f6 = ROOT.TFile(file6)
-    t6 = f6.Get("EwkHiggsino2016__ntuple")
-    h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
-    t6.Project("h6_" + var, var, cut)
-    integral6 = h6.Integral()
-    h6.Scale(1/integral6)
-    h6.SetDirectory(ROOT.gROOT)
-
-    f7 = ROOT.TFile(file7)
-    t7 = f7.Get("EwkHiggsino2016__ntuple")
-    h7 = ROOT.TH1F("h7_" + var, var, nbins, xmin, xmax)
-    t7.Project("h7_" + var, var, cut)
-    integral7 = h7.Integral()
-    h7.Scale(1/integral7)
-    h7.SetDirectory(ROOT.gROOT)
-
-    f8 = ROOT.TFile(file8)
-    t8 = f8.Get("EwkHiggsino2016__ntuple")
-    h8 = ROOT.TH1F("h8_" + var, var, nbins, xmin, xmax)
-    t8.Project("h8_" + var, var, cut)
-    integral8 = h8.Integral()
-    h8.Scale(1/integral8)
-    h8.SetDirectory(ROOT.gROOT)
-
     ROOT.gROOT.cd()
 
     h1.Scale(integral1 / (integral1+integral2+integral3+integral4) )
@@ -121,126 +229,73 @@ def main():
     h3.Scale(integral3 / (integral1+integral2+integral3+integral4) )
     h4.Scale(integral4 / (integral1+integral2+integral3+integral4) )
 
-    h5.Scale(integral5 / (integral5+integral6+integral7+integral8) )
-    h6.Scale(integral6 / (integral5+integral6+integral7+integral8) )
-    h7.Scale(integral7 / (integral5+integral6+integral7+integral8) )
-    h8.Scale(integral8 / (integral5+integral6+integral7+integral8) )
+    h_Combined = h1.Clone()
+    h_Combined.Add(h2)
+    h_Combined.Add(h3)
+    h_Combined.Add(h4)
 
-    h_higgsino = h1.Clone()
-    h_higgsino.Add(h2)
-    h_higgsino.Add(h3)
-    h_higgsino.Add(h4)
+    h_Combined.SetLineColor(ROOT.kBlack)
+    h_Combined.SetFillColor(ROOT.kBlack)
+    h_Combined.SetFillStyle(0) # hollow
+    h_Combined.SetXTitle(var + " [GeV]")
+    h_Combined.SetYTitle("Normalized event counts")
 
-    h_higgsino.SetLineColor(ROOT.kBlack)
-    h_higgsino.SetFillColor(ROOT.kBlack)
-    h_higgsino.SetFillStyle(0) # hollow
-    h_higgsino.SetXTitle(var + " [GeV]")
-    h_higgsino.SetYTitle("Normalized event counts")
+    return h_Combined
 
-    # Fitting histogram (with predefined function):
-    fit_higgsino_core = ROOT.TF1("fit_higgsino_core", "gaus", 0, higgsino_dm)
-    fit_higgsino_core.SetLineColor(ROOT.kRed-8)
-    fit_higgsino_core.SetLineWidth(3)
-    h_higgsino.Fit(fit_higgsino_core, "0")
-    h_higgsino.Fit(fit_higgsino_core, "0")
-    h_higgsino.Fit(fit_higgsino_core, "R+")
-    higgsino_core_parameters = fit_higgsino_core.GetParameters()
+#----------------------------#
 
-    fit_higgsino_tail = ROOT.TF1("fit_higgsino_tail", "expo", higgsino_dm, h_higgsino.GetXaxis().GetXmax())
-    fit_higgsino_tail.SetLineColor(ROOT.kRed-8)
-    fit_higgsino_tail.SetLineWidth(3)
-    h_higgsino.Fit(fit_higgsino_tail, "0")
-    h_higgsino.Fit(fit_higgsino_tail, "0")
-    h_higgsino.Fit(fit_higgsino_tail, "R+")
-    higgsino_tail_parameters = fit_higgsino_tail.GetParameters()
+def funcMllDistr(x, par):
+    '''
+    taken from https://arxiv.org/abs/0704.2515
+    equation 4, page 9
+    NB there is a typo in the formula (just in writing it in the the paper, not in the work)
+    the correct formula is in this code
+    '''
+    m1 = float(par[1])
+    m2 = float(par[2])
+    mu = m2 - m1
+    m = float(x[0])
+    M = m1 + m2
+    m_Z = 91.
+    norm = float(par[0]) * m
 
-    print "Fit higgsino total:"
-    fit_higgsino_total = ROOT.TF1("fit_higgsino_total", "gaus(0)+expo(3)", h_higgsino.GetXaxis().GetXmin(), h_higgsino.GetXaxis().GetXmax())
-    fit_higgsino_total.SetLineColor(ROOT.kRed-8)
-    fit_higgsino_total.SetLineWidth(3)
-    fit_higgsino_total.SetParameters(higgsino_core_parameters[0],
-                                     higgsino_core_parameters[1],
-                                     higgsino_core_parameters[2],
-                                     higgsino_tail_parameters[0], 
-                                     higgsino_tail_parameters[1])
-    h_higgsino.Fit(fit_higgsino_total, "0")
-    h_higgsino.Fit(fit_higgsino_total, "0")
-    h_higgsino.Fit(fit_higgsino_total, "R+")
+    radice = math.sqrt( pow(m, 4) - pow(m, 2) * ( pow(mu, 2) + pow(M, 2) ) + pow(mu * M, 2) )
+    normalizzazione = pow(  pow(m, 2) - pow(m_Z, 2), 2)
+    var = (norm * radice) / normalizzazione
+    var = var * (-2 * pow(m, 4) + pow(m, 2) * (2 * pow(M, 2) - pow(mu, 2)) + pow((mu * M), 2) )
 
-    h_nuhm2 = h5.Clone()
-    h_nuhm2.Add(h6)
-    h_nuhm2.Add(h7)
-    h_nuhm2.Add(h8)
+    if float(x[0]) > math.fabs(m2) - math.fabs(m1):
+        var = 1
 
-    h_nuhm2.SetLineColor(ROOT.kBlue)
-    h_nuhm2.SetFillColor(ROOT.kBlue)
-    h_nuhm2.SetFillStyle(0) # hollow
-    h_nuhm2.SetXTitle(var + " [GeV]")
-    h_nuhm2.SetYTitle("Normalized event counts")
+    return var
 
-    # Fitting histogram (with predefined function):
-    fit_nuhm2_core = ROOT.TF1("fit_nuhm2_core", "gaus", 0, nuhm2_dm)
-    fit_nuhm2_core.SetLineColor(ROOT.kGreen-7)
-    fit_nuhm2_core.SetLineWidth(3)
-    h_nuhm2.Fit(fit_nuhm2_core, "0")
-    h_nuhm2.Fit(fit_nuhm2_core, "0")
-    h_nuhm2.Fit(fit_nuhm2_core, "R+")
-    nuhm2_core_parameters = fit_nuhm2_core.GetParameters()
+#----------------------------#
 
-    fit_nuhm2_tail = ROOT.TF1("fit_nuhm2_tail", "expo", nuhm2_dm, h_nuhm2.GetXaxis().GetXmax())
-    fit_nuhm2_tail.SetLineColor(ROOT.kGreen-7)
-    fit_nuhm2_tail.SetLineWidth(3)
-    h_nuhm2.Fit(fit_nuhm2_tail, "0")
-    h_nuhm2.Fit(fit_nuhm2_tail, "0")
-    h_nuhm2.Fit(fit_nuhm2_tail, "R+")
-    nuhm2_tail_parameters = fit_nuhm2_tail.GetParameters()
+def reweight_method_1(hist, par1, par2):
+    '''
+    Reweight Higgsino mll to NUHM2 using funcMllDistr()
+    '''
+    reweighted_hist = hist.Clone()
+    reweighted_hist.Reset() # resets the bin contents and errors of an histogram
+    for x_bin in range(0, hist.GetXaxis().GetNbins() + 1):
 
-    print "Fit NUHM2 total"
-    fit_nuhm2_total = ROOT.TF1("fit_nuhm2_total", "gaus(0)+expo(3)", h_nuhm2.GetXaxis().GetXmin(), h_nuhm2.GetXaxis().GetXmax())
-    fit_nuhm2_total.SetLineColor(ROOT.kGreen-7)
-    fit_nuhm2_total.SetLineWidth(3)
-    fit_nuhm2_total.SetParameters(nuhm2_core_parameters[0],
-                                  nuhm2_core_parameters[1],
-                                  nuhm2_core_parameters[2],
-                                  nuhm2_tail_parameters[0], 
-                                  nuhm2_tail_parameters[1])
-    h_nuhm2.Fit(fit_nuhm2_total, "0")
-    h_nuhm2.Fit(fit_nuhm2_total, "0")
-    h_nuhm2.Fit(fit_nuhm2_total, "R+")
+#----------------------------#
 
-    canvas = ROOT.TCanvas("c","", 800,600)
-    canvas.SetLeftMargin(0.12)
-    # ROOT.gStyle.SetOptFit(1111) # show fitting results in stats box
-    logY = True
+def reweight_method_2(hist, ratio):
+    '''
+    Reweight Higgsino mll to NUHM2 using
+    m_{\ell\ell}(NUHM2) = m_{\ell\ell}(Higgsino) * (dM_{NUHM2}/dM_{Higgsino})
+    '''
+    reweighted_hist = hist.Clone()
+    reweighted_hist.Reset() # resets the bin contents and errors of an histogram
+    for x_bin in range(0, hist.GetXaxis().GetNbins() + 1):
+        mll = hist.GetXaxis().GetBinCenter(x_bin)
+        reweighted_mll = mll * ratio
+        reweighted_x_bin = hist.FindBin(reweighted_mll)
+        height = hist.GetBinContent(x_bin)
+        reweighted_hist.SetBinContent(reweighted_x_bin, height)
 
-    if logY:
-        ROOT.gPad.SetLogy()
-
-    h_higgsino.SetStats(0) # no stats box
-    h_nuhm2.SetStats(0) # no stats box
-    h_higgsino.Draw()
-    h_nuhm2.Draw("same")
-
-    legend = ROOT.TLegend(0.5, 0.7, 0.9, 0.8)
-    legend.AddEntry(h_higgsino, "Higgsino" + n2_n1, "l")
-    legend.AddEntry(h_nuhm2, "NUHM2 m12=" + str(m12), "l")
-    legend.AddEntry(fit_higgsino_total, "fitting Higgsino", "l")
-    legend.AddEntry(fit_nuhm2_total, "fitting NUHM2", "l")
-    legend.SetBorderSize(0);
-    legend.SetTextFont(42);
-    legend.SetTextSize(0.02);
-    legend.SetFillColor(0);
-    legend.SetFillStyle(0);
-    legend.Draw()
-
-    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
-
-    output = "fit_" + var + "_" + str(m12) + ".pdf"
-    canvas.SaveAs(output)
-
-# def peak_distribution():
-
-# def tail_distribution():
+    return reweighted_hist
 
 #----------------------------#
 

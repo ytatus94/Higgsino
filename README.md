@@ -4,6 +4,21 @@ The NUHM2 Higgsino study
 ---
 
 
+### v19. Rewrite the reweighting script
+* `show_normalization_factor.C`: add new script
+* `test_120_100.C`: add new script
+* `test_Higgsino_170_150_m12_600.C`: add new script
+* `FuncMllDistr.C`: Add comment
+* `RunSimpleAnalysis.sh`: Add Higgsino 190_150 samples
+* `convert_EVNT_to_TRUTH.sh`: Add Higgsino 190_150 samples
+* `overlap_histograms.C`: Change input path
+* `fit_common_ntuple.C`:
+  * Add Higgsino 190_150
+  * New fit plot method
+* `reweight_truth3.C`: Complete rewrite this script.
+* `test_fit.py`: rewrite this script
+
+
 ### v18. Add scripts for reweighting
 * `test_fit.C`: Add new script. This works for FuncMllDistr.
 * `get_combined_hist.C`: Add new script.

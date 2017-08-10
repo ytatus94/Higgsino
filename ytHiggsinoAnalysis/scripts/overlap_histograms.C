@@ -22,22 +22,23 @@ void overlap_histograms(string n2_n1)
     c->SetLeftMargin(0.12);
 
     double area_ntuple = h_ntuple->Integral();
+    h_ntuple->SetName(("h_" + n2_n1).c_str());
     h_ntuple->SetLineColor(kBlue);
     h_ntuple->SetXTitle("m_{ll} [GeV]");
     h_ntuple->SetYTitle("Events / 1GeV");
     h_ntuple->Draw();
 
     double area_truth3 = h_truth3->Integral();
+    cout << "area_truth3=" << area_truth3 << endl; // Should be 1
     h_truth3->Scale(area_ntuple);
     h_truth3->SetLineColor(kRed);
     h_truth3->Draw("hist,same");
-
 }
 
 TH1F *get_TRUTH3_histograms(string n2_n1)
 {
     // TRUTH3
-    string path_truth3 = "/Users/ytshen/Desktop/20170802/";
+    string path_truth3 = "/Users/ytshen/Desktop/20170810/";
 
     string f_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
     string f_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root";
@@ -50,7 +51,7 @@ TH1F *get_TRUTH3_histograms(string n2_n1)
     TH1F *h_N2C1m = (TH1F *)get_histogram(path_truth3 + f_N2C1m);
 
     double integral_N2N1  = h_N2N1->Integral();
-    // double integral_C1C1  = h_C1C1->Integral();
+    // double integral_C1C1  = h_C1C1->Integral(); // in common ntuple v1.8b, the C1C1 is not included in truthMll
     double integral_N2C1p = h_N2C1p->Integral();
     double integral_N2C1m = h_N2C1m->Integral();
 
