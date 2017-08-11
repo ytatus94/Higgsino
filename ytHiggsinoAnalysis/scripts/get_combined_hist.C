@@ -25,29 +25,34 @@ TH1F *get_histogram(string file)
     return h1;
 }
 
-TH1F *combine_histogram(TH1F *h1, TH1F *h2, TH1F *h3, TH1F *h4)
+TH1F *combine_histogram(TH1F *h1, TH1F *h2, TH1F *h3, TH1F *h4 = NULL)
 {
     double integral_h1 = h1->Integral();
     double integral_h2 = h2->Integral();
     double integral_h3 = h3->Integral();
-    double integral_h4 = h4->Integral();
+    double integral_h4 = 0;
+    if (h4) // h4 is not empty
+        integral_h4 = h4->Integral();
 
     double sum = integral_h1 + integral_h2 + integral_h3 + integral_h4;
 
     h1->Scale(1./integral_h1);
     h2->Scale(1./integral_h2);
     h3->Scale(1./integral_h3);
-    h4->Scale(1./integral_h4);
+    if (h4)
+        h4->Scale(1./integral_h4);
 
     h1->Scale(integral_h1 / sum);
     h2->Scale(integral_h2 / sum);
     h3->Scale(integral_h3 / sum);
-    h4->Scale(integral_h4 / sum);
+    if (h4)
+        h4->Scale(integral_h4 / sum);
 
     TH1F *h_combined = (TH1F *)h1->Clone();
     h_combined->Add(h2);
     h_combined->Add(h3);
-    h_combined->Add(h4);
+    if (h4)
+        h_combined->Add(h4);
     h_combined->SetName("h_combined");
 
     return h_combined;
@@ -59,26 +64,6 @@ TH1F *get_combined_hist(string f_N2N1, string f_C1C1, string f_N2C1p, string f_N
     TH1F *h_C1C1  = (TH1F *)get_histogram(f_C1C1);
     TH1F *h_N2C1p = (TH1F *)get_histogram(f_N2C1p);
     TH1F *h_N2C1m = (TH1F *)get_histogram(f_N2C1m);
-
-    // double integral_N2N1  = h_N2N1->Integral();
-    // double integral_C1C1  = h_C1C1->Integral();
-    // double integral_N2C1p = h_N2C1p->Integral();
-    // double integral_N2C1m = h_N2C1m->Integral();
-
-    // h_N2N1->Scale(1./integral_N2N1);
-    // h_C1C1->Scale(1./integral_C1C1);
-    // h_N2C1p->Scale(1./integral_N2C1p);
-    // h_N2C1m->Scale(1./integral_N2C1m);
-
-    // h_N2N1->Scale(integral_N2N1 / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_C1C1->Scale(integral_C1C1 / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_N2C1p->Scale(integral_N2C1p / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_N2C1m->Scale(integral_N2C1m / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-
-    // TH1F *h_Combined = (TH1F *)h_N2N1->Clone();
-    // h_Combined->Add(h_C1C1);
-    // h_Combined->Add(h_N2C1p);
-    // h_Combined->Add(h_N2C1m);
 
     TH1F *h_Combined = combine_histogram(h_N2N1, h_C1C1, h_N2C1p, h_N2C1m);
 

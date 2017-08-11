@@ -13,7 +13,6 @@
 using namespace std;
 
 void fit_and_reweight_plot(string, string, int);
-// double get_reweight_ratio_1(string, int, double);
 
 void reweight_common_ntuple()
 {
@@ -128,29 +127,3 @@ void fit_and_reweight_plot(string input_file, string n2_n1, int m12)
     string output = "fit_and_reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + ".pdf";
     c->SaveAs(output.c_str());
 }
-/*
-double get_reweight_ratio_1(string n2_n1, int m12, double mll)
-{
-    double n2 = stod(n2_n1.substr(0, n2_n1.find("_"))); // stod() converts string to double
-    double n1 = stod(n2_n1.substr(n2_n1.find("_") + 1, n2_n1.length()));
-    double dm_higgsino = n2 - n1;
-
-    double dm_nuhm2 = 0;
-    if (m12 == 300)
-        dm_nuhm2 = 55.;
-    else if (m12 == 350)
-        dm_nuhm2 = 46.;
-    else if (m12 == 400)
-        dm_nuhm2 = 38.;
-    else if (m12 == 500)
-        dm_nuhm2 = 28.;
-    else if (m12 == 600)
-        dm_nuhm2 = 22.;
-    else if (m12 == 700)
-        dm_nuhm2 = 18.;
-    else if (m12 == 800)
-        dm_nuhm2 = 15.;
-
-    return dm_nuhm2 / dm_higgsino;
-}
-*/

@@ -10,37 +10,25 @@
 #include <iostream>
 using namespace std;
 
-/*
-// Masses of N1, N2 for NUHM2
-double par_NUHM2_m12_300[2] = {105.631409, 161.307800};
-double par_NUHM2_m12_350[2] = {115.618103, 161.675125};
-double par_NUHM2_m12_400[2] = {122.974541, 161.142700};
-double par_NUHM2_m12_500[2] = {132.279099, 160.295654};
-double par_NUHM2_m12_600[2] = {137.607727, 159.657379};
-double par_NUHM2_m12_700[2] = {140.978836, 159.170868};
-double par_NUHM2_m12_800[2] = {143.288208, 158.783905};
-*/
-
 void plot_mll_ratio_with_tail(int, int, int);
 void plot_mll_ratio_without_tail(int, int, int);
-// double get_dm_NUHM2(int);
 void tree_reader(string, double, TH1F *);
 
 void mll_ratio()
 {
-    // plot_mll_ratio_with_tail(100, 160, 350);
-    // plot_mll_ratio_with_tail(100, 160, 400);
-    // plot_mll_ratio_with_tail(150, 190, 500);
-    // plot_mll_ratio_with_tail(150, 190, 600);
-    // plot_mll_ratio_with_tail(150, 170, 700);
-    // plot_mll_ratio_with_tail(150, 170, 800);
+    plot_mll_ratio_with_tail(100, 160, 350);
+    plot_mll_ratio_with_tail(100, 160, 400);
+    plot_mll_ratio_with_tail(150, 190, 500);
+    plot_mll_ratio_with_tail(150, 190, 600);
+    plot_mll_ratio_with_tail(150, 170, 700);
+    plot_mll_ratio_with_tail(150, 170, 800);
 
     // plot_mll_ratio_without_tail(100, 160, 350);
     // plot_mll_ratio_without_tail(100, 160, 400);
     // plot_mll_ratio_without_tail(150, 190, 500);
     // plot_mll_ratio_without_tail(150, 190, 600);
     // plot_mll_ratio_without_tail(150, 170, 700);
-    plot_mll_ratio_without_tail(150, 170, 800);
+    // plot_mll_ratio_without_tail(150, 170, 800);
 }
 
 void plot_mll_ratio_with_tail(int n1, int n2, int m12)
@@ -235,77 +223,16 @@ void plot_mll_ratio_without_tail(int n1, int n2, int m12)
     string f_Higgsino_N2C1m = path_Higgsino + "user.yushen.SM_N2C1m_" + n2_n1 + "_2LMET50.root";
 
     // Get the NUHM2 truth3 MC sample
-/*
-    TFile *file_NUHM2_N2N1 = new TFile( f_NUHM2_N2N1.c_str() );
-    TFile *file_NUHM2_C1C1 = new TFile( f_NUHM2_C1C1.c_str() );
-    TFile *file_NUHM2_N2C1p = new TFile( f_NUHM2_N2C1p.c_str() );
-    TFile *file_NUHM2_N2C1m = new TFile( f_NUHM2_N2C1m.c_str()) ;
-
-    TTreeReader Reader_NUHM2_N2N1("EwkHiggsino2016__ntuple", file_NUHM2_N2N1);
-    TTreeReader Reader_NUHM2_C1C1("EwkHiggsino2016__ntuple", file_NUHM2_C1C1);
-    TTreeReader Reader_NUHM2_N2C1p("EwkHiggsino2016__ntuple", file_NUHM2_N2C1p);
-    TTreeReader Reader_NUHM2_N2C1m("EwkHiggsino2016__ntuple", file_NUHM2_N2C1m);
-
-    TTreeReaderValue<float> truth_mll_NUHM2_N2N1(Reader_NUHM2_N2N1, "mll");
-    TTreeReaderValue<float> truth_mll_NUHM2_C1C1(Reader_NUHM2_C1C1, "mll");
-    TTreeReaderValue<float> truth_mll_NUHM2_N2C1p(Reader_NUHM2_N2C1p, "mll");
-    TTreeReaderValue<float> truth_mll_NUHM2_N2C1m(Reader_NUHM2_N2C1m, "mll");
-*/
     TH1F *h_NUHM2_N2N1 = new TH1F("h_NUHM2_N2N1", "", 200, 0, 200);
     TH1F *h_NUHM2_C1C1 = new TH1F("h_NUHM2_C1C1", "", 200, 0, 200);
     TH1F *h_NUHM2_N2C1p = new TH1F("h_NUHM2_N2C1p", "", 200, 0, 200);
     TH1F *h_NUHM2_N2C1m = new TH1F("h_NUHM2_N2C1m", "", 200, 0, 200);
-/*
-    while (Reader_NUHM2_N2N1.Next()) {
-        double truthMll = *truth_mll_NUHM2_N2N1;
-        if (truthMll < dm_NUHM2)
-            h_NUHM2_N2N1->Fill(truthMll);
-    }
-    while (Reader_NUHM2_C1C1.Next()) {
-        double truthMll = *truth_mll_NUHM2_C1C1;
-        if (truthMll < dm_NUHM2)
-            h_NUHM2_C1C1->Fill(truthMll);
-    }
-    while (Reader_NUHM2_N2C1p.Next()) {
-        double truthMll = *truth_mll_NUHM2_N2C1p;
-        if (truthMll < dm_NUHM2)
-            h_NUHM2_N2C1p->Fill(truthMll);
-    }
-    while (Reader_NUHM2_N2C1m.Next()) {
-        double truthMll = *truth_mll_NUHM2_N2C1m;
-        if (truthMll < dm_NUHM2)
-            h_NUHM2_N2C1m->Fill(truthMll);
-    }
-*/
+
     tree_reader(f_NUHM2_N2N1, dm_NUHM2, h_NUHM2_N2N1);
     tree_reader(f_NUHM2_C1C1, dm_NUHM2, h_NUHM2_C1C1);
     tree_reader(f_NUHM2_N2C1p, dm_NUHM2, h_NUHM2_N2C1p);
     tree_reader(f_NUHM2_N2C1m, dm_NUHM2, h_NUHM2_N2C1m);
 
-/*
-    double integral_NUHM2_N2N1  = h_NUHM2_N2N1->Integral();
-    double integral_NUHM2_C1C1  = h_NUHM2_C1C1->Integral();
-    double integral_NUHM2_N2C1p  = h_NUHM2_N2C1p->Integral();
-    double integral_NUHM2_N2C1m  = h_NUHM2_N2C1m->Integral();
-    double sum_NUHM2 = integral_NUHM2_N2N1 + integral_NUHM2_C1C1 + integral_NUHM2_N2C1p + integral_NUHM2_N2C1m;
-    // double sum_NUHM2 = integral_NUHM2_N2N1 + integral_NUHM2_N2C1p + integral_NUHM2_N2C1m;
-
-    h_NUHM2_N2N1->Scale(1./integral_NUHM2_N2N1);
-    h_NUHM2_C1C1->Scale(1./integral_NUHM2_C1C1);
-    h_NUHM2_N2C1p->Scale(1./integral_NUHM2_N2C1p);
-    h_NUHM2_N2C1m->Scale(1./integral_NUHM2_N2C1m);
-
-    h_NUHM2_N2N1->Scale(integral_NUHM2_N2N1 / sum_NUHM2);
-    h_NUHM2_C1C1->Scale(integral_NUHM2_C1C1 / sum_NUHM2);
-    h_NUHM2_N2C1p->Scale(integral_NUHM2_N2C1p / sum_NUHM2);
-    h_NUHM2_N2C1m->Scale(integral_NUHM2_N2C1m / sum_NUHM2);
-
-    // TH1F *h_NUHM2_Combined = (TH1F *)h_NUHM2_N2N1->Clone();
-    // h_NUHM2_Combined->Add(h_NUHM2_C1C1);
-    // h_NUHM2_Combined->Add(h_NUHM2_N2C1p);
-    // h_NUHM2_Combined->Add(h_NUHM2_N2C1m);
-    // TH1F *h_NUHM2_Combined = (TH1F *)h_NUHM2_N2N1->Clone();
-*/
     TH1F *h_NUHM2_Combined = combine_histogram(h_NUHM2_N2N1, h_NUHM2_C1C1, h_NUHM2_N2C1p, h_NUHM2_N2C1m);
     h_NUHM2_Combined->SetName("h_NUHM2_Combined");
     h_NUHM2_Combined->SetTitle("");
@@ -314,84 +241,16 @@ void plot_mll_ratio_without_tail(int n1, int n2, int m12)
     h_NUHM2_Combined->SetLineColor(kBlue);
 
     // Get the Higgsino truth3 MC sample
-/*
-    TFile *file_Higgsino_N2N1 = new TFile( f_Higgsino_N2N1.c_str() );
-    TFile *file_Higgsino_C1C1 = new TFile( f_Higgsino_C1C1.c_str() );
-    TFile *file_Higgsino_N2C1p = new TFile( f_Higgsino_N2C1p.c_str() );
-    TFile *file_Higgsino_N2C1m = new TFile( f_Higgsino_N2C1m.c_str() );
-
-    TTreeReader Reader_Higgsino_N2N1("EwkHiggsino2016__ntuple", file_Higgsino_N2N1);
-    TTreeReader Reader_Higgsino_C1C1("EwkHiggsino2016__ntuple", file_Higgsino_C1C1);
-    TTreeReader Reader_Higgsino_N2C1p("EwkHiggsino2016__ntuple", file_Higgsino_N2C1p);
-    TTreeReader Reader_Higgsino_N2C1m("EwkHiggsino2016__ntuple", file_Higgsino_N2C1m);
-
-    TTreeReaderValue<float> truth_mll_Higgsino_N2N1(Reader_Higgsino_N2N1, "mll");
-    TTreeReaderValue<float> truth_mll_Higgsino_C1C1(Reader_Higgsino_C1C1, "mll");
-    TTreeReaderValue<float> truth_mll_Higgsino_N2C1p(Reader_Higgsino_N2C1p, "mll");
-    TTreeReaderValue<float> truth_mll_Higgsino_N2C1m(Reader_Higgsino_N2C1m, "mll");
-*/
     TH1F *h_Higgsino_N2N1_original = new TH1F("h_Higgsino_N2N1_original", "", 200, 0, 200);
     TH1F *h_Higgsino_C1C1_original = new TH1F("h_Higgsino_C1C1_original", "", 200, 0, 200);
     TH1F *h_Higgsino_N2C1p_original = new TH1F("h_Higgsino_N2C1p_original", "", 200, 0, 200);
     TH1F *h_Higgsino_N2C1m_original = new TH1F("h_Higgsino_N2C1m_original", "", 200, 0, 200);
-/*
-    TH1F *h_Higgsino_N2N1_reweight = new TH1F("h_Higgsino_N2N1_reweight", "", 200, 0, 200);
-    TH1F *h_Higgsino_C1C1_reweight = new TH1F("h_Higgsino_C1C1_reweight", "", 200, 0, 200);
-    TH1F *h_Higgsino_N2C1p_reweight = new TH1F("h_Higgsino_N2C1p_reweight", "", 200, 0, 200);
-    TH1F *h_Higgsino_N2C1m_reweight = new TH1F("h_Higgsino_N2C1m_reweight", "", 200, 0, 200);
 
-    while (Reader_Higgsino_N2N1.Next()) {
-        double truthMll = *truth_mll_Higgsino_N2N1;
-        if (truthMll < dm_Higgsino) {
-            h_Higgsino_N2N1_original->Fill(truthMll);
-        }
-    }
-    while (Reader_Higgsino_C1C1.Next()) {
-        double truthMll = *truth_mll_Higgsino_C1C1;
-        if (truthMll < dm_Higgsino) {
-            h_Higgsino_C1C1_original->Fill(truthMll);
-        }
-    }
-    while (Reader_Higgsino_N2C1p.Next()) {
-        double truthMll = *truth_mll_Higgsino_N2C1p;
-        if (truthMll < dm_Higgsino) {
-            h_Higgsino_N2C1p_original->Fill(truthMll);
-        }
-    }
-    while (Reader_Higgsino_N2C1m.Next()) {
-        double truthMll = *truth_mll_Higgsino_N2C1m;
-        if (truthMll < dm_Higgsino) {
-            h_Higgsino_N2C1m_original->Fill(truthMll);
-        }
-    }
-*/
     tree_reader(f_Higgsino_N2N1, dm_Higgsino, h_Higgsino_N2N1_original);
     tree_reader(f_Higgsino_C1C1, dm_Higgsino, h_Higgsino_C1C1_original);
     tree_reader(f_Higgsino_N2C1p, dm_Higgsino, h_Higgsino_N2C1p_original);
     tree_reader(f_Higgsino_N2C1m, dm_Higgsino, h_Higgsino_N2C1m_original);
-/*
-    double area_Higgsino_N2N1_original = h_Higgsino_N2N1_original->Integral();
-    double area_Higgsino_C1C1_original = h_Higgsino_C1C1_original->Integral();
-    double area_Higgsino_N2C1p_original = h_Higgsino_N2C1p_original->Integral();
-    double area_Higgsino_N2C1m_original = h_Higgsino_N2C1m_original->Integral();
-    double sum_Higgsino_original = area_Higgsino_N2N1_original + area_Higgsino_C1C1_original + area_Higgsino_N2C1p_original + area_Higgsino_N2C1m_original;
-    // double sum_Higgsino_original = area_Higgsino_N2N1_original + area_Higgsino_N2C1p_original + area_Higgsino_N2C1m_original;
 
-    h_Higgsino_N2N1_original->Scale(1./area_Higgsino_N2N1_original); // normalize to 1.
-    h_Higgsino_C1C1_original->Scale(1./area_Higgsino_C1C1_original);
-    h_Higgsino_N2C1p_original->Scale(1./area_Higgsino_N2C1p_original);
-    h_Higgsino_N2C1m_original->Scale(1./area_Higgsino_N2C1m_original);
-
-    h_Higgsino_N2N1_original->Scale(area_Higgsino_N2N1_original / sum_Higgsino_original); // scale to the correction contribution
-    h_Higgsino_C1C1_original->Scale(area_Higgsino_C1C1_original / sum_Higgsino_original);
-    h_Higgsino_N2C1p_original->Scale(area_Higgsino_N2C1p_original / sum_Higgsino_original);
-    h_Higgsino_N2C1m_original->Scale(area_Higgsino_N2C1m_original / sum_Higgsino_original);
-
-    // TH1F *h_Higgsino_combined_original = (TH1F *)h_Higgsino_N2N1_original->Clone();
-    // h_Higgsino_combined_original->Add(h_Higgsino_C1C1_original);
-    // h_Higgsino_combined_original->Add(h_Higgsino_N2C1p_original);
-    // h_Higgsino_combined_original->Add(h_Higgsino_N2C1m_original);
-*/
     TH1F *h_Higgsino_combined_original = combine_histogram(h_Higgsino_N2N1_original, h_Higgsino_C1C1_original, h_Higgsino_N2C1p_original, h_Higgsino_N2C1m_original);
     h_Higgsino_combined_original->SetName("h_Higgsino_combined_original");
     h_Higgsino_combined_original->SetTitle("");
@@ -507,27 +366,6 @@ void plot_mll_ratio_without_tail(int n1, int n2, int m12)
     string output = "ratio_without_tail_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + ".pdf";
     c->SaveAs(output.c_str());
 }
-/*
-double get_dm_NUHM2(int m12)
-{
-    double dm_NUHM2 = 0.;
-    if (m12 == 300)
-        dm_NUHM2 = par_NUHM2_m12_300[1] - par_NUHM2_m12_300[0];
-    else if (m12 == 350)
-        dm_NUHM2 = par_NUHM2_m12_350[1] - par_NUHM2_m12_350[0];
-    else if (m12 == 400)
-        dm_NUHM2 = par_NUHM2_m12_400[1] - par_NUHM2_m12_400[0];
-    else if (m12 == 500)
-        dm_NUHM2 = par_NUHM2_m12_500[1] - par_NUHM2_m12_500[0];
-    else if (m12 == 600)
-        dm_NUHM2 = par_NUHM2_m12_600[1] - par_NUHM2_m12_600[0];
-    else if (m12 == 700)
-        dm_NUHM2 = par_NUHM2_m12_700[1] - par_NUHM2_m12_700[0];
-    else if (m12 == 800)
-        dm_NUHM2 = par_NUHM2_m12_800[1] - par_NUHM2_m12_800[0];
-    return dm_NUHM2;
-}
-*/
 
 void tree_reader(string f, double dm, TH1F *h1)
 {

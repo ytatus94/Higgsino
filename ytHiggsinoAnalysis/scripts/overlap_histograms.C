@@ -50,28 +50,7 @@ TH1F *get_TRUTH3_histograms(string n2_n1)
     TH1F *h_N2C1p = (TH1F *)get_histogram(path_truth3 + f_N2C1p);
     TH1F *h_N2C1m = (TH1F *)get_histogram(path_truth3 + f_N2C1m);
 
-    double integral_N2N1  = h_N2N1->Integral();
-    // double integral_C1C1  = h_C1C1->Integral(); // in common ntuple v1.8b, the C1C1 is not included in truthMll
-    double integral_N2C1p = h_N2C1p->Integral();
-    double integral_N2C1m = h_N2C1m->Integral();
-
-    h_N2N1->Scale(1./integral_N2N1);
-    // h_C1C1->Scale(1./integral_C1C1);
-    h_N2C1p->Scale(1./integral_N2C1p);
-    h_N2C1m->Scale(1./integral_N2C1m);
-
-    // h_N2N1->Scale(integral_N2N1 / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_C1C1->Scale(integral_C1C1 / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_N2C1p->Scale(integral_N2C1p / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    // h_N2C1m->Scale(integral_N2C1m / (integral_N2N1 + integral_C1C1 + integral_N2C1p + integral_N2C1m) );
-    h_N2N1->Scale(integral_N2N1 / (integral_N2N1 + integral_N2C1p + integral_N2C1m) );
-    h_N2C1p->Scale(integral_N2C1p / (integral_N2N1 + integral_N2C1p + integral_N2C1m) );
-    h_N2C1m->Scale(integral_N2C1m / (integral_N2N1 + integral_N2C1p + integral_N2C1m) );
-
-    TH1F *h_Combined = (TH1F *)h_N2N1->Clone();
-    // h_Combined->Add(h_C1C1);
-    h_Combined->Add(h_N2C1p);
-    h_Combined->Add(h_N2C1m);
+    TH1F *h_Combined = combine_histogram(h_N2N1, h_N2C1p, h_N2C1m);
 
     return h_Combined;
 }
@@ -92,4 +71,3 @@ TH1F *get_common_ntuple_histogram(string n2_n1)
  
     return h_n2_n1;
 }
-

@@ -4,6 +4,21 @@ The NUHM2 Higgsino study
 ---
 
 
+### v21. add tree_reader()
+* `FuncMllDistr_modified.C`: add comment
+* `file_path.C`: add space
+* `get_combined_hist.C`:
+  * remove unnecessary part
+  * add if condition when there are only histograms in the input.
+* `mll_ratio.C`: remove unnecessary part
+* `overlap_histograms.C`: use `combine_histogram()`
+* `reweight_common_ntuple.C`: remove unnecessary part
+* `reweight_truth3.C`:
+  * remove unnecessary part
+  * Add `tree_reader()` and use it.
+* `test_Higgsino_160_100.C`: remove unnecessary part
+
+
 ### v20. Correct Lorenzo's approach
 * `get_combined_hist.C`:
   * add new function `combine_histogram()`
