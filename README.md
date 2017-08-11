@@ -4,6 +4,25 @@ The NUHM2 Higgsino study
 ---
 
 
+### v20. Correct Lorenzo's approach
+* `get_combined_hist.C`:
+  * add new function `combine_histogram()`
+  * modify `get_combined_hist()`
+* `fit_common_ntuple.C`: Change to modified function
+* `reweight_common_ntuple.C`:
+  * Use modified function
+  * Use `ytUtility.C`
+  * Use function to reweight
+* `reweight_truth3.C`:
+  * Correct Lorenzo's approach
+  * Add Mike's approach
+* `FuncMllDistr_modified.C`: add new script
+* `file_path.C`:: add new script
+* `mll_ratio.C`:: add new script
+* `test_Higgsino_160_100.C`: add new script
+* `ytUtility.C`: add new script
+
+
 ### v19. Rewrite the reweighting script
 * `show_normalization_factor.C`: add new script
 * `test_120_100.C`: add new script
