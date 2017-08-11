@@ -4,7 +4,8 @@
 #include <TTree.h>
 #include <TCanvas.h>
 
-#include "FuncMllDistr.C"
+#include "FuncMllDistr_modified.C"
+#include "ytUtility.C"
 
 #include <string>
 #include <algorithm>
@@ -12,20 +13,21 @@
 using namespace std;
 
 void fit_and_reweight_plot(string, string, int);
-double get_reweight_ratio_1(string, int, double);
+// double get_reweight_ratio_1(string, int, double);
 
 void reweight_common_ntuple()
 {
     string path = "/Users/ytshen/Desktop/";
-    string f_140_100 = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
+    // string f_140_100 = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
     string f_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
     string f_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
+    string f_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
 
-    fit_and_reweight_plot(path + f_140_100, "140_100", 350);
-    fit_and_reweight_plot(path + f_140_100, "140_100", 400);
+    fit_and_reweight_plot(path + f_160_100, "160_100", 350);
+    fit_and_reweight_plot(path + f_160_100, "160_100", 400);
     // fit_and_reweight_plot(path + f_160_100, "160_100");
-    fit_and_reweight_plot(path + f_170_150, "170_150", 500);
-    fit_and_reweight_plot(path + f_170_150, "170_150", 600);
+    fit_and_reweight_plot(path + f_190_150, "190_150", 500);
+    fit_and_reweight_plot(path + f_190_150, "190_150", 600);
     fit_and_reweight_plot(path + f_170_150, "170_150", 700);
     fit_and_reweight_plot(path + f_170_150, "170_150", 800);
 }
@@ -50,17 +52,26 @@ void fit_and_reweight_plot(string input_file, string n2_n1, int m12)
 
     double n2 = stod(n2_n1.substr(0, n2_n1.find("_"))); // stod() converts string to double
     double n1 = stod(n2_n1.substr(n2_n1.find("_") + 1, n2_n1.length()));
-    double dm = n2 - n1;
+    double dm_Higgsino = n2 - n1;
 
-    // Fitting
-    TF1 *fit_func = new TF1("fit_func", FuncMllDistr, 0, dm, 3);
-    fit_func->SetParameters(1., n1, -1 * n2);
+    double n1_NUHM2 = get_NUHM2_N1_mass(m12);
+    double n2_NUHM2 = get_NUHM2_N2_mass(m12);
+    double dm_NUHM2 = get_dm_NUHM2(m12);
 
-    hist->Fit(fit_func, "R0");
-    hist->Fit(fit_func, "R0");
-    hist->Fit(fit_func, "R0+");
+    // Theoretical
+    TF1 *func_Higgsino = new TF1("func_Higgsino", FuncMllDistr, 0, dm_Higgsino, 3);
+    func_Higgsino->SetParameters(1., n1, -1 * n2);
+    double area_func_Higgsino = func_Higgsino->Integral(0, dm_Higgsino);
+    func_Higgsino->SetParameter(0, 1./area_func_Higgsino);
+    func_Higgsino->FixParameter(1, n1);
+    func_Higgsino->FixParameter(2, -1 * n2);
 
-    
+    TF1 *func_NUHM2 = new TF1("func_NUHM2", FuncMllDistr, 0, dm_NUHM2, 3);
+    func_NUHM2->SetParameters(1., n1_NUHM2, -1 * n2_NUHM2);
+    double area_func_NUHM2 = func_NUHM2->Integral(0, dm_NUHM2);
+    func_NUHM2->SetParameter(0, 1./area_func_NUHM2);
+    func_NUHM2->FixParameter(1, n1_NUHM2);
+    func_NUHM2->FixParameter(2, -1 * n2_NUHM2);
 
     gStyle->SetOptFit(1111);
 
@@ -71,15 +82,15 @@ void fit_and_reweight_plot(string input_file, string n2_n1, int m12)
     TTreeReaderValue<double> original_mll(myReader, "truthMll");
 
     while (myReader.Next()) {
-        double ratio = get_reweight_ratio_1(n2_n1, m12, *original_mll);
-        double reweight_mll = (*original_mll) * ratio;
-        h_reweight->Fill(reweight_mll);
+        double truthMll = *original_mll;
+        double weight = func_NUHM2->Eval(truthMll) / func_Higgsino->Eval(truthMll);
+        h_reweight->Fill(truthMll, weight);
     }
 
     double x_max = 0;
-    if (m12 < 400)
+    if (m12 <= 400)
         x_max = 100.;
-    else if (m12 >= 400)
+    else if (m12 > 400)
         x_max = 50.;
 
     double y_max = max(hist->GetMaximum(), h_reweight->GetMaximum()) * 1.2;
@@ -92,17 +103,21 @@ void fit_and_reweight_plot(string input_file, string n2_n1, int m12)
     hist->SetLineColor(kGreen);
     hist->Draw();
 
-    fit_func->SetLineColor(kGreen);
-    fit_func->SetLineStyle(2);
-    fit_func->Draw("same");
+    hist->Fit(func_Higgsino, "R0");
+    hist->Fit(func_Higgsino, "R0");
+    hist->Fit(func_Higgsino, "R0+");
+
+    func_Higgsino->SetLineColor(kGreen);
+    func_Higgsino->SetLineStyle(2);
+    func_Higgsino->Draw("same");
 
     h_reweight->SetLineColor(kRed);
-    h_reweight->Draw("same");
+    h_reweight->Draw("hist,same");
 
     TLegend *legend = new TLegend(0.4, 0.2, 0.8, 0.4);
     legend->AddEntry(hist, ("Higgsino_" + n2_n1).c_str(), "l");
+    legend->AddEntry(func_Higgsino, ("Theoretical Higgsino_" + n2_n1).c_str(), "l");
     legend->AddEntry(h_reweight, ("reweight Higgsino to NUHM2 m12=" + to_string(m12)).c_str(), "l");
-    legend->AddEntry(fit_func, ("fit Higgsino_" + n2_n1).c_str(), "l");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
     legend->SetTextSize(0.03);
@@ -113,7 +128,7 @@ void fit_and_reweight_plot(string input_file, string n2_n1, int m12)
     string output = "fit_and_reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + ".pdf";
     c->SaveAs(output.c_str());
 }
-
+/*
 double get_reweight_ratio_1(string n2_n1, int m12, double mll)
 {
     double n2 = stod(n2_n1.substr(0, n2_n1.find("_"))); // stod() converts string to double
@@ -138,3 +153,4 @@ double get_reweight_ratio_1(string n2_n1, int m12, double mll)
 
     return dm_nuhm2 / dm_higgsino;
 }
+*/

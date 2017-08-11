@@ -4,7 +4,8 @@
 #include <TTree.h>
 #include <TCanvas.h>
 
-#include "FuncMllDistr.C"
+// #include "FuncMllDistr.C"
+#include "FuncMllDistr_modified.C"
 
 #include <string>
 #include <iostream>
