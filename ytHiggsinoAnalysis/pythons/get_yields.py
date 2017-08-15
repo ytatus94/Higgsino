@@ -15,7 +15,7 @@ def main():
                     yields, weighted_yields = get_yields(path + directory + "/" + file)
                     print name, yields, weighted_yields
 
-
+#----------------------------#
 
 def get_sample_name(file):
     index1 = file.find("_MC_") + len("_MC_")
@@ -28,7 +28,7 @@ def get_sample_name(file):
         name = temp
     return name
 
-
+#----------------------------#
 
 def get_yields(file):
     fopen = ROOT.TFile(file)
@@ -44,7 +44,7 @@ def get_yields(file):
         weighted_yields = h_weighted_yields.GetBinContent(4)
     return yields, weighted_yields
 
-
+#----------------------------#
 
 if __name__ == "__main__":
     main()

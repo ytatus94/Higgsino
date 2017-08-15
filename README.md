@@ -4,6 +4,21 @@ The NUHM2 Higgsino study
 ---
 
 
+### v22. reweight kinematic variables
+* `AtlasStyle.py`: Comment ROOT color
+* `BR_calculation.py`: Add `sum_BR()` into `main()` but comment it
+* `Nevents.py`: Add comments
+* `get_yields.py`: Add horizontal lines to separate the function definition.
+* `reweight_truth3.C`:
+  * Bug fix in `plot_Lorenzo()`
+  * Use bin-by-bin weight in `plot_Mike()`
+  * Remove unnecessary TH1 in `tree_reader()`
+* `get_combined_hist.C`: Add new function overload `get_histogram()`
+* `reweight_truth3.C`: Change the order of n2 and n1 in the input arguments.
+* `view_combine_hist.C`: Add new script to check the distributions
+* `reweight_kinematic_variables.C`: Add new script to check the distributions of reweighted kinematic variables.
+
+
 ### v21. add tree_reader()
 * `FuncMllDistr_modified.C`: add comment
 * `file_path.C`: add space

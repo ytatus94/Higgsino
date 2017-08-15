@@ -25,6 +25,26 @@ TH1F *get_histogram(string file)
     return h1;
 }
 
+TH1F *get_histogram(string file, string Var, int Nbins, double Xmin, double Xmax, string Cut)
+{
+    // Get the combined histogram
+    string var = Var;
+    int    nbins = Nbins;
+    double xmin  = Xmin;
+    double xmax  = Xmax;
+    string cut = Cut;
+
+    TFile *f1 = new TFile(file.c_str());
+
+    h_name = "h_" + var;
+    TH1F  *h1 = new TH1F(h_name.c_str(), var.c_str(), nbins, xmin, xmax);
+
+    TTree *t1 = (TTree *)f1->Get("EwkHiggsino2016__ntuple");
+    t1->Project(h_name.c_str(), var.c_str(), cut.c_str());
+
+    return h1;
+}
+
 TH1F *combine_histogram(TH1F *h1, TH1F *h2, TH1F *h3, TH1F *h4 = NULL)
 {
     double integral_h1 = h1->Integral();

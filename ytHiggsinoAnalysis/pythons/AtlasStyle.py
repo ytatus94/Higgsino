@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import ROOT
-from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kCyan,kTeal,kGreen,kSpring,kYellow,kOrange,kDashed
+# from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kCyan,kTeal,kGreen,kSpring,kYellow,kOrange,kDashed
 
 
 def ATLASLabel(x, y, text, color):
@@ -98,4 +98,3 @@ def myMarkerText(x, y, text, color, mstyle, msize):
     l.SetTextAlign(12)
     l.SetNDC()
     l.DrawLatex(x, y, text)
-

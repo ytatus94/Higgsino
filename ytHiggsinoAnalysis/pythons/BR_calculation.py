@@ -4,10 +4,13 @@ import os
 path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2/share/DSID394xxx/"
 
 def main():
+    # sum_BR()
+
     # for m12 in 300, 350, 400, 500, 600, 700, 800:
     #     for decay in "N2N1", "C1C1", "N2C1p", "N2C1m":
     #         file_name = "NUHM2_m12_" + str(m12) + "_weak_" + decay + ".slha"
             # print file_name
+
     for file in sorted( os.listdir(path) ):
         if file.startswith("susy") and file.endswith(".slha"):
             print file
