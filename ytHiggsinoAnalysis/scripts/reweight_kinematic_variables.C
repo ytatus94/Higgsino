@@ -97,7 +97,9 @@ void reweight_kinematic_variables(int n2, int n1, int m12)
         // plot(var, 170, 150, 800);
         // plot(var, n2, n1, m12);
     // }
+    // plot("pTLep1", n2, n1, m12);
     // plot("pTLep2", n2, n1, m12);
+    plot("nJet30", n2, n1, m12);
 }
 
 void plot(string var, int n2, int n1, int m12)
@@ -106,7 +108,7 @@ void plot(string var, int n2, int n1, int m12)
     double dm_Higgsino = n2 - n1;    
 
     // Higgsino TRUTH3
-    string path_Higgsino = "/Users/ytshen/Desktop/20170810/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -151,7 +153,7 @@ void plot(string var, int n2, int n1, int m12)
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // NUHM2 TRUTH3
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170730/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
 
     string file_NUHM2_N2N1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     // string file_NUHM2_C1C1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
@@ -279,8 +281,14 @@ void plot(string var, int n2, int n1, int m12)
     double range_user_xmin = 0., range_user_xmax = 0.;
     get_range_user(var, range_user_xmin, range_user_xmax);
 
+    double y_scale_factor = 0;
+    if (logY)
+        y_scale_factor = 1.5;
+    else
+        y_scale_factor = 1.5;
+
     double y_max1 = max(h_Higgsino_combined_original->GetMaximum(), h_Higgsino_combined_reweight->GetMaximum());
-    double y_max = max(y_max1, h_NUHM2_combined->GetMaximum()) * 1.5;
+    double y_max = max(y_max1, h_NUHM2_combined->GetMaximum()) * y_scale_factor;
 
     h_Higgsino_combined_original->GetXaxis()->SetRangeUser(range_user_xmin, range_user_xmax);
     h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.4);
@@ -326,7 +334,7 @@ void plot(string var, int n2, int n1, int m12)
     // Put legend on pad1
     pad1->cd();
 
-    TLegend *legend = new TLegend(0.5, 0.3, 0.9, 0.8);
+    TLegend *legend = new TLegend(0.5, 0.45, 0.7, 0.85);
     legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
     legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
     legend->AddEntry(h_Higgsino_combined_reweight, ("Reweight Higgsino_" + n2_n1).c_str(), "l");
@@ -334,12 +342,12 @@ void plot(string var, int n2, int n1, int m12)
     legend->AddEntry(h_ratio_NUHM2_reweight_Higgsino, "ratio = NUHM2 / reweight Higgsino", "lpe");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
-    legend->SetTextSize(0.05);
+    legend->SetTextSize(0.04);
     legend->SetFillColor(0);
     legend->SetFillStyle(0);
     legend->Draw();
 
-    string output = "reweight_Higgsino" + n2_n1 + "_m12_" + to_string(m12) + "_" + var + ".pdf";
+    string output = "reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + "_" + var + ".pdf";
     c->SaveAs(output.c_str());
     c->Close();
 }
@@ -406,48 +414,109 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
     func_Higgsino->SetParameter(0, 1./integral_func_Higgsino);
     func_NUHM2->SetParameter(0, 1./integral_func_NUHM2);
 
+    // string tree_name = "EwkHiggsino2016__ntuple";
+    string tree_name = "EwkNUHM22016__ntuple";
+
     TFile *file = new TFile(f.c_str());
-    TTreeReader myReader("EwkHiggsino2016__ntuple", file);
+    TTreeReader myReader(tree_name.c_str(), file);
     TTreeReaderValue<float> truth_mll(myReader, "mll");
-    // TTreeReaderValue<int> truth_var(myReader, var.c_str());
+    TTreeReaderValue<int> truth_preselection(myReader, "preselection");
+    TTreeReaderValue<int> truth_is2LChannel(myReader, "is2LChannel");
+
+    TTreeReaderValue<int> truth_var(myReader, var.c_str());
     // TTreeReaderValue<float> truth_var(myReader, var.c_str());
     // TTreeReaderValue<vector<float>> truth_var(myReader, var.c_str());
-    TTreeReaderValue<vector<float>> truth_var(myReader, "signalLeptons_pt");
+    // TTreeReaderValue<vector<float>> truth_var(myReader, "signalLeptons_pt");
 
     while (myReader.Next()) {
         double truthMll = *truth_mll;
+        int preselection = *truth_preselection;
+        int is2LChannel = *truth_is2LChannel;
         double weight = func_NUHM2->Eval(truthMll) / func_Higgsino->Eval(truthMll); //ratio NUHM2/higgsino
 
-        if (var.compare("baselineElectrons_pt") == 0 ||
-            var.compare("baselineMuons_pt") == 0 ||
-            var.compare("baselineJets_pt") == 0 ||
-            var.compare("signalMuons_pt") == 0 ||
-            var.compare("signalJets_pt") == 0 ||
-            var.compare("signalBjets_pt") == 0 ||
-            var.compare("baselineLeptons_pt") == 0 ||
-            var.compare("signalLeptons_pt") == 0 ||
-            var.compare("baselineElectrons_eta") == 0 ||
-            var.compare("baselineMuons_eta") == 0 ||
-            var.compare("baselineJets_eta") == 0 ||
-            var.compare("signalElectrons_eta") == 0 ||
-            var.compare("signalMuons_eta") == 0 ||
-            var.compare("signalJets_eta") == 0 ||
-            var.compare("signalBjets_eta") == 0 ||
-            var.compare("baselineLeptons_eta") == 0 ||
-            var.compare("signalLeptons_eta") == 0 ||
-            var.compare("baselineElectrons_phi") == 0 ||
-            var.compare("baselineMuons_phi") == 0 ||
-            var.compare("baselineJets_phi") == 0 ||
-            var.compare("signalElectrons_phi") == 0 ||
-            var.compare("signalMuons_phi") == 0 ||
-            var.compare("signalJets_phi") == 0 ||
-            var.compare("signalBjets_phi") == 0 ||
-            var.compare("baselineLeptons_phi") == 0 ||
-            var.compare("signalLeptons_phi") == 0) {
-            // special for pt, eta, and phi because they are vector<float> type
-            int var_size = (*truth_var).size();
-            for (int i_var = 0; i_var < var_size; i_var++) {
-                double truthVar = (*truth_var)[i_var];
+        // if (var.compare("baselineElectrons_pt") == 0 ||
+        //     var.compare("baselineMuons_pt") == 0 ||
+        //     var.compare("baselineJets_pt") == 0 ||
+        //     var.compare("signalMuons_pt") == 0 ||
+        //     var.compare("signalJets_pt") == 0 ||
+        //     var.compare("signalBjets_pt") == 0 ||
+        //     var.compare("baselineLeptons_pt") == 0 ||
+        //     var.compare("signalLeptons_pt") == 0 ||
+        //     var.compare("baselineElectrons_eta") == 0 ||
+        //     var.compare("baselineMuons_eta") == 0 ||
+        //     var.compare("baselineJets_eta") == 0 ||
+        //     var.compare("signalElectrons_eta") == 0 ||
+        //     var.compare("signalMuons_eta") == 0 ||
+        //     var.compare("signalJets_eta") == 0 ||
+        //     var.compare("signalBjets_eta") == 0 ||
+        //     var.compare("baselineLeptons_eta") == 0 ||
+        //     var.compare("signalLeptons_eta") == 0 ||
+        //     var.compare("baselineElectrons_phi") == 0 ||
+        //     var.compare("baselineMuons_phi") == 0 ||
+        //     var.compare("baselineJets_phi") == 0 ||
+        //     var.compare("signalElectrons_phi") == 0 ||
+        //     var.compare("signalMuons_phi") == 0 ||
+        //     var.compare("signalJets_phi") == 0 ||
+        //     var.compare("signalBjets_phi") == 0 ||
+        //     var.compare("baselineLeptons_phi") == 0 ||
+        //     var.compare("signalLeptons_phi") == 0) {
+        //     // special for pt, eta, and phi because they are vector<float> type
+        //     int var_size = (*truth_var).size();
+        //     for (int i_var = 0; i_var < var_size; i_var++) {
+        //         double truthVar = (*truth_var)[i_var];
+        //         if (truthMll < dm) {
+        //             if (!is_reweight) {// original
+        //                 h1->Fill(truthVar);
+        //             }
+        //             else {// reweight
+        //                 h1->Fill(truthVar, weight);
+        //             }
+        //         }
+        //     }
+        // }
+        // else if (var.compare("pTLep1") == 0 ||
+        //          var.compare("pTLep2") == 0) {
+        //     double truthVar = 0;
+        //     if (var.compare("pTLep1") == 0 &&
+        //         (*truth_var).size() >= 1) {
+        //         truthVar = (*truth_var)[0];
+        //     }
+        //     else if (var.compare("pTLep2") == 0 &&
+        //              (*truth_var).size() >= 2)
+        //         truthVar = (*truth_var)[1];
+        //     if (truthMll < dm &&
+        //         truthVar > 0) {
+        //         if (!is_reweight) {// original
+        //             h1->Fill(truthVar);
+        //         }
+        //         else {// reweight
+        //             h1->Fill(truthVar, weight);
+        //         }
+        //     }
+        // }
+
+        double truthVar = *truth_var;
+
+        // cout << "truthMll=" << truthMll
+        // << ", truthVar=" << truthVar
+        // << ", weight=" << weight
+        // << endl;
+        // cut:
+        if (var.compare("HT30") == 0 ||
+            var.compare("HTIncl") == 0 ||
+            var.compare("HTLep12") == 0 ||
+            var.compare("METOverHT") == 0 ||
+            var.compare("meffIncl") == 0 ||
+            var.compare("Rll") == 0 ||
+            var.compare("dphiMin1") == 0 ||
+            var.compare("mT") == 0 ||
+            var.compare("mT2") == 0 ||
+            var.compare("met") == 0 ||
+            var.compare("mll") == 0 ||
+            var.compare("pTll") == 0) {
+            if (truthVar > 0. &&
+                preselection == 1 &&
+                is2LChannel == 1) {
                 if (truthMll < dm) {
                     if (!is_reweight) {// original
                         h1->Fill(truthVar);
@@ -458,79 +527,33 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
                 }
             }
         }
-        else if (var.compare("pTLep1") == 0 ||
-                 var.compare("pTLep2") == 0) {
-            double truthVar = 0;
-            if (var.compare("pTLep1") == 0 &&
-                (*truth_var).size() >= 1) {
-                truthVar = (*truth_var)[0];
-            }
-            else if (var.compare("pTLep2") == 0 &&
-                     (*truth_var).size() >= 2)
-                truthVar = (*truth_var)[1];
-            if (truthMll < dm &&
-                truthVar > 0) {
-                if (!is_reweight) {// original
-                    h1->Fill(truthVar);
-                }
-                else {// reweight
-                    h1->Fill(truthVar, weight);
+        else if (var.compare("MTauTau") == 0) {
+            if (truthVar != 0 &&
+                preselection == 1 &&
+                is2LChannel == 1) {
+                if (truthMll < dm) {
+                    if (!is_reweight) {// original
+                        h1->Fill(truthVar);
+                    }
+                    else {// reweight
+                        h1->Fill(truthVar, weight);
+                    }
                 }
             }
         }
-        
-        // double truthVar = *truth_var;
-
-        // // cout << "truthMll=" << truthMll
-        // // << ", truthVar=" << truthVar
-        // // << ", weight=" << weight
-        // // << endl;
-        // // cut:
-        // if (var.compare("HT30") == 0 ||
-        //     var.compare("HTIncl") == 0 ||
-        //     var.compare("HTLep12") == 0 ||
-        //     var.compare("METOverHT") == 0 ||
-        //     var.compare("meffIncl") == 0 ||
-        //     var.compare("Rll") == 0 ||
-        //     var.compare("dphiMin1") == 0 ||
-        //     var.compare("mT") == 0 ||
-        //     var.compare("mT2") == 0 ||
-        //     var.compare("met") == 0 ||
-        //     var.compare("mll") == 0 ||
-        //     var.compare("pTll") == 0) {
-        //     if (truthVar > 0.) {
-        //         if (truthMll < dm) {
-        //             if (!is_reweight) {// original
-        //                 h1->Fill(truthVar);
-        //             }
-        //             else {// reweight
-        //                 h1->Fill(truthVar, weight);
-        //             }
-        //         }
-        //     }
-        // }
-        // else if (var.compare("MTauTau") == 0) {
-        //     if (truthVar != 0) {
-        //         if (truthMll < dm) {
-        //             if (!is_reweight) {// original
-        //                 h1->Fill(truthVar);
-        //             }
-        //             else {// reweight
-        //                 h1->Fill(truthVar, weight);
-        //             }
-        //         }
-        //     }
-        // }
-        // else {
-        //     if (truthMll < dm) {
-        //         if (!is_reweight) {// original
-        //             h1->Fill(truthVar);
-        //         }
-        //         else {// reweight
-        //             h1->Fill(truthVar, weight);
-        //         }
-        //     }
-        // }
+        else {
+            if (preselection == 1 &&
+                is2LChannel == 1) {
+                if (truthMll < dm) {
+                    if (!is_reweight) {// original
+                        h1->Fill(truthVar);
+                    }
+                    else {// reweight
+                        h1->Fill(truthVar, weight);
+                    }
+                }
+            }
+        }
 
     }
 
@@ -602,9 +625,9 @@ void get_nbins_xmin_xmax(string var, int &nbins, double &xmin, double &xmax)
              var.compare("nSignalLeptons") == 0 ||
              var.compare("nElectrons") == 0 ||
              var.compare("nMuons") == 0) {
-        nbins = 6;
+        nbins = 10;
         xmin = 0.;
-        xmax = 6.;
+        xmax = 10.;
     }
     else if (var.compare("nJets") == 0 ||
              var.compare("nJet30") == 0 ||
@@ -671,7 +694,9 @@ string get_x_title(string var)
         var.compare("signalJets_pt") == 0 ||
         var.compare("signalBjets_pt") == 0 ||
         var.compare("baselineLeptons_pt") == 0 ||
-        var.compare("signalLeptons_pt") == 0) {
+        var.compare("signalLeptons_pt") == 0 ||
+        var.compare("pTLep1") == 0 ||
+        var.compare("pTLep2") == 0) {
         x_title = "p_{T} [GeV]";
     }
     else if (var.compare("baselineElectrons_eta") == 0 ||
@@ -796,7 +821,7 @@ void get_range_user(string var, double &range_user_xmin, double &range_user_xmax
              var.compare("nJet25") == 0 ||
              var.compare("nBjets") == 0){
         range_user_xmin = 0.;
-        range_user_xmax = 6.;
+        range_user_xmax = 10.;
     }
     else if (var.compare("dphiMin1") == 0 ||
              var.compare("METOverHT") == 0 ||

@@ -4,6 +4,38 @@ The NUHM2 Higgsino study
 ---
 
 
+### v23. Use 20170815 results and add preselection and 2L requirements
+* `EwkNUHM22016.cxx`: New code modified from `EwkHiggsino2016`
+* `RunSimpleAnalysis.sh`: Change `EwkHiggsino2016` to `EwkNUHM22016`
+* `file_path.C`: Use new directory `20170815/`
+* `get_combined_hist.C`: Change `EwkHiggsino2016` to `EwkNUHM22016`
+* `mll_ratio.C`: Change `EwkHiggsino2016` to `EwkNUHM22016`
+* `overlap_histograms.C`: Use new directory `20170815/`
+* `view_combine_hist.C`: Use new directory `20170815/`
+* `test_fit.C`:
+  * Change function declaration.
+  * Use new directory `20170815/`
+  * Include `ytUtility.C` so I can use `get_dm_NUHM2()`
+  * Add `xrange_max` for `SetRangeUser()`
+  * Fix the line color
+  * Change the legend coordinate
+* `test_Higgsino_160_100.C`: Use new directory `20170815/`
+* `reweight_truth3.C`:
+  * Use new directory `20170815/`
+  * Remove `get_func_ratio_parameters()`
+  * Change `EwkHiggsino2016` to `EwkNUHM22016`
+  * Add `preselection` and `2LChannel`
+* `reweight_kinematic_variables.C`:
+  * Use new directory `20170815/`
+  * Add `y_scale_factor` and change `y_max`
+  * Change the legend coordinate and font size
+  * Fix the output file name.
+  * Change `EwkHiggsino2016` to `EwkNUHM22016`
+  * Add `preselection` and `2LChannel`
+  * Add `pTLep1` and `nJet30` plots
+  * Change some cosmetic of plots 
+
+
 ### v22. reweight kinematic variables
 * `AtlasStyle.py`: Comment ROOT color
 * `BR_calculation.py`: Add `sum_BR()` into `main()` but comment it

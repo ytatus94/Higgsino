@@ -19,7 +19,6 @@
 using namespace std;
 
 // Declare functions
-void get_func_ratio_parameters(int, double *);
 void plot_Lorenzo(int, int, int);
 void plot_Mike(int, int, int);
 void tree_reader(string, double, TH1F *, TH1F *h2 = NULL, TF1 *func1 = NULL, TF1 *func2 = NULL);
@@ -36,52 +35,12 @@ void reweight_truth3()
     plot_Lorenzo(170, 150, 800);
 
     // Use Mike's way
-    // plot_Mike(160, 100, 350);
-    // plot_Mike(190, 150, 400);
-    // plot_Mike(190, 150, 500);
-    // plot_Mike(190, 150, 600);
-    // plot_Mike(170, 150, 700);
-    // plot_Mike(170, 150, 800);
-}
-
-void get_func_ratio_parameters(int m12, double *par)
-{
-    if (m12 == 300) {
-        par[0] = 0.;
-        par[1] = 0.;
-        par[2] = 0.;
-    }
-    else if (m12 == 350) {
-        par[0] = 1.36291;
-        par[1] = 0.0256363;
-        par[2] = -0.00112278;
-    }
-    else if (m12 == 400) {
-        par[0] = 2.02296;
-        par[1] = 0.0183473;
-        par[2] = -0.00178666;
-    }
-    else if (m12 == 500) {
-        par[0] = 1.77105;
-        par[1] = 0.01694;
-        par[2] = -0.00259439;
-    }
-    else if (m12 == 600) {
-        par[0] = 2.88514;
-        par[1] = -0.0124539;
-        par[2] = -0.00499686;
-    }
-    else if (m12 == 700) {
-        par[0] = 1.21747;
-        par[1] = 0.004116;
-        par[2] = -0.00197311;
-
-    }
-    else if (m12 == 800) {
-        par[0] = 1.59017;
-        par[1] = 0.0318019;
-        par[2] = -0.00740787;
-    }
+    plot_Mike(160, 100, 350);
+    plot_Mike(190, 150, 400);
+    plot_Mike(190, 150, 500);
+    plot_Mike(190, 150, 600);
+    plot_Mike(170, 150, 700);
+    plot_Mike(170, 150, 800);
 }
 
 void plot_Lorenzo(int n2, int n1, int m12)
@@ -118,7 +77,7 @@ void plot_Lorenzo(int n2, int n1, int m12)
     func_NUHM2->SetParameter(0, 1./integral_func_NUHM2);
 
     //Get the higgsino truth3 MC sample
-    string path_Higgsino = "/Users/ytshen/Desktop/20170810/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
     string file_Higgsino_N2N1  = path_Higgsino + "user.yushen.SM_N2N1_"  + n2_n1 + "_2LMET50.root";
@@ -194,7 +153,7 @@ void plot_Lorenzo(int n2, int n1, int m12)
     // cout << "func_NUHM2->Integral(0, dm_NUHM2)=" << func_NUHM2->Integral(0, dm_NUHM2) << endl;
 
     // Get the NUHM2 truth3 MC sample
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170730/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
 
     string f_NUHM2_N2N1 = "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     // string f_NUHM2_C1C1 = "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
@@ -286,7 +245,7 @@ void plot_Mike(int n2, int n1, int m12)
     double dm_NUHM2 = get_dm_NUHM2(m12);
 
     //Get the higgsino truth3 MC sample
-    string path_Higgsino = "/Users/ytshen/Desktop/20170810/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
     string f_Higgsino_N2N1 = path_Higgsino + "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
@@ -298,7 +257,7 @@ void plot_Mike(int n2, int n1, int m12)
     h_Higgsino_combined_original->SetLineColor(kGreen);
 
     // Get the NUHM2 truth3 MC sample
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170730/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
 
     string f_NUHM2_N2N1 = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     string f_NUHM2_C1C1 = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
@@ -461,17 +420,26 @@ void plot_Mike(int n2, int n1, int m12)
 
 void tree_reader(string f, double dm, TH1F *h1, TH1F *h2 = NULL, TF1 *func1 = NULL, TF1 *func2 = NULL)
 {
+    // string tree_name = "EwkHiggsino2016__ntuple";
+    string tree_name = "EwkNUHM22016__ntuple";
+
     TFile *file = new TFile(f.c_str());
-    TTreeReader myReader("EwkHiggsino2016__ntuple", file);
+    TTreeReader myReader(tree_name.c_str(), file);
     TTreeReaderValue<float> truth_mll(myReader, "mll");
+    TTreeReaderValue<int> truth_preselection(myReader, "preselection");
+    TTreeReaderValue<int> truth_is2LChannel(myReader, "is2LChannel");
 
     while (myReader.Next()) {
         double truthMll = *truth_mll;
-        if (truthMll < dm) {
-            h1->Fill(truthMll);
-            if (h2 && func1 && func2) {
-                double weight = func2->Eval(truthMll) / func1->Eval(truthMll); //ratio NUHM2/higgsino
-                h2->Fill(truthMll, weight);
+        int preselection = *truth_preselection;
+        int is2LChannel = *truth_is2LChannel;
+        if (preselection == 1 && is2LChannel == 1) {
+            if (truthMll < dm) {
+                h1->Fill(truthMll);
+                if (h2 && func1 && func2) {
+                    double weight = func2->Eval(truthMll) / func1->Eval(truthMll); //ratio NUHM2/higgsino
+                    h2->Fill(truthMll, weight);
+                }
             }
         }
     }

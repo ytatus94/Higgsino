@@ -6,13 +6,14 @@
 
 #include "get_combined_hist.C"
 #include "FuncMllDistr.C"
+#include "ytUtility.C"
 
 #include <string>
 
-void test_fit(string n2_n1, int m12)
+void test_fit(string n2_n1, int m12, string var = "mll")
 {
     // string path_higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170802/";
-    string path_higgsino = "/Users/ytshen/Desktop/20170802/";
+    string path_higgsino = "/Users/ytshen/Desktop/20170815/";
 
     string f_higgsino_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
     string f_higgsino_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root";
@@ -24,28 +25,14 @@ void test_fit(string n2_n1, int m12)
     double dm_higgsino = n2 - n1;
 
     // string path_nuhm2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170730/";
-    string path_nuhm2 = "/Users/ytshen/Desktop/20170730/";
+    string path_nuhm2 = "/Users/ytshen/Desktop/20170815/";
 
     string f_nuhm2_N2N1 = "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     string f_nuhm2_C1C1 = "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
     string f_nuhm2_N2C1p = "user.yushen.run_" + to_string(m12) + "_N2C1p.TestJob.root";
     string f_nuhm2_N2C1m = "user.yushen.run_" + to_string(m12) + "_N2C1m.TestJob.root";
 
-    double dm_nuhm2 = 0;
-    if (m12 == 300)
-        dm_nuhm2 = 55.;
-    else if (m12 == 350)
-        dm_nuhm2 = 46.;
-    else if (m12 == 400)
-        dm_nuhm2 = 38.;
-    else if (m12 == 500)
-        dm_nuhm2 = 28.;
-    else if (m12 == 600)
-        dm_nuhm2 = 22.;
-    else if (m12 == 700)
-        dm_nuhm2 = 18.;
-    else if (m12 == 800)
-        dm_nuhm2 = 15.;
+    double dm_nuhm2 = get_dm_NUHM2(m12);
 
     string file1 = path_higgsino + f_higgsino_N2N1;
     string file2 = path_higgsino + f_higgsino_C1C1;
@@ -55,8 +42,6 @@ void test_fit(string n2_n1, int m12)
     string file6 = path_nuhm2 + f_nuhm2_C1C1;
     string file7 = path_nuhm2 + f_nuhm2_N2C1p;
     string file8 = path_nuhm2 + f_nuhm2_N2C1m;
-
-    string var = "mll";
 
     TCanvas *canvas =  new TCanvas("c","", 800,600);
     canvas->SetLeftMargin(0.12);
@@ -70,11 +55,17 @@ void test_fit(string n2_n1, int m12)
     if (stat_box)
         gStyle->SetOptFit(1111);
 
+    double xrange_max = 0.;
+    if (m12 <= 400)
+        xrange_max = 100.;
+    else
+        xrange_max = 50.;
+
     TH1F *h_higgsino = (TH1F *)get_combined_hist(file1, file2, file3, file4);
     // h_higgsino->SetLineColor(kBlack);
-    h_higgsino->SetLineColor(kRed);
+    h_higgsino->SetLineColor(kGreen);
     h_higgsino->SetTitle("");
-    h_higgsino->GetXaxis()->SetRangeUser(0, 50);
+    h_higgsino->GetXaxis()->SetRangeUser(0, xrange_max);
     h_higgsino->GetYaxis()->SetTitleOffset(1.3);
     h_higgsino->SetName("h_higgsino");
     if (!stat_box)
@@ -82,7 +73,7 @@ void test_fit(string n2_n1, int m12)
 
     TH1F *h_nuhm2 = (TH1F *)get_combined_hist(file5, file6, file7, file8);
     // h_nuhm2->SetLineColor(kBlue);
-    h_nuhm2->SetLineColor(kGreen);
+    h_nuhm2->SetLineColor(kBlue);
     h_nuhm2->GetYaxis()->SetTitleOffset(1.2);
     h_nuhm2->SetName("h_nuhm2");
     if (!stat_box)
@@ -113,7 +104,7 @@ void test_fit(string n2_n1, int m12)
     // fit_higgsino_core.FixParameter(1, n1)
     // fit_higgsino_core.FixParameter(2, -1.*n2)
     // fit_higgsino_core->SetLineColor(kRed-8);
-    fit_higgsino_core->SetLineColor(kRed);
+    fit_higgsino_core->SetLineColor(kGreen);
     fit_higgsino_core->SetLineWidth(3);
     h_higgsino->Fit(fit_higgsino_core, "R0");// “R” Use the range specified in the function range
     h_higgsino->Fit(fit_higgsino_core, "R0");
@@ -160,7 +151,7 @@ void test_fit(string n2_n1, int m12)
     TF1 *fit_nuhm2_core = new TF1("fit_nuhm2_core", FuncMllDistr, 0, dm_nuhm2, 3); // need to provide number of parameters as the last argument
     fit_nuhm2_core->SetParameters(1, n1, -1.*n2); // n1 and n2 should be opposite sign
     // fit_nuhm2_core->SetLineColor(kGreen-7);
-    fit_nuhm2_core->SetLineColor(kGreen);
+    fit_nuhm2_core->SetLineColor(kBlue);
     fit_nuhm2_core->SetLineWidth(3);
     h_nuhm2->Fit(fit_nuhm2_core, "R0");
     h_nuhm2->Fit(fit_nuhm2_core, "R0");
@@ -202,7 +193,7 @@ void test_fit(string n2_n1, int m12)
     // ps2->SetTextColor(2);
     // gPad->Modified();
 
-    TLegend *legend = new TLegend(0.5, 0.6, 0.9, 0.8);
+    TLegend *legend = new TLegend(0.6, 0.6, 0.9, 0.8);
     legend->AddEntry(h_higgsino, ("Higgsino" + n2_n1).c_str(), "l");
     legend->AddEntry(h_nuhm2, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
     // legend->AddEntry(fit_higgsino_total, "fitting Higgsino", "l");

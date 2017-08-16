@@ -38,7 +38,7 @@ void overlap_histograms(string n2_n1)
 TH1F *get_TRUTH3_histograms(string n2_n1)
 {
     // TRUTH3
-    string path_truth3 = "/Users/ytshen/Desktop/20170810/";
+    string path_truth3 = "/Users/ytshen/Desktop/20170815/";
 
     string f_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
     string f_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root";

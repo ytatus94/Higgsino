@@ -16,26 +16,26 @@ void tree_reader(string, double, TH1F *);
 
 void mll_ratio()
 {
-    plot_mll_ratio_with_tail(100, 160, 350);
-    plot_mll_ratio_with_tail(100, 160, 400);
-    plot_mll_ratio_with_tail(150, 190, 500);
-    plot_mll_ratio_with_tail(150, 190, 600);
-    plot_mll_ratio_with_tail(150, 170, 700);
-    plot_mll_ratio_with_tail(150, 170, 800);
+    plot_mll_ratio_with_tail(160, 100, 350);
+    plot_mll_ratio_with_tail(190, 150, 400);
+    plot_mll_ratio_with_tail(190, 150, 500);
+    plot_mll_ratio_with_tail(190, 150, 600);
+    plot_mll_ratio_with_tail(170, 150, 700);
+    plot_mll_ratio_with_tail(170, 150, 800);
 
-    // plot_mll_ratio_without_tail(100, 160, 350);
-    // plot_mll_ratio_without_tail(100, 160, 400);
-    // plot_mll_ratio_without_tail(150, 190, 500);
-    // plot_mll_ratio_without_tail(150, 190, 600);
-    // plot_mll_ratio_without_tail(150, 170, 700);
-    // plot_mll_ratio_without_tail(150, 170, 800);
+    // plot_mll_ratio_without_tail(160, 100, 350);
+    // plot_mll_ratio_without_tail(190, 150, 400);
+    // plot_mll_ratio_without_tail(190, 150, 500);
+    // plot_mll_ratio_without_tail(190, 150, 600);
+    // plot_mll_ratio_without_tail(170, 150, 700);
+    // plot_mll_ratio_without_tail(170, 150, 800);
 }
 
-void plot_mll_ratio_with_tail(int n1, int n2, int m12)
+void plot_mll_ratio_with_tail(int n2, int n1, int m12)
 {
     // Get histograms
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170730/";
-    string path_Higgsino = "/Users/ytshen/Desktop/20170810/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -201,14 +201,14 @@ void plot_mll_ratio_with_tail(int n1, int n2, int m12)
     c->SaveAs(output.c_str());
 }
 
-void plot_mll_ratio_without_tail(int n1, int n2, int m12)
+void plot_mll_ratio_without_tail(int n2, int n1, int m12)
 {
     double dm_NUHM2 = get_dm_NUHM2(m12);
     double dm_Higgsino = n2 - n1;
 
     // Get histograms
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170730/";
-    string path_Higgsino = "/Users/ytshen/Desktop/20170810/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -369,8 +369,11 @@ void plot_mll_ratio_without_tail(int n1, int n2, int m12)
 
 void tree_reader(string f, double dm, TH1F *h1)
 {
+    // string tree_name = "EwkHiggsino2016__ntuple";
+    string tree_name = "EwkNUHM22016__ntuple";
+
     TFile *file = new TFile(f.c_str());
-    TTreeReader myReader("EwkHiggsino2016__ntuple", file);
+    TTreeReader myReader(tree_name.c_str(), file);
     TTreeReaderValue<float> truth_mll(myReader, "mll");
 
     TH1F *h_NUHM2_N2N1 = new TH1F("h_NUHM2_N2N1", "", 200, 0, 200);

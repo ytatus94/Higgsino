@@ -14,12 +14,15 @@ TH1F *get_histogram(string file)
     double xmax  = 200.;
     string cut = "";
 
+    // string tree_name = "EwkHiggsino2016__ntuple";
+    string tree_name = "EwkNUHM22016__ntuple";
+
     TFile *f1 = new TFile(file.c_str());
 
     h_name = "h_" + var;
     TH1F  *h1 = new TH1F(h_name.c_str(), var.c_str(), nbins, xmin, xmax);
 
-    TTree *t1 = (TTree *)f1->Get("EwkHiggsino2016__ntuple");
+    TTree *t1 = (TTree *)f1->Get(tree_name.c_str());
     t1->Project(h_name.c_str(), var.c_str(), cut.c_str());
 
     return h1;
@@ -34,12 +37,15 @@ TH1F *get_histogram(string file, string Var, int Nbins, double Xmin, double Xmax
     double xmax  = Xmax;
     string cut = Cut;
 
+    // string tree_name = "EwkHiggsino2016__ntuple";
+    string tree_name = "EwkNUHM22016__ntuple";
+
     TFile *f1 = new TFile(file.c_str());
 
     h_name = "h_" + var;
     TH1F  *h1 = new TH1F(h_name.c_str(), var.c_str(), nbins, xmin, xmax);
 
-    TTree *t1 = (TTree *)f1->Get("EwkHiggsino2016__ntuple");
+    TTree *t1 = (TTree *)f1->Get(tree_name.c_str());
     t1->Project(h_name.c_str(), var.c_str(), cut.c_str());
 
     return h1;
