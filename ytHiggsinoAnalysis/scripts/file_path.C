@@ -14,7 +14,7 @@ string file_170_150 = path_common_ntuple + f_170_150;
 string file_190_150 = path_common_ntuple + f_190_150;
 
 // Higgsino TRUTH3
-string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
+string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
 
 string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -24,7 +24,7 @@ string file_Higgsino_N2C1p = path_Higgsino + "user.yushen.SM_N2C1p_" + n2_n1 + "
 string file_Higgsino_N2C1m = path_Higgsino + "user.yushen.SM_N2C1m_" + n2_n1 + "_2LMET50.root";
 
 // NUHM2 TRUTH3
-string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
+string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
 
 string file_NUHM2_N2N1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
 string file_NUHM2_C1C1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";

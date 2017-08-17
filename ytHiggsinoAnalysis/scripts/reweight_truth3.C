@@ -77,7 +77,7 @@ void plot_Lorenzo(int n2, int n1, int m12)
     func_NUHM2->SetParameter(0, 1./integral_func_NUHM2);
 
     //Get the higgsino truth3 MC sample
-    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
     string file_Higgsino_N2N1  = path_Higgsino + "user.yushen.SM_N2N1_"  + n2_n1 + "_2LMET50.root";
@@ -153,7 +153,7 @@ void plot_Lorenzo(int n2, int n1, int m12)
     // cout << "func_NUHM2->Integral(0, dm_NUHM2)=" << func_NUHM2->Integral(0, dm_NUHM2) << endl;
 
     // Get the NUHM2 truth3 MC sample
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
 
     string f_NUHM2_N2N1 = "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     // string f_NUHM2_C1C1 = "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
@@ -245,7 +245,7 @@ void plot_Mike(int n2, int n1, int m12)
     double dm_NUHM2 = get_dm_NUHM2(m12);
 
     //Get the higgsino truth3 MC sample
-    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
     string f_Higgsino_N2N1 = path_Higgsino + "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
@@ -257,7 +257,7 @@ void plot_Mike(int n2, int n1, int m12)
     h_Higgsino_combined_original->SetLineColor(kGreen);
 
     // Get the NUHM2 truth3 MC sample
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170815/";
+    string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
 
     string f_NUHM2_N2N1 = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     string f_NUHM2_C1C1 = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";

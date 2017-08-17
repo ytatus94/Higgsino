@@ -35,8 +35,8 @@ def fit_plot(file, n2_n1):
     fit_func.SetParameter(0, 1. / area_fit_func) # normalize fit_func
     fit_func.FixParameter(1, n1)
     fit_func.FixParameter(2, -1. * n2)
-    fit_func.SetLineColor(ROOT.kRed);
-    fit_func.SetLineStyle(2);
+    fit_func.SetLineColor(ROOT.kRed)
+    fit_func.SetLineStyle(2)
 
     canvas = ROOT.TCanvas("c","", 800,600)
     canvas.SetLeftMargin(0.12)
@@ -46,11 +46,11 @@ def fit_plot(file, n2_n1):
         ROOT.gPad.SetLogy()
     ROOT.gStyle.SetOptFit(1111)
 
-    h.SetXTitle("m_{ll} [GeV]");
-    h.SetYTitle("Events / 1GeV");
-    h.GetYaxis().SetTitleOffset(1.2);
-    h.SetLineColor(ROOT.kBlue);
-    h.Draw("hist");
+    h.SetXTitle("m_{ll} [GeV]")
+    h.SetYTitle("Events / 1GeV")
+    h.GetYaxis().SetTitleOffset(1.2)
+    h.SetLineColor(ROOT.kBlue)
+    h.Draw("hist")
 
     h.Fit(fit_func, "R0")
     h.Fit(fit_func, "R0")
@@ -60,15 +60,16 @@ def fit_plot(file, n2_n1):
 
     AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
 
-    legend = ROOT.TLegend(0.3, 0.3, 0.9, 0.4);
-    legend.AddEntry(h, "Higgsino_" + n2_n1, "l");
-    legend.AddEntry(fit_func, "Theoretical Higgsino_" + n2_n1 + "(fix N2 and N1)", "l");
-    legend.SetBorderSize(0);
-    legend.SetTextFont(42);
-    legend.SetTextSize(0.03);
-    legend.SetFillColor(0);
-    legend.SetFillStyle(0);
-    legend.Draw();
+    legend = ROOT.TLegend(0.5, 0.4, 0.9, 0.5)
+    legend.AddEntry(h, "Higgsino_" + n2_n1, "l")
+    # legend.AddEntry(fit_func, "Theoretical Higgsino_" + n2_n1 + "(fix N2 and N1)", "l")
+    legend.AddEntry(fit_func, "Theoretical Higgsino_" + n2_n1, "l")
+    legend.SetBorderSize(0)
+    legend.SetTextFont(42)
+    legend.SetTextSize(0.03)
+    legend.SetFillColor(0)
+    legend.SetFillStyle(0)
+    legend.Draw()
 
     output = "fit_Higgsino_common_ntuple_v1.8b_" + n2_n1 + ".pdf"
     canvas.SaveAs(output)
@@ -89,14 +90,17 @@ def funcMllDistr(x, par):
     M = m1 + m2
     m_Z = 91.
     norm = float(par[0]) * m
+    var = 0;
+    delta = abs(m2) - abs(m1);
 
-    radice = math.sqrt( pow(m, 4) - pow(m, 2) * ( pow(mu, 2) + pow(M, 2) ) + pow(mu * M, 2) )
-    normalizzazione = pow(  pow(m, 2) - pow(m_Z, 2), 2)
-    var = (norm * radice) / normalizzazione
-    var = var * (-2 * pow(m, 4) + pow(m, 2) * (2 * pow(M, 2) - pow(mu, 2)) + pow((mu * M), 2) )
+    if m < delta:
+        radice = math.sqrt( pow(m, 4) - pow(m, 2) * ( pow(mu, 2) + pow(M, 2) ) + pow(mu * M, 2) )
+        normalizzazione = pow(  pow(m, 2) - pow(m_Z, 2), 2)
+        var = (norm * radice) / normalizzazione
+        var = var * (-2 * pow(m, 4) + pow(m, 2) * (2 * pow(M, 2) - pow(mu, 2)) + pow((mu * M), 2) )
 
-    if x[0] > math.fabs(m2) - math.fabs(m1):
-        var = 1
+    # if x[0] > math.fabs(m2) - math.fabs(m1):
+    #     var = 1
 
     return var
 

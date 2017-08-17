@@ -12,7 +12,7 @@ double FuncMllDistr(double *x, double *par)
     double delta = fabs(m2) - fabs(m1);
     //cout<<"m "<<m <<" mu "<<mu<<endl;
 
-    if (m < delta){
+    if (m < delta) {
         double radice=sqrt( pow(m,4) -pow(m,2)*(pow(mu,2) + pow(M,2) ) + pow(mu*M,2) );
 
         double normalizzazione = pow(  pow(m,2) -pow(m_Z,2),2);

@@ -4,6 +4,23 @@ The NUHM2 Higgsino study
 ---
 
 
+### v24. New EwkNUHM22016.cxx
+* `EwkNUHM22016.cxx`: Checkout the newest version from simple analysis.
+* `fit_common_ntuple.py`:
+  * remove ";" in some lines
+  * Use Lorenzo's modified function
+* `file_path.C`: Use new directory `20170817/`
+* `mll_ratio.C`: Use new directory `20170817/`
+* `overlap_histograms.C`: Use new directory `20170817/`
+* `test_fit.C`: Use new directory `20170817/`
+* `test_Higgsino_160_100.C`: Use new directory `20170817/`
+* `view_combine_hist.C`: Use new directory `20170817/`
+* `reweight_truth3.C`:
+  * Use new directory `20170817/`
+  * Add `preselection` and `2LChannel`
+* `show_normalization_factor.C`: Use Lorenzo's modified function
+
+
 ### v23. Use 20170815 results and add preselection and 2L requirements
 * `EwkNUHM22016.cxx`: New code modified from `EwkHiggsino2016`
 * `RunSimpleAnalysis.sh`: Change `EwkHiggsino2016` to `EwkNUHM22016`
@@ -128,6 +145,7 @@ The NUHM2 Higgsino study
 * `ytEventSelection.cxx`: Add new branches
 * Joey removed METOverHTLep12 on Jun/20. Fix `METOverHTLep12` to `METOverHT`
 
+
 ### v15. Add new scripts
 * `NUHM2_DSID.tar`: Judita's JO
 * `BR_calculation.py`: new script
@@ -211,6 +229,7 @@ The NUHM2 Higgsino study
   * Add MET < 50 cuts and it only works on NUHM2 samples
   * Fix the bug of `HTLep12` and `METOverHTLep12` calculations
   * Use Jesse's function to calculate `MTauTau`
+
 
 ### v07. Add codes for SimpleAnalysis
 * Add new codes `EwkHiggsino2016.cxx` for SimpleAnalysis
@@ -312,5 +331,6 @@ The NUHM2 Higgsino study
   * ytHiggsinoAnalysis/misc/NUHM2.h
   * ytHiggsinoAnalysis/util/Run.cxx
   * ytHiggsinoAnalysis/ytHiggsinoAnalysis/ytEventSelection.h
+
 
 ### v01. Initialize the `ytHiggsinoAnalysis` framework

@@ -131,27 +131,11 @@ void EwkNUHM22016::ProcessEvent(AnalysisEvent *event)
 
     // mm is channel 0; ee is channel 1; em is channel 2; me is channel 3
     int channel = -1;
-    if (nSignalLeptons == 2 && signalElectrons.size() == 0)
-        channel = 0;
-    else if (nSignalLeptons == 2 && signalMuons.size() == 0)
-        channel = 1;
-    else if (nSignalLeptons == 2)
-        channel = signalElectrons[0].Pt() > signalMuons[0].Pt() ? 2 : 3;
-    else if (nSignalLeptons >= 3) {
-        // 3 or more leptons, need to check momenta
-        // mmm, mme: 0, eee, eem: 1, eme emm: 2 mee, mem: 3
-        if (nElectrons == 0) // mmm
-            channel = 0;
-        else if (nMuons == 0) // eee
-            channel = 1;
-        else if (nElectrons == 1) // emm, mem, mme
-            channel = signalElectrons[0].Pt() > signalMuons[0].Pt() ? 2 : 3;
-        else if (nMuons == 1) // mee, eme, eem
-            channel = signalMuons[0].Pt() > signalElectrons[0].Pt() ? 3 : 2;
-        else if (nElectrons > 1)
-            channel = signalElectrons[1].Pt() > signalMuons[0].Pt() ? 1 : 2;
-        else if (nMuons > 1)
-            channel = signalMuons[1].Pt() > signalElectrons[0].Pt() ? 0 : 3; 
+    if (nSignalLeptons >=2 ) {
+        if (signalLeptons[0].type()==ELECTRON)
+	    channel = (signalLeptons[1].type()==ELECTRON) ? 1 : 2;
+	else
+	    channel = (signalLeptons[1].type()==ELECTRON) ? 3 : 0;
     }
 
     // Calculate a few kinematic variables - add your favorites to AnalysisClass.cxx
@@ -178,10 +162,7 @@ void EwkNUHM22016::ProcessEvent(AnalysisEvent *event)
     }
 
     if (nBaselineLeptons >= 2) {
-        TLorentzVector dilepton(baselineLeptons[0].Px() + baselineLeptons[1].Px(),
-                                baselineLeptons[0].Py() + baselineLeptons[1].Py(),
-                                baselineLeptons[0].Pz() + baselineLeptons[1].Pz(),
-                                baselineLeptons[0].E()  + baselineLeptons[1].E());
+        auto dilepton = baselineLeptons[0] + baselineLeptons[1];
         mll  = dilepton.M();
         pTll = dilepton.Pt();
         // mll = (baselineLeptons[0] + baselineLeptons[1]).M();

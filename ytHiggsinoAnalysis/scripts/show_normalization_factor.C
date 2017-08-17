@@ -1,6 +1,6 @@
 #include <TROOT.h>
 #include <TF1.h>
-#include "FuncMllDistr.C"
+#include "FuncMllDistr_modified.C"
 #include <iostream>
 
 void show_normalization_factor()

@@ -5,7 +5,7 @@
 
 void test_Higgsino_160_100()
 {
-    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
 
     int n1 = 100, n2 = 160;
     double dm_Higgsino = n2 - n1;

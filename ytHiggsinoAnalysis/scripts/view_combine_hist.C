@@ -18,7 +18,7 @@ void view_combine_hist(int n2 = 170, int n1 = 150)
     double xmin = 0., xmax = 100.;
 
     // Higgsino TRUTH3
-    string path_Higgsino = "/Users/ytshen/Desktop/20170815/";
+    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
