@@ -4,6 +4,11 @@ The NUHM2 Higgsino study
 ---
 
 
+### v25. Update to common ntuple v1.8
+* `ytEventSelection.cxx`: Fix the bus error
+  * All vector container pointers need to set to zero at the beginning
+
+
 ### v24. New EwkNUHM22016.cxx
 * `EwkNUHM22016.cxx`: Checkout the newest version from simple analysis.
 * `fit_common_ntuple.py`:

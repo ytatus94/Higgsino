@@ -196,6 +196,8 @@ EL::StatusCode ytEventSelection :: changeInput (bool firstFile)
     jetEta = 0;
     jetPhi = 0;
     jetM = 0;
+    jetTileEnergy = 0;
+    LHE3Weights = 0;
 
     // Set branch addresses and branch pointers
     fChain = wk()->tree();
