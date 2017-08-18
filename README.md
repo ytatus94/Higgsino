@@ -3,6 +3,10 @@ The NUHM2 Higgsino study
 
 ---
 
+### v26. v1.8 yields
+* `yields.txt`: Add v1.8 yields
+* `get_yields.py`: Fix the v1.8 path
+
 
 ### v25. Update to common ntuple v1.8
 * `ytEventSelection.cxx`: Fix the bus error
