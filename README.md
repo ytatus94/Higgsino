@@ -3,6 +3,24 @@ The NUHM2 Higgsino study
 
 ---
 
+### v27. minor corrections
+* `Xsec.pdf`: Change legend position and move to `log/`
+* `yields.txt`: Remove file, but add two files (yields_v1.6.txt and yields_v1.8.txt) in `log/` 
+* `BR_calculation.py`: Add new functions `list_branching_ratio()` and `get_slha_file()`
+* `Nevents.py`: Add new function `total_number_of_events_produced()` and change legend position.
+* `check_slha.py`: New end of line
+* `read_Xsec.py`: Add new function `cross_section_ratio()`
+* `significance.py`: print information
+* `test_fit.py`: Use new directory `20170817/`
+* `Run.sh`: Use v1.8b samples
+* `fit_common_ntuple.C`: Change legend position
+* `show_normalization_factor.C`: Use new mapping
+* `Run.cxx`: Use v1.8b samples
+* `test_Higgsino_170_150_m12_600.C`: Change name to `test_Higgsino_190_150_m12_600.C`
+* `ytUtility.C`: New end of line
+* `test_fit.C`: Remove unnecessary lines
+* `test_fit.py`: Remove unnecessary parts.
+
 ### v26. v1.8 yields
 * `yields.txt`: Add v1.8 yields
 * `get_yields.py`: Fix the v1.8 path

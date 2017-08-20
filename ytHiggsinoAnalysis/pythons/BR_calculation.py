@@ -5,12 +5,16 @@ path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnaly
 
 def main():
     # sum_BR()
+    list_branching_ratio()
 
     # for m12 in 300, 350, 400, 500, 600, 700, 800:
     #     for decay in "N2N1", "C1C1", "N2C1p", "N2C1m":
     #         file_name = "NUHM2_m12_" + str(m12) + "_weak_" + decay + ".slha"
             # print file_name
 
+#----------------------------#
+
+def list_branching_ratio():
     for file in sorted( os.listdir(path) ):
         if file.startswith("susy") and file.endswith(".slha"):
             print file
@@ -20,6 +24,14 @@ def main():
                 print "BR(C1+/- ->ffN1)=", get_branching_ratio(path + file, "C1ffN1")
             if "C1C1" in file:
                 print "BR(C1->lvlN1)=", get_branching_ratio(path + file, "C1lvlN1")
+
+#----------------------------#
+
+def get_slha_file(m12, decay):
+    for file in sorted( os.listdir(path) ):
+        if file.startswith("susy") and file.endswith(".slha"):
+            if str(m12) in file and decay in file:
+                print file
 
 #----------------------------#
 

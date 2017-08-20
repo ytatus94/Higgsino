@@ -74,9 +74,10 @@ void fit_plot(string input_file, string n2_n1)
 
     gStyle->SetOptFit(1111);
 
-    TLegend *legend = new TLegend(0.3, 0.3, 0.9, 0.4);
+    TLegend *legend = new TLegend(0.5, 0.4, 0.9, 0.5);
     legend->AddEntry(hist, ("Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(fit_func, ("Calculated Higgsino_" + n2_n1 + "(fix N2 and N1)").c_str(), "l");
+    // legend->AddEntry(fit_func, ("Calculated Higgsino_" + n2_n1 + "(fix N2 and N1)").c_str(), "l");
+    legend->AddEntry(fit_func, ("Calculated Higgsino_" + n2_n1).c_str(), "l");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
     legend->SetTextSize(0.03);

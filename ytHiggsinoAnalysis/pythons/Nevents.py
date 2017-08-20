@@ -157,6 +157,11 @@ def main():
 
 #----------------------------#
 
+def total_number_of_events_produced(max_events, multiplier):
+    return max_events * multiplier
+
+#----------------------------#
+
 def acceptance(N_pass_truth, N_all):
     return N_pass_truth / N_all
 
@@ -229,7 +234,7 @@ def make_plot(y_values):
     mg.GetYaxis().SetTitle("cross-section [pb]")
     mg.GetYaxis().SetTitleOffset(1.5)
 
-    legend = ROOT.TLegend(0.5, 0.45, 0.8, 0.75)
+    legend = ROOT.TLegend(0.5, 0.40, 0.8, 0.65)
     legend.AddEntry(g_N2N1, "#tilde{#chi}^{0}_{2}#tilde{#chi}^{0}_{1}", "l")
     legend.AddEntry(g_C1C1, "#tilde{#chi}^{#pm}_{1}#tilde{#chi}^{#pm}_{1}", "l")
     legend.AddEntry(g_N2C1p, "#tilde{#chi}^{0}_{2}#tilde{#chi}^{+}_{1}", "l")

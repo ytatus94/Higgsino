@@ -4,9 +4,8 @@ import AtlasStyle
 import math
 
 def main():
-    # path_higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170802/"
-    path_higgsino = "/Users/ytshen/Desktop/20170802/"
-    n2_n1 = "170_150"
+    path_higgsino = "/Users/ytshen/Desktop/20170817/"
+    n2_n1 = "190_150"
     f_higgsino_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root"
     f_higgsino_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root"
     f_higgsino_N2C1p = "user.yushen.SM_N2C1p_" + n2_n1 + "_2LMET50.root"
@@ -16,8 +15,7 @@ def main():
     n1 = int( n2_n1[n2_n1.find("_")+1:] )
     higgsino_dm = n2 - n1
 
-    # path_nuhm2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170730/"
-    path_nuhm2 = "/Users/ytshen/Desktop/20170730/"
+    path_nuhm2 = "/Users/ytshen/Desktop/20170817/"
     m12 = 600
     f_nuhm2_N2N1 = "user.yushen.run_" + str(m12) + "_N2N1.TestJob.root"
     f_nuhm2_C1C1 = "user.yushen.run_" + str(m12) + "_C1C1.TestJob.root"
@@ -57,7 +55,6 @@ def main():
     h_nuhm2 = get_histogram(file5, file6, file7, file8)
     h_nuhm2.SetLineColor(ROOT.kBlue)
 
-    # Method 1
     # Use a Gaussian to fit the core and an exponential function to fit the tail
     # Firstly, fit core and tail separately to get the parameters,
     # then use the parameters as initial parameters for combined fit.
@@ -70,7 +67,7 @@ def main():
     # fit_higgsino_core.SetParameters(1, n1, -1.*n2) # n1 and n2 should be opposite sign
     # fit_higgsino_core.FixParameter(1, n1)
     # fit_higgsino_core.FixParameter(2, -1.*n2)
-    h_higgsino.Fit(fit_higgsino_core, "R0")  # “R” Use the range specified in the function range
+    h_higgsino.Fit(fit_higgsino_core, "R0")
     h_higgsino.Fit(fit_higgsino_core, "R0")
     h_higgsino.Fit(fit_higgsino_core, "R0+")
     higgsino_core_parameters = fit_higgsino_core.GetParameters()
@@ -94,7 +91,7 @@ def main():
                                      higgsino_tail_parameters[1])
     h_higgsino.Fit(fit_higgsino_total, "R0")
     h_higgsino.Fit(fit_higgsino_total, "R0")
-    h_higgsino.Fit(fit_higgsino_total, "R0+")
+    h_higgsino.Fit(fit_higgsino_total, "R+")
 
     # Fitting histogram (with predefined function):
     fit_nuhm2_core = ROOT.TF1("fit_nuhm2_core", "gaus", 0, nuhm2_dm)
@@ -124,20 +121,9 @@ def main():
                                   nuhm2_tail_parameters[1])
     h_nuhm2.Fit(fit_nuhm2_total, "R0")
     h_nuhm2.Fit(fit_nuhm2_total, "R0")
-    h_nuhm2.Fit(fit_nuhm2_total, "R0+")
+    h_nuhm2.Fit(fit_nuhm2_total, "R+")
 
-    h_reweight_higgsino_1 = reweight_method_1(h_higgsino,
-                                              fit_higgsino_total.GetParameters(),
-                                              fit_nuhm2_tail.GetParameters())
-    h_reweight_higgsino_1.SetLineColor(ROOT.kRed)
-
-    # Method 2
-    # Reweight higgsino mll using the ratio between dm(nuhm2) and dm(higgsino)
-
-    # Reweight higgsino
-    h_reweight_higgsino_2 = reweight_method_2(h_higgsino, float(nuhm2_dm) / float(higgsino_dm) )
-    h_reweight_higgsino_2.SetLineColor(ROOT.kRed)
-
+    # Make plot
     canvas = ROOT.TCanvas("c","", 800,600)
     canvas.SetLeftMargin(0.12)
     # ROOT.gStyle.SetOptFit(1111) # show fitting results in stats box
@@ -154,14 +140,12 @@ def main():
     h_higgsino.SetMaximum(max_value)
     h_higgsino.Draw()
     h_nuhm2.Draw("same")
-    # h_reweight_higgsino.Draw("same")
 
     legend = ROOT.TLegend(0.5, 0.7, 0.9, 0.8)
     legend.AddEntry(h_higgsino, "Higgsino" + n2_n1, "l")
     legend.AddEntry(h_nuhm2, "NUHM2 m12=" + str(m12), "l")
     # legend.AddEntry(fit_higgsino_total, "fitting Higgsino", "l")
     # legend.AddEntry(fit_nuhm2_total, "fitting NUHM2", "l")
-    legend.AddEntry(h_reweight_higgsino, "Reweighted Higgsino", "l")
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
     legend.SetTextSize(0.02);
@@ -172,7 +156,6 @@ def main():
     AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
 
     output = "fit_" + var + "_" + str(m12) + ".pdf"
-    # output = "reweighted_" + var + "_" + str(m12) + ".pdf"
     canvas.SaveAs(output)
 
 #----------------------------#
@@ -191,7 +174,7 @@ def get_histogram(f_N2N1, f_C1C1, f_N2C1p, f_N2C1m):
     cut = ""
 
     f1 = ROOT.TFile(file1)
-    t1 = f1.Get("EwkHiggsino2016__ntuple")
+    t1 = f1.Get("EwkNUHM22016__ntuple")
     h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
     t1.Project("h1_" + var, var, cut)
     integral1 = h1.Integral()
@@ -199,7 +182,7 @@ def get_histogram(f_N2N1, f_C1C1, f_N2C1p, f_N2C1m):
     h1.SetDirectory(ROOT.gROOT)
 
     f2 = ROOT.TFile(file2)
-    t2 = f2.Get("EwkHiggsino2016__ntuple")
+    t2 = f2.Get("EwkNUHM22016__ntuple")
     h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
     t2.Project("h2_" + var, var, cut)
     integral2 = h2.Integral()
@@ -207,7 +190,7 @@ def get_histogram(f_N2N1, f_C1C1, f_N2C1p, f_N2C1m):
     h2.SetDirectory(ROOT.gROOT)
 
     f3 = ROOT.TFile(file3)
-    t3 = f3.Get("EwkHiggsino2016__ntuple")
+    t3 = f3.Get("EwkNUHM22016__ntuple")
     h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
     t3.Project("h3_" + var, var, cut)
     integral3 = h3.Integral()
@@ -215,7 +198,7 @@ def get_histogram(f_N2N1, f_C1C1, f_N2C1p, f_N2C1m):
     h3.SetDirectory(ROOT.gROOT)
 
     f4 = ROOT.TFile(file4)
-    t4 = f4.Get("EwkHiggsino2016__ntuple")
+    t4 = f4.Get("EwkNUHM22016__ntuple")
     h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
     t4.Project("h4_" + var, var, cut)
     integral4 = h4.Integral()
@@ -268,34 +251,6 @@ def funcMllDistr(x, par):
         var = 1
 
     return var
-
-#----------------------------#
-
-def reweight_method_1(hist, par1, par2):
-    '''
-    Reweight Higgsino mll to NUHM2 using funcMllDistr()
-    '''
-    reweighted_hist = hist.Clone()
-    reweighted_hist.Reset() # resets the bin contents and errors of an histogram
-    for x_bin in range(0, hist.GetXaxis().GetNbins() + 1):
-
-#----------------------------#
-
-def reweight_method_2(hist, ratio):
-    '''
-    Reweight Higgsino mll to NUHM2 using
-    m_{\ell\ell}(NUHM2) = m_{\ell\ell}(Higgsino) * (dM_{NUHM2}/dM_{Higgsino})
-    '''
-    reweighted_hist = hist.Clone()
-    reweighted_hist.Reset() # resets the bin contents and errors of an histogram
-    for x_bin in range(0, hist.GetXaxis().GetNbins() + 1):
-        mll = hist.GetXaxis().GetBinCenter(x_bin)
-        reweighted_mll = mll * ratio
-        reweighted_x_bin = hist.FindBin(reweighted_mll)
-        height = hist.GetBinContent(x_bin)
-        reweighted_hist.SetBinContent(reweighted_x_bin, height)
-
-    return reweighted_hist
 
 #----------------------------#
 

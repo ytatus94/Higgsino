@@ -12,7 +12,6 @@
 
 void test_fit(string n2_n1, int m12, string var = "mll")
 {
-    // string path_higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170802/";
     string path_higgsino = "/Users/ytshen/Desktop/20170817/";
 
     string f_higgsino_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
@@ -24,7 +23,6 @@ void test_fit(string n2_n1, int m12, string var = "mll")
     double n1 = stod(n2_n1.substr(n2_n1.find("_") + 1, n2_n1.length()));
     double dm_higgsino = n2 - n1;
 
-    // string path_nuhm2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170730/";
     string path_nuhm2 = "/Users/ytshen/Desktop/20170817/";
 
     string f_nuhm2_N2N1 = "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";

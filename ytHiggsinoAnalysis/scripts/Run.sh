@@ -3,19 +3,19 @@
 function run_NUMH2_signal() {
     # echo "run_NUMH2_signal"
     # NUHM2
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
 }
 
 function run_Higgsino_signal() {
     # echo "run_Higgsino_signal"
     # Higgsino
-    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
+    Run optimization analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root
 }
 
 function run_bkg() {

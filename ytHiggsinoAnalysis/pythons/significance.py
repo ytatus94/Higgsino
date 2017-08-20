@@ -5,6 +5,7 @@ from ROOT import kFALSE
 
 def main():
     nsig, nbkg = read_number_of_events_in_signal_region()
+    # print nsig, nbkg
     zn = []
     zn.append(calculate_Zn(nsig[0], nbkg)) # m12=300
     zn.append(calculate_Zn(nsig[1], nbkg)) # m12=350

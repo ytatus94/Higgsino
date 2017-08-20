@@ -10,11 +10,11 @@
 #include <string>
 #include <iostream>
 
-void test_Higgsino_170_150_m12_600()
+void test_Higgsino_190_150_m12_600()
 {
     TF1 *f1 = new TF1("f1", FuncMllDistr, 0, 20, 3);
     // f1->SetParameters(1., 150., -170.);
-    f1->SetParameters(1.31473, 150., -170.);
+    f1->SetParameters(0.0655574, 150., -190.);
     double area_f1 = f1->Integral(0, 20);
     // f1->SetParameter(0, 1./area_f1);
     // double area_f1_new = f1->Integral(0, 20);
