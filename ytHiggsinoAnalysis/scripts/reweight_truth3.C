@@ -1,6 +1,5 @@
 #include <TROOT.h>
 #include <TFile.h>
-#include <TChain.h>
 #include <TCanvas.h>
 #include <TH1.h>
 #include <TTree.h>

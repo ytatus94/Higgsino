@@ -3,6 +3,23 @@ The NUHM2 Higgsino study
 
 ---
 
+### v28. reweight to luminosity
+* `fit_common_ntuple.py`: move to `misc/`
+* `test_fit.py`: move to `misc/`
+* `Joana_reweight.cxx`: fix typo
+* `reweight_truth3.C`: remove `TChain.h`
+* `show_normalization_factor.C`: fix typo
+* `reweight_kinematic_variables.C`: remove extra spaces.
+* `ytUtility.C`:
+  * `get_cross_section()`: New function
+  * `get_filter_efficiency()`: New function
+  * `get_luminosity()`: New function
+  * `get_sum_of_event_weight()`: New function
+  * `get_mc_weight()`: New function
+* `reweight.py`: New script
+* `reweight_mc_event_weight.C`: New script. This is based on `reweight_kinematic_variables.C`
+
+
 ### v27. minor corrections
 * `Xsec.pdf`: Change legend position and move to `log/`
 * `yields.txt`: Remove file, but add two files (yields_v1.6.txt and yields_v1.8.txt) in `log/` 

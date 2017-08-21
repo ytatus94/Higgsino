@@ -4,24 +4,28 @@
 #include <TH1.h>
 #include <TTree.h>
 #include <TTreeReader.h>
+#include <TTreeReaderValue.h>
 #include <TF1.h>
+#include <TLegend.h>
 
 #include "FuncMllDistr_modified.C"
 #include "get_combined_hist.C"
 #include "ytUtility.C"
 
 #include <string>
+#include <algorithm>
 #include <typeinfo>
 #include <iostream>
 using namespace std;
 
-void plot(string, int, int, int);
+// Declare functions
+void plot(string, int, int, int, bool = false);
 TH1F *tree_reader(string, string, int, int, int, bool);
 string get_x_title(string);
 void get_nbins_xmin_xmax(string, int &, double &, double &);
 void get_range_user(string, double &, double &);
 
-void reweight_kinematic_variables(int n2, int n1, int m12)
+void reweight_mc_event_weight(int n2, int n1, int m12, bool normalize = false)
 {
     vector<string> vars_type_vector_float = {
         // type=vector<float>:
@@ -86,23 +90,19 @@ void reweight_kinematic_variables(int n2, int n1, int m12)
     };
 
     // for (auto &var : vars_type_int) {
-    // for (auto &var : var_type_float) {
+    for (auto &var : var_type_float) {
     // for (auto &var : vars_type_vector_float) {
         // cout << var << endl;
-        // plot(var, 160, 100, 350);
-        // plot(var, 190, 150, 400);
-        // plot(var, 190, 150, 500);
-        // plot(var, 190, 150, 600);
-        // plot(var, 170, 150, 700);
-        // plot(var, 170, 150, 800);
-        // plot(var, n2, n1, m12);
-    // }
+        plot(var, n2, n1, m12, false);
+    }
     // plot("pTLep1", n2, n1, m12);
     // plot("pTLep2", n2, n1, m12);
-    plot("nJet30", n2, n1, m12);
+    // plot("nJet30", n2, n1, m12);
+
+    // plot("mll", 190, 150, 400, false);
 }
 
-void plot(string var, int n2, int n1, int m12)
+void plot(string var, int n2, int n1, int m12, bool normalize = false)
 {
     double dm_NUHM2 = get_dm_NUHM2(m12);
     double dm_Higgsino = n2 - n1;
@@ -129,10 +129,19 @@ void plot(string var, int n2, int n1, int m12)
     h_Higgsino_N2C1p_original->SetName("h_Higgsino_N2C1p_original");
     h_Higgsino_N2C1m_original->SetName("h_Higgsino_N2C1m_original");
 
-    TH1F *h_Higgsino_combined_original = combine_histogram(h_Higgsino_N2N1_original, h_Higgsino_N2C1p_original, h_Higgsino_N2C1m_original);
+    TH1F *h_Higgsino_combined_original = 0;
+    if (normalize) {
+        h_Higgsino_combined_original = combine_histogram(h_Higgsino_N2N1_original, h_Higgsino_N2C1p_original, h_Higgsino_N2C1m_original);
+        h_Higgsino_combined_original->SetYTitle("Normalized event counts");
+    }
+    else {
+        h_Higgsino_combined_original = (TH1F *)h_Higgsino_N2N1_original->Clone();
+        h_Higgsino_combined_original->Add(h_Higgsino_N2C1p_original);
+        h_Higgsino_combined_original->Add(h_Higgsino_N2C1m_original);
+        h_Higgsino_combined_original->SetYTitle("Events");
+    }
     h_Higgsino_combined_original->SetTitle("");
     h_Higgsino_combined_original->SetXTitle( (get_x_title(var)).c_str() );
-    h_Higgsino_combined_original->SetYTitle("Normalized event counts");
     h_Higgsino_combined_original->SetLineColor(kGreen);
 
     is_reweight = true;
@@ -146,10 +155,18 @@ void plot(string var, int n2, int n1, int m12)
     h_Higgsino_N2C1p_reweight->SetName("h_Higgsino_N2C1p_reweight");
     h_Higgsino_N2C1m_reweight->SetName("h_Higgsino_N2C1m_reweight");
 
-    TH1F *h_Higgsino_combined_reweight = combine_histogram(h_Higgsino_N2N1_reweight, h_Higgsino_N2C1p_reweight, h_Higgsino_N2C1m_reweight);
+    TH1F *h_Higgsino_combined_reweight = 0;
+    if (normalize) {
+        h_Higgsino_combined_reweight = combine_histogram(h_Higgsino_N2N1_reweight, h_Higgsino_N2C1p_reweight, h_Higgsino_N2C1m_reweight);
+        h_Higgsino_combined_reweight->SetYTitle("Normalized event counts");
+    }
+    else {
+        h_Higgsino_combined_reweight = (TH1F *)h_Higgsino_N2N1_reweight->Clone();
+        h_Higgsino_combined_reweight->Add(h_Higgsino_N2C1p_reweight);
+        h_Higgsino_combined_reweight->Add(h_Higgsino_N2C1m_reweight);
+    }
     h_Higgsino_combined_reweight->SetTitle("");
     h_Higgsino_combined_reweight->SetXTitle( (get_x_title(var)).c_str() );
-    h_Higgsino_combined_reweight->SetYTitle("Normalized event counts");
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // NUHM2 TRUTH3
@@ -171,10 +188,19 @@ void plot(string var, int n2, int n1, int m12)
     h_NUHM2_N2C1p->SetName("h_NUHM2_N2C1p");
     h_NUHM2_N2C1m->SetName("h_NUHM2_N2C1m");
 
-    TH1F *h_NUHM2_combined = combine_histogram(h_NUHM2_N2N1, h_NUHM2_N2C1p, h_NUHM2_N2C1m);
+    TH1F *h_NUHM2_combined = 0;
+    if (normalize) {
+        h_NUHM2_combined = combine_histogram(h_NUHM2_N2N1, h_NUHM2_N2C1p, h_NUHM2_N2C1m);
+        h_NUHM2_combined->SetYTitle("Normalized event counts");
+    }
+    else {
+        h_NUHM2_combined = (TH1F *)h_NUHM2_N2N1->Clone();
+        h_NUHM2_combined->Add(h_NUHM2_N2C1p);
+        h_NUHM2_combined->Add(h_NUHM2_N2C1m);
+        h_NUHM2_combined->SetYTitle("Events");
+    }
     h_NUHM2_combined->SetTitle("");
     h_NUHM2_combined->SetXTitle( (get_x_title(var)).c_str() );
-    h_NUHM2_combined->SetYTitle("Normalized event counts");
     h_NUHM2_combined->SetLineColor(kBlue);
 
     TH1F *h_ratio_NUHM2_original_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
@@ -187,53 +213,6 @@ void plot(string var, int n2, int n1, int m12)
     h_ratio_NUHM2_reweight_Higgsino->SetLineColor(kRed);
     h_ratio_NUHM2_reweight_Higgsino->SetMarkerColor(kRed);
 
-/*
-    // Making plot
-    TCanvas *c = new TCanvas("c", "", 800, 600);
-    c->SetLeftMargin(0.12);
-    bool logY = false;
-
-    if (var.compare("HTIncl") == 0 ||
-        var.compare("HT30") == 0 ||
-        var.compare("HTLep12") == 0 ||
-        var.compare("METOverHTLep12") == 0 ||
-        var.compare("mll") == 0 ||
-        var.compare("pTll") == 0 ||
-        var.compare("Rll") == 0 ||
-        var.compare("mT") == 0 ||
-        var.compare("mT2") == 0) {
-        logY = true;
-    }
-
-    if (logY)
-        gPad->SetLogy();
-
-    double range_user_xmin = 0., range_user_xmax = 0.;
-    get_range_user(var, range_user_xmin, range_user_xmax);
-
-    double y_max = max(h_Higgsino_combined_original->GetMaximum(), h_Higgsino_combined_reweight->GetMaximum()) * 1.5;
-
-    h_Higgsino_combined_original->GetXaxis()->SetRangeUser(range_user_xmin, range_user_xmax);
-    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.4);
-    h_Higgsino_combined_original->SetMaximum(y_max);
-    h_Higgsino_combined_original->SetStats(0);
-    h_Higgsino_combined_original->Draw("hist");
-    
-    h_Higgsino_combined_reweight->Draw("hist,same");
-    
-    h_NUHM2_combined->Draw("hist,same");
-
-    TLegend *legend = new TLegend(0.4, 0.6, 0.9, 0.8);
-    legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(h_Higgsino_combined_reweight, ("reweight Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
-    legend->SetBorderSize(0);
-    legend->SetTextFont(42);
-    legend->SetTextSize(0.03);
-    legend->SetFillColor(0);
-    legend->SetFillStyle(0);
-    legend->Draw();
-*/
     // Making plot
     TCanvas *c = new TCanvas("c", "", 800, 600);
     c->SetLeftMargin(0.12);
@@ -291,7 +270,8 @@ void plot(string var, int n2, int n1, int m12)
     double y_max = max(y_max1, h_NUHM2_combined->GetMaximum()) * y_scale_factor;
 
     h_Higgsino_combined_original->GetXaxis()->SetRangeUser(range_user_xmin, range_user_xmax);
-    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.4);
+    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(0.9);
+    h_Higgsino_combined_original->GetYaxis()->SetTitleSize(0.05);
     h_Higgsino_combined_original->SetMaximum(y_max);
     h_Higgsino_combined_original->SetStats(0);
     h_Higgsino_combined_original->Draw("hist");
@@ -300,13 +280,17 @@ void plot(string var, int n2, int n1, int m12)
     
     h_NUHM2_combined->Draw("hist,same");
 
+    cout << "h_Higgsino_combined_original->Integral()=" << h_Higgsino_combined_original->Integral() << endl;
+    cout << "h_Higgsino_combined_reweight->Integral()=" << h_Higgsino_combined_reweight->Integral() << endl;
+    cout << "h_NUHM2_combined->Integral()=" << h_NUHM2_combined->Integral() << endl;
+
     //
     // pad2: bottom pad
     //
     pad2->cd(); // pad2 becomes the current pad
 
     double pad2_X_min = range_user_xmin, pad2_X_max = range_user_xmax;
-    double pad2_Y_min = 0., pad2_Y_max = 5;
+    double pad2_Y_min = 0., pad2_Y_max = 4.9;
     string pad2_X_title = get_x_title(var);
     string pad2_Y_title = "ratio";
 
@@ -321,7 +305,7 @@ void plot(string var, int n2, int n1, int m12)
     frame->GetXaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
     frame->GetXaxis()->SetLabelSize(20);
     frame->SetYTitle(pad2_Y_title.c_str());
-    frame->GetYaxis()->SetTitleSize(15);
+    frame->GetYaxis()->SetTitleSize(20);
     frame->GetYaxis()->SetTitleFont(43);
     frame->GetYaxis()->SetTitleOffset(1.6);
     frame->GetYaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
@@ -347,7 +331,13 @@ void plot(string var, int n2, int n1, int m12)
     legend->SetFillStyle(0);
     legend->Draw();
 
-    string output = "reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + "_" + var + ".pdf";
+    string output = "";
+    if (normalize) {
+        output = "reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + "_" + var + "_normalize.pdf";
+    }
+    else {
+        output = "reweight_Higgsino_" + n2_n1 + "_m12_" + to_string(m12) + "_" + var + ".pdf";
+    }
     c->SaveAs(output.c_str());
     c->Close();
 }
@@ -359,11 +349,6 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
     double xmin = 0., xmax = 0.;
 
     get_nbins_xmin_xmax(var, nbins, xmin, xmax);
-    // cout << "var=" << var
-    // << ", nbins=" << nbins
-    // << ", xmin=" << xmin
-    // << ", xmax=" << xmax
-    // << endl;
 
     string h_name;
     if (!is_reweight) // original
@@ -372,7 +357,6 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         h_name = "h_" + var + "_reweight";
 
     TH1F *h1 = new TH1F(h_name.c_str(), "", nbins, xmin, xmax);
-    // cout << "h_name=" << h1->GetName() << endl;
 
     double dm_Higgsino = n2 - n1;
     double dm_NUHM2 = get_dm_NUHM2(m12);
@@ -381,12 +365,27 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
     double dm = 0;
+    string decay = "";
+    bool isHiggsino = false;
     if (f.find(".SM_") != string::npos &&
-        f.find(n2_n1 + "_2LMET50.root") != string::npos)
+        f.find(n2_n1 + "_2LMET50.root") != string::npos) {
         dm = dm_Higgsino;
+        int start_index = f.find(".SM_") + 4;
+        int end_index = f.find(n2_n1 + "_2LMET50.root") - 2;
+        int len = end_index - start_index + 1;
+        decay = f.substr(start_index, len);
+        isHiggsino = true;
+    }
     if (f.find("run_" + to_string(m12)) != string::npos &&
-        f.find("TestJob.root") != string::npos)
+        f.find("TestJob.root") != string::npos) {
         dm = dm_NUHM2;
+        int start_index = f.find(to_string(m12)) + 4;
+        int end_index = f.find(".TestJob.root") - 1;
+        int len = end_index - start_index + 1;
+        decay = f.substr(start_index, len);
+        isHiggsino = false;
+    }
+    // cout << "decay=" << decay << endl;
 
     // Higgsino curve
     TF1 *func_Higgsino = new TF1("func_Higgsino", FuncMllDistr, 0, dm_Higgsino, 3);
@@ -422,17 +421,34 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
     TTreeReaderValue<float> truth_mll(myReader, "mll");
     TTreeReaderValue<int> truth_preselection(myReader, "preselection");
     TTreeReaderValue<int> truth_is2LChannel(myReader, "is2LChannel");
+    TTreeReaderValue<float> event_weight(myReader, "eventWeight");
 
-    TTreeReaderValue<int> truth_var(myReader, var.c_str());
-    // TTreeReaderValue<float> truth_var(myReader, var.c_str());
+    // TTreeReaderValue<int> truth_var(myReader, var.c_str());
+    TTreeReaderValue<float> truth_var(myReader, var.c_str());
     // TTreeReaderValue<vector<float>> truth_var(myReader, var.c_str());
     // TTreeReaderValue<vector<float>> truth_var(myReader, "signalLeptons_pt");
 
+    double xsec = get_cross_section(decay, n2, n1, m12, isHiggsino);
+    double xsec_ratio = get_cross_section(decay, n2, n1, m12, false) / get_cross_section(decay, n2, n1, m12, true);
+    double filterEff = get_filter_efficiency(decay, n2, n1, m12, isHiggsino);
+    double lumi = get_luminosity();
+    double sum_of_event_weight = get_sum_of_event_weight(decay, n2, n1, m12, isHiggsino);
+
+    // cout << "xsec=" << xsec << endl;
+    // cout << "xsec_ratio=" << xsec_ratio << endl;
+    // cout << "filterEff=" << filterEff << endl;
+    // cout << "lumi=" << lumi << endl;
+    // cout << "sum_of_event_weight=" << sum_of_event_weight << endl;
+
     while (myReader.Next()) {
         double truthMll = *truth_mll;
+        double eventWeight = *event_weight;
+
         int preselection = *truth_preselection;
         int is2LChannel = *truth_is2LChannel;
-        double weight = func_NUHM2->Eval(truthMll) / func_Higgsino->Eval(truthMll); //ratio NUHM2/higgsino
+
+        double weight = func_NUHM2->Eval(truthMll) / func_Higgsino->Eval(truthMll); //ratio NUHM2/higgsino        
+        double mc_weight = get_mc_weight(xsec, filterEff, lumi, eventWeight, sum_of_event_weight);
 
         // if (var.compare("baselineElectrons_pt") == 0 ||
         //     var.compare("baselineMuons_pt") == 0 ||
@@ -507,8 +523,9 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         // cout << "truthMll=" << truthMll
         // << ", truthVar=" << truthVar
         // << ", weight=" << weight
+        // << ", mc_weight=" << mc_weight
         // << endl;
-        // cut:
+
         if (var.compare("HT30") == 0 ||
             var.compare("HTIncl") == 0 ||
             var.compare("HTLep12") == 0 ||
@@ -526,10 +543,10 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
                 is2LChannel == 1) {
                 if (truthMll < dm) {
                     if (!is_reweight) {// original
-                        h1->Fill(truthVar);
+                        h1->Fill(truthVar, mc_weight);
                     }
                     else {// reweight
-                        h1->Fill(truthVar, weight);
+                        h1->Fill(truthVar, weight * mc_weight * xsec_ratio);
                     }
                 }
             }
@@ -540,10 +557,10 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
                 is2LChannel == 1) {
                 if (truthMll < dm) {
                     if (!is_reweight) {// original
-                        h1->Fill(truthVar);
+                        h1->Fill(truthVar, mc_weight);
                     }
                     else {// reweight
-                        h1->Fill(truthVar, weight);
+                        h1->Fill(truthVar, weight * mc_weight * xsec_ratio);
                     }
                 }
             }
@@ -553,10 +570,10 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
                 is2LChannel == 1) {
                 if (truthMll < dm) {
                     if (!is_reweight) {// original
-                        h1->Fill(truthVar);
+                        h1->Fill(truthVar, mc_weight);
                     }
                     else {// reweight
-                        h1->Fill(truthVar, weight);
+                        h1->Fill(truthVar, weight * mc_weight * xsec_ratio);
                     }
                 }
             }

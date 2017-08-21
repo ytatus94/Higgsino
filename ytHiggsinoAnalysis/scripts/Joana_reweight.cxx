@@ -112,7 +112,7 @@ double HiggsinoSelector::get_NUHM2_weight(int DSID, double mass, int m12)
     // Area ratio:
     // NUHM2 m12=300 / Higgsino 160_100: area_f5/area_f2=0.704021
     // NUHM2 m12=350 / Higgsino 160_100: area_f6/area_f2=0.277169
-    // NUHM2 m12=400 / Higgsino 190_100: area_f7/area_f4=0.9631
+    // NUHM2 m12=400 / Higgsino 190_150: area_f7/area_f4=0.9631
     // NUHM2 m12=500 / Higgsino 190_150: area_f8/area_f4=0.211929
     // NUHM2 m12=600 / Higgsino 190_150: area_f9/area_f4=0.0655574
     // NUHM2 m12=700 / Higgsino 170_150: area_f10/area_f3=0.511249

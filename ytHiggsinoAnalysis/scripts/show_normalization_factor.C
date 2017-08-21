@@ -65,7 +65,7 @@ void show_normalization_factor()
     cout << "Area ratio:" << endl;
     cout << "NUHM2 m12=300 / Higgsino 160_100: area_f5/area_f2=" << area_f5 / area_f2 << endl;
     cout << "NUHM2 m12=350 / Higgsino 160_100: area_f6/area_f2=" << area_f6 / area_f2 << endl;
-    cout << "NUHM2 m12=400 / Higgsino 190_100: area_f7/area_f4=" << area_f7 / area_f4 << endl;
+    cout << "NUHM2 m12=400 / Higgsino 190_150: area_f7/area_f4=" << area_f7 / area_f4 << endl;
     cout << "NUHM2 m12=500 / Higgsino 190_150: area_f8/area_f4=" << area_f8 / area_f4 << endl;
     cout << "NUHM2 m12=600 / Higgsino 190_150: area_f9/area_f4=" << area_f9 / area_f4 << endl;
     cout << "NUHM2 m12=700 / Higgsino 170_150: area_f10/area_f3=" << area_f10 / area_f3 << endl;
