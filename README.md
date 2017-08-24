@@ -3,6 +3,14 @@ The NUHM2 Higgsino study
 
 ---
 
+### v29. add new branches to common ntuple
+* `add_weight_to_common_ntuple.C`: New script
+* `plot_reweight_common_ntuple_mll.C`: New script
+* `get_mass_difference.py`: modify output
+* `Joana_reweight.cxx`: Add DSID for C1C1, N2C1p, and N2C1m
+* `reweight_mc_event_weight.C`: Add weight when fill histogram
+
+
 ### v28. reweight to luminosity
 * `fit_common_ntuple.py`: move to `misc/`
 * `test_fit.py`: move to `misc/`

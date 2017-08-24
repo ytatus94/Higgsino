@@ -13,8 +13,8 @@
 #include "ytUtility.C"
 
 #include <string>
-#include <algorithm>
-#include <typeinfo>
+// #include <algorithm>
+// #include <typeinfo>
 #include <iostream>
 using namespace std;
 
@@ -89,14 +89,14 @@ void reweight_mc_event_weight(int n2, int n1, int m12, bool normalize = false)
         "met"
     };
 
-    // for (auto &var : vars_type_int) {
-    for (auto &var : var_type_float) {
+    for (auto &var : vars_type_int) {
+    // for (auto &var : var_type_float) {
     // for (auto &var : vars_type_vector_float) {
         // cout << var << endl;
         plot(var, n2, n1, m12, false);
     }
-    // plot("pTLep1", n2, n1, m12);
-    // plot("pTLep2", n2, n1, m12);
+    // plot("pTLep1", n2, n1, m12, false);
+    // plot("pTLep2", n2, n1, m12, false);
     // plot("nJet30", n2, n1, m12);
 
     // plot("mll", 190, 150, 400, false);
@@ -423,8 +423,8 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
     TTreeReaderValue<int> truth_is2LChannel(myReader, "is2LChannel");
     TTreeReaderValue<float> event_weight(myReader, "eventWeight");
 
-    // TTreeReaderValue<int> truth_var(myReader, var.c_str());
-    TTreeReaderValue<float> truth_var(myReader, var.c_str());
+    TTreeReaderValue<int> truth_var(myReader, var.c_str());
+    // TTreeReaderValue<float> truth_var(myReader, var.c_str());
     // TTreeReaderValue<vector<float>> truth_var(myReader, var.c_str());
     // TTreeReaderValue<vector<float>> truth_var(myReader, "signalLeptons_pt");
 
@@ -484,10 +484,10 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         //             is2LChannel == 1) {
         //             if (truthMll < dm) {
         //                 if (!is_reweight) {// original
-        //                     h1->Fill(truthVar);
+        //                     h1->Fill(truthVar, mc_weight);
         //                 }
         //                 else {// reweight
-        //                     h1->Fill(truthVar, weight);
+        //                     h1->Fill(truthVar, weight * mc_weight * xsec_ratio);
         //                 }
         //             }
         //         }
@@ -509,10 +509,10 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         //         if (truthMll < dm &&
         //             truthVar > 0) {
         //             if (!is_reweight) {// original
-        //                 h1->Fill(truthVar);
+        //                 h1->Fill(truthVar, mc_weight);
         //             }
         //             else {// reweight
-        //                 h1->Fill(truthVar, weight);
+        //                 h1->Fill(truthVar, weight * mc_weight * xsec_ratio);
         //             }
         //         }
         //     }

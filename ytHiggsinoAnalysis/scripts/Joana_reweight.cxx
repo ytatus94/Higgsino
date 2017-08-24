@@ -120,14 +120,22 @@ double HiggsinoSelector::get_NUHM2_weight(int DSID, double mass, int m12)
 
     double par_Higgsino[3] = {0., 0., 0.};
 
-    if(DSID == 393510) { // Higgsino_160_100
+    // Higgsino_160_100
+    if (DSID == 393510 || // N2N1
+        DSID == 393559 || // C1C1
+        DSID == 393412 || // N2C1p
+        DSID == 393461) { // N2C1m
         if (m12 == 350) {
             par_Higgsino[0] = 0.277169; // normalization factor in order that the two curves have the same area.
             par_Higgsino[1] = 100.; // N1 mass higgsino
             par_Higgsino[2] = -160.; // N2 mass higgsino
         }
     }
-    else if (DSID == 393515) { // Higgsino_170_150
+    // Higgsino_170_150
+    else if (DSID == 393515 || // N2N1
+             DSID == 393564 || // C1C1
+             DSID == 393417 || // N2C1p
+             DSID == 393466) { // N2C1m
         if (m12 == 700) {
             par_Higgsino[0] = 0.511249;
         }
@@ -137,7 +145,11 @@ double HiggsinoSelector::get_NUHM2_weight(int DSID, double mass, int m12)
         par_Higgsino[1] = 150.;
         par_Higgsino[2] = -170.;
     }
-    else if (DSID == 393516) { // Higgsino_190_150
+    // Higgsino_190_150
+    else if (DSID == 393516 || // N2N1
+             DSID == 393565 || // C1C1
+             DSID == 393418 || // N2C1p
+             DSID == 393467) { // N2C1m
         if (m12 == 400) {
             par_Higgsino[0] = 0.9631;
         }

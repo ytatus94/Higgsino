@@ -18,4 +18,4 @@ for slha in sorted( os.listdir(path) ):
                     N1_mass = abs( float( (line.split())[1] ) )
                 elif read_buff is True and "#  z2ss" in line:
                     N2_mass = abs( float( (line.split())[1] ) )
-            print m12, N2_mass, N1_mass, N2_mass - N1_mass
+            print m12, "m(N2)=", N2_mass, "m(N1)=", N1_mass, "dM=", N2_mass - N1_mass
