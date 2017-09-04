@@ -893,6 +893,14 @@ public:
     TH1F *h_yields; //!
     TH1F *h_weighted_yields; //!
 
+    TH1F *h_yields_SRee; //!
+    TH1F *h_yields_SRmm; //!
+    TH1F *h_yields_SRSF; //!
+
+    TH1F *h_weighted_yields_SRee; //!
+    TH1F *h_weighted_yields_SRmm; //!
+    TH1F *h_weighted_yields_SRSF; //!
+
     // Distributions
     TH1F *h_NJets; //! includes forward jets
     TH1F *h_NJet30; //! signal jets

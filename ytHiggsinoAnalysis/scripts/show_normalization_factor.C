@@ -21,9 +21,9 @@ void show_normalization_factor()
     double area_f3 = f3->Integral(0, 20);
     cout << "Higgsino 170_150: area_f3=" << area_f3 << endl;
     // Higgsino 190_150
-    TF1 *f4 = new TF1("f4", FuncMllDistr, 0, 20, 3);
+    TF1 *f4 = new TF1("f4", FuncMllDistr, 0, 40, 3);
     f4->SetParameters(1., 150, -190.);
-    double area_f4 = f4->Integral(0, 20);
+    double area_f4 = f4->Integral(0, 40);
     cout << "Higgsino 190_150: area_f4=" << area_f4 << endl;
 
     // NUHM2 m12=300

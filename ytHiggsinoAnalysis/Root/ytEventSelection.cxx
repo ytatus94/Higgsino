@@ -53,6 +53,30 @@ EL::StatusCode ytEventSelection :: histInitialize ()
     wk()->addOutput(h_yields);
     wk()->addOutput(h_weighted_yields);
 
+    h_yields_SRee = new TH1F("h_yields_SRee", " in SRee", 50, 0, 50);
+    h_yields_SRmm = new TH1F("h_yields_SRmm", " in SRmm", 50, 0, 50);
+    h_yields_SRSF = new TH1F("h_yields_SRSF", " in SRSF", 50, 0, 50);
+
+    h_weighted_yields_SRee = new TH1F("h_weighted_yields_SRee", "Number of weighted events in SR", 50, 0, 50);
+    h_weighted_yields_SRmm = new TH1F("h_weighted_yields_SRmm", "Number of weighted events in SR", 50, 0, 50);
+    h_weighted_yields_SRSF = new TH1F("h_weighted_yields_SRSF", "Number of weighted events in SR", 50, 0, 50);
+
+    h_yields_SRee->Sumw2();
+    h_yields_SRmm->Sumw2();
+    h_yields_SRSF->Sumw2();
+
+    h_weighted_yields_SRee->Sumw2();
+    h_weighted_yields_SRmm->Sumw2();
+    h_weighted_yields_SRSF->Sumw2();
+
+    wk()->addOutput(h_yields_SRee);
+    wk()->addOutput(h_yields_SRmm);
+    wk()->addOutput(h_yields_SRSF);
+
+    wk()->addOutput(h_weighted_yields_SRee);
+    wk()->addOutput(h_weighted_yields_SRmm);
+    wk()->addOutput(h_weighted_yields_SRSF);
+
     h_NJets = new TH1F("h_NJets", "Number of Jets;N_{jets};", 15, 0, 15);
     h_NJet30 = new TH1F("h_NJet30", "Number of Jets;N_{jets};", 15, 0, 15);
     h_NJet25 = new TH1F("h_NJet25", "Number of Jets;N_{jets};", 15, 0, 15);
@@ -913,6 +937,7 @@ EL::StatusCode ytEventSelection :: execute ()
     if ((lep1Flavor == 1 && lep2Flavor == 1) || // electron
         (lep1Flavor == 2 && lep2Flavor == 2))   // muon
         cut_same_flavor = true;
+
     if (!cut_same_flavor)
         return EL::StatusCode::SUCCESS;
 
@@ -922,34 +947,86 @@ EL::StatusCode ytEventSelection :: execute ()
     if (!cut_number_of_baseline_and_signal_leptons)
         return EL::StatusCode::SUCCESS;
 
+    // Align to the HiggsinoConfig.py
+    bool cut_met_trig = false;
+    bool cut_stau_veto = false;
+    bool cut_jpsi_veto = false;
+    bool cut_lep_author16_veto = false;
+    bool cut_lep_truth_matching = false;
+
+    if (trigMatch_metTrig)
+        cut_met_trig = true;
+    if (FS != 206 && FS != 207) // only relevant for slepton signal samples
+        cut_stau_veto = true;
+    if (mll < 3 || mll > 3.2)
+        cut_jpsi_veto = true;
+    if (lep1Author != 16 && lep2Author != 16)
+        cut_lep_author16_veto = true;
+    if ((lep1TruthMatched && lep2TruthMatched) ||
+        (DatasetNumber >= 407311 && DatasetNumber <= 407315))
+        cut_lep_truth_matching = true;
+
+    bool common_cuts = false;
+    if (cut_met_trig &&
+        cut_stau_veto &&
+        cut_number_of_baseline_and_signal_leptons &&
+        cut_jpsi_veto &&
+        cut_lep_author16_veto &&
+        cut_lep_truth_matching)
+        common_cuts = true;
+
+    if (!common_cuts)
+        return EL::StatusCode::SUCCESS;
+
     // Only SFOS events are considered
     bool cut_MET = m_region->pass_MET(met_Et);
-    bool cut_NJets = m_region->pass_NJets(nJet30);
+    // bool cut_NJets = m_region->pass_NJets(nJet30);
     bool cut_leading_jet_pT = false;
     if (jetPt->size() > 0)
         cut_leading_jet_pT = m_region->pass_leading_jet_pT( jetPt->at(0) );
-    bool cut_NBjets = m_region->pass_NBjets(nBJet30_MV2c10);
     bool cut_dPhiMETJ1 = m_region->pass_deltaPhi_MET_leading_jet(DPhiJ1Met);
+    bool cut_mindPhi = m_region->pass_min_deltaPhi_MET_allJets(minDPhiAllJetsMet);
+    bool cut_NBjets = m_region->pass_NBjets(nBJet20_MV2c10);
+    bool cut_leading_lepton_pt = m_region->pass_leading_lepton_pt(lep1Pt);
+    bool cut_second_leading_lepton_pt = m_region->pass_second_leading_lepton_pt(lep2Pt, lep2Flavor);
     bool cut_MTauTau = m_region->pass_Mtautau(MTauTau);
-    // bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep12, mll);
-    bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep, mll);
+    bool cut_mll = m_region->pass_mll(mll);
+    bool cut_deltaRll_lower_limit = m_region->pass_deltaRll_lower_limit(Rll);
 
     // debug_print(cut_MET, cut_NJets, cut_leading_jet_pT, cut_NBjets, cut_dPhiMETJ1, cut_MTauTau, cut_METOverHT);
 
     // if (!(lep1Signal ==1 && lep2Signal == 1))
     //     return EL::StatusCode::SUCCESS;
 
-    if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau && cut_METOverHT) {
-    // if (cut_MET && cut_NJets && cut_leading_jet_pT && cut_NBjets && cut_dPhiMETJ1 && cut_MTauTau) {
-        // cout << "pass cuts EventNumber=" << EventNumber << endl;
+    // Signal region selection common to 2l channel.
+    bool SR_2l_channel = false;
+    if (cut_MET &&
+        cut_leading_jet_pT &&
+        cut_dPhiMETJ1 && cut_mindPhi &&
+        cut_NBjets &&
+        cut_leading_lepton_pt && cut_second_leading_lepton_pt &&
+        cut_MTauTau &&
+        cut_mll &&
+        cut_deltaRll_lower_limit) {
+        SR_2l_channel = true;
+    }
 
-        // h_METOverHT_no_cut->Fill(METOverHT, weight);
-        // h_METOverHTLep12_no_cut->Fill(METOverHTLep12, weight);
-        // if (cut_METOverHT) {
-        //     h_METOverHT_with_cut->Fill(METOverHT, weight);
-        //     h_METOverHTLep12_with_cut->Fill(METOverHTLep12, weight);
-        // }
+    if (!SR_2l_channel)
+        return EL::StatusCode::SUCCESS;
 
+    // Selections optimised for Higgsinos
+    // bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep12, mll);
+    bool SR_Higgsino = false;
+    bool cut_METOverHT = m_region->pass_MET_over_HT(METOverHTLep, mll);
+    bool cut_deltaRll_upper_limit = m_region->pass_deltaRll_upper_limit(Rll);
+    bool cut_mT_lep1 = m_region->pass_mT_lep1(mt_lep1);
+    if (cut_METOverHT &&
+        cut_deltaRll_upper_limit &&
+        cut_mT_lep1) {
+        SR_Higgsino = true;
+    }
+
+    if (SR_Higgsino) {
         // Fill the h_yields and h_weighted_yields.
         // Retrieve the values in the bin using GetBinContent()
         if (sample_type == "data") {
@@ -957,18 +1034,318 @@ EL::StatusCode ytEventSelection :: execute ()
             // h_weighted_yields->AddBinContent(1, weight);
             h_yields->Fill(1);
             h_weighted_yields->Fill(1, weight);
+            // exclusive
+            if (mll > 1. && mll < 3.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(11);
+                    h_weighted_yields_SRee->Fill(11);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(11);
+                    h_weighted_yields_SRmm->Fill(11);
+                }
+            }
+            else if (mll >= 3.2 && mll < 5.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(12);
+                    h_weighted_yields_SRee->Fill(12);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(12);
+                    h_weighted_yields_SRmm->Fill(12);
+                }
+            }
+            else if (mll >= 5. && mll < 10.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(13);
+                    h_weighted_yields_SRee->Fill(13);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(13);
+                    h_weighted_yields_SRmm->Fill(13);
+                }
+            }
+            else if (mll >= 10. && mll < 20.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(14);
+                    h_weighted_yields_SRee->Fill(14);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(14);
+                    h_weighted_yields_SRmm->Fill(14);
+                }
+            }
+            else if (mll >= 20. && mll < 30.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(15);
+                    h_weighted_yields_SRee->Fill(15);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(15);
+                    h_weighted_yields_SRmm->Fill(15);
+                }
+            }
+            else if (mll >= 30. && mll < 40.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(16);
+                    h_weighted_yields_SRee->Fill(16);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(16);
+                    h_weighted_yields_SRmm->Fill(16);
+                }
+            }
+            else if (mll >= 40. && mll < 60.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(17);
+                    h_weighted_yields_SRee->Fill(17);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(17);
+                    h_weighted_yields_SRmm->Fill(17);
+                }
+            }
+            // inclusive
+            if (mll < 3.) {
+                h_yields_SRSF->Fill(11);
+                h_weighted_yields_SRSF->Fill(11);
+            }
+            else if (mll < 5.) {
+                h_yields_SRSF->Fill(12);
+                h_weighted_yields_SRSF->Fill(12);
+            }
+            else if (mll < 10.) {
+                h_yields_SRSF->Fill(13);
+                h_weighted_yields_SRSF->Fill(13);
+            }
+            else if (mll < 20.) {
+                h_yields_SRSF->Fill(14);
+                h_weighted_yields_SRSF->Fill(14);
+            }
+            else if (mll < 30.) {
+                h_yields_SRSF->Fill(15);
+                h_weighted_yields_SRSF->Fill(15);
+            }
+            else if (mll < 40.) {
+                h_yields_SRSF->Fill(16);
+                h_weighted_yields_SRSF->Fill(16);
+            }
+            else if (mll < 60.) {
+                h_yields_SRSF->Fill(17);
+                h_weighted_yields_SRSF->Fill(17);
+            }
         }
         else if (sample_type == "signals") {
             // h_yields->AddBinContent(2);
             // h_weighted_yields->AddBinContent(2, weight);
             h_yields->Fill(2);
             h_weighted_yields->Fill(2, weight);
+            // exclusive
+            if (mll > 1. && mll < 3.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(21);
+                    h_weighted_yields_SRee->Fill(21);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(21);
+                    h_weighted_yields_SRmm->Fill(21);
+                }
+            }
+            else if (mll >= 3.2 && mll < 5.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(22);
+                    h_weighted_yields_SRee->Fill(22);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(22);
+                    h_weighted_yields_SRmm->Fill(22);
+                }
+            }
+            else if (mll >= 5. && mll < 10.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(23);
+                    h_weighted_yields_SRee->Fill(23);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(23);
+                    h_weighted_yields_SRmm->Fill(23);
+                }
+            }
+            else if (mll >= 10. && mll < 20.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(24);
+                    h_weighted_yields_SRee->Fill(24);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(24);
+                    h_weighted_yields_SRmm->Fill(24);
+                }
+            }
+            else if (mll >= 20. && mll < 30.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(25);
+                    h_weighted_yields_SRee->Fill(25);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(25);
+                    h_weighted_yields_SRmm->Fill(25);
+                }
+            }
+            else if (mll >= 30. && mll < 40.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(26);
+                    h_weighted_yields_SRee->Fill(26);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(26);
+                    h_weighted_yields_SRmm->Fill(26);
+                }
+            }
+            else if (mll >= 40. && mll < 60.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(27);
+                    h_weighted_yields_SRee->Fill(27);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(27);
+                    h_weighted_yields_SRmm->Fill(27);
+                }
+            }
+            // inclusive
+            if (mll < 3.) {
+                h_yields_SRSF->Fill(21);
+                h_weighted_yields_SRSF->Fill(21);
+            }
+            else if (mll < 5.) {
+                h_yields_SRSF->Fill(22);
+                h_weighted_yields_SRSF->Fill(22);
+            }
+            else if (mll < 10.) {
+                h_yields_SRSF->Fill(23);
+                h_weighted_yields_SRSF->Fill(23);
+            }
+            else if (mll < 20.) {
+                h_yields_SRSF->Fill(24);
+                h_weighted_yields_SRSF->Fill(24);
+            }
+            else if (mll < 30.) {
+                h_yields_SRSF->Fill(25);
+                h_weighted_yields_SRSF->Fill(25);
+            }
+            else if (mll < 40.) {
+                h_yields_SRSF->Fill(26);
+                h_weighted_yields_SRSF->Fill(26);
+            }
+            else if (mll < 60.) {
+                h_yields_SRSF->Fill(27);
+                h_weighted_yields_SRSF->Fill(27);
+            }
         }
         else if (sample_type == "backgrounds") {
             // h_yields->AddBinContent(3);
             // h_weighted_yields->AddBinContent(3, weight);
             h_yields->Fill(3);
             h_weighted_yields->Fill(3, weight);
+            // exclusive
+            if (mll > 1. && mll < 3.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(31);
+                    h_weighted_yields_SRee->Fill(31);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(31);
+                    h_weighted_yields_SRmm->Fill(31);
+                }
+            }
+            else if (mll >= 3.2 && mll < 5.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(32);
+                    h_weighted_yields_SRee->Fill(32);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(32);
+                    h_weighted_yields_SRmm->Fill(32);
+                }
+            }
+            else if (mll >= 5. && mll < 10.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(33);
+                    h_weighted_yields_SRee->Fill(33);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(33);
+                    h_weighted_yields_SRmm->Fill(33);
+                }
+            }
+            else if (mll >= 10. && mll < 20.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(34);
+                    h_weighted_yields_SRee->Fill(34);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(34);
+                    h_weighted_yields_SRmm->Fill(34);
+                }
+            }
+            else if (mll >= 20. && mll < 30.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(35);
+                    h_weighted_yields_SRee->Fill(35);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(35);
+                    h_weighted_yields_SRmm->Fill(35);
+                }
+            }
+            else if (mll >= 30. && mll < 40.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(36);
+                    h_weighted_yields_SRee->Fill(36);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(36);
+                    h_weighted_yields_SRmm->Fill(36);
+                }
+            }
+            else if (mll >= 40. && mll < 60.) {
+                if (lep1Flavor == 1 && lep2Flavor == 1) {
+                    h_yields_SRee->Fill(37);
+                    h_weighted_yields_SRee->Fill(37);
+                }
+                if (lep1Flavor == 2 && lep2Flavor == 2) {
+                    h_yields_SRmm->Fill(37);
+                    h_weighted_yields_SRmm->Fill(37);
+                }
+            }
+            // inclusive
+            if (mll < 3.) {
+                h_yields_SRSF->Fill(31);
+                h_weighted_yields_SRSF->Fill(31);
+            }
+            else if (mll < 5.) {
+                h_yields_SRSF->Fill(32);
+                h_weighted_yields_SRSF->Fill(32);
+            }
+            else if (mll < 10.) {
+                h_yields_SRSF->Fill(33);
+                h_weighted_yields_SRSF->Fill(33);
+            }
+            else if (mll < 20.) {
+                h_yields_SRSF->Fill(34);
+                h_weighted_yields_SRSF->Fill(34);
+            }
+            else if (mll < 30.) {
+                h_yields_SRSF->Fill(35);
+                h_weighted_yields_SRSF->Fill(35);
+            }
+            else if (mll < 40.) {
+                h_yields_SRSF->Fill(36);
+                h_weighted_yields_SRSF->Fill(36);
+            }
+            else if (mll < 60.) {
+                h_yields_SRSF->Fill(37);
+                h_weighted_yields_SRSF->Fill(37);
+            }
         }
     }
 

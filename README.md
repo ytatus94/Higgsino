@@ -3,6 +3,21 @@ The NUHM2 Higgsino study
 
 ---
 
+### v30. Add Higgsino optimised SR
+* `show_normalization_factor.C`: fix bugs
+* `plot_reweight_common_ntuple_mll.C`: change output file name
+* `get_yields.py`: Change path
+* `make_weight_plot.py`: New script
+* `yt_regions.h`: Add new functions
+* `yt_regions.cxx`: Implement new functions
+* `ytEventSelection.h`: Add new histograms
+* `ytEventSelection.cxx`:
+  * Implement new histograms
+  * Add common cut, 2l channel cut, and Higgsino SR cuts
+  * B-jet uses `nBJet20_MV2c10`
+  * Fill yields to new histograms
+
+
 ### v29. add new branches to common ntuple
 * `add_weight_to_common_ntuple.C`: New script
 * `plot_reweight_common_ntuple_mll.C`: New script

@@ -22,10 +22,17 @@ public:
     bool pass_MET(float MET);
     bool pass_NJets(int NJets);
     bool pass_leading_jet_pT(float pT);
-    bool pass_NBjets(float NBjets);
     bool pass_deltaPhi_MET_leading_jet(float dPhiJ1MET);
+    bool pass_min_deltaPhi_MET_allJets(float minDPhiAllJetsMet);
+    bool pass_NBjets(float NBjets);
+    bool pass_leading_lepton_pt(float lep1Pt);
+    bool pass_second_leading_lepton_pt(float lep2Pt, int lep2Flavor);
     bool pass_Mtautau(float MTauTau);
+    bool pass_mll(float mll);
+    bool pass_deltaRll_lower_limit(float Rll);
     bool pass_MET_over_HT(float MET_over_HT, float mll);
+    bool pass_deltaRll_upper_limit(float Rll);
+    bool pass_mT_lep1(float mt_lep1);
 
 /*
     // Used for EWK 2/3L study

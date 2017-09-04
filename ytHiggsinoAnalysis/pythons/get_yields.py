@@ -2,7 +2,7 @@
 
 import os, ROOT
 
-path = "/afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/Results/20170818/"
+path = "/afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/Results/20170904/"
 
 def main():
     for directory in sorted(os.listdir(path)):

@@ -35,6 +35,22 @@ bool yt_regions::pass_leading_jet_pT(float pT)
     return pass;
 }
 
+bool yt_regions::pass_deltaPhi_MET_leading_jet(float dPhiJ1MET)
+{
+    bool pass = false;
+    if (dPhiJ1MET > 2.0)
+        pass = true;
+    return pass;
+}
+
+bool yt_regions::pass_min_deltaPhi_MET_allJets(float minDPhiAllJetsMet)
+{
+    bool pass = false;
+    if (minDPhiAllJetsMet > 0.4)
+        pass = true;
+    return pass;
+}
+
 bool yt_regions::pass_NBjets(float NBjets)
 {
     bool pass = false;
@@ -44,10 +60,20 @@ bool yt_regions::pass_NBjets(float NBjets)
     return pass;
 }
 
-bool yt_regions::pass_deltaPhi_MET_leading_jet(float dPhiJ1MET)
+bool yt_regions::pass_leading_lepton_pt(float lep1Pt)
 {
     bool pass = false;
-    if (dPhiJ1MET > 2.0)
+    if (lep1Pt > 5)
+        pass = true;
+    return pass;
+}
+
+bool yt_regions::pass_second_leading_lepton_pt(float lep2Pt, int lep2Flavor)
+{
+    bool pass = false;
+    if (lep2Pt > 4.5 && lep2Flavor == 1)
+        pass = true;
+    else if (lep2Pt > 4.0 && lep2Flavor == 2)
         pass = true;
     return pass;
 }
@@ -60,16 +86,45 @@ bool yt_regions::pass_Mtautau(float MTauTau)
     return pass;
 }
 
-bool yt_regions::pass_MET_over_HT(float MET_over_HT, float mll)
+bool yt_regions::pass_mll(float mll)
 {
     bool pass = false;
-
-    if (MET_over_HT > max(5., 15. - mll) )
+    if (mll > 1. && mll < 60.)
         pass = true;
     return pass;
 }
 
+bool yt_regions::pass_deltaRll_lower_limit(float Rll)
+{
+    bool pass = false;
+    if (Rll > 0.05)
+        pass = true;
+    return pass;
+}
 
+bool yt_regions::pass_MET_over_HT(float MET_over_HT, float mll)
+{
+    bool pass = false;
+    if (MET_over_HT > max(5., 15. - 2. * mll) )
+        pass = true;
+    return pass;
+}
+
+bool yt_regions::pass_deltaRll_upper_limit(float Rll)
+{
+    bool pass = false;
+    if (Rll < 2.0)
+        pass = true;
+    return pass;
+}
+
+bool yt_regions::pass_mT_lep1(float mt_lep1)
+{
+    bool pass = false;
+    if (mt_lep1 < 70.)
+        pass = true;
+    return pass;
+}
 
 /*
 // // Used for EWK 2/3L study

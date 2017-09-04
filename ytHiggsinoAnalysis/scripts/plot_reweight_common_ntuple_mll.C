@@ -69,7 +69,7 @@ void plot(string f)
     h_truth_Mll->SetMaximum(y_max);
     h_truth_Mll->SetLineColor(kGreen);
     h_truth_Mll->SetStats(0);
-    h_truth_Mll->Draw("hist");    
+    h_truth_Mll->Draw("hist");
 
     h_reweighted_Mll->SetLineColor(kRed);
     h_reweighted_Mll->Draw("hist,same");
@@ -110,7 +110,7 @@ void plot(string f)
     legend->SetFillStyle(0);
     legend->Draw();
 
-    string output = "reweight_Higgsino_common_ntuple_to_m12_" + m12 + ".pdf";
+    string output = "reweight_Higgsino_common_ntuple_v1.8b_to_m12_" + m12 + ".pdf";
     c->SaveAs(output.c_str());
     c->Close();
 }
