@@ -2,6 +2,7 @@
 import os
 
 path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2/share/DSID394xxx/"
+# path = "/Users/ytshen/Documents/Working/OU/HEP/MikeHance/"
 
 def main():
     # sum_BR()
@@ -16,14 +17,20 @@ def main():
 
 def list_branching_ratio():
     for file in sorted( os.listdir(path) ):
-        if file.startswith("susy") and file.endswith(".slha"):
+        # if file.startswith("susy") and file.endswith(".slha"): # for .slha
+        if file.startswith("susyhit_slha.") and file.endswith(".out"): # for .out
             print file
-            if "N2" in file:
-                print "BR(N2->llN1)=", get_branching_ratio(path + file, "N2")
-            if "C1p" in file or "C1m" in file:
-                print "BR(C1+/- ->ffN1)=", get_branching_ratio(path + file, "C1ffN1")
-            if "C1C1" in file:
-                print "BR(C1->lvlN1)=", get_branching_ratio(path + file, "C1lvlN1")
+            # .slha
+            # if "N2" in file:
+            #     print "BR(N2->llN1)=", get_branching_ratio(path + file, "N2")
+            # if "C1p" in file or "C1m" in file:
+            #     print "BR(C1+/- ->ffN1)=", get_branching_ratio(path + file, "C1ffN1")
+            # if "C1C1" in file:
+            #     print "BR(C1->lvlN1)=", get_branching_ratio(path + file, "C1lvlN1")
+            # .out
+            print "BR(N2->llN1)=", get_branching_ratio(path + file, "N2")
+            print "BR(C1+/- ->ffN1)=", get_branching_ratio(path + file, "C1ffN1")
+            print "BR(C1->lvlN1)=", get_branching_ratio(path + file, "C1lvlN1")
 
 #----------------------------#
 
@@ -38,9 +45,11 @@ def get_slha_file(m12, decay):
 def get_branching_ratio(file, decay):
     decay_string = ""
     if decay is "N2":
-        decay_string = "# Z2SS  decays"
+        # decay_string = "# Z2SS  decays" # for .slha
+        decay_string = "# neutralino2 decays" # for .out
     elif decay is "C1ffN1" or decay is "C1lvlN1":
-        decay_string = "# W1SS+ decays"
+        # decay_string = "# W1SS+ decays" # for .slha
+        decay_string = "# chargino1+ decays" # for .out
 
     with open(file) as fopen:
         lines = fopen.readlines()
@@ -49,22 +58,31 @@ def get_branching_ratio(file, decay):
         for line in lines:
             if decay_string in line:
                 read_buffer = True
-            elif "#         PDG         Width" in line:
+            # elif "#         PDG         Width" in line: # for .slha
+            elif "#         PDG            Width" in line: # for .out
                 read_buffer = False
             
             if read_buffer:
-                if (decay is "N2" and ("# Z2SS   -->  Z1SS   E-     E+" in line or
-                                       "# Z2SS   -->  Z1SS   MU-    MU+" in line or
-                                       "# Z2SS   -->  Z1SS   TAU-   TAU+" in line ) ):
+                # if (decay is "N2" and ("# Z2SS   -->  Z1SS   E-     E+" in line or
+                #                        "# Z2SS   -->  Z1SS   MU-    MU+" in line or
+                #                        "# Z2SS   -->  Z1SS   TAU-   TAU+" in line ) ): # for .slha
+                if (decay is "N2" and ("# BR(~chi_20 -> ~chi_10 e+      e-)" in line or
+                                       "# BR(~chi_20 -> ~chi_10 mu+     mu-)" in line or
+                                       "# BR(~chi_20 -> ~chi_10 tau+    tau-)" in line ) ): # for .out
                     BR = line.split()
                     total += float( BR[0] )
-                elif (decay is "C1ffN1" and ("# W1SS+  -->  Z1SS   UP     DB" in line or
-                                             "# W1SS+  -->  Z1SS   CH     SB" in line ) ):
+                # elif (decay is "C1ffN1" and ("# W1SS+  -->  Z1SS   UP     DB" in line or
+                #                              "# W1SS+  -->  Z1SS   CH     SB" in line ) ): # for .slha
+                elif (decay is "C1ffN1" and ("# BR(~chi_1+ -> ~chi_10 u    db)" in line or
+                                             "# BR(~chi_1+ -> ~chi_10 c    sb)" in line ) ): # for .out
                     BR = line.split()
                     total += float( BR[0] )
-                elif (decay is "C1lvlN1" and ("# W1SS+  -->  Z1SS   E+     NUE" in line or
-                                              "# W1SS+  -->  Z1SS   MU+    NUM" in line or
-                                              "# W1SS+  -->  Z1SS   TAU+   NUT" in line) ):
+                # elif (decay is "C1lvlN1" and ("# W1SS+  -->  Z1SS   E+     NUE" in line or
+                #                               "# W1SS+  -->  Z1SS   MU+    NUM" in line or
+                #                               "# W1SS+  -->  Z1SS   TAU+   NUT" in line) ): # for .slha
+                elif (decay is "C1lvlN1" and ("# BR(~chi_1+ -> ~chi_10 e+   nu_e)" in line or
+                                              "# BR(~chi_1+ -> ~chi_10 mu+  nu_mu)" in line or
+                                              "# BR(~chi_1+ -> ~chi_10 tau+ nu_tau)" in line) ): # for .out
                     BR = line.split()
                     total += float( BR[0] )
         return total

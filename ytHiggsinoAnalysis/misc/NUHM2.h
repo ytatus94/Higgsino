@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Aug  1 17:08:07 2017 by ROOT version 6.04/14
-// from TTree MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys/MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys
-// found on file: MGPy8EG_A14N23LO_NUHM2_m12_600_weakb_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root
+// Tue Sep 26 16:47:57 2017 by ROOT version 6.04/16
+// from TTree MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys/MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys
+// found on file: MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
 //////////////////////////////////////////////////////////
 
 #ifndef NUHM2_h
@@ -370,6 +370,17 @@ public :
    Double_t        jvtWeight;
    Double_t        genWeightUp;
    Double_t        genWeightDown;
+   Double_t        truthMll;
+   Double_t        winoBinoMllWeight;
+   Double_t        winoBinoXsecWeight;
+   Double_t        winoBinoBrFracWeight;
+   Double_t        winoBinoWeight;
+   Double_t        NUHM2weight_350m12;
+   Double_t        NUHM2weight_400m12;
+   Double_t        NUHM2weight_500m12;
+   Double_t        NUHM2weight_600m12;
+   Double_t        NUHM2weight_700m12;
+   Double_t        NUHM2weight_800m12;
    vector<float>   *LHE3Weights;
    Double_t        FFWeight;
    Int_t           nLep_antiID;
@@ -431,6 +442,42 @@ public :
    Float_t         scalePDF;
    Int_t           id1;
    Int_t           id2;
+   Float_t         leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down;
+   Float_t         leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up;
+   Float_t         leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down;
+   Float_t         leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up;
+   Float_t         leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down;
+   Float_t         leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up;
+   Float_t         leptonWeight_MUON_EFF_STAT__1down;
+   Float_t         leptonWeight_MUON_EFF_STAT__1up;
+   Float_t         leptonWeight_MUON_EFF_STAT_LOWPT__1down;
+   Float_t         leptonWeight_MUON_EFF_STAT_LOWPT__1up;
+   Float_t         leptonWeight_MUON_EFF_SYS__1down;
+   Float_t         leptonWeight_MUON_EFF_SYS__1up;
+   Float_t         leptonWeight_MUON_EFF_SYS_LOWPT__1down;
+   Float_t         leptonWeight_MUON_EFF_SYS_LOWPT__1up;
+   Float_t         leptonWeight_MUON_ISO_STAT__1down;
+   Float_t         leptonWeight_MUON_ISO_STAT__1up;
+   Float_t         leptonWeight_MUON_ISO_SYS__1down;
+   Float_t         leptonWeight_MUON_ISO_SYS__1up;
+   Float_t         leptonWeight_MUON_TTVA_STAT__1down;
+   Float_t         leptonWeight_MUON_TTVA_STAT__1up;
+   Float_t         leptonWeight_MUON_TTVA_SYS__1down;
+   Float_t         leptonWeight_MUON_TTVA_SYS__1up;
+   Float_t         bTagWeight_FT_EFF_B_systematics__1down;
+   Float_t         bTagWeight_FT_EFF_B_systematics__1up;
+   Float_t         bTagWeight_FT_EFF_C_systematics__1down;
+   Float_t         bTagWeight_FT_EFF_C_systematics__1up;
+   Float_t         bTagWeight_FT_EFF_Light_systematics__1down;
+   Float_t         bTagWeight_FT_EFF_Light_systematics__1up;
+   Float_t         bTagWeight_FT_EFF_extrapolation__1down;
+   Float_t         bTagWeight_FT_EFF_extrapolation__1up;
+   Float_t         bTagWeight_FT_EFF_extrapolation_from_charm__1down;
+   Float_t         bTagWeight_FT_EFF_extrapolation_from_charm__1up;
+   Float_t         jvtWeight_JET_JvtEfficiency__1down;
+   Float_t         jvtWeight_JET_JvtEfficiency__1up;
+   Float_t         pileupWeightUp;
+   Float_t         pileupWeightDown;
    ULong64_t       PRWHash;
    ULong64_t       EventNumber;
    Float_t         xsec;
@@ -788,6 +835,17 @@ public :
    TBranch        *b_jvtWeight;   //!
    TBranch        *b_genWeightUp;   //!
    TBranch        *b_genWeightDown;   //!
+   TBranch        *b_truthMll;   //!
+   TBranch        *b_winoBinoMllWeight;   //!
+   TBranch        *b_winoBinoXsecWeight;   //!
+   TBranch        *b_winoBinoBrFracWeight;   //!
+   TBranch        *b_winoBinoWeight;   //!
+   TBranch        *b_NUHM2weight_350m12;   //!
+   TBranch        *b_NUHM2weight_400m12;   //!
+   TBranch        *b_NUHM2weight_500m12;   //!
+   TBranch        *b_NUHM2weight_600m12;   //!
+   TBranch        *b_NUHM2weight_700m12;   //!
+   TBranch        *b_NUHM2weight_800m12;   //!
    TBranch        *b_LHE3Weights;   //!
    TBranch        *b_FFWeight;   //!
    TBranch        *b_nLep_antiID;   //!
@@ -849,6 +907,42 @@ public :
    TBranch        *b_scalePDF;   //!
    TBranch        *b_id1;   //!
    TBranch        *b_id2;   //!
+   TBranch        *b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+   TBranch        *b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+   TBranch        *b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+   TBranch        *b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+   TBranch        *b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+   TBranch        *b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_STAT__1down;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_STAT__1up;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_STAT_LOWPT__1down;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_STAT_LOWPT__1up;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_SYS__1down;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_SYS__1up;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_SYS_LOWPT__1down;   //!
+   TBranch        *b_leptonWeight_MUON_EFF_SYS_LOWPT__1up;   //!
+   TBranch        *b_leptonWeight_MUON_ISO_STAT__1down;   //!
+   TBranch        *b_leptonWeight_MUON_ISO_STAT__1up;   //!
+   TBranch        *b_leptonWeight_MUON_ISO_SYS__1down;   //!
+   TBranch        *b_leptonWeight_MUON_ISO_SYS__1up;   //!
+   TBranch        *b_leptonWeight_MUON_TTVA_STAT__1down;   //!
+   TBranch        *b_leptonWeight_MUON_TTVA_STAT__1up;   //!
+   TBranch        *b_leptonWeight_MUON_TTVA_SYS__1down;   //!
+   TBranch        *b_leptonWeight_MUON_TTVA_SYS__1up;   //!
+   TBranch        *b_bTagWeight_FT_EFF_B_systematics__1down;   //!
+   TBranch        *b_bTagWeight_FT_EFF_B_systematics__1up;   //!
+   TBranch        *b_bTagWeight_FT_EFF_C_systematics__1down;   //!
+   TBranch        *b_bTagWeight_FT_EFF_C_systematics__1up;   //!
+   TBranch        *b_bTagWeight_FT_EFF_Light_systematics__1down;   //!
+   TBranch        *b_bTagWeight_FT_EFF_Light_systematics__1up;   //!
+   TBranch        *b_bTagWeight_FT_EFF_extrapolation__1down;   //!
+   TBranch        *b_bTagWeight_FT_EFF_extrapolation__1up;   //!
+   TBranch        *b_bTagWeight_FT_EFF_extrapolation_from_charm__1down;   //!
+   TBranch        *b_bTagWeight_FT_EFF_extrapolation_from_charm__1up;   //!
+   TBranch        *b_jvtWeight_JET_JvtEfficiency__1down;   //!
+   TBranch        *b_jvtWeight_JET_JvtEfficiency__1up;   //!
+   TBranch        *b_pileupWeightUp;   //!
+   TBranch        *b_pileupWeightDown;   //!
    TBranch        *b_PRWHash;   //!
    TBranch        *b_EventNumber;   //!
    TBranch        *b_xsec;   //!
@@ -1249,6 +1343,17 @@ void NUHM2::Init(TTree *tree)
    fChain->SetBranchAddress("jvtWeight", &jvtWeight, &b_jvtWeight);
    fChain->SetBranchAddress("genWeightUp", &genWeightUp, &b_genWeightUp);
    fChain->SetBranchAddress("genWeightDown", &genWeightDown, &b_genWeightDown);
+   fChain->SetBranchAddress("truthMll", &truthMll, &b_truthMll);
+   fChain->SetBranchAddress("winoBinoMllWeight", &winoBinoMllWeight, &b_winoBinoMllWeight);
+   fChain->SetBranchAddress("winoBinoXsecWeight", &winoBinoXsecWeight, &b_winoBinoXsecWeight);
+   fChain->SetBranchAddress("winoBinoBrFracWeight", &winoBinoBrFracWeight, &b_winoBinoBrFracWeight);
+   fChain->SetBranchAddress("winoBinoWeight", &winoBinoWeight, &b_winoBinoWeight);
+   fChain->SetBranchAddress("NUHM2weight_350m12", &NUHM2weight_350m12, &b_NUHM2weight_350m12);
+   fChain->SetBranchAddress("NUHM2weight_400m12", &NUHM2weight_400m12, &b_NUHM2weight_400m12);
+   fChain->SetBranchAddress("NUHM2weight_500m12", &NUHM2weight_500m12, &b_NUHM2weight_500m12);
+   fChain->SetBranchAddress("NUHM2weight_600m12", &NUHM2weight_600m12, &b_NUHM2weight_600m12);
+   fChain->SetBranchAddress("NUHM2weight_700m12", &NUHM2weight_700m12, &b_NUHM2weight_700m12);
+   fChain->SetBranchAddress("NUHM2weight_800m12", &NUHM2weight_800m12, &b_NUHM2weight_800m12);
    fChain->SetBranchAddress("LHE3Weights", &LHE3Weights, &b_LHE3Weights);
    fChain->SetBranchAddress("FFWeight", &FFWeight, &b_FFWeight);
    fChain->SetBranchAddress("nLep_antiID", &nLep_antiID, &b_nLep_antiID);
@@ -1310,6 +1415,42 @@ void NUHM2::Init(TTree *tree)
    fChain->SetBranchAddress("scalePDF", &scalePDF, &b_scalePDF);
    fChain->SetBranchAddress("id1", &id1, &b_id1);
    fChain->SetBranchAddress("id2", &id2, &b_id2);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+   fChain->SetBranchAddress("leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT__1down", &leptonWeight_MUON_EFF_STAT__1down, &b_leptonWeight_MUON_EFF_STAT__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT__1up", &leptonWeight_MUON_EFF_STAT__1up, &b_leptonWeight_MUON_EFF_STAT__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT_LOWPT__1down", &leptonWeight_MUON_EFF_STAT_LOWPT__1down, &b_leptonWeight_MUON_EFF_STAT_LOWPT__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT_LOWPT__1up", &leptonWeight_MUON_EFF_STAT_LOWPT__1up, &b_leptonWeight_MUON_EFF_STAT_LOWPT__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS__1down", &leptonWeight_MUON_EFF_SYS__1down, &b_leptonWeight_MUON_EFF_SYS__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS__1up", &leptonWeight_MUON_EFF_SYS__1up, &b_leptonWeight_MUON_EFF_SYS__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS_LOWPT__1down", &leptonWeight_MUON_EFF_SYS_LOWPT__1down, &b_leptonWeight_MUON_EFF_SYS_LOWPT__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS_LOWPT__1up", &leptonWeight_MUON_EFF_SYS_LOWPT__1up, &b_leptonWeight_MUON_EFF_SYS_LOWPT__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_ISO_STAT__1down", &leptonWeight_MUON_ISO_STAT__1down, &b_leptonWeight_MUON_ISO_STAT__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_ISO_STAT__1up", &leptonWeight_MUON_ISO_STAT__1up, &b_leptonWeight_MUON_ISO_STAT__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_ISO_SYS__1down", &leptonWeight_MUON_ISO_SYS__1down, &b_leptonWeight_MUON_ISO_SYS__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_ISO_SYS__1up", &leptonWeight_MUON_ISO_SYS__1up, &b_leptonWeight_MUON_ISO_SYS__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_TTVA_STAT__1down", &leptonWeight_MUON_TTVA_STAT__1down, &b_leptonWeight_MUON_TTVA_STAT__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_TTVA_STAT__1up", &leptonWeight_MUON_TTVA_STAT__1up, &b_leptonWeight_MUON_TTVA_STAT__1up);
+   fChain->SetBranchAddress("leptonWeight_MUON_TTVA_SYS__1down", &leptonWeight_MUON_TTVA_SYS__1down, &b_leptonWeight_MUON_TTVA_SYS__1down);
+   fChain->SetBranchAddress("leptonWeight_MUON_TTVA_SYS__1up", &leptonWeight_MUON_TTVA_SYS__1up, &b_leptonWeight_MUON_TTVA_SYS__1up);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_B_systematics__1down", &bTagWeight_FT_EFF_B_systematics__1down, &b_bTagWeight_FT_EFF_B_systematics__1down);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_B_systematics__1up", &bTagWeight_FT_EFF_B_systematics__1up, &b_bTagWeight_FT_EFF_B_systematics__1up);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_C_systematics__1down", &bTagWeight_FT_EFF_C_systematics__1down, &b_bTagWeight_FT_EFF_C_systematics__1down);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_C_systematics__1up", &bTagWeight_FT_EFF_C_systematics__1up, &b_bTagWeight_FT_EFF_C_systematics__1up);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_Light_systematics__1down", &bTagWeight_FT_EFF_Light_systematics__1down, &b_bTagWeight_FT_EFF_Light_systematics__1down);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_Light_systematics__1up", &bTagWeight_FT_EFF_Light_systematics__1up, &b_bTagWeight_FT_EFF_Light_systematics__1up);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation__1down", &bTagWeight_FT_EFF_extrapolation__1down, &b_bTagWeight_FT_EFF_extrapolation__1down);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation__1up", &bTagWeight_FT_EFF_extrapolation__1up, &b_bTagWeight_FT_EFF_extrapolation__1up);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation_from_charm__1down", &bTagWeight_FT_EFF_extrapolation_from_charm__1down, &b_bTagWeight_FT_EFF_extrapolation_from_charm__1down);
+   fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation_from_charm__1up", &bTagWeight_FT_EFF_extrapolation_from_charm__1up, &b_bTagWeight_FT_EFF_extrapolation_from_charm__1up);
+   fChain->SetBranchAddress("jvtWeight_JET_JvtEfficiency__1down", &jvtWeight_JET_JvtEfficiency__1down, &b_jvtWeight_JET_JvtEfficiency__1down);
+   fChain->SetBranchAddress("jvtWeight_JET_JvtEfficiency__1up", &jvtWeight_JET_JvtEfficiency__1up, &b_jvtWeight_JET_JvtEfficiency__1up);
+   fChain->SetBranchAddress("pileupWeightUp", &pileupWeightUp, &b_pileupWeightUp);
+   fChain->SetBranchAddress("pileupWeightDown", &pileupWeightDown, &b_pileupWeightDown);
    fChain->SetBranchAddress("PRWHash", &PRWHash, &b_PRWHash);
    fChain->SetBranchAddress("EventNumber", &EventNumber, &b_EventNumber);
    fChain->SetBranchAddress("xsec", &xsec, &b_xsec);

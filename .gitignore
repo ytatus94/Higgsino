@@ -14,5 +14,8 @@ Thumbs.db
 *.tgz
 *.tar.gz
 *.gz
-# python file
+# python file #
 *.pyc
+# root file #
+*.root
+user.yushen.*

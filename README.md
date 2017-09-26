@@ -3,6 +3,12 @@ The NUHM2 Higgsino study
 
 ---
 
+### v31. New TRUTH3
+* `BR_calculation.py`: Add code to read SusyHit output.
+* `RunSimpleAnalysis.sh`: Add new official TRUTH3 samples.
+* `EwkNUHM22016.cxx`: Use new SR, CR, and VR definitions
+
+
 ### v30. Add Higgsino optimised SR
 * `show_normalization_factor.C`: fix bugs
 * `plot_reweight_common_ntuple_mll.C`: change output file name
