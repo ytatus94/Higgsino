@@ -574,6 +574,17 @@ EL::StatusCode ytEventSelection :: changeInput (bool firstFile)
     fChain->SetBranchAddress("jvtWeight", &jvtWeight, &b_jvtWeight);
     fChain->SetBranchAddress("genWeightUp", &genWeightUp, &b_genWeightUp);
     fChain->SetBranchAddress("genWeightDown", &genWeightDown, &b_genWeightDown);
+    fChain->SetBranchAddress("truthMll", &truthMll, &b_truthMll);
+    fChain->SetBranchAddress("winoBinoMllWeight", &winoBinoMllWeight, &b_winoBinoMllWeight);
+    fChain->SetBranchAddress("winoBinoXsecWeight", &winoBinoXsecWeight, &b_winoBinoXsecWeight);
+    fChain->SetBranchAddress("winoBinoBrFracWeight", &winoBinoBrFracWeight, &b_winoBinoBrFracWeight);
+    fChain->SetBranchAddress("winoBinoWeight", &winoBinoWeight, &b_winoBinoWeight);
+    fChain->SetBranchAddress("NUHM2weight_350m12", &NUHM2weight_350m12, &b_NUHM2weight_350m12);
+    fChain->SetBranchAddress("NUHM2weight_400m12", &NUHM2weight_400m12, &b_NUHM2weight_400m12);
+    fChain->SetBranchAddress("NUHM2weight_500m12", &NUHM2weight_500m12, &b_NUHM2weight_500m12);
+    fChain->SetBranchAddress("NUHM2weight_600m12", &NUHM2weight_600m12, &b_NUHM2weight_600m12);
+    fChain->SetBranchAddress("NUHM2weight_700m12", &NUHM2weight_700m12, &b_NUHM2weight_700m12);
+    fChain->SetBranchAddress("NUHM2weight_800m12", &NUHM2weight_800m12, &b_NUHM2weight_800m12);
     fChain->SetBranchAddress("LHE3Weights", &LHE3Weights, &b_LHE3Weights);
     fChain->SetBranchAddress("FFWeight", &FFWeight, &b_FFWeight);
     fChain->SetBranchAddress("nLep_antiID", &nLep_antiID, &b_nLep_antiID);
@@ -635,6 +646,42 @@ EL::StatusCode ytEventSelection :: changeInput (bool firstFile)
     fChain->SetBranchAddress("scalePDF", &scalePDF, &b_scalePDF);
     fChain->SetBranchAddress("id1", &id1, &b_id1);
     fChain->SetBranchAddress("id2", &id2, &b_id2);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down", &leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down, &b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+    fChain->SetBranchAddress("leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up", &leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up, &b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT__1down", &leptonWeight_MUON_EFF_STAT__1down, &b_leptonWeight_MUON_EFF_STAT__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT__1up", &leptonWeight_MUON_EFF_STAT__1up, &b_leptonWeight_MUON_EFF_STAT__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT_LOWPT__1down", &leptonWeight_MUON_EFF_STAT_LOWPT__1down, &b_leptonWeight_MUON_EFF_STAT_LOWPT__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_STAT_LOWPT__1up", &leptonWeight_MUON_EFF_STAT_LOWPT__1up, &b_leptonWeight_MUON_EFF_STAT_LOWPT__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS__1down", &leptonWeight_MUON_EFF_SYS__1down, &b_leptonWeight_MUON_EFF_SYS__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS__1up", &leptonWeight_MUON_EFF_SYS__1up, &b_leptonWeight_MUON_EFF_SYS__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS_LOWPT__1down", &leptonWeight_MUON_EFF_SYS_LOWPT__1down, &b_leptonWeight_MUON_EFF_SYS_LOWPT__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_EFF_SYS_LOWPT__1up", &leptonWeight_MUON_EFF_SYS_LOWPT__1up, &b_leptonWeight_MUON_EFF_SYS_LOWPT__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_ISO_STAT__1down", &leptonWeight_MUON_ISO_STAT__1down, &b_leptonWeight_MUON_ISO_STAT__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_ISO_STAT__1up", &leptonWeight_MUON_ISO_STAT__1up, &b_leptonWeight_MUON_ISO_STAT__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_ISO_SYS__1down", &leptonWeight_MUON_ISO_SYS__1down, &b_leptonWeight_MUON_ISO_SYS__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_ISO_SYS__1up", &leptonWeight_MUON_ISO_SYS__1up, &b_leptonWeight_MUON_ISO_SYS__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_TTVA_STAT__1down", &leptonWeight_MUON_TTVA_STAT__1down, &b_leptonWeight_MUON_TTVA_STAT__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_TTVA_STAT__1up", &leptonWeight_MUON_TTVA_STAT__1up, &b_leptonWeight_MUON_TTVA_STAT__1up);
+    fChain->SetBranchAddress("leptonWeight_MUON_TTVA_SYS__1down", &leptonWeight_MUON_TTVA_SYS__1down, &b_leptonWeight_MUON_TTVA_SYS__1down);
+    fChain->SetBranchAddress("leptonWeight_MUON_TTVA_SYS__1up", &leptonWeight_MUON_TTVA_SYS__1up, &b_leptonWeight_MUON_TTVA_SYS__1up);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_B_systematics__1down", &bTagWeight_FT_EFF_B_systematics__1down, &b_bTagWeight_FT_EFF_B_systematics__1down);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_B_systematics__1up", &bTagWeight_FT_EFF_B_systematics__1up, &b_bTagWeight_FT_EFF_B_systematics__1up);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_C_systematics__1down", &bTagWeight_FT_EFF_C_systematics__1down, &b_bTagWeight_FT_EFF_C_systematics__1down);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_C_systematics__1up", &bTagWeight_FT_EFF_C_systematics__1up, &b_bTagWeight_FT_EFF_C_systematics__1up);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_Light_systematics__1down", &bTagWeight_FT_EFF_Light_systematics__1down, &b_bTagWeight_FT_EFF_Light_systematics__1down);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_Light_systematics__1up", &bTagWeight_FT_EFF_Light_systematics__1up, &b_bTagWeight_FT_EFF_Light_systematics__1up);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation__1down", &bTagWeight_FT_EFF_extrapolation__1down, &b_bTagWeight_FT_EFF_extrapolation__1down);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation__1up", &bTagWeight_FT_EFF_extrapolation__1up, &b_bTagWeight_FT_EFF_extrapolation__1up);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation_from_charm__1down", &bTagWeight_FT_EFF_extrapolation_from_charm__1down, &b_bTagWeight_FT_EFF_extrapolation_from_charm__1down);
+    fChain->SetBranchAddress("bTagWeight_FT_EFF_extrapolation_from_charm__1up", &bTagWeight_FT_EFF_extrapolation_from_charm__1up, &b_bTagWeight_FT_EFF_extrapolation_from_charm__1up);
+    fChain->SetBranchAddress("jvtWeight_JET_JvtEfficiency__1down", &jvtWeight_JET_JvtEfficiency__1down, &b_jvtWeight_JET_JvtEfficiency__1down);
+    fChain->SetBranchAddress("jvtWeight_JET_JvtEfficiency__1up", &jvtWeight_JET_JvtEfficiency__1up, &b_jvtWeight_JET_JvtEfficiency__1up);
+    fChain->SetBranchAddress("pileupWeightUp", &pileupWeightUp, &b_pileupWeightUp);
+    fChain->SetBranchAddress("pileupWeightDown", &pileupWeightDown, &b_pileupWeightDown);
     fChain->SetBranchAddress("PRWHash", &PRWHash, &b_PRWHash);
     fChain->SetBranchAddress("EventNumber", &EventNumber, &b_EventNumber);
     fChain->SetBranchAddress("xsec", &xsec, &b_xsec);
@@ -1038,101 +1085,101 @@ EL::StatusCode ytEventSelection :: execute ()
             if (mll > 1. && mll < 3.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(11);
-                    h_weighted_yields_SRee->Fill(11);
+                    h_weighted_yields_SRee->Fill(11, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(11);
-                    h_weighted_yields_SRmm->Fill(11);
+                    h_weighted_yields_SRmm->Fill(11, weight);
                 }
             }
             else if (mll >= 3.2 && mll < 5.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(12);
-                    h_weighted_yields_SRee->Fill(12);
+                    h_weighted_yields_SRee->Fill(12, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(12);
-                    h_weighted_yields_SRmm->Fill(12);
+                    h_weighted_yields_SRmm->Fill(12, weight);
                 }
             }
             else if (mll >= 5. && mll < 10.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(13);
-                    h_weighted_yields_SRee->Fill(13);
+                    h_weighted_yields_SRee->Fill(13, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(13);
-                    h_weighted_yields_SRmm->Fill(13);
+                    h_weighted_yields_SRmm->Fill(13, weight);
                 }
             }
             else if (mll >= 10. && mll < 20.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(14);
-                    h_weighted_yields_SRee->Fill(14);
+                    h_weighted_yields_SRee->Fill(14, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(14);
-                    h_weighted_yields_SRmm->Fill(14);
+                    h_weighted_yields_SRmm->Fill(14, weight);
                 }
             }
             else if (mll >= 20. && mll < 30.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(15);
-                    h_weighted_yields_SRee->Fill(15);
+                    h_weighted_yields_SRee->Fill(15, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(15);
-                    h_weighted_yields_SRmm->Fill(15);
+                    h_weighted_yields_SRmm->Fill(15, weight);
                 }
             }
             else if (mll >= 30. && mll < 40.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(16);
-                    h_weighted_yields_SRee->Fill(16);
+                    h_weighted_yields_SRee->Fill(16, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(16);
-                    h_weighted_yields_SRmm->Fill(16);
+                    h_weighted_yields_SRmm->Fill(16, weight);
                 }
             }
             else if (mll >= 40. && mll < 60.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(17);
-                    h_weighted_yields_SRee->Fill(17);
+                    h_weighted_yields_SRee->Fill(17, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(17);
-                    h_weighted_yields_SRmm->Fill(17);
+                    h_weighted_yields_SRmm->Fill(17, weight);
                 }
             }
             // inclusive
             if (mll < 3.) {
                 h_yields_SRSF->Fill(11);
-                h_weighted_yields_SRSF->Fill(11);
+                h_weighted_yields_SRSF->Fill(11, weight);
             }
             else if (mll < 5.) {
                 h_yields_SRSF->Fill(12);
-                h_weighted_yields_SRSF->Fill(12);
+                h_weighted_yields_SRSF->Fill(12, weight);
             }
             else if (mll < 10.) {
                 h_yields_SRSF->Fill(13);
-                h_weighted_yields_SRSF->Fill(13);
+                h_weighted_yields_SRSF->Fill(13, weight);
             }
             else if (mll < 20.) {
                 h_yields_SRSF->Fill(14);
-                h_weighted_yields_SRSF->Fill(14);
+                h_weighted_yields_SRSF->Fill(14, weight);
             }
             else if (mll < 30.) {
                 h_yields_SRSF->Fill(15);
-                h_weighted_yields_SRSF->Fill(15);
+                h_weighted_yields_SRSF->Fill(15, weight);
             }
             else if (mll < 40.) {
                 h_yields_SRSF->Fill(16);
-                h_weighted_yields_SRSF->Fill(16);
+                h_weighted_yields_SRSF->Fill(16, weight);
             }
             else if (mll < 60.) {
                 h_yields_SRSF->Fill(17);
-                h_weighted_yields_SRSF->Fill(17);
+                h_weighted_yields_SRSF->Fill(17, weight);
             }
         }
         else if (sample_type == "signals") {
@@ -1144,101 +1191,101 @@ EL::StatusCode ytEventSelection :: execute ()
             if (mll > 1. && mll < 3.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(21);
-                    h_weighted_yields_SRee->Fill(21);
+                    h_weighted_yields_SRee->Fill(21, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(21);
-                    h_weighted_yields_SRmm->Fill(21);
+                    h_weighted_yields_SRmm->Fill(21, weight);
                 }
             }
             else if (mll >= 3.2 && mll < 5.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(22);
-                    h_weighted_yields_SRee->Fill(22);
+                    h_weighted_yields_SRee->Fill(22, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(22);
-                    h_weighted_yields_SRmm->Fill(22);
+                    h_weighted_yields_SRmm->Fill(22, weight);
                 }
             }
             else if (mll >= 5. && mll < 10.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(23);
-                    h_weighted_yields_SRee->Fill(23);
+                    h_weighted_yields_SRee->Fill(23, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(23);
-                    h_weighted_yields_SRmm->Fill(23);
+                    h_weighted_yields_SRmm->Fill(23, weight);
                 }
             }
             else if (mll >= 10. && mll < 20.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(24);
-                    h_weighted_yields_SRee->Fill(24);
+                    h_weighted_yields_SRee->Fill(24, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(24);
-                    h_weighted_yields_SRmm->Fill(24);
+                    h_weighted_yields_SRmm->Fill(24, weight);
                 }
             }
             else if (mll >= 20. && mll < 30.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(25);
-                    h_weighted_yields_SRee->Fill(25);
+                    h_weighted_yields_SRee->Fill(25, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(25);
-                    h_weighted_yields_SRmm->Fill(25);
+                    h_weighted_yields_SRmm->Fill(25, weight);
                 }
             }
             else if (mll >= 30. && mll < 40.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(26);
-                    h_weighted_yields_SRee->Fill(26);
+                    h_weighted_yields_SRee->Fill(26, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(26);
-                    h_weighted_yields_SRmm->Fill(26);
+                    h_weighted_yields_SRmm->Fill(26, weight);
                 }
             }
             else if (mll >= 40. && mll < 60.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(27);
-                    h_weighted_yields_SRee->Fill(27);
+                    h_weighted_yields_SRee->Fill(27, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(27);
-                    h_weighted_yields_SRmm->Fill(27);
+                    h_weighted_yields_SRmm->Fill(27, weight);
                 }
             }
             // inclusive
             if (mll < 3.) {
                 h_yields_SRSF->Fill(21);
-                h_weighted_yields_SRSF->Fill(21);
+                h_weighted_yields_SRSF->Fill(21, weight);
             }
             else if (mll < 5.) {
                 h_yields_SRSF->Fill(22);
-                h_weighted_yields_SRSF->Fill(22);
+                h_weighted_yields_SRSF->Fill(22, weight);
             }
             else if (mll < 10.) {
                 h_yields_SRSF->Fill(23);
-                h_weighted_yields_SRSF->Fill(23);
+                h_weighted_yields_SRSF->Fill(23, weight);
             }
             else if (mll < 20.) {
                 h_yields_SRSF->Fill(24);
-                h_weighted_yields_SRSF->Fill(24);
+                h_weighted_yields_SRSF->Fill(24, weight);
             }
             else if (mll < 30.) {
                 h_yields_SRSF->Fill(25);
-                h_weighted_yields_SRSF->Fill(25);
+                h_weighted_yields_SRSF->Fill(25, weight);
             }
             else if (mll < 40.) {
                 h_yields_SRSF->Fill(26);
-                h_weighted_yields_SRSF->Fill(26);
+                h_weighted_yields_SRSF->Fill(26, weight);
             }
             else if (mll < 60.) {
                 h_yields_SRSF->Fill(27);
-                h_weighted_yields_SRSF->Fill(27);
+                h_weighted_yields_SRSF->Fill(27, weight);
             }
         }
         else if (sample_type == "backgrounds") {
@@ -1250,101 +1297,101 @@ EL::StatusCode ytEventSelection :: execute ()
             if (mll > 1. && mll < 3.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(31);
-                    h_weighted_yields_SRee->Fill(31);
+                    h_weighted_yields_SRee->Fill(31, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(31);
-                    h_weighted_yields_SRmm->Fill(31);
+                    h_weighted_yields_SRmm->Fill(31, weight);
                 }
             }
             else if (mll >= 3.2 && mll < 5.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(32);
-                    h_weighted_yields_SRee->Fill(32);
+                    h_weighted_yields_SRee->Fill(32, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(32);
-                    h_weighted_yields_SRmm->Fill(32);
+                    h_weighted_yields_SRmm->Fill(32, weight);
                 }
             }
             else if (mll >= 5. && mll < 10.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(33);
-                    h_weighted_yields_SRee->Fill(33);
+                    h_weighted_yields_SRee->Fill(33, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(33);
-                    h_weighted_yields_SRmm->Fill(33);
+                    h_weighted_yields_SRmm->Fill(33, weight);
                 }
             }
             else if (mll >= 10. && mll < 20.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(34);
-                    h_weighted_yields_SRee->Fill(34);
+                    h_weighted_yields_SRee->Fill(34, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(34);
-                    h_weighted_yields_SRmm->Fill(34);
+                    h_weighted_yields_SRmm->Fill(34, weight);
                 }
             }
             else if (mll >= 20. && mll < 30.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(35);
-                    h_weighted_yields_SRee->Fill(35);
+                    h_weighted_yields_SRee->Fill(35, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(35);
-                    h_weighted_yields_SRmm->Fill(35);
+                    h_weighted_yields_SRmm->Fill(35, weight);
                 }
             }
             else if (mll >= 30. && mll < 40.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(36);
-                    h_weighted_yields_SRee->Fill(36);
+                    h_weighted_yields_SRee->Fill(36, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(36);
-                    h_weighted_yields_SRmm->Fill(36);
+                    h_weighted_yields_SRmm->Fill(36, weight);
                 }
             }
             else if (mll >= 40. && mll < 60.) {
                 if (lep1Flavor == 1 && lep2Flavor == 1) {
                     h_yields_SRee->Fill(37);
-                    h_weighted_yields_SRee->Fill(37);
+                    h_weighted_yields_SRee->Fill(37, weight);
                 }
                 if (lep1Flavor == 2 && lep2Flavor == 2) {
                     h_yields_SRmm->Fill(37);
-                    h_weighted_yields_SRmm->Fill(37);
+                    h_weighted_yields_SRmm->Fill(37, weight);
                 }
             }
             // inclusive
             if (mll < 3.) {
                 h_yields_SRSF->Fill(31);
-                h_weighted_yields_SRSF->Fill(31);
+                h_weighted_yields_SRSF->Fill(31, weight);
             }
             else if (mll < 5.) {
                 h_yields_SRSF->Fill(32);
-                h_weighted_yields_SRSF->Fill(32);
+                h_weighted_yields_SRSF->Fill(32, weight);
             }
             else if (mll < 10.) {
                 h_yields_SRSF->Fill(33);
-                h_weighted_yields_SRSF->Fill(33);
+                h_weighted_yields_SRSF->Fill(33, weight);
             }
             else if (mll < 20.) {
                 h_yields_SRSF->Fill(34);
-                h_weighted_yields_SRSF->Fill(34);
+                h_weighted_yields_SRSF->Fill(34, weight);
             }
             else if (mll < 30.) {
                 h_yields_SRSF->Fill(35);
-                h_weighted_yields_SRSF->Fill(35);
+                h_weighted_yields_SRSF->Fill(35, weight);
             }
             else if (mll < 40.) {
                 h_yields_SRSF->Fill(36);
-                h_weighted_yields_SRSF->Fill(36);
+                h_weighted_yields_SRSF->Fill(36, weight);
             }
             else if (mll < 60.) {
                 h_yields_SRSF->Fill(37);
-                h_weighted_yields_SRSF->Fill(37);
+                h_weighted_yields_SRSF->Fill(37, weight);
             }
         }
     }

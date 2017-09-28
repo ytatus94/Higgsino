@@ -401,6 +401,17 @@ public:
     Double_t        jvtWeight; //!
     Double_t        genWeightUp; //!
     Double_t        genWeightDown; //!
+    Double_t        truthMll; //!
+    Double_t        winoBinoMllWeight; //!
+    Double_t        winoBinoXsecWeight; //!
+    Double_t        winoBinoBrFracWeight; //!
+    Double_t        winoBinoWeight; //!
+    Double_t        NUHM2weight_350m12; //!
+    Double_t        NUHM2weight_400m12; //!
+    Double_t        NUHM2weight_500m12; //!
+    Double_t        NUHM2weight_600m12; //!
+    Double_t        NUHM2weight_700m12; //!
+    Double_t        NUHM2weight_800m12; //!
     vector<float>   *LHE3Weights; //!
     Double_t        FFWeight; //!
     Int_t           nLep_antiID; //!
@@ -462,6 +473,42 @@ public:
     Float_t         scalePDF; //!
     Int_t           id1; //!
     Int_t           id2; //!
+    Float_t         leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down; //!
+    Float_t         leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up; //!
+    Float_t         leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down; //!
+    Float_t         leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up; //!
+    Float_t         leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down; //!
+    Float_t         leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up; //!
+    Float_t         leptonWeight_MUON_EFF_STAT__1down; //!
+    Float_t         leptonWeight_MUON_EFF_STAT__1up; //!
+    Float_t         leptonWeight_MUON_EFF_STAT_LOWPT__1down; //!
+    Float_t         leptonWeight_MUON_EFF_STAT_LOWPT__1up; //!
+    Float_t         leptonWeight_MUON_EFF_SYS__1down; //!
+    Float_t         leptonWeight_MUON_EFF_SYS__1up; //!
+    Float_t         leptonWeight_MUON_EFF_SYS_LOWPT__1down; //!
+    Float_t         leptonWeight_MUON_EFF_SYS_LOWPT__1up; //!
+    Float_t         leptonWeight_MUON_ISO_STAT__1down; //!
+    Float_t         leptonWeight_MUON_ISO_STAT__1up; //!
+    Float_t         leptonWeight_MUON_ISO_SYS__1down; //!
+    Float_t         leptonWeight_MUON_ISO_SYS__1up; //!
+    Float_t         leptonWeight_MUON_TTVA_STAT__1down; //!
+    Float_t         leptonWeight_MUON_TTVA_STAT__1up; //!
+    Float_t         leptonWeight_MUON_TTVA_SYS__1down; //!
+    Float_t         leptonWeight_MUON_TTVA_SYS__1up; //!
+    Float_t         bTagWeight_FT_EFF_B_systematics__1down; //!
+    Float_t         bTagWeight_FT_EFF_B_systematics__1up; //!
+    Float_t         bTagWeight_FT_EFF_C_systematics__1down; //!
+    Float_t         bTagWeight_FT_EFF_C_systematics__1up; //!
+    Float_t         bTagWeight_FT_EFF_Light_systematics__1down; //!
+    Float_t         bTagWeight_FT_EFF_Light_systematics__1up; //!
+    Float_t         bTagWeight_FT_EFF_extrapolation__1down; //!
+    Float_t         bTagWeight_FT_EFF_extrapolation__1up; //!
+    Float_t         bTagWeight_FT_EFF_extrapolation_from_charm__1down; //!
+    Float_t         bTagWeight_FT_EFF_extrapolation_from_charm__1up; //!
+    Float_t         jvtWeight_JET_JvtEfficiency__1down; //!
+    Float_t         jvtWeight_JET_JvtEfficiency__1up; //!
+    Float_t         pileupWeightUp; //!
+    Float_t         pileupWeightDown; //!
     ULong64_t       PRWHash; //!
     ULong64_t       EventNumber; //!
     Float_t         xsec; //!
@@ -819,6 +866,17 @@ public:
     TBranch        *b_jvtWeight;   //!
     TBranch        *b_genWeightUp;   //!
     TBranch        *b_genWeightDown;   //!
+    TBranch        *b_truthMll;   //!
+    TBranch        *b_winoBinoMllWeight;   //!
+    TBranch        *b_winoBinoXsecWeight;   //!
+    TBranch        *b_winoBinoBrFracWeight;   //!
+    TBranch        *b_winoBinoWeight;   //!
+    TBranch        *b_NUHM2weight_350m12;   //!
+    TBranch        *b_NUHM2weight_400m12;   //!
+    TBranch        *b_NUHM2weight_500m12;   //!
+    TBranch        *b_NUHM2weight_600m12;   //!
+    TBranch        *b_NUHM2weight_700m12;   //!
+    TBranch        *b_NUHM2weight_800m12;   //!
     TBranch        *b_LHE3Weights;   //!
     TBranch        *b_FFWeight;   //!
     TBranch        *b_nLep_antiID;   //!
@@ -880,6 +938,42 @@ public:
     TBranch        *b_scalePDF;   //!
     TBranch        *b_id1;   //!
     TBranch        *b_id2;   //!
+    TBranch        *b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+    TBranch        *b_leptonWeight_EL_EFF_ID_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+    TBranch        *b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+    TBranch        *b_leptonWeight_EL_EFF_Iso_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+    TBranch        *b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1down;   //!
+    TBranch        *b_leptonWeight_EL_EFF_Reco_TOTAL_1NPCOR_PLUS_UNCOR__1up;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_STAT__1down;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_STAT__1up;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_STAT_LOWPT__1down;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_STAT_LOWPT__1up;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_SYS__1down;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_SYS__1up;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_SYS_LOWPT__1down;   //!
+    TBranch        *b_leptonWeight_MUON_EFF_SYS_LOWPT__1up;   //!
+    TBranch        *b_leptonWeight_MUON_ISO_STAT__1down;   //!
+    TBranch        *b_leptonWeight_MUON_ISO_STAT__1up;   //!
+    TBranch        *b_leptonWeight_MUON_ISO_SYS__1down;   //!
+    TBranch        *b_leptonWeight_MUON_ISO_SYS__1up;   //!
+    TBranch        *b_leptonWeight_MUON_TTVA_STAT__1down;   //!
+    TBranch        *b_leptonWeight_MUON_TTVA_STAT__1up;   //!
+    TBranch        *b_leptonWeight_MUON_TTVA_SYS__1down;   //!
+    TBranch        *b_leptonWeight_MUON_TTVA_SYS__1up;   //!
+    TBranch        *b_bTagWeight_FT_EFF_B_systematics__1down;   //!
+    TBranch        *b_bTagWeight_FT_EFF_B_systematics__1up;   //!
+    TBranch        *b_bTagWeight_FT_EFF_C_systematics__1down;   //!
+    TBranch        *b_bTagWeight_FT_EFF_C_systematics__1up;   //!
+    TBranch        *b_bTagWeight_FT_EFF_Light_systematics__1down;   //!
+    TBranch        *b_bTagWeight_FT_EFF_Light_systematics__1up;   //!
+    TBranch        *b_bTagWeight_FT_EFF_extrapolation__1down;   //!
+    TBranch        *b_bTagWeight_FT_EFF_extrapolation__1up;   //!
+    TBranch        *b_bTagWeight_FT_EFF_extrapolation_from_charm__1down;   //!
+    TBranch        *b_bTagWeight_FT_EFF_extrapolation_from_charm__1up;   //!
+    TBranch        *b_jvtWeight_JET_JvtEfficiency__1down;   //!
+    TBranch        *b_jvtWeight_JET_JvtEfficiency__1up;   //!
+    TBranch        *b_pileupWeightUp;   //!
+    TBranch        *b_pileupWeightDown;   //!
     TBranch        *b_PRWHash;   //!
     TBranch        *b_EventNumber;   //!
     TBranch        *b_xsec;   //!

@@ -121,17 +121,21 @@ int main( int argc, char* argv[] )
     const char* inputFilePath;
     if (analysis_type == "MC") {
         if (sample_type == "signals") {
-            inputFilePath = "../MC/SusySkimHiggsino_v1.8b_SUSY16_Signal_tree"; // no slash (/) at the end
+            inputFilePath = "../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree"; // no slash (/) at the end
+            SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
+        }
+        else if (sample_type == "NUHM2") {
+            inputFilePath = "../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree"; // no slash (/) at the end
             SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
         }
         else if (sample_type == "backgrounds") {
-            inputFilePath = "../MC/SusySkimHiggsino_v1.8_SUSY16_Bkgs_tree"; // no slash (/) at the end
+            inputFilePath = "../MC/SusySkimHiggsino_v1.9_SUSY16_Bkgs_tree"; // no slash (/) at the end
             SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
         }
     }
     else if (analysis_type == "Data") {
         // The data file put in SusySkimHiggsino_v1.8_SUSY16_Bkgs_tree
-        inputFilePath = "../MC/SusySkimHiggsino_v1.8_SUSY16_Bkgs_tree"; // no slash (/) at the end
+        inputFilePath = "../MC/SusySkimHiggsino_v1.9_SUSY16_Bkgs_tree"; // no slash (/) at the end
         SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
     }
 
@@ -140,390 +144,478 @@ int main( int argc, char* argv[] )
     if (sample_type == "data") {
         tree_name = "data";
     }
+    else if (sample_type == "NUHM2") {
+        if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_NoSys";
+    }
     else if (sample_type == "signals") {
         // NUHM2
-        if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weakb_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_NoSys";
+        // if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_NoSys";
         // Higgsino
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_83_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_82_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_82_80_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_83_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_83_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_85_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_85_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_85_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_90_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_90_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_90_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_100_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_100_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_100_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_103_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_102_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_102_100_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_103_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_103_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_105_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root") // Used for the cutflow comparison
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_105_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_105_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_110_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_110_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_110_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_120_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_120_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_120_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_120_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_120_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_140_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_120_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_120_100_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_140_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_140_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_153_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_152_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_152_150_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_153_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_153_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_155_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_155_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_155_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root") // compare with m12 = 600
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_180_80_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_180_80_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_180_80_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_200_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_200_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_200_100_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_203_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_202_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_202_200_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_203_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_203_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_205_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_205_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_205_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_210_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_210_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_210_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_210_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_210_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_210_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_220_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_220_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_220_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_240_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_240_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_240_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_250_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_250_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_250_150_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_253_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_252_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_252_250_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_253_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_253_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_255_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_255_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_255_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_260_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_260_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_260_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_260_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_260_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_260_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_270_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_270_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_270_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_290_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_290_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_290_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_300_200_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_300_200_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_300_200_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_303_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_302_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_302_300_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_303_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_303_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_305_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_305_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_305_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_310_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_310_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_310_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_310_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_310_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_310_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_320_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_320_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_320_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_340_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_340_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_340_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_350_250_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_350_250_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_350_250_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_360_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_360_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_360_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_400_300_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_400_300_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_400_300_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_403_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_402_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_402_400_2LMET50_MadSpin_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_403_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_403_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_405_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_405_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_405_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_410_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_410_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_410_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_420_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_420_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_420_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_440_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_440_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_440_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_460_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_460_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_460_400_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_500_400_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_500_400_2LMET50_MadSpin_NoSys";        
+        else if (sample == "MGPy8EG_A14N23LO_SM_Higgsino_500_400_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SM_Higgsino_500_400_2LMET50_MadSpin_NoSys";
         // Slepton
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_92p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_70p5_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_70p5_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_71p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_71p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_75p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_75p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_80p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_80p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_30p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_30p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_40p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_40p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_50p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_50p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_60p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_60p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_65p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_65p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_90p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_91p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_91p0_90p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_92p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_92p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_93p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_93p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_93p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_95p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_95p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_95p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_100p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_100p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_100p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_102p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_101p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_101p0_100p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_102p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_102p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_103p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_103p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_103p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")// Used for the cutflow comparison
-            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_105p0_100p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_110p0_100p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_115p0_100p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_60p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_60p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_70p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_70p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_80p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_80p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_90p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_122p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_120p5_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_120p5_120p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_121p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_121p0_120p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_122p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_122p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_123p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_123p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_123p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_125p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_135p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_130p0_120p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_135p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_135p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_140p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_142p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_141p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_141p0_140p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_142p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_142p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_143p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_143p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_143p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_145p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_90p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_90p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_90p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_155p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_150p0_140p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_155p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_155p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_100p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_100p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_100p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_160p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_162p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_161p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_161p0_160p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_162p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_162p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_163p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_163p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_163p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_165p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_170p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_170p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_170p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_175p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_175p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_175p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_120p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_120p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_120p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_180p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_182p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_180p5_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_180p5_180p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_181p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_181p0_180p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_182p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_182p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_183p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_183p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_183p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_185p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_190p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_190p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_190p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_195p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_195p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_195p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_140p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_140p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_140p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_200p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_205p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_201p0_200p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_201p0_200p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_202p0_200p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_202p0_200p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_205p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_205p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_160p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_205p0_200p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_205p0_200p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_210p0_200p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_210p0_200p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_160p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_160p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_180p0_MET50_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_240p0_180p0_MET50_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_200p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_220p0_200p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_240p0_180p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_240p0_180p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_251p0_250p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_251p0_250p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_255p0_250p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_255p0_250p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_260p0_250p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_260p0_250p0_MET50_NoSys";
+        else if (sample == "MGPy8EG_A14N23LO_SlepSlep_direct_270p0_250p0_MET50_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "MGPy8EG_A14N23LO_SlepSlep_direct_270p0_250p0_MET50_NoSys";
         // WZ
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_110_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_110_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_110_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_120_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_120_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_120_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_140_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_140_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_140_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_160_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_160_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_160_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_160_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_160_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_160_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_170_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_170_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_170_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_180_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_180_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_180_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_190_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_190_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_190_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_200_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_200_100_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_200_100_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_210_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_210_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_210_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_210_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_210_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_210_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_220_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_220_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_220_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_230_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_230_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_230_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_240_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_240_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_240_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_250_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_250_150_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_250_150_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_260_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_260_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_260_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_260_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_260_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_260_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_270_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_270_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_270_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_280_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_280_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_280_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_290_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_290_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_290_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_300_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_300_200_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_300_200_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_310_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_310_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_310_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_310_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_310_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_310_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_320_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_320_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_320_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_330_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_330_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_330_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_340_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_340_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_340_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_350_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_350_250_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_350_250_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_360_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_360_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_360_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_360_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_360_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_360_350_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_370_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_370_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_370_350_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_380_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_380_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_380_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_390_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_390_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_390_350_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_400_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_400_300_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_400_300_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_410_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_410_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_410_350_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_430_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_430_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_430_350_2L2J_2L3andMET100_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_450_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root")
+        else if (sample == "MGPy8EG_A14N23LO_C1N2_WZ_450_350_2L2J_2L3andMET100_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "MGPy8EG_A14N23LO_C1N2_WZ_450_350_2L2J_2L3andMET100_NoSys";
     }
     else if (sample_type == "backgrounds") {
-        if (sample == "alt_DY_PowPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_DY_PowPy_NoSys";
-        else if (sample == "alt_Wgamma_Sherpa222b_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_Wgamma_Sherpa222_NoSys";
-        else if (sample == "alt_Zgamma_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_Zgamma_Sherpa222_NoSys";
-        else if (sample == "alt_Zttgamma_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_Zttgamma_Sherpa222_NoSys";
-        else if (sample == "alt_Zvvgamma_Sherpa222b_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_Zvvgamma_Sherpa222_NoSys";
-        else if (sample == "alt_diboson1L_PowPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson1L_PowPy_NoSys";
-        else if (sample == "alt_diboson1L_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson1L_Sherpa222_NoSys";
-        else if (sample == "alt_diboson2L_PowPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson2L_PowPy_NoSys";
-        else if (sample == "alt_diboson2L_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson2L_Sherpa222_NoSys";
-        else if (sample == "alt_diboson3L_PowPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson3L_PowPy_NoSys";
-        else if (sample == "alt_diboson3L_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson3L_Sherpa222_NoSys";
-        else if (sample == "alt_diboson4L_PowPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson4L_PowPy_NoSys";
-        else if (sample == "alt_diboson4L_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_diboson4L_Sherpa222_NoSys";
-        else if (sample == "alt_triboson_Sherpa222_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_triboson_Sherpa222_NoSys";
-        else if (sample == "alt_ttbar_MGPy_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_MGPy_NoSys";
-        else if (sample == "alt_ttbar_PowPy8_dilep_hdamp258p75_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_PowPy8_dilep_hdamp258p75_NoSys";
-        else if (sample == "alt_ttbar_PowPy8_nonallhad_hdamp172p5_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_PowPy8_nonallhad_hdamp172p5_NoSys";
-        else if (sample == "alt_ttbar_PowPy8_nonallhad_hdamp258p75_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_PowPy8_nonallhad_hdamp258p75_NoSys";
-        else if (sample == "alt_ttbar_Sherpa_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_Sherpa_NoSys";
-        else if (sample == "alt_ttbar_aMcAtNlo_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_aMcAtNlo_NoSys";
-        else if (sample == "alt_ttbar_nonallhad_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "alt_ttbar_nonallhad_NoSys";
-        else if (sample == "diboson0L_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "diboson0L_NoSys";
-        else if (sample == "diboson1L_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "diboson1L_NoSys";
-        else if (sample == "diboson2L_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "diboson2L_NoSys";
-        else if (sample == "diboson3L_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "diboson3L_NoSys";
-        else if (sample == "diboson4L_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "diboson4L_NoSys";
-        else if (sample == "higgs_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "higgs_NoSys";
-        else if (sample == "singletop_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "singletop_NoSys";
-        else if (sample == "tZ_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "tZ_NoSys";
-        else if (sample == "topOther_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "topOther_NoSys";
-        else if (sample == "triboson_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "triboson_NoSys";
-        else if (sample == "ttV_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "ttV_NoSys";
-        else if (sample == "ttbar_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "ttbar_NoSys";
-        else if (sample == "Wgamma_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "Wgamma_NoSys";
-        else if (sample == "Wjets_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "Wjets_NoSys";
-        else if (sample == "Zgamma_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "Zgamma_NoSys";
-        else if (sample == "ZjetsExtb_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "ZjetsExt_NoSys";
-        else if (sample == "Zjets_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
+        if (sample == "AllBkgsButFakes_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "Zjets_NoSys";
-        else if (sample == "Zttgamma_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
+        else if (sample == "alt_DY_PowPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_DY_PowPy_NoSys";
+        else if (sample == "alt_Wgamma_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_Wgamma_Sherpa222_NoSys";
+        else if (sample == "alt_Zgamma_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_Zgamma_Sherpa222_NoSys";
+        else if (sample == "alt_Zttgamma_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_Zttgamma_Sherpa222_NoSys";
+        else if (sample == "alt_Zvvgamma_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_Zvvgamma_Sherpa222_NoSys";
+        else if (sample == "alt_diboson1L_PowPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson1L_PowPy_NoSys";
+        else if (sample == "alt_diboson1L_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson1L_Sherpa222_NoSys";
+        else if (sample == "alt_diboson2L_PowPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson2L_PowPy_NoSys";
+        else if (sample == "alt_diboson2L_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson2L_Sherpa222_NoSys";
+        else if (sample == "alt_diboson3L_PowPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson3L_PowPy_NoSys";
+        else if (sample == "alt_diboson3L_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson3L_Sherpa222_NoSys";
+        else if (sample == "alt_diboson4L_PowPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson4L_PowPy_NoSys";
+        else if (sample == "alt_diboson4L_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_diboson4L_Sherpa222_NoSys";
+        else if (sample == "alt_triboson_Sherpa222_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_triboson_Sherpa222_NoSys";
+        else if (sample == "alt_ttbar_MGPy_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_MGPy_NoSys";
+        else if (sample == "alt_ttbar_PowPy8_dilep_hdamp258p75_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_PowPy8_dilep_hdamp258p75_NoSys";
+        else if (sample == "alt_ttbar_PowPy8_nonallhad_hdamp172p5_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_PowPy8_nonallhad_hdamp172p5_NoSys";
+        else if (sample == "alt_ttbar_PowPy8_nonallhad_hdamp258p75_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_PowPy8_nonallhad_hdamp258p75_NoSys";
+        else if (sample == "alt_ttbar_Sherpa_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_Sherpa_NoSys";
+        else if (sample == "alt_ttbar_aMcAtNlo_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_aMcAtNlo_NoSys";
+        else if (sample == "alt_ttbar_nonallhad_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "alt_ttbar_nonallhad_NoSys";
+        else if (sample == "diboson0L_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "diboson0L_NoSys";
+        else if (sample == "diboson1L_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "diboson1L_NoSys";
+        else if (sample == "diboson2L_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "diboson2L_NoSys";
+        else if (sample == "diboson3L_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "diboson3L_NoSys";
+        else if (sample == "diboson4L_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "diboson4L_NoSys";
+        else if (sample == "triboson_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "triboson_NoSys";
+        else if (sample == "higgs_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "higgs_NoSys";
+        else if (sample == "singletop_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "singletop_NoSys";
+        else if (sample == "topOther_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "topOther_NoSys";
+        else if (sample == "ttbar_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "ttbar_NoSys";
+        else if (sample == "Wgamma_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "Wgamma_NoSys";
+        else if (sample == "Wjets_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "Wjets_NoSys";
+        else if (sample == "Zgamma_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "Zgamma_NoSys";
+        else if (sample == "Zjets_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+            tree_name = "Zjets_NoSys";
+        else if (sample == "Zttgamma_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "Zttgamma_NoSys";
-        else if (sample == "ZttjetsExtb_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "ZttjetsExt_NoSys";
-        else if (sample == "Zttjets_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
+        else if (sample == "Zttjets_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "Zttjets_NoSys";
-        else if (sample == "Zvvgamma_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
-            tree_name = "Zvvgamma_NoSys";
-        else if (sample == "Zvvjets_SusySkimHiggsino_v1.8_SUSY16_tree_NoSys.root")
+        // else if (sample == "Zvvgamma_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
+        //     tree_name = "Zvvgamma_NoSys";
+        else if (sample == "Zvvjets_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root")
             tree_name = "Zvvjets_NoSys";
     }
 

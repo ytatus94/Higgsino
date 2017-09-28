@@ -2,6 +2,13 @@
 The NUHM2 Higgsino study
 
 ---
+### v33. Update to v1.9 and v1.9b ntuples
+* `ytEventSelection.h`: Use v1.9b ntuple
+* `ytEventSelection.cxx`: Use v1.9b ntuple and add weight to optimize SR histograms.
+* `Run.cxx`: Use v1.9 and v1.9b ntuples
+* `Run.sh`: Use v1.9 and v1.9b ntuples
+
+
 ### v32. Modify python scripts
 * `BR_calculation.py`: modify script to run SLHA and SusyHit
 * `Nevents.py`: Use official TRUTH3 SimpleAnalysis results
