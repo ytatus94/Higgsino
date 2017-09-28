@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v32. Modify python scripts
+* `BR_calculation.py`: modify script to run SLHA and SusyHit
+* `Nevents.py`: Use official TRUTH3 SimpleAnalysis results
+* `check_slha.py`: Add commons and fix typo
+* `get_mass_difference.py`: Add common
+* `list_trees.py`: Add commons and change to v1.9
+* `cutflow_v1.9.txt`: Add a new log file.
+* `file_path.C`: Use the official TRUTH3 SimpleAnalysis results
+
 
 ### v31. New TRUTH3
 * `BR_calculation.py`: Add code to read SusyHit output.
@@ -66,6 +75,7 @@ The NUHM2 Higgsino study
 * `ytUtility.C`: New end of line
 * `test_fit.C`: Remove unnecessary lines
 * `test_fit.py`: Remove unnecessary parts.
+
 
 ### v26. v1.8 yields
 * `yields.txt`: Add v1.8 yields

@@ -1,7 +1,10 @@
 #!/usr/bin/python
+'''
+Compare the SLHA files in two different folders.
+'''
 import os, filecmp
 
-path1 = "/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSHLA/"
+path1 = "/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/"
 path2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2/share/DSID394xxx/"
 
 for slha in sorted( os.listdir(path1) ):

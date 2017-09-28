@@ -1,0 +1,630 @@
+[yushen@ouhep04 Cutflow]$ Run.sh cutflow
+run_cutflow...
+Running cutflow for analysis_type=MC, sample_type=signals, and sample=MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9_SUSY16_Signal_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9_SUSY16_Signal_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 1013       / 78.7731   (weighted)
+Cut: Event cleaning                      = 1013       / 78.7731   (weighted)
+Cut: GRL                                 = 1013       / 78.7731   (weighted)
+Cut: Global Flags                        = 1013       / 78.7731   (weighted)
+Cut: Primary vertex                      = 1013       / 78.7731   (weighted)
+Cut: Bad muon                            = 1013       / 78.7731   (weighted)
+Cut: Bad jet                             = 1013       / 78.7731   (weighted)
+Cut: >= 1 baseline electron              = 1013       / 78.7731   (weighted)
+Cut: >= 1 signal electron                = 1013       / 78.7731   (weighted)
+Cut: >= 1 baseline muon                  = 1013       / 78.7731   (weighted)
+Cut: >= 1 signal muon                    = 1013       / 78.7731   (weighted)
+Cut: >= 2 baseline electron              = 1013       / 78.7731   (weighted)
+Cut: >= 2 signal electron                = 1013       / 78.7731   (weighted)
+Cut: >= 2 baseline muon                  = 1013       / 78.7731   (weighted)
+Cut: >= 2 signal muon                    = 1013       / 78.7731   (weighted)
+Cut: >= 2 baseline leptons               = 1013       / 78.7731   (weighted)
+Cut: >= 2 signal leptons                 = 1013       / 78.7731   (weighted)
+Cut: exactly 3 baseline electrons        = 116        / 9.31011   (weighted)
+Cut: exactly 3 signal electrons          = 57         / 5.69      (weighted)
+Cut: exactly 3 baseline muons            = 116        / 9.31011   (weighted)
+Cut: exactly 3 signal muons              = 57         / 5.69      (weighted)
+Cut: exactly 3 baseline leptons          = 116        / 9.31011   (weighted)
+Cut: exactly 3 signal leptons            = 57         / 5.69      (weighted)
+Cut: >= 1 baseline jet                   = 1013       / 78.7731   (weighted)
+Cut: >= 1 signal jet                     = 1013       / 78.7731   (weighted)
+Cut: zero b-jet                          = 854        / 66.5354   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 629        / 46.8107   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 343        / 27.7894   (weighted)
+Cut: pass met110_mht                     = 1013       / 78.7731   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 1013       / 78.7731   (weighted)
+Cut 2: >= 2 signal leptons               = 1013       / 78.7731   (weighted)
+Cut 3: SFOS                              = 789        / 66.031    (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 438        / 33.6693   (weighted)
+Cut 5: >= 1 signal jet                   = 438        / 33.6693   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 402        / 31.355    (weighted)
+Cut 7: b-jet veto                        = 334        / 26.1979   (weighted)
+Cut 8: MET > 150 GeV                     = 334        / 26.1979   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 319        / 25.2288   (weighted)
+Cut 10: mll < 50 GeV                     = 294        / 23.6529   (weighted)
+Cut 11: Rll < 1.5                        = 164        / 14.6936   (weighted)
+Cut 12: mtt < 0                          = 123        / 11.5465   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.420
+Running cutflow for analysis_type=MC, sample_type=signals, and sample=MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9_SUSY16_Signal_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9_SUSY16_Signal_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 1489       / 25.7216   (weighted)
+Cut: Event cleaning                      = 1489       / 25.7216   (weighted)
+Cut: GRL                                 = 1489       / 25.7216   (weighted)
+Cut: Global Flags                        = 1489       / 25.7216   (weighted)
+Cut: Primary vertex                      = 1489       / 25.7216   (weighted)
+Cut: Bad muon                            = 1489       / 25.7216   (weighted)
+Cut: Bad jet                             = 1489       / 25.7216   (weighted)
+Cut: >= 1 baseline electron              = 1489       / 25.7216   (weighted)
+Cut: >= 1 signal electron                = 1489       / 25.7216   (weighted)
+Cut: >= 1 baseline muon                  = 1489       / 25.7216   (weighted)
+Cut: >= 1 signal muon                    = 1489       / 25.7216   (weighted)
+Cut: >= 2 baseline electron              = 1489       / 25.7216   (weighted)
+Cut: >= 2 signal electron                = 1489       / 25.7216   (weighted)
+Cut: >= 2 baseline muon                  = 1489       / 25.7216   (weighted)
+Cut: >= 2 signal muon                    = 1489       / 25.7216   (weighted)
+Cut: >= 2 baseline leptons               = 1489       / 25.7216   (weighted)
+Cut: >= 2 signal leptons                 = 1489       / 25.7216   (weighted)
+Cut: exactly 3 baseline electrons        = 94         / 1.73863   (weighted)
+Cut: exactly 3 signal electrons          = 50         / 0.98946   (weighted)
+Cut: exactly 3 baseline muons            = 94         / 1.73863   (weighted)
+Cut: exactly 3 signal muons              = 50         / 0.98946   (weighted)
+Cut: exactly 3 baseline leptons          = 94         / 1.73863   (weighted)
+Cut: exactly 3 signal leptons            = 50         / 0.98946   (weighted)
+Cut: >= 1 baseline jet                   = 1489       / 25.7216   (weighted)
+Cut: >= 1 signal jet                     = 1489       / 25.7216   (weighted)
+Cut: zero b-jet                          = 1295       / 22.718    (weighted)
+Cut: pass mu4_j125_xe90_mht              = 1071       / 18.8499   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 624        / 11.526    (weighted)
+Cut: pass met110_mht                     = 1489       / 25.7216   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 1489       / 25.7216   (weighted)
+Cut 2: >= 2 signal leptons               = 1489       / 25.7216   (weighted)
+Cut 3: SFOS                              = 1274       / 23.015    (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 1266       / 22.8917   (weighted)
+Cut 5: >= 1 signal jet                   = 1266       / 22.8917   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 1188       / 21.6492   (weighted)
+Cut 7: b-jet veto                        = 1034       / 19.1896   (weighted)
+Cut 8: MET > 150 GeV                     = 1034       / 19.1896   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 977        / 18.2619   (weighted)
+Cut 10: mll < 50 GeV                     = 977        / 18.2619   (weighted)
+Cut 11: Rll < 1.5                        = 855        / 16.8676   (weighted)
+Cut 12: mtt < 0                          = 672        / 13.5264   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.450
+Running cutflow for analysis_type=MC, sample_type=signals, and sample=MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9_SUSY16_Signal_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9_SUSY16_Signal_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 1632       / 38.6566   (weighted)
+Cut: Event cleaning                      = 1632       / 38.6566   (weighted)
+Cut: GRL                                 = 1632       / 38.6566   (weighted)
+Cut: Global Flags                        = 1632       / 38.6566   (weighted)
+Cut: Primary vertex                      = 1632       / 38.6566   (weighted)
+Cut: Bad muon                            = 1632       / 38.6566   (weighted)
+Cut: Bad jet                             = 1632       / 38.6566   (weighted)
+Cut: >= 1 baseline electron              = 1632       / 38.6566   (weighted)
+Cut: >= 1 signal electron                = 1632       / 38.6566   (weighted)
+Cut: >= 1 baseline muon                  = 1632       / 38.6566   (weighted)
+Cut: >= 1 signal muon                    = 1632       / 38.6566   (weighted)
+Cut: >= 2 baseline electron              = 1632       / 38.6566   (weighted)
+Cut: >= 2 signal electron                = 1632       / 38.6566   (weighted)
+Cut: >= 2 baseline muon                  = 1632       / 38.6566   (weighted)
+Cut: >= 2 signal muon                    = 1632       / 38.6566   (weighted)
+Cut: >= 2 baseline leptons               = 1632       / 38.6566   (weighted)
+Cut: >= 2 signal leptons                 = 1632       / 38.6566   (weighted)
+Cut: exactly 3 baseline electrons        = 153        / 3.63279   (weighted)
+Cut: exactly 3 signal electrons          = 71         / 1.49482   (weighted)
+Cut: exactly 3 baseline muons            = 153        / 3.63279   (weighted)
+Cut: exactly 3 signal muons              = 71         / 1.49482   (weighted)
+Cut: exactly 3 baseline leptons          = 153        / 3.63279   (weighted)
+Cut: exactly 3 signal leptons            = 71         / 1.49482   (weighted)
+Cut: >= 1 baseline jet                   = 1632       / 38.6566   (weighted)
+Cut: >= 1 signal jet                     = 1632       / 38.6566   (weighted)
+Cut: zero b-jet                          = 1434       / 34.3488   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 1079       / 25.1767   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 637        / 16.0939   (weighted)
+Cut: pass met110_mht                     = 1631       / 38.6197   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 1632       / 38.6566   (weighted)
+Cut 2: >= 2 signal leptons               = 1632       / 38.6566   (weighted)
+Cut 3: SFOS                              = 1344       / 33.3395   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 1263       / 30.637    (weighted)
+Cut 5: >= 1 signal jet                   = 1263       / 30.637    (weighted)
+Cut 6: leading jet pT > 150 GeV          = 1170       / 28.4877   (weighted)
+Cut 7: b-jet veto                        = 1035       / 25.3808   (weighted)
+Cut 8: MET > 150 GeV                     = 1035       / 25.3808   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 981        / 24.1866   (weighted)
+Cut 10: mll < 50 GeV                     = 980        / 24.1487   (weighted)
+Cut 11: Rll < 1.5                        = 759        / 19.5965   (weighted)
+Cut 12: mtt < 0                          = 592        / 15.5919   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.460
+Running cutflow for analysis_type=MC, sample_type=signals, and sample=MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9_SUSY16_Signal_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9_SUSY16_Signal_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9_SUSY16_Signal_tree/MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 1559       / 41.3495   (weighted)
+Cut: Event cleaning                      = 1559       / 41.3495   (weighted)
+Cut: GRL                                 = 1559       / 41.3495   (weighted)
+Cut: Global Flags                        = 1559       / 41.3495   (weighted)
+Cut: Primary vertex                      = 1559       / 41.3495   (weighted)
+Cut: Bad muon                            = 1559       / 41.3495   (weighted)
+Cut: Bad jet                             = 1559       / 41.3495   (weighted)
+Cut: >= 1 baseline electron              = 1559       / 41.3495   (weighted)
+Cut: >= 1 signal electron                = 1559       / 41.3495   (weighted)
+Cut: >= 1 baseline muon                  = 1559       / 41.3495   (weighted)
+Cut: >= 1 signal muon                    = 1559       / 41.3495   (weighted)
+Cut: >= 2 baseline electron              = 1559       / 41.3495   (weighted)
+Cut: >= 2 signal electron                = 1559       / 41.3495   (weighted)
+Cut: >= 2 baseline muon                  = 1559       / 41.3495   (weighted)
+Cut: >= 2 signal muon                    = 1559       / 41.3495   (weighted)
+Cut: >= 2 baseline leptons               = 1559       / 41.3495   (weighted)
+Cut: >= 2 signal leptons                 = 1559       / 41.3495   (weighted)
+Cut: exactly 3 baseline electrons        = 169        / 4.21148   (weighted)
+Cut: exactly 3 signal electrons          = 83         / 2.14956   (weighted)
+Cut: exactly 3 baseline muons            = 169        / 4.21148   (weighted)
+Cut: exactly 3 signal muons              = 83         / 2.14956   (weighted)
+Cut: exactly 3 baseline leptons          = 169        / 4.21148   (weighted)
+Cut: exactly 3 signal leptons            = 83         / 2.14956   (weighted)
+Cut: >= 1 baseline jet                   = 1559       / 41.3495   (weighted)
+Cut: >= 1 signal jet                     = 1559       / 41.3495   (weighted)
+Cut: zero b-jet                          = 1346       / 35.5619   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 994        / 26.0461   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 571        / 15.1803   (weighted)
+Cut: pass met110_mht                     = 1555       / 41.2095   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 1559       / 41.3495   (weighted)
+Cut 2: >= 2 signal leptons               = 1559       / 41.3495   (weighted)
+Cut 3: SFOS                              = 1239       / 34.7879   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 952        / 25.7317   (weighted)
+Cut 5: >= 1 signal jet                   = 952        / 25.7317   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 884        / 24.0956   (weighted)
+Cut 7: b-jet veto                        = 763        / 20.7947   (weighted)
+Cut 8: MET > 150 GeV                     = 763        / 20.7947   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 731        / 20.0504   (weighted)
+Cut 10: mll < 50 GeV                     = 723        / 19.8525   (weighted)
+Cut 11: Rll < 1.5                        = 447        / 13.1858   (weighted)
+Cut 12: mtt < 0                          = 330        / 9.76186   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.460
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 2164       / 23.4594   (weighted)
+Cut: Event cleaning                      = 2164       / 23.4594   (weighted)
+Cut: GRL                                 = 2164       / 23.4594   (weighted)
+Cut: Global Flags                        = 2164       / 23.4594   (weighted)
+Cut: Primary vertex                      = 2164       / 23.4594   (weighted)
+Cut: Bad muon                            = 2164       / 23.4594   (weighted)
+Cut: Bad jet                             = 2164       / 23.4594   (weighted)
+Cut: >= 1 baseline electron              = 2164       / 23.4594   (weighted)
+Cut: >= 1 signal electron                = 2164       / 23.4594   (weighted)
+Cut: >= 1 baseline muon                  = 2164       / 23.4594   (weighted)
+Cut: >= 1 signal muon                    = 2164       / 23.4594   (weighted)
+Cut: >= 2 baseline electron              = 2164       / 23.4594   (weighted)
+Cut: >= 2 signal electron                = 2164       / 23.4594   (weighted)
+Cut: >= 2 baseline muon                  = 2164       / 23.4594   (weighted)
+Cut: >= 2 signal muon                    = 2164       / 23.4594   (weighted)
+Cut: >= 2 baseline leptons               = 2164       / 23.4594   (weighted)
+Cut: >= 2 signal leptons                 = 2164       / 23.4594   (weighted)
+Cut: exactly 3 baseline electrons        = 241        / 1.65616   (weighted)
+Cut: exactly 3 signal electrons          = 124        / 0.770325  (weighted)
+Cut: exactly 3 baseline muons            = 241        / 1.65616   (weighted)
+Cut: exactly 3 signal muons              = 124        / 0.770325  (weighted)
+Cut: exactly 3 baseline leptons          = 241        / 1.65616   (weighted)
+Cut: exactly 3 signal leptons            = 124        / 0.770325  (weighted)
+Cut: >= 1 baseline jet                   = 2164       / 23.4594   (weighted)
+Cut: >= 1 signal jet                     = 2164       / 23.4594   (weighted)
+Cut: zero b-jet                          = 1868       / 20.4663   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 1366       / 16.6774   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 806        / 6.97164   (weighted)
+Cut: pass met110_mht                     = 2153       / 23.3732   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 2164       / 23.4594   (weighted)
+Cut 2: >= 2 signal leptons               = 2164       / 23.4594   (weighted)
+Cut 3: SFOS                              = 1723       / 13.6261   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 918        / 9.65396   (weighted)
+Cut 5: >= 1 signal jet                   = 918        / 9.65396   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 847        / 9.05383   (weighted)
+Cut 7: b-jet veto                        = 727        / 7.88157   (weighted)
+Cut 8: MET > 150 GeV                     = 727        / 7.88157   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 696        / 7.62989   (weighted)
+Cut 10: mll < 50 GeV                     = 626        / 7.00651   (weighted)
+Cut 11: Rll < 1.5                        = 247        / 2.95047   (weighted)
+Cut 12: mtt < 0                          = 168        / 2.00438   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.490
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 2381       / 52.254    (weighted)
+Cut: Event cleaning                      = 2381       / 52.254    (weighted)
+Cut: GRL                                 = 2381       / 52.254    (weighted)
+Cut: Global Flags                        = 2381       / 52.254    (weighted)
+Cut: Primary vertex                      = 2381       / 52.254    (weighted)
+Cut: Bad muon                            = 2381       / 52.254    (weighted)
+Cut: Bad jet                             = 2381       / 52.254    (weighted)
+Cut: >= 1 baseline electron              = 2381       / 52.254    (weighted)
+Cut: >= 1 signal electron                = 2381       / 52.254    (weighted)
+Cut: >= 1 baseline muon                  = 2381       / 52.254    (weighted)
+Cut: >= 1 signal muon                    = 2381       / 52.254    (weighted)
+Cut: >= 2 baseline electron              = 2381       / 52.254    (weighted)
+Cut: >= 2 signal electron                = 2381       / 52.254    (weighted)
+Cut: >= 2 baseline muon                  = 2381       / 52.254    (weighted)
+Cut: >= 2 signal muon                    = 2381       / 52.254    (weighted)
+Cut: >= 2 baseline leptons               = 2381       / 52.254    (weighted)
+Cut: >= 2 signal leptons                 = 2381       / 52.254    (weighted)
+Cut: exactly 3 baseline electrons        = 236        / 4.87794   (weighted)
+Cut: exactly 3 signal electrons          = 126        / 2.75512   (weighted)
+Cut: exactly 3 baseline muons            = 236        / 4.87794   (weighted)
+Cut: exactly 3 signal muons              = 126        / 2.75512   (weighted)
+Cut: exactly 3 baseline leptons          = 236        / 4.87794   (weighted)
+Cut: exactly 3 signal leptons            = 126        / 2.75512   (weighted)
+Cut: >= 1 baseline jet                   = 2381       / 52.254    (weighted)
+Cut: >= 1 signal jet                     = 2381       / 52.254    (weighted)
+Cut: zero b-jet                          = 2084       / 46.0107   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 1522       / 33.1716   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 878        / 19.291    (weighted)
+Cut: pass met110_mht                     = 2376       / 52.1172   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 2381       / 52.254    (weighted)
+Cut 2: >= 2 signal leptons               = 2381       / 52.254    (weighted)
+Cut 3: SFOS                              = 1913       / 42.4261   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 1330       / 29.2503   (weighted)
+Cut 5: >= 1 signal jet                   = 1330       / 29.2503   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 1244       / 27.5411   (weighted)
+Cut 7: b-jet veto                        = 1097       / 24.3906   (weighted)
+Cut 8: MET > 150 GeV                     = 1097       / 24.3906   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 1042       / 23.167    (weighted)
+Cut 10: mll < 50 GeV                     = 1026       / 22.8385   (weighted)
+Cut 11: Rll < 1.5                        = 579        / 13.026    (weighted)
+Cut 12: mtt < 0                          = 445        / 9.88805   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.510
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 2678       / 50.7771   (weighted)
+Cut: Event cleaning                      = 2678       / 50.7771   (weighted)
+Cut: GRL                                 = 2678       / 50.7771   (weighted)
+Cut: Global Flags                        = 2678       / 50.7771   (weighted)
+Cut: Primary vertex                      = 2678       / 50.7771   (weighted)
+Cut: Bad muon                            = 2678       / 50.7771   (weighted)
+Cut: Bad jet                             = 2678       / 50.7771   (weighted)
+Cut: >= 1 baseline electron              = 2678       / 50.7771   (weighted)
+Cut: >= 1 signal electron                = 2678       / 50.7771   (weighted)
+Cut: >= 1 baseline muon                  = 2678       / 50.7771   (weighted)
+Cut: >= 1 signal muon                    = 2678       / 50.7771   (weighted)
+Cut: >= 2 baseline electron              = 2678       / 50.7771   (weighted)
+Cut: >= 2 signal electron                = 2678       / 50.7771   (weighted)
+Cut: >= 2 baseline muon                  = 2678       / 50.7771   (weighted)
+Cut: >= 2 signal muon                    = 2678       / 50.7771   (weighted)
+Cut: >= 2 baseline leptons               = 2678       / 50.7771   (weighted)
+Cut: >= 2 signal leptons                 = 2678       / 50.7771   (weighted)
+Cut: exactly 3 baseline electrons        = 328        / 6.19133   (weighted)
+Cut: exactly 3 signal electrons          = 162        / 3.13101   (weighted)
+Cut: exactly 3 baseline muons            = 328        / 6.19133   (weighted)
+Cut: exactly 3 signal muons              = 162        / 3.13101   (weighted)
+Cut: exactly 3 baseline leptons          = 328        / 6.19133   (weighted)
+Cut: exactly 3 signal leptons            = 162        / 3.13101   (weighted)
+Cut: >= 1 baseline jet                   = 2678       / 50.7771   (weighted)
+Cut: >= 1 signal jet                     = 2678       / 50.7771   (weighted)
+Cut: zero b-jet                          = 2325       / 44.1529   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 1763       / 33.1193   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 1068       / 20.7124   (weighted)
+Cut: pass met110_mht                     = 2671       / 50.4946   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 2678       / 50.7771   (weighted)
+Cut 2: >= 2 signal leptons               = 2678       / 50.7771   (weighted)
+Cut 3: SFOS                              = 2104       / 40.6608   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 1552       / 29.5481   (weighted)
+Cut 5: >= 1 signal jet                   = 1552       / 29.5481   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 1427       / 27.4208   (weighted)
+Cut 7: b-jet veto                        = 1238       / 24.026    (weighted)
+Cut 8: MET > 150 GeV                     = 1238       / 24.026    (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 1175       / 23.0215   (weighted)
+Cut 10: mll < 50 GeV                     = 1165       / 22.8133   (weighted)
+Cut 11: Rll < 1.5                        = 760        / 15.0956   (weighted)
+Cut 12: mtt < 0                          = 549        / 11.25     (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.540
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 3124       / 49.5581   (weighted)
+Cut: Event cleaning                      = 3124       / 49.5581   (weighted)
+Cut: GRL                                 = 3124       / 49.5581   (weighted)
+Cut: Global Flags                        = 3124       / 49.5581   (weighted)
+Cut: Primary vertex                      = 3124       / 49.5581   (weighted)
+Cut: Bad muon                            = 3124       / 49.5581   (weighted)
+Cut: Bad jet                             = 3124       / 49.5581   (weighted)
+Cut: >= 1 baseline electron              = 3124       / 49.5581   (weighted)
+Cut: >= 1 signal electron                = 3124       / 49.5581   (weighted)
+Cut: >= 1 baseline muon                  = 3124       / 49.5581   (weighted)
+Cut: >= 1 signal muon                    = 3124       / 49.5581   (weighted)
+Cut: >= 2 baseline electron              = 3124       / 49.5581   (weighted)
+Cut: >= 2 signal electron                = 3124       / 49.5581   (weighted)
+Cut: >= 2 baseline muon                  = 3124       / 49.5581   (weighted)
+Cut: >= 2 signal muon                    = 3124       / 49.5581   (weighted)
+Cut: >= 2 baseline leptons               = 3124       / 49.5581   (weighted)
+Cut: >= 2 signal leptons                 = 3124       / 49.5581   (weighted)
+Cut: exactly 3 baseline electrons        = 351        / 5.38216   (weighted)
+Cut: exactly 3 signal electrons          = 194        / 3.03662   (weighted)
+Cut: exactly 3 baseline muons            = 351        / 5.38216   (weighted)
+Cut: exactly 3 signal muons              = 194        / 3.03662   (weighted)
+Cut: exactly 3 baseline leptons          = 351        / 5.38216   (weighted)
+Cut: exactly 3 signal leptons            = 194        / 3.03662   (weighted)
+Cut: >= 1 baseline jet                   = 3124       / 49.5581   (weighted)
+Cut: >= 1 signal jet                     = 3124       / 49.5581   (weighted)
+Cut: zero b-jet                          = 2693       / 43.3323   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 2067       / 32.3964   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 1238       / 20.1548   (weighted)
+Cut: pass met110_mht                     = 3120       / 49.4966   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 3124       / 49.5581   (weighted)
+Cut 2: >= 2 signal leptons               = 3124       / 49.5581   (weighted)
+Cut 3: SFOS                              = 2459       / 40.1926   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 2123       / 34.0132   (weighted)
+Cut 5: >= 1 signal jet                   = 2123       / 34.0132   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 1961       / 31.4152   (weighted)
+Cut 7: b-jet veto                        = 1686       / 27.4631   (weighted)
+Cut 8: MET > 150 GeV                     = 1686       / 27.4631   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 1597       / 26.2504   (weighted)
+Cut 10: mll < 50 GeV                     = 1579       / 25.9888   (weighted)
+Cut 11: Rll < 1.5                        = 1146       / 19.2287   (weighted)
+Cut 12: mtt < 0                          = 840        / 14.2537   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.570
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 3289       / 47.2435   (weighted)
+Cut: Event cleaning                      = 3289       / 47.2435   (weighted)
+Cut: GRL                                 = 3289       / 47.2435   (weighted)
+Cut: Global Flags                        = 3289       / 47.2435   (weighted)
+Cut: Primary vertex                      = 3289       / 47.2435   (weighted)
+Cut: Bad muon                            = 3289       / 47.2435   (weighted)
+Cut: Bad jet                             = 3289       / 47.2435   (weighted)
+Cut: >= 1 baseline electron              = 3289       / 47.2435   (weighted)
+Cut: >= 1 signal electron                = 3289       / 47.2435   (weighted)
+Cut: >= 1 baseline muon                  = 3289       / 47.2435   (weighted)
+Cut: >= 1 signal muon                    = 3289       / 47.2435   (weighted)
+Cut: >= 2 baseline electron              = 3289       / 47.2435   (weighted)
+Cut: >= 2 signal electron                = 3289       / 47.2435   (weighted)
+Cut: >= 2 baseline muon                  = 3289       / 47.2435   (weighted)
+Cut: >= 2 signal muon                    = 3289       / 47.2435   (weighted)
+Cut: >= 2 baseline leptons               = 3289       / 47.2435   (weighted)
+Cut: >= 2 signal leptons                 = 3289       / 47.2435   (weighted)
+Cut: exactly 3 baseline electrons        = 394        / 5.60607   (weighted)
+Cut: exactly 3 signal electrons          = 214        / 3.03782   (weighted)
+Cut: exactly 3 baseline muons            = 394        / 5.60607   (weighted)
+Cut: exactly 3 signal muons              = 214        / 3.03782   (weighted)
+Cut: exactly 3 baseline leptons          = 394        / 5.60607   (weighted)
+Cut: exactly 3 signal leptons            = 214        / 3.03782   (weighted)
+Cut: >= 1 baseline jet                   = 3289       / 47.2435   (weighted)
+Cut: >= 1 signal jet                     = 3289       / 47.2435   (weighted)
+Cut: zero b-jet                          = 2889       / 41.4903   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 2191       / 31.3029   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 1296       / 18.7727   (weighted)
+Cut: pass met110_mht                     = 3287       / 47.2186   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 3289       / 47.2435   (weighted)
+Cut 2: >= 2 signal leptons               = 3289       / 47.2435   (weighted)
+Cut 3: SFOS                              = 2604       / 38.3079   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 2376       / 34.5303   (weighted)
+Cut 5: >= 1 signal jet                   = 2376       / 34.5303   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 2235       / 32.6817   (weighted)
+Cut 7: b-jet veto                        = 1961       / 28.6284   (weighted)
+Cut 8: MET > 150 GeV                     = 1961       / 28.6284   (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 1855       / 27.2109   (weighted)
+Cut 10: mll < 50 GeV                     = 1838       / 26.9562   (weighted)
+Cut 11: Rll < 1.5                        = 1415       / 21.0757   (weighted)
+Cut 12: mtt < 0                          = 1050       / 15.7881   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.570
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 3483       / 46.349    (weighted)
+Cut: Event cleaning                      = 3483       / 46.349    (weighted)
+Cut: GRL                                 = 3483       / 46.349    (weighted)
+Cut: Global Flags                        = 3483       / 46.349    (weighted)
+Cut: Primary vertex                      = 3483       / 46.349    (weighted)
+Cut: Bad muon                            = 3483       / 46.349    (weighted)
+Cut: Bad jet                             = 3483       / 46.349    (weighted)
+Cut: >= 1 baseline electron              = 3483       / 46.349    (weighted)
+Cut: >= 1 signal electron                = 3483       / 46.349    (weighted)
+Cut: >= 1 baseline muon                  = 3483       / 46.349    (weighted)
+Cut: >= 1 signal muon                    = 3483       / 46.349    (weighted)
+Cut: >= 2 baseline electron              = 3483       / 46.349    (weighted)
+Cut: >= 2 signal electron                = 3483       / 46.349    (weighted)
+Cut: >= 2 baseline muon                  = 3483       / 46.349    (weighted)
+Cut: >= 2 signal muon                    = 3483       / 46.349    (weighted)
+Cut: >= 2 baseline leptons               = 3483       / 46.349    (weighted)
+Cut: >= 2 signal leptons                 = 3483       / 46.349    (weighted)
+Cut: exactly 3 baseline electrons        = 372        / 5.04739   (weighted)
+Cut: exactly 3 signal electrons          = 195        / 2.61878   (weighted)
+Cut: exactly 3 baseline muons            = 372        / 5.04739   (weighted)
+Cut: exactly 3 signal muons              = 195        / 2.61878   (weighted)
+Cut: exactly 3 baseline leptons          = 372        / 5.04739   (weighted)
+Cut: exactly 3 signal leptons            = 195        / 2.61878   (weighted)
+Cut: >= 1 baseline jet                   = 3483       / 46.349    (weighted)
+Cut: >= 1 signal jet                     = 3483       / 46.349    (weighted)
+Cut: zero b-jet                          = 3060       / 40.9252   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 2370       / 31.6351   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 1425       / 19.68     (weighted)
+Cut: pass met110_mht                     = 3481       / 46.3164   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 3483       / 46.349    (weighted)
+Cut 2: >= 2 signal leptons               = 3483       / 46.349    (weighted)
+Cut 3: SFOS                              = 2754       / 37.7083   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 2597       / 35.2739   (weighted)
+Cut 5: >= 1 signal jet                   = 2597       / 35.2739   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 2432       / 33.2497   (weighted)
+Cut 7: b-jet veto                        = 2139       / 29.41     (weighted)
+Cut 8: MET > 150 GeV                     = 2139       / 29.41     (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 2033       / 28.046    (weighted)
+Cut 10: mll < 50 GeV                     = 2027       / 27.962    (weighted)
+Cut 11: Rll < 1.5                        = 1638       / 23.2247   (weighted)
+Cut 12: mtt < 0                          = 1227       / 17.6899   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.600
+Running cutflow for analysis_type=MC, sample_type=NUHM2, and sample=MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+submitDir = cutflow_MC_MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+Submit jobs to DirectDriver...
+Load TTree: MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_NoSys
+SampleHandler with 1 files
+Sample:name=SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree,tags=()
+file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+
+
+Running sample: SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree
+Processing File: file:///afs/cern.ch/work/y/yushen/private/Higgsino/Cutflow/../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree/MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+********** Cutflow **********
+Cut: All events                          = 3232       / 39.6062   (weighted)
+Cut: Event cleaning                      = 3232       / 39.6062   (weighted)
+Cut: GRL                                 = 3232       / 39.6062   (weighted)
+Cut: Global Flags                        = 3232       / 39.6062   (weighted)
+Cut: Primary vertex                      = 3232       / 39.6062   (weighted)
+Cut: Bad muon                            = 3232       / 39.6062   (weighted)
+Cut: Bad jet                             = 3232       / 39.6062   (weighted)
+Cut: >= 1 baseline electron              = 3232       / 39.6062   (weighted)
+Cut: >= 1 signal electron                = 3232       / 39.6062   (weighted)
+Cut: >= 1 baseline muon                  = 3232       / 39.6062   (weighted)
+Cut: >= 1 signal muon                    = 3232       / 39.6062   (weighted)
+Cut: >= 2 baseline electron              = 3232       / 39.6062   (weighted)
+Cut: >= 2 signal electron                = 3232       / 39.6062   (weighted)
+Cut: >= 2 baseline muon                  = 3232       / 39.6062   (weighted)
+Cut: >= 2 signal muon                    = 3232       / 39.6062   (weighted)
+Cut: >= 2 baseline leptons               = 3232       / 39.6062   (weighted)
+Cut: >= 2 signal leptons                 = 3232       / 39.6062   (weighted)
+Cut: exactly 3 baseline electrons        = 319        / 3.95212   (weighted)
+Cut: exactly 3 signal electrons          = 173        / 2.1254    (weighted)
+Cut: exactly 3 baseline muons            = 319        / 3.95212   (weighted)
+Cut: exactly 3 signal muons              = 173        / 2.1254    (weighted)
+Cut: exactly 3 baseline leptons          = 319        / 3.95212   (weighted)
+Cut: exactly 3 signal leptons            = 173        / 2.1254    (weighted)
+Cut: >= 1 baseline jet                   = 3232       / 39.6062   (weighted)
+Cut: >= 1 signal jet                     = 3232       / 39.6062   (weighted)
+Cut: zero b-jet                          = 2824       / 34.6206   (weighted)
+Cut: pass mu4_j125_xe90_mht              = 2199       / 26.8853   (weighted)
+Cut: pass 2mu4_j85_xe50_mht              = 1287       / 16.3025   (weighted)
+Cut: pass met110_mht                     = 3231       / 39.5844   (weighted)
+Cut: Ncuts (dummy)                       = 0          / 0         (weighted)
+Cut 1: >= 2 baseline leptons             = 3232       / 39.6062   (weighted)
+Cut 2: >= 2 signal leptons               = 3232       / 39.6062   (weighted)
+Cut 3: SFOS                              = 2553       / 32.3868   (weighted)
+Cut 4: leading lepton pT < 50 GeV        = 2471       / 31.2302   (weighted)
+Cut 5: >= 1 signal jet                   = 2471       / 31.2302   (weighted)
+Cut 6: leading jet pT > 150 GeV          = 2327       / 29.5771   (weighted)
+Cut 7: b-jet veto                        = 2041       / 25.884    (weighted)
+Cut 8: MET > 150 GeV                     = 2041       / 25.884    (weighted)
+Cut 9: Dphi(jet, MET) > 2.5              = 1934       / 24.6141   (weighted)
+Cut 10: mll < 50 GeV                     = 1922       / 24.4731   (weighted)
+Cut 11: Rll < 1.5                        = 1575       / 20.6508   (weighted)
+Cut 12: mtt < 0                          = 1217       / 16.0726   (weighted)
+******************************
+worker finished:
+Real time 0:00:00, CP time 0.570
+

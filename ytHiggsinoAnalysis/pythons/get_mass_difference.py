@@ -1,4 +1,7 @@
 #!/usr/bin/bash
+'''
+List the mass of N2, N1, and the mass difference N2-N1 of NUHM2
+'''
 import os
 
 path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2/share/DSID394xxx/"
