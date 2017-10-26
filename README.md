@@ -2,6 +2,10 @@
 The NUHM2 Higgsino study
 
 ---
+### v37. Add new script
+* `plot_N_minus_one.py`: new script for N-1 plots
+
+
 ### v36. modify python scripts
 * `AtlasStyle.py`: change font size
 * `BR_calculation.py`: change input path
@@ -11,6 +15,7 @@ The NUHM2 Higgsino study
 * `ytEventSelection.cxx`: Use b-jet pT>20
 * `add_weight_to_common_ntuple.C`: remove empty line
 * `Run.sh`: remove empty line
+
 
 ### v35. Add new python scripts:
 * `get_truth3_information.py`: new script to get TRUTH3 information
