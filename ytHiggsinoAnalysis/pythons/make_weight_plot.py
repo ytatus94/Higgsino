@@ -2,7 +2,7 @@
 import ROOT
 
 def main():
-    path = "/Users/ytshen/Desktop/"
+    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/"
     # make_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 350)
     # make_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 400)
     # make_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 500)
@@ -10,6 +10,7 @@ def main():
     # make_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 700)
     # make_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 800)
 
+    # This part is wrong. See nuhm2-20170830
     # compare_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 350)
     # compare_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 400)
     # compare_plot(path + "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root", 500)
@@ -27,12 +28,12 @@ def main():
 #----------------------------#
 
 def make_plot(inputfile, m12):
-    n2_n1 = inputfile[inputfile.find("Higgsino") + len("Higgsino") + 1: inputfile.find("_2LMET50")]
+    n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f = ROOT.TFile(inputfile)
     t = f.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")
     c = ROOT.TCanvas("c", "", 800, 600)
     # t.Draw("NUHM2weight_" + str(m12) + "m12")
-    t.Draw("NUHM2weight_" + str(m12) + "m12", "FS!=157")
+    t.Draw("NUHM2weight_" + str(m12) + "m12", "FS!=157&&NUHM2weight_" + str(m12) + "m12!=0")
     # output = "m12_" + str(m12) + "_weight.pdf"
     output = "m12_" + str(m12) + "_weight_no_C1C1.pdf"
     c.SaveAs(output)
@@ -40,10 +41,10 @@ def make_plot(inputfile, m12):
 #----------------------------#
 
 def compare_plot(inputfile, m12):
-    n2_n1 = inputfile[inputfile.find("Higgsino") + len("Higgsino") + 1: inputfile.find("_2LMET50")]
+    n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f1 = ROOT.TFile(inputfile)
     t1 = f1.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")
-    f2 = ROOT.TFile("/Users/ytshen/Desktop/reweighted_m12_" + str(m12) + ".root")
+    f2 = ROOT.TFile("/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/reweighted_m12_" + str(m12) + ".root")
     t2 = f2.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys_reweighted_m12_" + str(m12))
     h1 = ROOT.TH1F("h1", "", 300, 0, 3)
     t1.Project("h1", "NUHM2weight_" + str(m12) + "m12", "FS!=157&&NUHM2weight_" + str(m12) + "m12!=0")
@@ -71,7 +72,7 @@ def compare_plot(inputfile, m12):
 #----------------------------#
 
 def plot_reweight_mll(inputfile, m12):
-    n2_n1 = inputfile[inputfile.find("Higgsino") + len("Higgsino") + 1: inputfile.find("_2LMET50")]
+    n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f1 = ROOT.TFile(inputfile)
     t1 = f1.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")
     h_truth_Mll = ROOT.TH1F("h_truth_Mll", "truth Mll", 200, 0, 200)

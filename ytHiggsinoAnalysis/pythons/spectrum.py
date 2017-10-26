@@ -9,7 +9,7 @@ path = "/Users/ytshen/Documents/Working/OU/HEP/Abe/"
 strong_Xsec = "NUHM2_Strong_SUSYTools.txt"
 weak_Xsec = "NUHM2_Weak_SUSYTools.txt"
 strong_slha = "StrongSLHA/"
-weak_slha = "WeakSHLA/"
+weak_slha = "WeakSLHA/"
 
 def main():
     Xsec_list = read_cross_section(path + weak_Xsec)

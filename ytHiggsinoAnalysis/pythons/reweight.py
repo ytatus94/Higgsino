@@ -4,15 +4,15 @@ import AtlasStyle
 import math
 
 def main():
-    path = "/Users/ytshen/Desktop/"
-    f_higgsino_140_100 = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
-    f_higgsino_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
-    f_higgsino_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
+    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/"
+    f_higgsino_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
+    f_higgsino_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
+    f_higgsino_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
 
     fopen = ROOT.TFile(path + f_higgsino_170_150)
 
     name = fopen.GetName()
-    n2_n1 = name[name.find("Higgsino") + len("Higgsino") + 1: name.find("_2LMET50")]
+    n2_n1 = name[name.find("SM_Higgsino") + len("SM_Higgsino") + 1: name.find("_2LMET50")]
     n2 = n2_n1.split("_")[0]
     n1 = n2_n1.split("_")[1]
     dm_higgsino = int(n2) - int(n1)

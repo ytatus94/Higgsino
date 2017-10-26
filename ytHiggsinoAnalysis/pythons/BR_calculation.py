@@ -12,17 +12,12 @@ def main():
     list_branching_ratio("slha")
     list_branching_ratio("susyhit")
 
-    # for m12 in 300, 350, 400, 500, 600, 700, 800:
-    #     for decay in "N2N1", "C1C1", "N2C1p", "N2C1m":
-    #         file_name = "NUHM2_m12_" + str(m12) + "_weak_" + decay + ".slha"
-            # print file_name
-
 #----------------------------#
 
 def list_branching_ratio(input_file):
-    if input_file is "slha":
+    if input_file is "slha":  # for .slha
         for file in sorted( os.listdir(path_slha) ):
-            if file.startswith("susy") and file.endswith(".slha"): # for .slha
+            if file.startswith("susy") and file.endswith(".slha"):
                 print file
                 # .slha
                 if "N2" in file:
@@ -31,9 +26,9 @@ def list_branching_ratio(input_file):
                     print "BR(C1+/- ->ffN1)=", get_branching_ratio(input_file, path_slha + file, "C1ffN1")
                 if "C1C1" in file:
                     print "BR(C1->lvlN1)=", get_branching_ratio(input_file, path_slha + file, "C1lvlN1")
-    elif input_file is "susyhit":
+    elif input_file is "susyhit":  # for .out
         for file in sorted( os.listdir(path_susyhit) ):
-            if file.startswith("susyhit_slha.") and file.endswith(".out"): # for .out
+            if file.startswith("susyhit_slha.") and file.endswith(".out"):
                 print file
                 # susyhit_slha.*.out
                 print "BR(N2->llN1)=", get_branching_ratio(input_file, path_susyhit + file, "N2")
@@ -53,61 +48,61 @@ def get_slha_file(m12, decay):
 def get_branching_ratio(input_file, file, decay):
     decay_string = ""
     if decay is "N2":
-        if input_file is "slha":
-            decay_string = "# Z2SS  decays" # for .slha
-        elif input_file is "susyhit":
-            decay_string = "# neutralino2 decays" # for .out
+        if input_file is "slha":  # for .slha
+            decay_string = "# Z2SS  decays"
+        elif input_file is "susyhit": # for .out
+            decay_string = "# neutralino2 decays"
     elif decay is "C1ffN1" or decay is "C1lvlN1":
-        if input_file is "slha":
-            decay_string = "# W1SS+ decays" # for .slha
-        elif input_file is "susyhit":
-            decay_string = "# chargino1+ decays" # for .out
+        if input_file is "slha": # for .slha
+            decay_string = "# W1SS+ decays"
+        elif input_file is "susyhit": # for .out
+            decay_string = "# chargino1+ decays"
 
     with open(file) as fopen:
         lines = fopen.readlines()
         read_buffer = False
         total = 0
         for line in lines:
-            if input_file is "slha":
+            if input_file is "slha": # for .slha
                 if decay_string in line:
                     read_buffer = True
-                elif "#         PDG         Width" in line: # for .slha
+                elif "#         PDG         Width" in line:
                     read_buffer = False
 
                 if read_buffer:
                     if (decay is "N2" and ("# Z2SS   -->  Z1SS   E-     E+" in line or
                                            "# Z2SS   -->  Z1SS   MU-    MU+" in line or
-                                           "# Z2SS   -->  Z1SS   TAU-   TAU+" in line ) ): # for .slha
+                                           "# Z2SS   -->  Z1SS   TAU-   TAU+" in line ) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1ffN1" and ("# W1SS+  -->  Z1SS   UP     DB" in line or
-                                                 "# W1SS+  -->  Z1SS   CH     SB" in line ) ): # for .slha
+                                                 "# W1SS+  -->  Z1SS   CH     SB" in line ) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1lvlN1" and ("# W1SS+  -->  Z1SS   E+     NUE" in line or
                                                   "# W1SS+  -->  Z1SS   MU+    NUM" in line or
-                                                  "# W1SS+  -->  Z1SS   TAU+   NUT" in line) ): # for .slha
+                                                  "# W1SS+  -->  Z1SS   TAU+   NUT" in line) ):
                         BR = line.split()
                         total += float( BR[0] )
-            elif input_file is "susyhit":
+            elif input_file is "susyhit": # for .out
                 if decay_string in line:
                     read_buffer = True
-                elif "#         PDG            Width" in line: # for .out
+                elif "#         PDG            Width" in line:
                     read_buffer = False
 
                 if read_buffer:
                     if (decay is "N2" and ("# BR(~chi_20 -> ~chi_10 e+      e-)" in line or
                                            "# BR(~chi_20 -> ~chi_10 mu+     mu-)" in line or
-                                           "# BR(~chi_20 -> ~chi_10 tau+    tau-)" in line ) ): # for .out
+                                           "# BR(~chi_20 -> ~chi_10 tau+    tau-)" in line ) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1ffN1" and ("# BR(~chi_1+ -> ~chi_10 u    db)" in line or
-                                                 "# BR(~chi_1+ -> ~chi_10 c    sb)" in line ) ): # for .out
+                                                 "# BR(~chi_1+ -> ~chi_10 c    sb)" in line ) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1lvlN1" and ("# BR(~chi_1+ -> ~chi_10 e+   nu_e)" in line or
                                                   "# BR(~chi_1+ -> ~chi_10 mu+  nu_mu)" in line or
-                                                  "# BR(~chi_1+ -> ~chi_10 tau+ nu_tau)" in line) ): # for .out
+                                                  "# BR(~chi_1+ -> ~chi_10 tau+ nu_tau)" in line) ):
                         BR = line.split()
                         total += float( BR[0] )
         return total
