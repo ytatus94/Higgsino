@@ -2,6 +2,16 @@
 The NUHM2 Higgsino study
 
 ---
+### v36. modify python scripts
+* `AtlasStyle.py`: change font size
+* `BR_calculation.py`: change input path
+* `compare_files.py`: Add new line at the end of file
+* `get_mass_difference.py`: change the output format
+* `Nevents.py`: change the BR, Eff, weighted events, N_SR values
+* `ytEventSelection.cxx`: Use b-jet pT>20
+* `add_weight_to_common_ntuple.C`: remove empty line
+* `Run.sh`: remove empty line
+
 ### v35. Add new python scripts:
 * `get_truth3_information.py`: new script to get TRUTH3 information
 * `plot_distributions_in_SR.py`: new script to make kinematic distribution in SR

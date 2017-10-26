@@ -107,4 +107,3 @@ if [ $1 != "" ]; then
         echo "Error: $1 does not support! Using NUHM2, Higgsino, bkg or cutflow." 
     fi
 fi
-

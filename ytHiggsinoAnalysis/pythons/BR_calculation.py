@@ -4,7 +4,7 @@ List branching ratio in SLHA or SusyHit files.
 '''
 import os
 
-path_slha = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2/share/DSID394xxx/"
+path_slha = "../misc/NUHM2/share/DSID394xxx/"
 path_susyhit = "/Users/ytshen/Documents/Working/OU/HEP/MikeHance/"
 
 def main():

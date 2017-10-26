@@ -242,4 +242,3 @@ double get_Xsec_ratio(int FS, int m12)
     }
     return Xsec_ratio;
 }
-

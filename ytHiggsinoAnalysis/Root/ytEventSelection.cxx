@@ -905,7 +905,7 @@ EL::StatusCode ytEventSelection :: execute ()
         bool cut24 = m_cutflows->pass_at_least_one_signal_jet(nJet30); // correct
         m_cutflows->update(at_least_one_signal_jet, cut24, weight);
 
-        bool cut25 = m_cutflows->pass_zero_bjet(nBJet30_MV2c10); // correct
+        bool cut25 = m_cutflows->pass_zero_bjet(nBJet20_MV2c10); // correct
         m_cutflows->update(zero_bjet, cut25, weight);
 
         bool cut26 = m_cutflows->pass_mu4_j125_xe90_mht(HLT_mu4_j125_xe90_mht_emul); // correct
