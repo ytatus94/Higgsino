@@ -2,6 +2,23 @@
 The NUHM2 Higgsino study
 
 ---
+### v35. Add new python scripts:
+* `get_truth3_information.py`: new script to get TRUTH3 information
+* `plot_distributions_in_SR.py`: new script to make kinematic distribution in SR
+* `plot_truth3_kinematics.py`: new script to make kinematic distributions using official TRUTH3
+* `show_AMI_info.py`: new script to get filter efficiency
+
+
+### v34. modify python scripts
+* `BR_calculation.py`: modify the comments
+* `compare_files.py`: rename `check_slha.py` and add new function
+* `get_yields.py`: add SRee, SRmm, SRSF yields and weighted yields
+* `spectrum.py`: Bug fixed
+* `make_weight_plot.py`: change the input path
+* `plots_making.py`: change the input path and files
+* `reweight.py`: change the input path and files
+
+
 ### v33. Update to v1.9 and v1.9b ntuples
 * `ytEventSelection.h`: Use v1.9b ntuple
 * `ytEventSelection.cxx`: Use v1.9b ntuple and add weight to optimize SR histograms.
