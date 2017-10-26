@@ -2,6 +2,12 @@
 The NUHM2 Higgsino study
 
 ---
+### v38. modify python scripts
+* `plot_distributions_in_SR.py`: merge `plot_N_minus_one.py` into this script
+* `plot_N_minus_one.py`: delete this script
+* `truth3_plots_comparison.py`: Use new input files
+
+
 ### v37. Add new script
 * `plot_N_minus_one.py`: new script for N-1 plots
 

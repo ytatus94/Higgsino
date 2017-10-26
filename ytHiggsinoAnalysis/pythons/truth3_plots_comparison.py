@@ -1,26 +1,18 @@
 #!/usr/bin/python
 import ROOT
-from ROOT import kBlack,kWhite,kGray,kRed,kPink,kMagenta,kViolet,kBlue,kAzure,kCyan,kTeal,kGreen,kSpring,kYellow,kOrange,kDashed
 import AtlasStyle
 import read_Xsec
 
 # Global variables
-xsec_higgsino_N2N1 = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2N1_170_150"))
-xsec_higgsino_C1C1 = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("C1C1_170_150"))
-xsec_higgsino_N2C1p = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2C1p_170_150"))
-xsec_higgsino_N2C1m = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2C1m_170_150"))
+xsec_higgsino_N2N1 = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2N1_190_150"))
+xsec_higgsino_C1C1 = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("C1C1_190_150"))
+xsec_higgsino_N2C1p = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2C1p_190_150"))
+xsec_higgsino_N2C1m = read_Xsec.get_XS_Higgsino(read_Xsec.get_line_Higgsino("N2C1m_190_150"))
 
-# BF_higgsino_N2N1 = get_BF_Higgsino(get_line_Higgsino("N2N1_170_150"))
-# BF_higgsino_C1C1 = get_BF_Higgsino(get_line_Higgsino("C1C1_170_150"))
-# BF_higgsino_N2C1p = get_BF_Higgsino(get_line_Higgsino("N2C1p_170_150"))
-# BF_higgsino_N2C1m = get_BF_Higgsino(get_line_Higgsino("N2C1m_170_150"))
-BF_n2_lln1 = 0.9
-BF_c1_ffn1 = 9.42923324e-02
-
-eff_higgsino_N2N1 = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2N1_170_150"))
-eff_higgsino_C1C1 = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("C1C1_170_150"))
-eff_higgsino_N2C1p = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2C1p_170_150"))
-eff_higgsino_N2C1m = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2C1m_170_150"))
+eff_higgsino_N2N1 = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2N1_190_150"))
+eff_higgsino_C1C1 = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("C1C1_190_150"))
+eff_higgsino_N2C1p = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2C1p_190_150"))
+eff_higgsino_N2C1m = read_Xsec.get_FilterEff_Higgsino(read_Xsec.get_line_Higgsino("N2C1m_190_150"))
 
 events_higgsino_N2N1 = 10000
 events_higgsino_C1C1 = 10000
@@ -32,52 +24,34 @@ xsec_nuhm2_C1C1 = read_Xsec.get_XS_NUHM2(370621, 157)
 xsec_nuhm2_N2C1p = read_Xsec.get_XS_NUHM2(370621, 125)
 xsec_nuhm2_N2C1m = read_Xsec.get_XS_NUHM2(370621, 127)
 
-# BF_nuhm2_N2N1 =
-# BF_nuhm2_C1C1 =
-# BF_nuhm2_N2C1p =
-# BF_nuhm2_N2C1m =
-BF_n2_lln1 = 3.67224030E-02 + 3.67224030E-02 + 3.35381366E-02
+BF_n2_lln1 = 9.00000000E-01 # higgsino (from SLHA)
+BF_n2_lln1 = 0.1076035524 # nuhm2 (from Mike SusyHit file, m12=600)
 BF_c1_ffn1 = 1.
 
-# read from log.generate
-eff_nuhm2_N2N1 = 0.165175
-eff_nuhm2_C1C1 = 0.107170
-eff_nuhm2_N2C1p = 0.175818
-eff_nuhm2_N2C1m = 0.175864
-
-events_nuhm2_N2N1 = 10000
-events_nuhm2_C1C1 = 10000
-events_nuhm2_N2C1p = 10000
-events_nuhm2_N2C1m = 10000
+# read from AMI
+eff_nuhm2_N2N1 = 1.5353E-01
+eff_nuhm2_C1C1 = 1.0002E-01
+eff_nuhm2_N2C1p = 1.6926E-01
+eff_nuhm2_N2C1m = 1.6871E-01
+# read from AMI
+events_nuhm2_N2N1 = 20000
+events_nuhm2_C1C1 = 20000
+events_nuhm2_N2C1p = 20000
+events_nuhm2_N2C1m = 20000
 
 def main():
-    # f_Higgsino = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.yushen.SM_N2N1_160_150_2LMET50.no.MET.cut.root"
-    # f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2N1_170_150_2LMET50.root"
-    # f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170617/user.yushen.SM_N2C1p_155_150_2LMET50.root"
-    # f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170617/user.yushen.SM_N2C1m_155_150_2LMET50.root"
-    # f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    # f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170622/user.yushen.SM_N2C1m_170_150_2LMET50.root"
-    # f_NUHM2_judita = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.judita.TestJob.root"
-    # f_NUHM2_10k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.pskubic.10k.TestJob.root"
-    # f_NUHM2_100k_unfiltered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.unfiltered.TestJob.root"
-    # f_NUHM2_100k_filtered = "../../../SimpleAnalysis/Results/20170615_MET150Cut/user.chris.100k.filtered.TestJob.root"
-    # f_NUHM2_100k_CC_unfiltered = "../../../SimpleAnalysis/Results/20170617/user.chris.100k.CC.unfiltered.TestJob.root"
-    # f_NUHM2_100k_CC_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.100k.CC.filtered.TestJob.root"
-    #f_NUHM2_10k_no_x1_filtered = "../../../SimpleAnalysis/Results/20170622/user.chris.10k.CC.no.x1.filtered.TestJob.root"
-    # f_NUHM2_10k_n2_decay_no_jet = "../../../SimpleAnalysis/Results/20170628/user.chris.10k.n2.decay.no.jet.TestJob.root"
-
     # Higgsino simplified model
-    f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170716/user.yushen.SM_N2N1_170_150_2LMET50.root"
-    f_Higgsino_C1C1 = "../../../SimpleAnalysis/Results/20170716/user.yushen.SM_C1C1_170_150_2LMET50.root"
-    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170716/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170716/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170926b/"
+    f_Higgsino_N2N1 = path + "Higgsino_190_150_N2N1.root"
+    f_Higgsino_C1C1 = path + "Higgsino_190_150_C1C1.root"
+    f_Higgsino_N2C1p = path + "Higgsino_190_150_N2C1p.root"
+    f_Higgsino_N2C1m = path + "Higgsino_190_150_N2C1m.root"
     # NUHM2
-    f_NUHM2_N2N1 = "../../../SimpleAnalysis/Results/20170716/user.yushen.run_24.TestJob.root"
-    f_NUHM2_C1C1 = "../../../SimpleAnalysis/Results/20170716/user.yushen.run_25.TestJob.root"
-    f_NUHM2_N2C1p = "../../../SimpleAnalysis/Results/20170716/user.yushen.run_26.TestJob.root"
-    f_NUHM2_N2C1m = "../../../SimpleAnalysis/Results/20170716/user.yushen.run_27.TestJob.root"
+    f_NUHM2_N2N1 = path + "NUHM2_m12_600_N2N1.root"
+    f_NUHM2_C1C1 = path + "NUHM2_m12_600_C1C1.root"
+    f_NUHM2_N2C1p = path + "NUHM2_m12_600_N2C1p.root"
+    f_NUHM2_N2C1m = path + "NUHM2_m12_600_N2C1m.root"
 
-    # kinematic_vars = ["pt", "eta", "phi", "charge", "id"]
     kinematic_vars = ["pt", "eta", "phi"]
     electron_vars = ["Electrons_" + x for x in kinematic_vars]
     muon_vars = ["Muons_" + x for x in kinematic_vars]
@@ -104,10 +78,8 @@ def main():
     # print baseline_vars
     # print signal_vars
 
-    # var = ["eventWeight", "Event", "gen_met", "gen_ht", "met", "channel_number", "mc_weight",
     variables = ["met", "mc_weight",
                  "nBaselineLeptons", "nSignalLeptons", "nElectrons", "nMuons", "nJets", "nJet30", "nJet25", "nBjets",
-                 # "is2LChannel", "isSameSign", "channel", "dphiMin1", "mT", "mT2", "meffIncl", "HTIncl", "HT30", "HTLep12",
                  "dphiMin1", "mT", "mT2", "meffIncl", "HTIncl", "HT30", "HTLep12",
                  "METOverHT", "METOverHTLep12", "mll", "pTll", "Rll", "MTauTau"]
 
@@ -122,26 +94,24 @@ def main():
                              f_NUHM2_N2N1, f_NUHM2_C1C1, f_NUHM2_N2C1p, f_NUHM2_N2C1m,
                              var, True)
 
-
-
     for var in signal_vars:
-        # print var
-        # compare_two_curves(f_NUHM2, f_Higgsino, var, True)
-        # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
-        # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
-        # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
-        # compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
+    #     # print var
+    #     # compare_two_curves(f_NUHM2, f_Higgsino, var, True)
+    #     # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
+    #     # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
+    #     # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
+    #     # compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
         compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_C1C1, f_Higgsino_N2C1p, f_Higgsino_N2C1m,
                              f_NUHM2_N2N1, f_NUHM2_C1C1, f_NUHM2_N2C1p, f_NUHM2_N2C1m,
                              var, True)
 
     for var in variables:
-        # print var
-        # compare_two_curves(f_NUHM2, f_Higgsino, var, True)
-        # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
-        # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
-        # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
-        # compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
+    #     # print var
+    #     # compare_two_curves(f_NUHM2, f_Higgsino, var, True)
+    #     # compare_two_curves(f_Higgsino, f_NUHM2_judita, f_NUHM2_10k_unfiltered, f_NUHM2_100k_unfiltered, f_NUHM2_100k_filtered, var, True)
+    #     # compare_two_curves(f_Higgsino, f_NUHM2_100k_CC_unfiltered, f_NUHM2_100k_CC_filtered, var, True)
+    #     # compare_two_curves(f_Higgsino_N2N1, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_no_x1_filtered, var, True)
+    #     # compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_N2C1p, f_Higgsino_N2C1m, f_NUHM2_100k_CC_filtered, f_NUHM2_10k_n2_decay_no_jet, var, True)
         compare_stack_curves(f_Higgsino_N2N1, f_Higgsino_C1C1, f_Higgsino_N2C1p, f_Higgsino_N2C1m,
                              f_NUHM2_N2N1, f_NUHM2_C1C1, f_NUHM2_N2C1p, f_NUHM2_N2C1m,
                              var, True)
@@ -355,8 +325,6 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
         nbins, xmin, xmax = 60, -3, 3
     elif "_phi" in var:
         nbins, xmin, xmax = 80, -4, 4
-    # elif "charge" in var:
-    #     nbins, xmin, xmax = 40, -2, 2
     elif "met" in var:
         nbins, xmin, xmax = 100, 0, 500
     elif "mc_weight" in var:
@@ -421,117 +389,103 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
     #     cut = "MTauTau!=0"
 
     f1 = ROOT.TFile(file1)
-    t1 = f1.Get("EwkHiggsino2016__ntuple")
+    t1 = f1.Get("EwkNUHM22016__ntuple")
     h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
     t1.Project("h1_" + var, var, cut)
     integral1 = h1.Integral()
-    h1.Scale(1/integral1)
+    if normalize is True:
+        h1.Scale(1/integral1)
     h1.SetDirectory(ROOT.gROOT)
 
     f2 = ROOT.TFile(file2)
-    t2 = f2.Get("EwkHiggsino2016__ntuple")
+    t2 = f2.Get("EwkNUHM22016__ntuple")
     h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
     t2.Project("h2_" + var, var, cut)
     integral2 = h2.Integral()
-    h2.Scale(1/integral2)
+    if normalize is True:
+        h2.Scale(1/integral2)
     h2.SetDirectory(ROOT.gROOT)
 
     f3 = ROOT.TFile(file3)
-    t3 = f3.Get("EwkHiggsino2016__ntuple")
+    t3 = f3.Get("EwkNUHM22016__ntuple")
     h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
     t3.Project("h3_" + var, var, cut)
     integral3 = h3.Integral()
-    h3.Scale(1/integral3)
+    if normalize is True:
+        h3.Scale(1/integral3)
     h3.SetDirectory(ROOT.gROOT)
 
     f4 = ROOT.TFile(file4)
-    t4 = f4.Get("EwkHiggsino2016__ntuple")
+    t4 = f4.Get("EwkNUHM22016__ntuple")
     h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
     t4.Project("h4_" + var, var, cut)
     integral4 = h4.Integral()
-    h4.Scale(1/integral4)
+    if normalize is True:
+        h4.Scale(1/integral4)
     h4.SetDirectory(ROOT.gROOT)
 
-    # f4 = ROOT.TFile(file4)
-    # t4 = f4.Get("EwkHiggsino2016__ntuple")
-    # h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
-    # if "HT30" in var or "HTIncl" in var or "mT2" in var:
-    #     t4.Project("h4_" + var, var, cut+"&&met>50")
-    # else:
-    #     t4.Project("h4_" + var, var, "met>50")
-    # integral4 = h4.Integral()
-    # h4.Scale(1/integral4)
-    # h4.SetDirectory(ROOT.gROOT)
-
-    # f5 = ROOT.TFile(file5)
-    # t5 = f5.Get("EwkHiggsino2016__ntuple")
-    # h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
-    # if "HT30" in var or "HTIncl" in var or "mT2" in var:
-    #     t5.Project("h5_" + var, var, cut+"&&met>50")
-    # else:
-    #     t5.Project("h5_" + var, var, "met>50")
-    # integral5 = h5.Integral()
-    # h5.Scale(1/integral5)
-    # h5.SetDirectory(ROOT.gROOT)
-
     f5 = ROOT.TFile(file5)
-    t5 = f5.Get("EwkHiggsino2016__ntuple")
+    t5 = f5.Get("EwkNUHM22016__ntuple")
     h5 = ROOT.TH1F("h5_" + var, var, nbins, xmin, xmax)
     t5.Project("h5_" + var, var, cut)
     integral5 = h5.Integral()
-    h5.Scale(1/integral5)
+    if normalize is True:
+        h5.Scale(1/integral5)
     h5.SetDirectory(ROOT.gROOT)
 
     f6 = ROOT.TFile(file6)
-    t6 = f6.Get("EwkHiggsino2016__ntuple")
+    t6 = f6.Get("EwkNUHM22016__ntuple")
     h6 = ROOT.TH1F("h6_" + var, var, nbins, xmin, xmax)
     t6.Project("h6_" + var, var, cut)
     integral6 = h6.Integral()
-    h6.Scale(1/integral6)
+    if normalize is True:
+        h6.Scale(1/integral6)
     h6.SetDirectory(ROOT.gROOT)
 
     f7 = ROOT.TFile(file7)
-    t7 = f7.Get("EwkHiggsino2016__ntuple")
+    t7 = f7.Get("EwkNUHM22016__ntuple")
     h7 = ROOT.TH1F("h7_" + var, var, nbins, xmin, xmax)
     t7.Project("h7_" + var, var, cut)
     integral7 = h7.Integral()
-    h7.Scale(1/integral7)
+    if normalize is True:
+        h7.Scale(1/integral7)
     h7.SetDirectory(ROOT.gROOT)
 
     f8 = ROOT.TFile(file8)
-    t8 = f8.Get("EwkHiggsino2016__ntuple")
+    t8 = f8.Get("EwkNUHM22016__ntuple")
     h8 = ROOT.TH1F("h8_" + var, var, nbins, xmin, xmax)
     t8.Project("h8_" + var, var, cut)
     integral8 = h8.Integral()
-    h8.Scale(1/integral8)
+    if normalize is True:
+        h8.Scale(1/integral8)
     h8.SetDirectory(ROOT.gROOT)
 
     ROOT.gROOT.cd()
 
-    h1.SetLineColor(kOrange)
-    h1.SetFillColor(kOrange)
+    h1.SetLineColor(ROOT.kOrange)
+    h1.SetFillColor(ROOT.kOrange)
     h1.SetFillStyle(1001) # Solid
-    h2.SetLineColor(kOrange-4)
-    h2.SetFillColor(kOrange-4)
+    h2.SetLineColor(ROOT.kOrange-4)
+    h2.SetFillColor(ROOT.kOrange-4)
     h2.SetFillStyle(1001) # Solid
-    h3.SetLineColor(kOrange-6)
-    h3.SetFillColor(kOrange-6)
+    h3.SetLineColor(ROOT.kOrange-6)
+    h3.SetFillColor(ROOT.kOrange-6)
     h3.SetFillStyle(1001) # Solid
-    h4.SetLineColor(kOrange-8)
-    h4.SetFillColor(kOrange-8)
+    h4.SetLineColor(ROOT.kOrange-8)
+    h4.SetFillColor(ROOT.kOrange-8)
     h4.SetFillStyle(1001) # Solid
 
-    h5.SetLineColor(kBlue)
-    h5.SetFillColor(kBlue)
+    h5.SetLineColor(ROOT.kBlue)
+    h5.SetFillColor(ROOT.kBlue)
     h5.SetFillStyle(0)
-    h6.SetLineColor(kMagenta)
-    h6.SetFillColor(kMagenta)
+    h6.SetLineColor(ROOT.kMagenta)
+    h6.SetFillColor(ROOT.kMagenta)
     h6.SetFillStyle(0)
-    h7.SetLineColor(kRed)
-    h7.SetFillColor(kRed)
+    h7.SetLineColor(ROOT.kRed)
+    h7.SetFillColor(ROOT.kRed)
     h7.SetFillStyle(0)
-    h8.SetLineColor(kGreen)
-    h8.SetFillColor(kGreen)
+    h8.SetLineColor(ROOT.kGreen)
+    h8.SetFillColor(ROOT.kGreen)
     h8.SetFillStyle(0)
 
     hs = ROOT.THStack()
@@ -541,11 +495,11 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
         h2.Scale(integral2 / (integral1+integral2+integral3+integral4) )
         h3.Scale(integral3 / (integral1+integral2+integral3+integral4) )
         h4.Scale(integral4 / (integral1+integral2+integral3+integral4) )
-    else:
-        h1.Scale(weight(xsec_higgsino_N2N1, 1., eff_higgsino_N2N1, BF_n2_lln1, 36.1*1000., events_higgsino_N2N1))
-        h2.Scale(weight(xsec_higgsino_C1C1, 1., eff_higgsino_C1C1, BF_c1_ffn1 * BF_c1_ffn1, 36.1*1000., events_higgsino_C1C1))
-        h3.Scale(weight(xsec_higgsino_N2C1p, 1., eff_higgsino_N2C1p, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_higgsino_N2C1p))
-        h4.Scale(weight(xsec_higgsino_N2C1m, 1., eff_higgsino_N2C1m, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_higgsino_N2C1m))
+    # else:
+    #     h1.Scale(weight(xsec_higgsino_N2N1, 1., eff_higgsino_N2N1, BF_n2_lln1, 36.1*1000., events_higgsino_N2N1))
+    #     h2.Scale(weight(xsec_higgsino_C1C1, 1., eff_higgsino_C1C1, BF_c1_ffn1 * BF_c1_ffn1, 36.1*1000., events_higgsino_C1C1))
+    #     h3.Scale(weight(xsec_higgsino_N2C1p, 1., eff_higgsino_N2C1p, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_higgsino_N2C1p))
+    #     h4.Scale(weight(xsec_higgsino_N2C1m, 1., eff_higgsino_N2C1m, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_higgsino_N2C1m))
 
     hs.Add(h1)
     hs.Add(h2)
@@ -561,11 +515,11 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
         h6.Scale(integral6 / (integral5+integral6+integral7+integral8) )
         h7.Scale(integral7 / (integral5+integral6+integral7+integral8) )
         h8.Scale(integral8 / (integral5+integral6+integral7+integral8) )
-    else:
-        h5.Scale(weight(xsec_nuhm2_N2N1, 1., eff_nuhm2_N2N1, BF_n2_lln1, 36.1*1000., events_nuhm2_N2N1))
-        h6.Scale(weight(xsec_nuhm2_C1C1, 1., eff_nuhm2_C1C1, BF_c1_ffn1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_C1C1))
-        h7.Scale(weight(xsec_nuhm2_N2C1p, 1., eff_nuhm2_N2C1p, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_N2C1p))
-        h8.Scale(weight(xsec_nuhm2_N2C1m, 1., eff_nuhm2_N2C1m, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_N2C1m))
+    # else:
+    #     h5.Scale(weight(xsec_nuhm2_N2N1, 1., eff_nuhm2_N2N1, BF_n2_lln1, 36.1*1000., events_nuhm2_N2N1))
+    #     h6.Scale(weight(xsec_nuhm2_C1C1, 1., eff_nuhm2_C1C1, BF_c1_ffn1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_C1C1))
+    #     h7.Scale(weight(xsec_nuhm2_N2C1p, 1., eff_nuhm2_N2C1p, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_N2C1p))
+    #     h8.Scale(weight(xsec_nuhm2_N2C1m, 1., eff_nuhm2_N2C1m, BF_n2_lln1 * BF_c1_ffn1, 36.1*1000., events_nuhm2_N2C1m))
 
     hs_nuhm2.Add(h5)
     hs_nuhm2.Add(h6)
@@ -627,12 +581,6 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
 
     hs_nuhm2.Draw("hist,same,noclear")
 
-    # h4.SetLineColor(kBlue)
-    # h4.Draw("hist,same")
-
-    # h5.SetLineColor(kRed)
-    # h5.Draw("hist,same")
-
     legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
     # legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
     # legend.AddEntry(h2, "Higgsino_N2C1p_155_150", "f")
@@ -641,10 +589,10 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
     # legend.AddEntry(h3, "Higgsino_N2C1m_170_150", "f")
     # legend.AddEntry(h4, "NUHM2_m12_600 (100k, C+C(+j), filtered)", "l")
     # legend.AddEntry(h5, "NUHM2_m12_600 (10k, n2>l+l-n1, no jet, filtered)", "l")
-    legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
-    legend.AddEntry(h2, "Higgsino_C1C1_170_150", "f")
-    legend.AddEntry(h3, "Higgsino_N2C1p_170_150", "f")
-    legend.AddEntry(h4, "Higgsino_N2C1m_170_150", "f")
+    legend.AddEntry(h1, "Higgsino_N2N1_190_150", "f")
+    legend.AddEntry(h2, "Higgsino_C1C1_190_150", "f")
+    legend.AddEntry(h3, "Higgsino_N2C1p_190_150", "f")
+    legend.AddEntry(h4, "Higgsino_N2C1m_190_150", "f")
     legend.AddEntry(h5, "NUHM2_N2N1", "l")
     legend.AddEntry(h6, "NUHM2_C1C1", "l")
     legend.AddEntry(h7, "NUHM2_N2C1p", "l")
@@ -657,7 +605,7 @@ def compare_stack_curves(file1, file2, file3, file4, file5, file6, file7, file8,
     legend.SetFillStyle(0);
     legend.Draw()
 
-    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", kBlack)
+    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
 
     output = var + ".pdf"
     canvas.SaveAs(output)
