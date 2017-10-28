@@ -5,13 +5,13 @@ import math
 
 def main():
     # Higgsino common ntuple v1.8b
-    path = "/Users/ytshen/Desktop/"
+    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/"
     f_140_100 = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
-    f_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
-    f_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
-    f_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root"
+    f_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
+    f_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
+    f_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root"
 
-    fit_plot(path + f_140_100, "140_100")
+    # fit_plot(path + f_140_100, "140_100")
     fit_plot(path + f_160_100, "160_100")
     fit_plot(path + f_170_150, "170_150")
     fit_plot(path + f_190_150, "190_150")

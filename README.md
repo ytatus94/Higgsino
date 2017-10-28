@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v40. modify python scripts
+* `fit_common_ntuple.py`: Use new input files
+* `test_fit.py`: Change the input path
+* `AtlasStyle.py`: Change the sapce for input string
+* `truth3_mll_study.py`:
+  * fix typo
+  * Change the input path, y title and draw option
+
+
 ### v39. Add new cutflow results
 * `ytHiggsinoAnalysis/misc/HF/`: New results for cutflows
 

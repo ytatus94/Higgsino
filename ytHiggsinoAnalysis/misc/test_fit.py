@@ -4,7 +4,7 @@ import AtlasStyle
 import math
 
 def main():
-    path_higgsino = "/Users/ytshen/Desktop/20170817/"
+    path_higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/"
     n2_n1 = "190_150"
     f_higgsino_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root"
     f_higgsino_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root"
@@ -15,7 +15,7 @@ def main():
     n1 = int( n2_n1[n2_n1.find("_")+1:] )
     higgsino_dm = n2 - n1
 
-    path_nuhm2 = "/Users/ytshen/Desktop/20170817/"
+    path_nuhm2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/"
     m12 = 600
     f_nuhm2_N2N1 = "user.yushen.run_" + str(m12) + "_N2N1.TestJob.root"
     f_nuhm2_C1C1 = "user.yushen.run_" + str(m12) + "_C1C1.TestJob.root"

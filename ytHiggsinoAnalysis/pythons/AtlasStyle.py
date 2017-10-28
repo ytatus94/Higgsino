@@ -10,7 +10,8 @@ def ATLASLabel(x, y, text, color):
     l.SetTextFont(72)
     l.SetTextColor(color)
 
-    delx = 0.085*696*ROOT.gPad.GetWh()/(472*ROOT.gPad.GetWw())
+    delx = 0.115*696*ROOT.gPad.GetWh()/(472*ROOT.gPad.GetWw())
+    # delx = 0.085*696*ROOT.gPad.GetWh()/(472*ROOT.gPad.GetWw())
 
     l.DrawLatex(x, y, "ATLAS")
     if text:

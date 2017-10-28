@@ -27,7 +27,7 @@ def mll_components():
     h7 = ROOT.TH1F("h7", "mll is2LChannel&&!isSameSign", 100, 0, 50)
     h8 = ROOT.TH1F("h8", "mll !is2LChannel&&isSameSign", 100, 0, 50)
     h9 = ROOT.TH1F("h9", "mll !is2LChannel&&!isSameSign", 100, 0, 50)
-    
+
     t1.Project("h1", "mll", "mll>0")
     t1.Project("h2", "mll", "mll>0&&is2LChannel")
     t1.Project("h3", "mll", "mll>0&&!is2LChannel")
@@ -162,7 +162,7 @@ def mll_no_Hadronic_Tau():
 
     f_Higgsino_N1N2 = path + "20170619/user.yushen.SM_N2N1_170_150_2LMET50.root"
     f_Higgsino_N2C1p = path + "20170619/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    f_Higgsino_N2C1m = path + "20170619/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = path + "20170619/user.yushen.SM_N2C1m_170_150_2LMET50.root"
     f_NUHM2_no_HadTau = path + "20170621/user.chris.10k.no.HadTau.TestJob.root"
     f_NUHM2_no_HadTau_simplified = path + "20170621/user.chris.10k.simplified.no.HadTau.TestJob.root"
 
@@ -242,7 +242,7 @@ def mll_no_Hadronic_Tau():
     hs.GetHistogram().SetXTitle("M_{ll} [GeV]")
     hs.GetHistogram().SetYTitle("Normalized event counts")
     hs.SetMaximum(y_maximum * 2)
-    
+
     hs.Draw() # re-draw to make the y axis range setting working
 
     h4.SetLineColor(ROOT.kBlue)
@@ -250,7 +250,7 @@ def mll_no_Hadronic_Tau():
 
     h5.SetLineColor(ROOT.kRed)
     h5.Draw("hist,same")
-    
+
     legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
     legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
     legend.AddEntry(h2, "Higgsino_N2C1p_170_150", "f")
@@ -565,16 +565,17 @@ def compare_pythia_madgraph_madspin():
 #----------------------------#
 
 def compare_n2_decay():
-    f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
-    f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
-    f_run_12p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_12p.TestJob.root"
-    f_run_12m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_12m.TestJob.root"
-    f_run_13p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_13p.TestJob.root"
-    f_run_13m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_13m.TestJob.root"
-    f_run_14p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_14p.TestJob.root"
-    f_run_14m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_14m.TestJob.root"
-    f_run_15p = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_15p.TestJob.root"
-    f_run_15m = "../../../SimpleAnalysis/Results/20170708/user.yushen.run_15m.TestJob.root"
+    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/"
+    f_Higgsino_N2C1p = path + "20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
+    f_Higgsino_N2C1m = path + "20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
+    f_run_12p = path + "20170708/user.yushen.run_12p.TestJob.root"
+    f_run_12m = path + "20170708/user.yushen.run_12m.TestJob.root"
+    f_run_13p = path + "20170708/user.yushen.run_13p.TestJob.root"
+    f_run_13m = path + "20170708/user.yushen.run_13m.TestJob.root"
+    f_run_14p = path + "20170708/user.yushen.run_14p.TestJob.root"
+    f_run_14m = path + "20170708/user.yushen.run_14m.TestJob.root"
+    f_run_15p = path + "20170708/user.yushen.run_15p.TestJob.root"
+    f_run_15m = path + "20170708/user.yushen.run_15m.TestJob.root"
 
     file1 = f_Higgsino_N2C1p
     file2 = f_Higgsino_N2C1m
@@ -772,14 +773,14 @@ def compare_n2_decay():
     h12.SetStats(0)
     h12.SetTitle(var)
     h12.SetXTitle(var + " [GeV]")
-    h12.SetYTitle("Normalized event counts")
+    h12.SetYTitle("Normalized events / 1 GeV")
     h12.SetMaximum(y_maximum * 20)
     h12.SetMinimum(0.00001)
     h12.GetYaxis().SetTitleOffset(1.5)
     h12.SetLineColor(ROOT.kOrange)
     h12.SetFillColor(ROOT.kOrange)
     h12.SetFillStyle(1001) # Solid
-    h12.Draw()
+    h12.Draw("hist")
 
     # h34.Scale(br_run_12)
     h34.SetLineColor(ROOT.kBlue)
