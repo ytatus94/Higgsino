@@ -2,6 +2,10 @@
 The NUHM2 Higgsino study
 
 ---
+### v39. Add new cutflow results
+* `ytHiggsinoAnalysis/misc/HF/`: New results for cutflows
+
+
 ### v38. modify python scripts
 * `plot_distributions_in_SR.py`: merge `plot_N_minus_one.py` into this script
 * `plot_N_minus_one.py`: delete this script
