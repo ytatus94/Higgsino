@@ -23,12 +23,15 @@ from cuts import *
 savePDG_rounding = True # save rounded values in TeX tables 
 
 # Paths to ntuples
-TOPPATH = '/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/MC'
+#TOPPATH = '/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/MC'
 #BKGPATH = TOPPATH + '/SusySkimHiggsino_v1.8_SUSY16_Bkgs_tree/skimmed'
 #BKGPATH = TOPPATH + '/SusySkimHiggsino_v1.9_SUSY16_Bkgs_tree'
-BKGPATH = '/afs/cern.ch/work/j/jeliu/public/HiggsinoFitterTrees/v1_9'
+#BKGPATH = '/afs/cern.ch/work/j/jeliu/public/HiggsinoFitterTrees/v1_9'
 #SIGPATH = TOPPATH + '/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree'
-SIGPATH = TOPPATH + '/SusySkimHiggsino_v1.8b_SUSY16_Signal_tree'
+#SIGPATH = TOPPATH + '/SusySkimHiggsino_v1.8b_SUSY16_Signal_tree'
+TOPPATH = '/afs/cern.ch/work/j/jeliu/public/HiggsinoFitterTrees/v1_9'
+BKGPATH = TOPPATH
+SIGPATH = TOPPATH 
 
 apply_process_selection = True
 
@@ -113,7 +116,7 @@ def main():
 #              }
   
   d_samp_set = {
-#    'NUHM2' : [	
+#    'NUHM2' : [
 #                'MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin',
 #                'MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin',
 #                'MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin',
@@ -121,6 +124,12 @@ def main():
 #                'MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin',
 #                'MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin',
 #                'MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin'
+#                'MGPy8EG_A14N23LO_NUHM2_m12_350_weak',
+#                'MGPy8EG_A14N23LO_NUHM2_m12_400_weak',
+#                'MGPy8EG_A14N23LO_NUHM2_m12_500_weak',
+#                'MGPy8EG_A14N23LO_NUHM2_m12_600_weak',
+#                'MGPy8EG_A14N23LO_NUHM2_m12_700_weak',
+#                'MGPy8EG_A14N23LO_NUHM2_m12_800_weak'
 #              ],
 #    'Higgsino' : ['MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin',
 #                  'MGPy8EG_A14N23LO_SM_Higgsino_160_150_2LMET50_MadSpin',
@@ -147,7 +156,7 @@ def main():
   #==========================================================
   l_common_cuts = [
     'trigMatch_metTrig',
-#    'FS != 206 && FS != 207',
+    'FS != 206 && FS != 207',
 #    'FS == 157', # N2C1p
     'nLep_base==2',
     'nLep_signal==2',
@@ -168,7 +177,7 @@ def main():
     'mll > 1',
     '(mll < 3 || mll > 3.2)',
     'mll < 60',
-#    'Rll > 0.05',
+    'Rll > 0.05',
   ]
 
   l_higgsino = [
@@ -360,7 +369,7 @@ def tree_get_th1f(f, hname, var, cutsAfter='', Nbins=100, xmin=0, xmax=100, lumi
   from a TTree, project a leaf 'var' and return a TH1F
   '''
   h_AfterCut   = TH1D(hname, "", Nbins, xmin, xmax)
-  
+  cutsAfter += '&&genWeight>=0'
   lumi     = lumifb * 10 ** 3 # convert to [pb^{-1}]
   weights = "(genWeight * eventWeight * leptonWeight * jvtWeight * bTagWeight * pileupWeight * FFWeight)"
   cut_after = '({0}) * {1} * ({2})'.format(cutsAfter, weights, lumi) 
@@ -369,7 +378,6 @@ def tree_get_th1f(f, hname, var, cutsAfter='', Nbins=100, xmin=0, xmax=100, lumi
   # ========================================================= 
   if hname == 'fakes2Lb_DijetFFs':
     hname = 'fakes'
-  print hname
   if 'data' in hname:
     t = f.Get(hname + '_NoSys') 
     t.Project( hname,           var, cutsAfter )
@@ -388,7 +396,7 @@ def tree_get_th1f(f, hname, var, cutsAfter='', Nbins=100, xmin=0, xmax=100, lumi
   # =========================================================
   
   nRaw = h_AfterCut.GetEntries()
-  
+
   return nYield, nYieldErr, nRaw, rounded_nYield, rounded_nYieldErr
  
 #____________________________________________________________________________
@@ -401,7 +409,7 @@ def make_latex(samp_set, l_samp, l_cuts, d_samp_cutflow, savedir, l_cutflow_comm
   d_cuts_latex = {
     '(HLT_xe70 || HLT_xe90_mht_L1XE50 || HLT_xe100_mht_L1XE50 || HLT_xe110_mht_L1XE50)' : r'\met triggers, $\met>150$ GeV, $N_\text{baseline}^\ell \geq 2$',
     'trigMatch_metTrig'              : r'\met triggers, $\met>150$ GeV, $N_\text{baseline}^\ell \geq 2$',
-#    'FS != 206 && FS != 207'         : r'Stau veto',
+    'FS != 206 && FS != 207'         : r'Stau veto',
 #    'FS == 125'                      : r'$\chitz\chiop$',
 #    'FS == 127'                      : r'$\chitz\chiom$',
 #    'FS == 112'                      : r'$\chitz\chioz$',
@@ -520,13 +528,19 @@ def make_latex(samp_set, l_samp, l_cuts, d_samp_cutflow, savedir, l_cutflow_comm
     'MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin' : r'$\tilde{H} (170, 150)$',
     'MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin' : r'$\tilde{H} (190, 150)$',
 
-    'MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin' : r'NUHM2 m12=300',
-    'MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin' : r'NUHM2 m12=350',
-    'MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin' : r'NUHM2 m12=400',
-    'MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin' : r'NUHM2 m12=500',
-    'MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin' : r'NUHM2 m12=600',
-    'MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin' : r'NUHM2 m12=700',
-    'MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin' : r'NUHM2 m12=800',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin' : r'NUHM2 m12=300',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin' : r'NUHM2 m12=350',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin' : r'NUHM2 m12=400',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin' : r'NUHM2 m12=500',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin' : r'NUHM2 m12=600',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin' : r'NUHM2 m12=700',
+#    'MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin' : r'NUHM2 m12=800',
+    'MGPy8EG_A14N23LO_NUHM2_m12_350_weak' : r'NUHM2 m12=350',
+    'MGPy8EG_A14N23LO_NUHM2_m12_400_weak' : r'NUHM2 m12=400',
+    'MGPy8EG_A14N23LO_NUHM2_m12_500_weak' : r'NUHM2 m12=500',
+    'MGPy8EG_A14N23LO_NUHM2_m12_600_weak' : r'NUHM2 m12=600',
+    'MGPy8EG_A14N23LO_NUHM2_m12_700_weak' : r'NUHM2 m12=700',
+    'MGPy8EG_A14N23LO_NUHM2_m12_800_weak' : r'NUHM2 m12=800',
  
     'fakes'   : 'fakes',
     'top'     : 'top',

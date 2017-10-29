@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v41. Add new cutflow results
+* `make_cutflow.py`: modify script
+* `cutflows_20171027/`: rename `cutflows/` to `cutflows_20171027/`
+* `cutflows_20171028/`: new results
+* `cutflows_20171029/`: new results
+* `plot_distributions_in_SR.py`: change outptu digits
+* `significance.py`: Use new results for nsig and nbkg
+
+
 ### v40. modify python scripts
 * `fit_common_ntuple.py`: Use new input files
 * `test_fit.py`: Change the input path

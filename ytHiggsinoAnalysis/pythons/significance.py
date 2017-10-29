@@ -4,8 +4,12 @@ import os, ROOT, array
 from ROOT import kFALSE
 
 def main():
-    nsig, nbkg = read_number_of_events_in_signal_region()
+    # nsig, nbkg = read_number_of_events_in_signal_region()
     # print nsig, nbkg
+    nsig = [0., 2.7, 2.5, 3.0, 2.06, 1.21, 0.64] # NUHM2
+    # nsig = [0., 3.4, 4.3, 4.3, 4.3, 8.8, 8.8] # Higgsino reweighted
+    # fake: 0, top: 4.9, Zttjets: 6, diboson: 12.4, other: 2.1
+    nbkg = 0 + 4.9 + 6 + 12.4 + 2.1
     zn = []
     zn.append(calculate_Zn(nsig[0], nbkg)) # m12=300
     zn.append(calculate_Zn(nsig[1], nbkg)) # m12=350

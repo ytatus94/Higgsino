@@ -932,7 +932,7 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
         AtlasStyle.myText(0.2, 0.75, "SRmm-iMLLg #mu#mu", ROOT.kBlack, 0.02)
     AtlasStyle.myText(0.2, 0.72, "SusySkimHiggsino v1.9b", ROOT.kGray, 0.02)
 
-    legend_nuhm2   = "NUHM2 m12={0} ({1:.1f})".format(m12, integral_nuhm2)
+    legend_nuhm2   = "NUHM2 m12={0} ({1:.2f})".format(m12, integral_nuhm2)
     legend_data    = "Data ({0:.1f} Events)".format(integral_data)
     legend_SM      = "SM stat #oplus 20% syst ({0:.1f})".format(integral_SM)
     legend_fakes   = "Fake leptons ({0:.1f}%)".format(integral_fakes / integral_SM * 100)
