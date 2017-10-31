@@ -1,4 +1,8 @@
 #!/usr/bin/python
+'''
+### obsolete ###
+Use AMI to list the crossSection_mean and GenFiltEff_mean
+'''
 import os
 
 dataset = [

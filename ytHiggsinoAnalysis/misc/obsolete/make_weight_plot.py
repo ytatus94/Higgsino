@@ -1,4 +1,8 @@
 #!/usr/bin/python
+'''
+### obsolete ###
+This is used to compare my reweighted results (using v1.8b ntuples) and the official v1.8e ntuples
+'''
 import ROOT
 
 def main():
@@ -28,6 +32,9 @@ def main():
 #----------------------------#
 
 def make_plot(inputfile, m12):
+    '''
+    Make the weight plots
+    '''
     n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f = ROOT.TFile(inputfile)
     t = f.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")
@@ -41,6 +48,11 @@ def make_plot(inputfile, m12):
 #----------------------------#
 
 def compare_plot(inputfile, m12):
+    '''
+    Compare the weight plots between my results (using v1.8b) and the official v1.8e ntuples.
+    This shows the official v1.8e ntuple is wrong.
+    See nuhm2-20170830
+    '''
     n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f1 = ROOT.TFile(inputfile)
     t1 = f1.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")
@@ -72,6 +84,10 @@ def compare_plot(inputfile, m12):
 #----------------------------#
 
 def plot_reweight_mll(inputfile, m12):
+    '''
+    Make the reweight mll plots
+    Overlap my results (v1.8b) and official v1.8e ntuples
+    '''
     n2_n1 = inputfile[inputfile.find("SM_Higgsino") + len("SM_Higgsino") + 1: inputfile.find("_2LMET50")]
     f1 = ROOT.TFile(inputfile)
     t1 = f1.Get("MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_NoSys")

@@ -2,6 +2,33 @@
 The NUHM2 Higgsino study
 
 ---
+### v42. Move old scripts to obsolete directory
+* `misc/obsolete/`: Create new directory and move the following files to this directory
+  * from `python/`:
+    * `BR_calculation.py`
+    * `fit_common_ntuple.py`
+    * `make_weight_plot.py`
+    * `plots_making.py`
+    * `reweight.py`
+    * `show_AMI_info.py`
+    * `test_fit.py`
+    * `truth3_plots_comparison.py`
+  * from `scripts/`:
+    * `FuncMllDistr.C`
+    * `file_path.C`
+    * `fit_common_ntuple.C`
+    * `mll_ratio.C`
+    * `overlap_histograms.C`
+    * `plot_reweight_common_ntuple_mll.C`
+    * `reweight_common_ntuple.C`
+    * `reweight_kinematic_variables.C`
+    * `test_120_100.C`
+    * `test_Higgsino_160_100.C`
+    * `test_Higgsino_190_150_m12_600.C`
+    * `test_fit.C`
+    * `view_combine_hist.C`
+
+
 ### v41. Add new cutflow results
 * `make_cutflow.py`: modify script
 * `cutflows_20171027/`: rename `cutflows/` to `cutflows_20171027/`

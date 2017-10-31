@@ -1,4 +1,8 @@
 #!/usr/bin python
+'''
+### obsolete ###
+Compare two different ways to reweight mll
+'''
 import ROOT
 import AtlasStyle
 import math

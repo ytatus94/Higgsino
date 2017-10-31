@@ -1,4 +1,8 @@
 #!/usr/bin/python
+'''
+### obsolete ###
+Compare the reconstructed distributions between NUHM2 m12=600 and Higgsino_190_150.
+'''
 import ROOT
 import AtlasStyle
 

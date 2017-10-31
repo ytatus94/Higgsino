@@ -1,5 +1,6 @@
 #!/usr/bin/python
 '''
+### obsolete ###
 List branching ratio in SLHA or SusyHit files.
 '''
 import os
@@ -16,24 +17,36 @@ def main():
 
 def list_branching_ratio(input_file):
     if input_file is "slha":  # for .slha
+        print "SLHA results:"
+        print "{0:<41} && {1:<12} && {2:<16} && {3:<12}".format("file", "BR(N2->llN1)", "BR(C1+/- ->ffN1)", "BR(C1->lvlN1)")
         for file in sorted( os.listdir(path_slha) ):
             if file.startswith("susy") and file.endswith(".slha"):
-                print file
-                # .slha
-                if "N2" in file:
-                    print "BR(N2->llN1)=", get_branching_ratio(input_file, path_slha + file, "N2")
-                if "C1p" in file or "C1m" in file:
-                    print "BR(C1+/- ->ffN1)=", get_branching_ratio(input_file, path_slha + file, "C1ffN1")
-                if "C1C1" in file:
-                    print "BR(C1->lvlN1)=", get_branching_ratio(input_file, path_slha + file, "C1lvlN1")
+                # print file
+                # # .slha
+                # if "N2" in file:
+                #     print "BR(N2->llN1)=", get_branching_ratio(input_file, path_slha + file, "N2")
+                # if "C1p" in file or "C1m" in file:
+                #     print "BR(C1+/- ->ffN1)=", get_branching_ratio(input_file, path_slha + file, "C1ffN1")
+                # if "C1C1" in file:
+                #     print "BR(C1->lvlN1)=", get_branching_ratio(input_file, path_slha + file, "C1lvlN1")
+                br = [file, get_branching_ratio(input_file, path_slha + file, "N2"),
+                            get_branching_ratio(input_file, path_slha + file, "C1ffN1"),
+                            get_branching_ratio(input_file, path_slha + file, "C1lvlN1")]
+                print "{0:<41} && {1:<12.10f} && {2:<16.10f} && {3:<12.10f}".format(br[0], float(br[1]), float(br[2]), float(br[3]))
     elif input_file is "susyhit":  # for .out
+        print "SusyHit results:"
+        print "{0:<24} && {1:<12} && {2:<16} && {3:<12}".format("file", "BR(N2->llN1)", "BR(C1+/- ->ffN1)", "BR(C1->lvlN1)")
         for file in sorted( os.listdir(path_susyhit) ):
             if file.startswith("susyhit_slha.") and file.endswith(".out"):
-                print file
-                # susyhit_slha.*.out
-                print "BR(N2->llN1)=", get_branching_ratio(input_file, path_susyhit + file, "N2")
-                print "BR(C1+/- ->ffN1)=", get_branching_ratio(input_file, path_susyhit + file, "C1ffN1")
-                print "BR(C1->lvlN1)=", get_branching_ratio(input_file, path_susyhit + file, "C1lvlN1")
+                # print file
+                # # susyhit_slha.*.out
+                # print "BR(N2->llN1)=", get_branching_ratio(input_file, path_susyhit + file, "N2")
+                # print "BR(C1+/- ->ffN1)=", get_branching_ratio(input_file, path_susyhit + file, "C1ffN1")
+                # print "BR(C1->lvlN1)=", get_branching_ratio(input_file, path_susyhit + file, "C1lvlN1")
+                br = [file, get_branching_ratio(input_file, path_susyhit + file, "N2"),
+                            get_branching_ratio(input_file, path_susyhit + file, "C1ffN1"),
+                            get_branching_ratio(input_file, path_susyhit + file, "C1lvlN1")]
+                print "{0:<24} && {1:<12.10f} && {2:<16.10f} && {3:<12.10f}".format(br[0], float(br[1]), float(br[2]), float(br[3]))
 
 #----------------------------#
 
@@ -76,7 +89,10 @@ def get_branching_ratio(input_file, file, decay):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1ffN1" and ("# W1SS+  -->  Z1SS   UP     DB" in line or
-                                                 "# W1SS+  -->  Z1SS   CH     SB" in line ) ):
+                                                 "# W1SS+  -->  Z1SS   CH     SB" in line or
+                                                 "# W1SS+  -->  Z1SS   E+     NUE" in line or
+                                                 "# W1SS+  -->  Z1SS   MU+    NUM" in line or
+                                                 "# W1SS+  -->  Z1SS   TAU+   NUT" in line) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1lvlN1" and ("# W1SS+  -->  Z1SS   E+     NUE" in line or
@@ -97,7 +113,10 @@ def get_branching_ratio(input_file, file, decay):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1ffN1" and ("# BR(~chi_1+ -> ~chi_10 u    db)" in line or
-                                                 "# BR(~chi_1+ -> ~chi_10 c    sb)" in line ) ):
+                                                 "# BR(~chi_1+ -> ~chi_10 c    sb)" in line or
+                                                 "# BR(~chi_1+ -> ~chi_10 e+   nu_e)" in line or
+                                                 "# BR(~chi_1+ -> ~chi_10 mu+  nu_mu)" in line or
+                                                 "# BR(~chi_1+ -> ~chi_10 tau+ nu_tau)" in line) ):
                         BR = line.split()
                         total += float( BR[0] )
                     elif (decay is "C1lvlN1" and ("# BR(~chi_1+ -> ~chi_10 e+   nu_e)" in line or
@@ -109,6 +128,7 @@ def get_branching_ratio(input_file, file, decay):
 
 #----------------------------#
 
+### obsolete ###
 def sum_BR():
     # file_to_open = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/test_mg5/run_02a/susy.370621.NUHM2_m12_600.slha"
     file_to_open = "/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/susy.370621.NUHM2_m12_600.slha"

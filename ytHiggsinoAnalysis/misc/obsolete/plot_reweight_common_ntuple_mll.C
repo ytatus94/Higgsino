@@ -13,7 +13,7 @@ void plot(string);
 
 void plot_reweight_common_ntuple_mll()
 {
-    string path = "/Users/ytshen/Desktop/";
+    string path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/";
     string f_m12_350 = "reweighted_m12_350.root";
     string f_m12_400 = "reweighted_m12_400.root";
     string f_m12_500 = "reweighted_m12_500.root";

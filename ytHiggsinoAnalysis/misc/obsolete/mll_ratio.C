@@ -34,8 +34,8 @@ void mll_ratio()
 void plot_mll_ratio_with_tail(int n2, int n1, int m12)
 {
     // Get histograms
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
-    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
+    string path_NUHM2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    string path_Higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -207,8 +207,8 @@ void plot_mll_ratio_without_tail(int n2, int n1, int m12)
     double dm_Higgsino = n2 - n1;
 
     // Get histograms
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
-    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
+    string path_NUHM2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    string path_Higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 

@@ -38,7 +38,7 @@ void overlap_histograms(string n2_n1)
 TH1F *get_TRUTH3_histograms(string n2_n1)
 {
     // TRUTH3
-    string path_truth3 = "/Users/ytshen/Desktop/20170817/";
+    string path_truth3 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
 
     string f_N2N1 = "user.yushen.SM_N2N1_" + n2_n1 + "_2LMET50.root";
     string f_C1C1 = "user.yushen.SM_C1C1_" + n2_n1 + "_2LMET50.root";
@@ -58,8 +58,8 @@ TH1F *get_TRUTH3_histograms(string n2_n1)
 TH1F *get_common_ntuple_histogram(string n2_n1)
 {
     // common ntuple v1.8
-    string path_ntuple = "/Users/ytshen/Desktop/";
-    string f_n2_n1 = "MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
+    string path_ntuple = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/";
+    string f_n2_n1 = "MGPy8EG_A14N23LO_SM_Higgsino_" + n2_n1 + "_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root";
 
     TFile *f_ntuple = new TFile((path_ntuple + f_n2_n1).c_str());
 

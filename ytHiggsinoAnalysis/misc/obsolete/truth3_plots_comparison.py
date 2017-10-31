@@ -1,4 +1,7 @@
 #!/usr/bin/python
+'''
+### obsolete ###
+'''
 import ROOT
 import AtlasStyle
 import read_Xsec
@@ -118,6 +121,7 @@ def main():
 
 #----------------------------#
 
+### obsolete ###
 # def compare_two_curves(file1, file2, var, normalize):
 # def compare_two_curves(file1, file2, file3, file4, file5, var, normalize):
 def compare_two_curves(file1, file2, file3, var, normalize):

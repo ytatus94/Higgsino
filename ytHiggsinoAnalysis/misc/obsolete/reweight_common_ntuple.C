@@ -16,11 +16,11 @@ void fit_and_reweight_plot(string, string, int);
 
 void reweight_common_ntuple()
 {
-    string path = "/Users/ytshen/Desktop/";
+    string path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/";
     // string f_140_100 = "MGPy8EG_A14N23LO_SM_Higgsino_140_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
-    string f_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
-    string f_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
-    string f_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8b_SUSY16_tree_NoSys.root";
+    string f_160_100 = "MGPy8EG_A14N23LO_SM_Higgsino_160_100_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root";
+    string f_170_150 = "MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root";
+    string f_190_150 = "MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.8e_SUSY16_tree_NoSys.root";
 
     fit_and_reweight_plot(path + f_160_100, "160_100", 350);
     fit_and_reweight_plot(path + f_160_100, "160_100", 400);
