@@ -108,7 +108,7 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     double dm_Higgsino = n2 - n1;
 
     // Higgsino TRUTH3
-    string path_Higgsino = "/Users/ytshen/Desktop/20170817/";
+    string path_Higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -170,7 +170,7 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // NUHM2 TRUTH3
-    string path_NUHM2 = "/Users/ytshen/Desktop/20170817/";
+    string path_NUHM2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
 
     string file_NUHM2_N2N1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     // string file_NUHM2_C1C1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";

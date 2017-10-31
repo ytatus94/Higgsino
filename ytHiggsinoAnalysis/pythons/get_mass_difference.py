@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-
 import os
 
 path = "../misc/NUHM2/share/DSID394xxx/"

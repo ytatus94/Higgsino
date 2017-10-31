@@ -2,6 +2,19 @@
 The NUHM2 Higgsino study
 
 ---
+### v43. Modify scripts
+* `Nevents.py`: change the output format
+* `compare_files.py`: Add comments
+* `get_mass_difference.py`: Remove extra space
+* `get_yields.py`: Remove extra space
+* `plot_distributions_in_SR.py`: Add comments
+* `plot_truth3_kinematics.py`: Add comments
+* `read_Xsec.py`: Add comments
+* `truth3_mll_study.py`: Add comments
+* `reweight_mc_event_weight.C`: Change input path
+* `reweight_truth3.C`: Change input path
+
+
 ### v42. Move old scripts to obsolete directory
 * `misc/obsolete/`: Create new directory and move the following files to this directory
   * from `python/`:

@@ -94,12 +94,16 @@ N_SR = [N_SR_300, N_SR_350, N_SR_400, N_SR_500, N_SR_600, N_SR_700, N_SR_800]
 #----------------------------#
 
 def main():
+    acc_all_m12 = []
+    n_events_all_m12 = []
+    total_all_m12 = []
     for m12 in range(0, len(Xsec)):
         # decay = len(Xsec[m12]) # should be 4 because there are 4 decays
         # acc = [acceptance(N_pass_truth, max_events) for N_pass_truth in N_SR[m12]]
         acc = []
         for N_pass_truth, max_events in zip(N_SR[m12], events[m12]):
             acc.append( acceptance(N_pass_truth, max_events) )
+        acc_all_m12.append(acc)
 
         n_events = []
         for decay in range(0, len(Xsec[m12])):
@@ -112,43 +116,89 @@ def main():
             #     BR = BR_N2_to_llN1 only because BR_C1_to_ffN1 = 1.0
             BR = BR_N2_to_llN1[m12][decay] * BR_C1_to_ffN1[m12][decay] * BR_C1_to_lvlN1[m12][decay] * BR_C1_to_lvlN1[m12][decay]
             n_events.append( Nevents(36.1, acc[decay], eff[m12][decay], Xsec[m12][decay], BR) )
+        n_events_all_m12.append(n_events)
+        total_all_m12.append(sum(n_events))
 
-        if m12 is 0:
-            print "m12=300:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 1:
-            print "m12=350:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 2:
-            print "m12=400:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 3:
-            print "m12=500:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 4:
-            print "m12=600:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 5:
-            print "m12=700:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
-        elif m12 is 6:
-            print "m12=800:"
-            print "acceptance:", acc
-            print "N_events:", n_events
-            print "total=", sum(n_events)
+        # if m12 is 0:
+        #     print "m12=300:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 1:
+        #     print "m12=350:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 2:
+        #     print "m12=400:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 3:
+        #     print "m12=500:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 4:
+        #     print "m12=600:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 5:
+        #     print "m12=700:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
+        # elif m12 is 6:
+        #     print "m12=800:"
+        #     print "acceptance:", acc
+        #     print "N_events:", n_events
+        #     print "total=", sum(n_events)
 
+    print "Acceptance:"
+    print "{0:<4} && {1:<10} && {2:<10} && {3:<10} && {4:<10}".format("m12", "N2N1", "C1C1", "N2C1p", "N2C1m")
+    for i in range(0, len(acc_all_m12)):
+        if i == 0:
+            m12 = 300
+        elif i == 1:
+            m12 = 350
+        elif i == 2:
+            m12 = 400
+        elif i == 3:
+            m12 = 500
+        elif i == 4:
+            m12 = 600
+        elif i == 5:
+            m12 = 700
+        elif i == 6:
+            m12 = 800
+        print "{0:<4} && {1:<10.8f} && {2:<10.8f} && {3:<10.8f} && {4:<10.8f}".format(m12, acc_all_m12[i][0],
+                                                                                           acc_all_m12[i][1],
+                                                                                           acc_all_m12[i][2],
+                                                                                           acc_all_m12[i][3])
+
+    print "N events:"
+    print "{0:<4} && {1:<10} && {2:<10} && {3:<10} && {4:<10} && {5:<10}".format("m12", "N2N1", "C1C1", "N2C1p", "N2C1m", "Total")
+    for i in range(0, len(n_events_all_m12)):
+        if i == 0:
+            m12 = 300
+        elif i == 1:
+            m12 = 350
+        elif i == 2:
+            m12 = 400
+        elif i == 3:
+            m12 = 500
+        elif i == 4:
+            m12 = 600
+        elif i == 5:
+            m12 = 700
+        elif i == 6:
+            m12 = 800
+        print "{0:<4} && {1:<10.8f} && {2:<10.8f} && {3:<10.8f} && {4:<10.8f} && {5:<10.8f}".format(m12, n_events_all_m12[i][0],
+                                                                                                         n_events_all_m12[i][1],
+                                                                                                         n_events_all_m12[i][2],
+                                                                                                         n_events_all_m12[i][3],
+                                                                                                         total_all_m12[i])
     # print transpose(Xsec)
     make_plot( transpose(Xsec) )
 

@@ -1,4 +1,9 @@
 #!/usr/bin/python
+'''
+Compare the truth distributions between NUHM2 m12=600 and Higgsino_170_150.
+The results are used in the internal note.
+We use Higgsino_170_150 because the dM=20 and close to dM(NUHM2 m12=600)~22
+'''
 import ROOT
 import AtlasStyle
 
@@ -25,6 +30,7 @@ def main():
         h_Higgsino_N2C1p = loop_tree(path + Higgsino[2], var)
         h_Higgsino_N2C1m = loop_tree(path + Higgsino[3], var)
 
+        # Use all events (not events pass SR requirements)
         plot_making(var, True,
                     h_Higgsino_N2N1, h_Higgsino_C1C1, h_Higgsino_N2C1p, h_Higgsino_N2C1m,
                     h_NUHM2_N2N1, h_NUHM2_C1C1, h_NUHM2_N2C1p, h_NUHM2_N2C1m)
@@ -420,7 +426,7 @@ def plot_making(var, normalize, h1, h2, h3, h4, h5, h6, h7, h8):
     if normalize is True:
         hs.GetHistogram().SetYTitle("Normalized event counts")
     else:
-        hs.GetHistogram().SetYTitle("Event counts")
+        hs.GetHistogram().SetYTitle("Events")
     hs.GetHistogram().GetYaxis().SetTitleOffset(1.5)
 
     if logY is True:

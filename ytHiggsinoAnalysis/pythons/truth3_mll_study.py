@@ -13,6 +13,7 @@ def main():
 
 #----------------------------#
 
+### obsolete ###
 def mll_components():
     ''' show the mll components '''
     f1 = ROOT.TFile("/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/Results/20170619/user.chris.100k.CC.filtered.TestJob.root")
@@ -97,6 +98,7 @@ def mll_components():
 
 #----------------------------#
 
+### obsolete ###
 def mll_C1_test():
     path = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/Results/"
     f_original = path + "20170619/user.chris.100k.CC.filtered.TestJob.root"
@@ -157,6 +159,7 @@ def mll_C1_test():
 
 #----------------------------#
 
+### obsolete ###
 def mll_no_Hadronic_Tau():
     path = "/afs/cern.ch/work/y/yushen/private/Higgsino/SimpleAnalysis/Results/"
 
@@ -270,6 +273,7 @@ def mll_no_Hadronic_Tau():
 
 #----------------------------#
 
+### obsolete ###
 def mll_shape():
     f_Higgsino_N2N1 = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2N1_170_150_2LMET50.root"
     f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
@@ -420,6 +424,7 @@ def mll_shape():
 
 #----------------------------#
 
+### obsolete ###
 def compare_pythia_madgraph_madspin():
     f_Higgsino_N2C1p = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
     f_Higgsino_N2C1m = "../../../SimpleAnalysis/Results/20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"

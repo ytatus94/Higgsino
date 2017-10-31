@@ -1,4 +1,7 @@
 #!/usr/bin/python
+'''
+Make the N-1 distributions for NUHM2
+'''
 import ROOT
 import array, math
 import AtlasStyle

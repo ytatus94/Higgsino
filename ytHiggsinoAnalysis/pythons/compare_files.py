@@ -28,6 +28,7 @@ def check_slha():
 
 #----------------------------#
 
+### obsolete ###
 def check_results():
     path1 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/Results/20170817/"
     path2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/20170817/"

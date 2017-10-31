@@ -87,6 +87,9 @@ def get_XS_NUHM2(dsid, fs):
 #----------------------------#
 
 def cross_section_ratio(note, m12):
+    '''
+    Calculate the cross-section ratio between NUHM2 and Higgsino
+    '''
     a = get_line_Higgsino(note)
     Xsec_Higgsino = get_XS_Higgsino(a)
     # print Xsec_Higgsino
