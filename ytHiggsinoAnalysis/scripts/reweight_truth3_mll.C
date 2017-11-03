@@ -21,9 +21,10 @@ using namespace std;
 void plot_Lorenzo(int, int, int);
 void plot_Mike(int, int, int);
 void tree_reader(string, double, TH1F *, TH1F *h2 = NULL, TF1 *func1 = NULL, TF1 *func2 = NULL);
+void ATLASLabel(Double_t x, Double_t y, const char* text, Color_t color);
 
 // main function
-void reweight_truth3()
+void reweight_truth3_mll()
 {
     // Use Lorenzo's way
     plot_Lorenzo(160, 100, 350);
@@ -66,7 +67,7 @@ void plot_Lorenzo(int n2, int n1, int m12)
     func_NUHM2->SetParameter(2, -1*par2);
     func_NUHM2->FixParameter(1, par1);
     func_NUHM2->FixParameter(2, -1*par2);
-    func_NUHM2->SetLineColor(kRed);
+    func_NUHM2->SetLineColor(kBlue);
     func_NUHM2->SetLineStyle(2);
 
     //normalize the two curve to the same area (=1)
@@ -124,16 +125,16 @@ void plot_Lorenzo(int n2, int n1, int m12)
     TH1F *h_Higgsino_combined_original = combine_histogram(h_Higgsino_N2N1_original, h_Higgsino_N2C1p_original, h_Higgsino_N2C1m_original);
     h_Higgsino_combined_original->SetName("h_Higgsino_combined_original");
     h_Higgsino_combined_original->SetTitle("");
-    h_Higgsino_combined_original->SetXTitle("m_{ll} [GeV]");
-    h_Higgsino_combined_original->SetYTitle("Normalized event counts");
+    h_Higgsino_combined_original->SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]");
+    h_Higgsino_combined_original->SetYTitle("Normalized events / 1 GeV");
     h_Higgsino_combined_original->SetLineColor(kGreen);
 
     // Reweight
     TH1F *h_Higgsino_combined_reweight = combine_histogram(h_Higgsino_N2N1_reweight, h_Higgsino_N2C1p_reweight, h_Higgsino_N2C1m_reweight);
     h_Higgsino_combined_reweight->SetName("h_Higgsino_combined_reweight");
     h_Higgsino_combined_reweight->SetTitle("");
-    h_Higgsino_combined_reweight->SetXTitle("m_{ll} [GeV]");
-    h_Higgsino_combined_reweight->SetYTitle("Normalized event counts");
+    h_Higgsino_combined_reweight->SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]");
+    h_Higgsino_combined_reweight->SetYTitle("Normalized events / 1 GeV");
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // double area_Higgsino_combined_original = h_Higgsino_combined_original->Integral(0, dm_Higgsino);
@@ -187,13 +188,14 @@ void plot_Lorenzo(int n2, int n1, int m12)
     TH1F *h_NUHM2_combined = combine_histogram(h_NUHM2_N2N1, h_NUHM2_N2C1p, h_NUHM2_N2C1m);
     h_NUHM2_combined->SetName("h_NUHM2_combined");
     h_NUHM2_combined->SetTitle("");
-    h_NUHM2_combined->SetXTitle("m_{ll} [GeV]");
-    h_NUHM2_combined->SetYTitle("Normalized event counts");
+    h_NUHM2_combined->SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]");
+    h_NUHM2_combined->SetYTitle("Normalized events / 1 GeV");
     h_NUHM2_combined->SetLineColor(kBlue);
 
     // Making plot
-    TCanvas *c = new TCanvas("c", "", 800, 600);
-    c->SetLeftMargin(0.12);
+    TCanvas *c = new TCanvas("c", "", 600, 600);
+    c->SetLeftMargin(0.15);
+    c->SetBottomMargin(0.15);
     bool logY = false;
 
     if (logY)
@@ -208,7 +210,8 @@ void plot_Lorenzo(int n2, int n1, int m12)
     double y_max = max(h_Higgsino_combined_original->GetMaximum(), h_Higgsino_combined_reweight->GetMaximum()) * 1.2;
 
     h_Higgsino_combined_original->GetXaxis()->SetRangeUser(0, x_max);
-    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.4);
+    h_Higgsino_combined_original->GetXaxis()->SetTitleOffset(1.5);
+    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.7);
     h_Higgsino_combined_original->SetMaximum(y_max);
     h_Higgsino_combined_original->SetStats(0);
     h_Higgsino_combined_original->Draw("hist");
@@ -220,15 +223,17 @@ void plot_Lorenzo(int n2, int n1, int m12)
 
     h_NUHM2_combined->Draw("hist,same");
 
-    TLegend *legend = new TLegend(0.4, 0.6, 0.9, 0.8);
+    ATLASLabel(0.2, 0.83, "internal", kBlack);
+
+    TLegend *legend = new TLegend(0.57, 0.65, 0.77, 0.87);
     legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(func_Higgsino, ("Calculated Higgsino_" + n2_n1).c_str(), "l");
+    legend->AddEntry(func_Higgsino, ("Theoritical Higgsino_" + n2_n1).c_str(), "l");
     legend->AddEntry(h_Higgsino_combined_reweight, ("reweight Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(func_NUHM2, ("Calculated reweighted Higgsino_" + n2_n1).c_str(), "l");
     legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
+    legend->AddEntry(func_NUHM2, ("Theoritical NUHM2 m12=" + to_string(m12)).c_str(), "l");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
-    legend->SetTextSize(0.03);
+    legend->SetTextSize(0.02);
     legend->SetFillColor(0);
     legend->SetFillStyle(0);
     legend->Draw();
@@ -441,5 +446,25 @@ void tree_reader(string f, double dm, TH1F *h1, TH1F *h2 = NULL, TF1 *func1 = NU
                 }
             }
         }
+    }
+}
+
+void ATLASLabel(Double_t x, Double_t y, const char* text, Color_t color)
+{
+    TLatex l; //l.SetTextAlign(12); l.SetTextSize(tsize);
+    l.SetNDC();
+    l.SetTextFont(72);
+    l.SetTextColor(color);
+
+    double delx = 0.115*696*gPad->GetWh()/(472*gPad->GetWw());
+
+    l.DrawLatex(x,y,"ATLAS");
+    if (text) {
+        TLatex p;
+        p.SetNDC();
+        p.SetTextFont(42);
+        p.SetTextColor(color);
+        p.DrawLatex(x+delx,y,text);
+        // p.DrawLatex(x,y,"#sqrt{s}=900GeV");
     }
 }

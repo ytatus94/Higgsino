@@ -593,12 +593,14 @@ def compare_n2_decay():
     file9 = f_run_15p
     file10 = f_run_15m
 
-    canvas = ROOT.TCanvas("c","", 800,600)
+    canvas = ROOT.TCanvas("c","", 600,600)
     canvas.SetLeftMargin(0.12)
     ROOT.gPad.SetLogy()
+    ROOT.gPad.SetLeftMargin(0.15)
+    ROOT.gPad.SetBottomMargin(0.15)
 
     var = "mll"
-    nbins, xmin, xmax = 100, 0, 50
+    nbins, xmin, xmax = 50, 0, 50
     cut = "mll>0"
     normalize = True
 
@@ -775,46 +777,48 @@ def compare_n2_decay():
 
     y_maximum = max( h12.GetMaximum(), h34.GetMaximum() )
 
-    h12.SetStats(0)
-    h12.SetTitle(var)
-    h12.SetXTitle(var + " [GeV]")
-    h12.SetYTitle("Normalized events / 1 GeV")
-    h12.SetMaximum(y_maximum * 20)
-    h12.SetMinimum(0.00001)
-    h12.GetYaxis().SetTitleOffset(1.5)
-    h12.SetLineColor(ROOT.kOrange)
-    h12.SetFillColor(ROOT.kOrange)
-    h12.SetFillStyle(1001) # Solid
-    h12.Draw("hist")
+    # h12.SetStats(0)
+    # h12.SetTitle("")
+    # h12.SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]")
+    # h12.SetYTitle("Normalized events / 1 GeV")
+    # h12.SetMaximum(y_maximum * 20)
+    # h12.SetMinimum(0.0001)
+    # h12.GetXaxis().SetTitleOffset(1.5)
+    # h12.GetYaxis().SetTitleOffset(1.7)
+    h12.SetLineColor(ROOT.kRed)
+    h12.SetLineWidth(2)
+    h12.SetFillColor(ROOT.kRed)
+    h12.SetFillStyle(0)
+    # h12.Draw("hist")
 
     # h34.Scale(br_run_12)
-    h34.SetLineColor(ROOT.kBlue)
-    h34.SetFillColor(ROOT.kBlue)
-    h34.SetFillStyle(0)
+    h34.SetLineColor(17)
+    h34.SetFillColor(17)
+    h34.SetFillStyle(1001)
     # h34.Draw("hist,same")
 
     # h56.Scale(br_run_13)
-    h56.SetLineColor(ROOT.kGreen)
-    h56.SetFillColor(ROOT.kGreen)
-    h56.SetFillStyle(0)
+    h56.SetLineColor(ROOT.kYellow-9)
+    h56.SetFillColor(ROOT.kYellow-9)
+    h56.SetFillStyle(1001) # Solid
     # h56.Draw("hist,same")
 
     # h78.Scale(br_run_14)
-    h78.SetLineColor(ROOT.kMagenta)
-    h78.SetFillColor(ROOT.kMagenta)
-    h78.SetFillStyle(0)
+    h78.SetLineColor(ROOT.kAzure+7)
+    h78.SetFillColor(ROOT.kAzure+7)
+    h78.SetFillStyle(1001)
     # h78.Draw("hist,same")
 
     # h910.Scale(br_run_15)
-    h910.SetLineColor(ROOT.kCyan)
-    h910.SetFillColor(ROOT.kCyan)
-    h910.SetFillStyle(0)
+    h910.SetLineColor(ROOT.kGreen+2)
+    h910.SetFillColor(ROOT.kGreen+2)
+    h910.SetFillStyle(1001)
     # h910.Draw("hist,same")
 
     hs = ROOT.THStack()
     hs.Add(h56)
-    hs.Add(h78)
     hs.Add(h910)
+    hs.Add(h78)
     hs.Add(h34)
 
     # By default the background of the histograms is erased before drawing the
@@ -822,14 +826,30 @@ def compare_n2_decay():
     # when drawing a THStack on top of an other plot. If the patterns used to
     # draw the histograms in the stack are transparents, then the plot behind
     # will be visible.
-    hs.Draw("hist,same,noclear")
+    # hs.Draw("hist,same,noclear")
+    hs.Draw("hist")
+    # hs.SetStats(0)
+    hs.SetTitle("")
+    hs.GetHistogram().SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]")
+    hs.GetHistogram().SetYTitle("Normalized events / 1 GeV")
+    hs.SetMaximum(y_maximum * 20)
+    hs.SetMinimum(0.0001)
+    hs.GetXaxis().SetTitleOffset(1.5)
+    hs.GetYaxis().SetTitleOffset(1.7)
+    # hs.SetLineColor(ROOT.kRed)
+    # hs.SetLineWidth(2)
+    # hs.SetFillColor(ROOT.kRed)
+    # hs.SetFillStyle(0)
+    hs.Draw("hist")
 
-    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.8)
-    legend.AddEntry(h12, "Higgsino_N2C1p/m_170_150", "f")
-    legend.AddEntry(h34, "NUHM2_m12_600 (n2 > l+ l- n1)", "l")
-    legend.AddEntry(h56, "NUHM2_m12_600 (n2 > #nu #bar{#nu} n1)", "l")
-    legend.AddEntry(h78, "NUHM2_m12_600 (n2 > q #bar{q} n1)", "l")
-    legend.AddEntry(h910, "NUHM2_m12_600 (n2 > f f c1)", "l")
+    h12.Draw("hist,same")
+
+    legend = ROOT.TLegend(0.57, 0.6, 0.77, 0.87)
+    legend.AddEntry(h12, "Higgsino_N2C1p/m_170_150", "l")
+    legend.AddEntry(h34, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{l}^{+} #font[12]{l}^{-} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h56, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #nu #bar{#nu} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h78, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{q} #bar{#font[12]{q}} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h910, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{f} #font[12]{f} #tilde{\chi}^{#pm}_{1})", "fl")
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
     legend.SetTextSize(0.02);
@@ -837,7 +857,7 @@ def compare_n2_decay():
     legend.SetFillStyle(0);
     legend.Draw()
 
-    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+    AtlasStyle.ATLASLabel(0.2, 0.83, "internal", ROOT.kBlack)
 
     output = var + ".pdf"
     canvas.SaveAs(output)

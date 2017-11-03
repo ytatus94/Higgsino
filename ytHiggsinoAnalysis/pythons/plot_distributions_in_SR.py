@@ -91,14 +91,18 @@ def main():
 
     for m12 in m12_list:
         for varexp in varexp_list:
-            lep_EEOS = True
-            lep_MMOS = False
+            # lep_EEOS = True
+            # lep_MMOS = False
             # plot_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
-            plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
+            # plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
 
-            lep_EEOS = False
-            lep_MMOS = True
+            # lep_EEOS = False
+            # lep_MMOS = True
             # plot_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
+            # plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
+
+            lep_EEOS = True
+            lep_MMOS = True
             plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS)
 
 #----------------------------#
@@ -459,14 +463,21 @@ def get_N_minus_one_histogram(file, tree_name, varexp, lep_EEOS, lep_MMOS):
                         ):
                         value = event.METOverHTLep
 
-                if lep_EEOS is True:
+                if lep_EEOS is True and lep_MMOS is False:
                     if (lep1Charge != lep2Charge) and lep1Flavor == 1 and lep2Flavor == 1:
                         if "data" in tree_name:
                             hist.Fill(value)
                         else:
                             hist.Fill(value, correct_weight)
-                if lep_MMOS is True:
+                if lep_MMOS is True and lep_EEOS is False:
                     if (lep1Charge != lep2Charge) and lep1Flavor == 2 and lep2Flavor == 2:
+                        if eventWeight > -10: # in Zttjets, eventNumber=5637 has eventWeight=-57.46849, we have to ignore this strange point
+                            if "data" in tree_name:
+                                hist.Fill(value)
+                            else:
+                                hist.Fill(value, correct_weight)
+                if lep_EEOS is True and lep_MMOS is True:
+                    if (lep1Charge != lep2Charge) and ((lep1Flavor == 1 and lep2Flavor == 1) or (lep1Flavor == 2 and lep2Flavor == 2)):
                         if eventWeight > -10: # in Zttjets, eventNumber=5637 has eventWeight=-57.46849, we have to ignore this strange point
                             if "data" in tree_name:
                                 hist.Fill(value)
@@ -746,7 +757,7 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
     # signal
     h_nuhm2 = get_N_minus_one_histogram(path + files['sigFile'], "MGPy8EG_A14N23LO_NUHM2_m12_" + str(m12) +"_weak_NoSys", varexp, lep_EEOS, lep_MMOS)
     h_nuhm2.SetLineColor(ROOT.kRed)
-    h_nuhm2.SetFillColor(ROOT.kRed)
+    # h_nuhm2.SetFillColor(ROOT.kRed)
     integral_nuhm2 = h_nuhm2.Integral()
 
     # data
@@ -929,10 +940,12 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
 
     AtlasStyle.ATLASLabel(0.2, 0.83, "Internal", ROOT.kBlack)
     AtlasStyle.myText(0.2, 0.78, "13 TeV, 36.1 fb^{-1}", ROOT.kBlack, 0.04)
-    if lep_EEOS is True:
+    if lep_EEOS is True and lep_MMOS is False:
         AtlasStyle.myText(0.2, 0.75, "SRee-iMLLg ee", ROOT.kBlack, 0.02)
-    if lep_MMOS is True:
+    if lep_MMOS is True and lep_EEOS is False:
         AtlasStyle.myText(0.2, 0.75, "SRmm-iMLLg #mu#mu", ROOT.kBlack, 0.02)
+    if lep_EEOS is True and lep_MMOS is True:
+        AtlasStyle.myText(0.2, 0.75, "SRee-iMLLg ee + SRmm-iMLLg #mu#mu", ROOT.kBlack, 0.02)
     AtlasStyle.myText(0.2, 0.72, "SusySkimHiggsino v1.9b", ROOT.kGray, 0.02)
 
     legend_nuhm2   = "NUHM2 m12={0} ({1:.2f})".format(m12, integral_nuhm2)
@@ -1045,10 +1058,12 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
         output += "mt_lep1_plus_mt_lep2"
     else:
         output += varexp
-    if lep_EEOS is True:
+    if lep_EEOS is True and lep_MMOS is False:
         output += "_EEOS"
-    if lep_MMOS is True:
+    if lep_MMOS is True and lep_EEOS is False:
         output += "_MMOS"
+    if lep_EEOS is True and lep_MMOS is True:
+        output += "_SFOS"
     output += "_N_minus_one_distribution_in_SR.pdf"
 
     c1.SaveAs(output)

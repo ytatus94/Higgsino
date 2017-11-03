@@ -22,8 +22,10 @@ using namespace std;
 void plot(string, int, int, int, bool = false);
 TH1F *tree_reader(string, string, int, int, int, bool);
 string get_x_title(string);
+string get_y_title(string);
 void get_nbins_xmin_xmax(string, int &, double &, double &);
 void get_range_user(string, double &, double &);
+void ATLASLabel(Double_t x, Double_t y, const char* text, Color_t color);
 
 void reweight_mc_event_weight(int n2, int n1, int m12, bool normalize = false)
 {
@@ -138,10 +140,11 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
         h_Higgsino_combined_original = (TH1F *)h_Higgsino_N2N1_original->Clone();
         h_Higgsino_combined_original->Add(h_Higgsino_N2C1p_original);
         h_Higgsino_combined_original->Add(h_Higgsino_N2C1m_original);
-        h_Higgsino_combined_original->SetYTitle("Events");
+        // h_Higgsino_combined_original->SetYTitle("Events");
     }
     h_Higgsino_combined_original->SetTitle("");
     h_Higgsino_combined_original->SetXTitle( (get_x_title(var)).c_str() );
+    h_Higgsino_combined_original->SetYTitle( (get_y_title(var)).c_str() );
     h_Higgsino_combined_original->SetLineColor(kGreen);
 
     is_reweight = true;
@@ -167,6 +170,7 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     }
     h_Higgsino_combined_reweight->SetTitle("");
     h_Higgsino_combined_reweight->SetXTitle( (get_x_title(var)).c_str() );
+    h_Higgsino_combined_reweight->SetYTitle( (get_y_title(var)).c_str() );
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // NUHM2 TRUTH3
@@ -197,25 +201,29 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
         h_NUHM2_combined = (TH1F *)h_NUHM2_N2N1->Clone();
         h_NUHM2_combined->Add(h_NUHM2_N2C1p);
         h_NUHM2_combined->Add(h_NUHM2_N2C1m);
-        h_NUHM2_combined->SetYTitle("Events");
+        // h_NUHM2_combined->SetYTitle("Events");
     }
     h_NUHM2_combined->SetTitle("");
     h_NUHM2_combined->SetXTitle( (get_x_title(var)).c_str() );
+    h_NUHM2_combined->SetYTitle( (get_y_title(var)).c_str() );
     h_NUHM2_combined->SetLineColor(kBlue);
 
     TH1F *h_ratio_NUHM2_original_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
     h_ratio_NUHM2_original_Higgsino->Divide(h_Higgsino_combined_original);
     h_ratio_NUHM2_original_Higgsino->SetLineColor(kGreen);
     h_ratio_NUHM2_original_Higgsino->SetMarkerColor(kGreen);
+    h_ratio_NUHM2_original_Higgsino->SetMarkerStyle(kFullCircle);
 
     TH1F *h_ratio_NUHM2_reweight_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
     h_ratio_NUHM2_reweight_Higgsino->Divide(h_Higgsino_combined_reweight);
     h_ratio_NUHM2_reweight_Higgsino->SetLineColor(kRed);
     h_ratio_NUHM2_reweight_Higgsino->SetMarkerColor(kRed);
+    h_ratio_NUHM2_reweight_Higgsino->SetMarkerStyle(kFullCircle);
 
     // Making plot
-    TCanvas *c = new TCanvas("c", "", 800, 600);
-    c->SetLeftMargin(0.12);
+    TCanvas *c = new TCanvas("c", "", 800, 800);
+    // c->SetLeftMargin(0.15);
+    // c->SetBottomMargin(0.1);
     gStyle->SetOptStat(0);
     // gStyle->SetOptFit(1111);
 
@@ -235,18 +243,26 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
 
     //Upper plot will be in pad1
     TPad *pad1 = new TPad("pad1", "pad1", 0, 0.35, 1, 1.0);
-    pad1->SetBottomMargin(0); // Upper and lower plot are joined
+    // pad1->SetBottomMargin(0); // Upper and lower plot are joined
+    // pad1->SetLeftMargin(0.12);
     //pad1->SetGridy(); // grid lines
-    pad1->SetLeftMargin(0.12);
+    pad1->SetBottomMargin(0.05);
+    // pad1->SetRightMargin(0.05);
+    pad1->SetLeftMargin(0.16);
+
     if (logY)
         pad1->SetLogy();
     pad1->Draw();
 
     // lower plot will be in pad
     TPad *pad2 = new TPad("pad2", "pad2", 0, 0.05, 1, 0.35);
-    pad2->SetTopMargin(0);
-    pad2->SetBottomMargin(0.3);
-    pad2->SetLeftMargin(0.12);
+    // pad2->SetTopMargin(0);
+    // pad2->SetBottomMargin(0.3);
+    // pad2->SetLeftMargin(0.12);
+    pad2->SetTopMargin(0.05);
+    pad2->SetBottomMargin(0.35);
+    // pad2->SetRightMargin(0.05);
+    pad2->SetLeftMargin(0.16);
     pad2->SetGridy(); // grid lines
     pad2->Draw();
 
@@ -262,7 +278,7 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
 
     double y_scale_factor = 0;
     if (logY)
-        y_scale_factor = 1.5;
+        y_scale_factor = 1000;
     else
         y_scale_factor = 1.5;
 
@@ -270,19 +286,25 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     double y_max = max(y_max1, h_NUHM2_combined->GetMaximum()) * y_scale_factor;
 
     h_Higgsino_combined_original->GetXaxis()->SetRangeUser(range_user_xmin, range_user_xmax);
-    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(0.9);
+    h_Higgsino_combined_original->GetXaxis()->SetTitleOffset(1.5);
+    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.7);
+    h_Higgsino_combined_original->GetXaxis()->SetLabelSize(0);
+    // h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(0.9);
     h_Higgsino_combined_original->GetYaxis()->SetTitleSize(0.05);
+    h_Higgsino_combined_original->GetYaxis()->SetTitleOffset(1.3);
+    h_Higgsino_combined_original->GetYaxis()->SetLabelSize(0.048);
+    h_Higgsino_combined_original->GetYaxis()->SetLabelOffset(0.015);
     h_Higgsino_combined_original->SetMaximum(y_max);
     h_Higgsino_combined_original->SetStats(0);
     h_Higgsino_combined_original->Draw("hist");
-    
+
     h_Higgsino_combined_reweight->Draw("hist,same");
-    
+
     h_NUHM2_combined->Draw("hist,same");
 
-    cout << "h_Higgsino_combined_original->Integral()=" << h_Higgsino_combined_original->Integral() << endl;
-    cout << "h_Higgsino_combined_reweight->Integral()=" << h_Higgsino_combined_reweight->Integral() << endl;
-    cout << "h_NUHM2_combined->Integral()=" << h_NUHM2_combined->Integral() << endl;
+    // cout << "h_Higgsino_combined_original->Integral()=" << h_Higgsino_combined_original->Integral() << endl;
+    // cout << "h_Higgsino_combined_reweight->Integral()=" << h_Higgsino_combined_reweight->Integral() << endl;
+    // cout << "h_NUHM2_combined->Integral()=" << h_NUHM2_combined->Integral() << endl;
 
     //
     // pad2: bottom pad
@@ -290,7 +312,8 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     pad2->cd(); // pad2 becomes the current pad
 
     double pad2_X_min = range_user_xmin, pad2_X_max = range_user_xmax;
-    double pad2_Y_min = 0., pad2_Y_max = 4.9;
+    // double pad2_Y_min = 0., pad2_Y_max = 4.9;
+    double pad2_Y_min = 0., pad2_Y_max = 2;
     string pad2_X_title = get_x_title(var);
     string pad2_Y_title = "ratio";
 
@@ -299,26 +322,40 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     frame->GetYaxis()->SetNdivisions(405);
     frame->SetLineWidth(1);
     frame->SetXTitle(pad2_X_title.c_str());
-    frame->GetXaxis()->SetTitleSize(20);
+    frame->GetXaxis()->SetTitleSize(25);
     frame->GetXaxis()->SetTitleFont(47);
     frame->GetXaxis()->SetTitleOffset(4.0);
     frame->GetXaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
     frame->GetXaxis()->SetLabelSize(20);
+    frame->GetXaxis()->SetLabelOffset(0.05);
     frame->SetYTitle(pad2_Y_title.c_str());
-    frame->GetYaxis()->SetTitleSize(20);
+    frame->GetYaxis()->SetTitleSize(25);
     frame->GetYaxis()->SetTitleFont(43);
-    frame->GetYaxis()->SetTitleOffset(1.6);
+    frame->GetYaxis()->SetTitleOffset(1.8);
     frame->GetYaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
     frame->GetYaxis()->SetLabelSize(20);
+    frame->GetYaxis()->SetLabelOffset(0.015);
     frame->Draw();
 
+    for (int i = 0; i < h_ratio_NUHM2_original_Higgsino->GetXaxis()->GetNbins() + 1; i++) {
+        if (h_ratio_NUHM2_original_Higgsino->GetBinContent(i) == 0) {
+            h_ratio_NUHM2_original_Higgsino->SetBinContent(i, -99.);
+        }
+    }
     h_ratio_NUHM2_original_Higgsino->Draw("e1,same");
+    for (int i = 0; i < h_ratio_NUHM2_reweight_Higgsino->GetXaxis()->GetNbins() + 1; i++) {
+        if (h_ratio_NUHM2_reweight_Higgsino->GetBinContent(i) == 0) {
+            h_ratio_NUHM2_reweight_Higgsino->SetBinContent(i, -99.);
+        }
+    }
     h_ratio_NUHM2_reweight_Higgsino->Draw("e1,same");
 
     // Put legend on pad1
     pad1->cd();
 
-    TLegend *legend = new TLegend(0.5, 0.45, 0.7, 0.85);
+    ATLASLabel(0.2, 0.83, "internal", kBlack);
+
+    TLegend *legend = new TLegend(0.5, 0.45, 0.7, 0.88);
     legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
     legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
     legend->AddEntry(h_Higgsino_combined_reweight, ("Reweight Higgsino_" + n2_n1).c_str(), "l");
@@ -450,6 +487,7 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         double weight = func_NUHM2->Eval(truthMll) / func_Higgsino->Eval(truthMll); //ratio NUHM2/higgsino        
         double mc_weight = get_mc_weight(xsec, filterEff, lumi, eventWeight, sum_of_event_weight);
 
+        // Uncomment this part for vector<float>
         // if (var.compare("baselineElectrons_pt") == 0 ||
         //     var.compare("baselineMuons_pt") == 0 ||
         //     var.compare("baselineJets_pt") == 0 ||
@@ -518,6 +556,7 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
         //     }
         // }
 
+        // Uncomment this part for int or float
         double truthVar = *truth_var;
 
         // cout << "truthMll=" << truthMll
@@ -600,7 +639,7 @@ void get_nbins_xmin_xmax(string var, int &nbins, double &xmin, double &xmax)
         var.compare("signalLeptons_pt") == 0 ||
         var.compare("pTLep1") == 0 ||
         var.compare("pTLep2") == 0) {
-        nbins = 100;
+        nbins = 50;
         xmin = 0.;
         xmax = 100.;
     }
@@ -631,14 +670,14 @@ void get_nbins_xmin_xmax(string var, int &nbins, double &xmin, double &xmax)
         xmax = 4.;
     }
     else if (var.compare("met") == 0) {
-        nbins = 100;
+        nbins = 50;
         xmin = 0.;
         xmax = 500.;
     }
     else if (var.compare("baselineJets_pt") == 0 ||
              var.compare("signalJets_pt") == 0 ||
              var.compare("signalBjets_pt") == 0) {
-        nbins = 500;
+        nbins = 250;
         xmin = 0.;
         xmax = 500.;
     }
@@ -668,7 +707,7 @@ void get_nbins_xmin_xmax(string var, int &nbins, double &xmin, double &xmax)
     }
     else if (var.compare("mT") == 0 ||
              var.compare("mT2") == 0) {
-        nbins = 20;
+        nbins = 50;
         xmin = 0.;
         xmax = 100;
     }
@@ -695,14 +734,18 @@ void get_nbins_xmin_xmax(string var, int &nbins, double &xmin, double &xmax)
         xmax = 5.;
     }
     else if (var.compare("mll") == 0 ||
-             var.compare("pTll") == 0 ||
-             var.compare("METOverHTLep12") == 0) {
+             var.compare("pTll") == 0) {
+        nbins = 100;
+        xmin = 0.;
+        xmax = 200.;
+    }
+    else if (var.compare("METOverHTLep12") == 0) {
         nbins = 200;
         xmin = 0.;
         xmax = 200.;
     }
     else if (var.compare("MTauTau") == 0) {
-        nbins = 60;
+        nbins = 30;
         xmin = -300.;
         xmax = 300.;
     }
@@ -718,10 +761,14 @@ string get_x_title(string var)
         var.compare("signalJets_pt") == 0 ||
         var.compare("signalBjets_pt") == 0 ||
         var.compare("baselineLeptons_pt") == 0 ||
-        var.compare("signalLeptons_pt") == 0 ||
-        var.compare("pTLep1") == 0 ||
-        var.compare("pTLep2") == 0) {
+        var.compare("signalLeptons_pt") == 0) {
         x_title = "p_{T} [GeV]";
+    }
+    else if (var.compare("pTLep1") == 0) {
+        x_title = "p_{T}(#font[12]{l}_{1}) [GeV]";
+    }
+    else if (var.compare("pTLep2") == 0) {
+        x_title = "p_{T}(#font[12]{l}_{2}) [GeV]";
     }
     else if (var.compare("baselineElectrons_eta") == 0 ||
              var.compare("baselineMuons_eta") == 0 ||
@@ -746,7 +793,7 @@ string get_x_title(string var)
         x_title = "#phi";
     }
     else if (var.compare("met") == 0) {
-        x_title = "E_{T}^{miss} [GeV]";
+        x_title = "E^{miss}_{T} [GeV]";
     }
     else if (var.compare("nBaselineLeptons") == 0 ||
              var.compare("nBaselineElectrons") == 0 ||
@@ -762,30 +809,139 @@ string get_x_title(string var)
         x_title = "N_{" + var.substr(1) + "}";
     }
     else if (var.compare("dphiMin1") == 0) {
-        x_title = "#Delta#phi(E_{T}^{miss}, j_{1})";
+        // x_title = "#Delta#phi(E_{T}^{miss}, j_{1})";
+        x_title = "#Delta#phi(#font[62]{p}^{j1}_{T}, #font[62]{p}^{miss}_{T})";
     }
-    else if (var.compare("mT") == 0 ||
-             var.compare("mT2") == 0 ||
-             var.compare("meffIncl") == 0 ||
-             var.compare("HTIncl") == 0 ||
-             var.compare("HT30") == 0 ||
-             var.compare("HTLep12") == 0 ||
-             var.compare("mll") == 0 ||
-             var.compare("pTll") == 0 ||
-             var.compare("MTauTau") == 0) {
-        x_title = var + " [GeV]";
+    // else if (var.compare("mT") == 0 ||
+    //          var.compare("mT2") == 0 ||
+    //          var.compare("meffIncl") == 0 ||
+    //          var.compare("HTIncl") == 0 ||
+    //          var.compare("HT30") == 0 ||
+    //          var.compare("HTLep12") == 0 ||
+    //          var.compare("mll") == 0 ||
+    //          var.compare("pTll") == 0 ||
+    //          var.compare("MTauTau") == 0) {
+    //     x_title = var + " [GeV]";
+    // }
+    else if (var.compare("mT") == 0) {
+        x_title = "m_{T}(#font[12]{l}_{1}) [GeV]";
     }
-    else if (var.compare("METOverHT") == 0 ||
-             var.compare("METOverHTLep12") == 0) {
-        x_title = var;
+    else if (var.compare("mT2") == 0) {
+        x_title = "m_{T2}(#font[12]{l}_{1}, #font[12]{l}_{2}) [GeV]";
+    }
+    else if (var.compare("meffIncl") == 0) {
+        x_title = "m_{eff}^{Incl} [GeV]";
+    }
+    else if (var.compare("HTIncl") == 0) {
+        x_title = "H_{T}^{Incl} [GeV]";
+    }
+    else if (var.compare("HT30") == 0) {
+        x_title = "H_{T}^{p_{T}^{jet}>30 GeV} [GeV]";
+    }
+    else if (var.compare("HTLep12") == 0) {
+        x_title = "H_{T}^{lep12} [GeV]";
+    }
+    else if (var.compare("mll") == 0) {
+        x_title = "m(#font[12]{l}#font[12]{l}) [GeV]";
+    }
+    else if (var.compare("pTll") == 0) {
+        x_title = "p_{T}(#font[12]{l}#font[12]{l}) [GeV]";
+    }
+    else if (var.compare("MTauTau") == 0) {
+        x_title = "m(#tau#tau) [GeV]";
+    }
+    else if (var.compare("METOverHT") == 0) {// ||
+             // var.compare("METOverHTLep12") == 0) {
+        // x_title = var;
+        x_title = "E^{miss}_{T}/H^{p_{T}^{jet}>30 GeV}_{T}";
+    }
+    else if (var.compare("METOverHTLep12") == 0) {
+        x_title = "E^{miss}_{T}/H^{leptons}_{T}";
     }
     else if (var.compare("Rll") == 0) {
-        x_title = "#Delta R_{ll}";
+        x_title = "#Delta R(#font[12]{l}#font[12]{l})";
     }
 
     // cout << x_title << endl;
 
     return x_title;
+}
+
+string get_y_title(string var)
+{
+    string y_title;
+    if (var.compare("baselineElectrons_pt") == 0 ||
+        var.compare("baselineMuons_pt") == 0 ||
+        var.compare("baselineJets_pt") == 0 ||
+        var.compare("signalMuons_pt") == 0 ||
+        var.compare("signalJets_pt") == 0 ||
+        var.compare("signalBjets_pt") == 0 ||
+        var.compare("baselineLeptons_pt") == 0 ||
+        var.compare("signalLeptons_pt") == 0 ||
+        var.compare("pTLep1") == 0 ||
+        var.compare("pTLep2") == 0) {
+        y_title = "Events / 2 GeV";
+    }
+    else if (var.compare("baselineElectrons_eta") == 0 ||
+             var.compare("baselineMuons_eta") == 0 ||
+             var.compare("baselineJets_eta") == 0 ||
+             var.compare("signalElectrons_eta") == 0 ||
+             var.compare("signalMuons_eta") == 0 ||
+             var.compare("signalJets_eta") == 0 ||
+             var.compare("signalBjets_eta") == 0 ||
+             var.compare("baselineLeptons_eta") == 0 ||
+             var.compare("signalLeptons_eta") == 0 ||
+             // phi
+             var.compare("baselineElectrons_phi") == 0 ||
+             var.compare("baselineMuons_phi") == 0 ||
+             var.compare("baselineJets_phi") == 0 ||
+             var.compare("signalElectrons_phi") == 0 ||
+             var.compare("signalMuons_phi") == 0 ||
+             var.compare("signalJets_phi") == 0 ||
+             var.compare("signalBjets_phi") == 0 ||
+             var.compare("baselineLeptons_phi") == 0 ||
+             var.compare("signalLeptons_phi") == 0) {
+        y_title = "Events";
+    }
+    else if (var.compare("nBaselineLeptons") == 0 ||
+             var.compare("nBaselineElectrons") == 0 ||
+             var.compare("nBaselineMuons") == 0 ||
+             // var.compare("nBaselineTaus") == 0 ||
+             var.compare("nSignalLeptons") == 0 ||
+             var.compare("nElectrons") == 0 ||
+             var.compare("nMuons") == 0 ||
+             var.compare("nJets") == 0 ||
+             var.compare("nJet30") == 0 ||
+             var.compare("nJet25") == 0 ||
+             var.compare("nBjets") == 0 ||
+             var.compare("METOverHTLep12") == 0){
+        y_title = "Events / 1";
+    }
+    else if (var.compare("dphiMin1") == 0 ||
+             var.compare("Rll") == 0 ||
+             var.compare("METOverHT") == 0) {
+        y_title = "Events / 0.1";
+    }
+    else if (var.compare("mT") == 0 ||
+             var.compare("mT2") == 0 ||
+             var.compare("mll") == 0 ||
+             var.compare("pTll") == 0) {
+        y_title = "Events / 2 GeV";
+    }
+    else if (var.compare("HTLep12") == 0) {
+        y_title = "Events / 5 GeV";
+    }
+    else if (var.compare("HTIncl") == 0 ||
+             var.compare("HT30") == 0 ||
+             var.compare("met") == 0) {
+        y_title = "Events / 10 GeV";
+    }
+    else if (var.compare("meffIncl") == 0 ||
+             var.compare("MTauTau") == 0) {
+        y_title = "Events / 20 GeV";
+    }
+
+    return y_title;
 }
 
 void get_range_user(string var, double &range_user_xmin, double &range_user_xmax)
@@ -872,5 +1028,25 @@ void get_range_user(string var, double &range_user_xmin, double &range_user_xmax
              var.compare("METOverHTLep12") == 0) {
         range_user_xmin = 0.;
         range_user_xmax = 50.;
+    }
+}
+
+void ATLASLabel(Double_t x, Double_t y, const char* text, Color_t color)
+{
+    TLatex l; //l.SetTextAlign(12); l.SetTextSize(tsize);
+    l.SetNDC();
+    l.SetTextFont(72);
+    l.SetTextColor(color);
+
+    double delx = 0.085*696*gPad->GetWh()/(472*gPad->GetWw());
+
+    l.DrawLatex(x,y,"ATLAS");
+    if (text) {
+        TLatex p;
+        p.SetNDC();
+        p.SetTextFont(42);
+        p.SetTextColor(color);
+        p.DrawLatex(x+delx,y,text);
+        // p.DrawLatex(x,y,"#sqrt{s}=900GeV");
     }
 }

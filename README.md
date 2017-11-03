@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v44. Modify scripts
+* `reweight_mc_event_weight.C`: change plot style
+* `reweight_truth3_mll.C`:
+  * rename `reweight_truth3.C` to `reweight_truth3_mll.C`
+  * change plot style
+* `truth3_mll_study.py`: change plot style
+* `plot_distributions_in_SR.py`: add SFOS results
+
+
 ### v43. Modify scripts
 * `Nevents.py`: change the output format
 * `compare_files.py`: Add comments
