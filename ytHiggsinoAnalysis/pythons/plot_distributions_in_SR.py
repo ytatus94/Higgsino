@@ -83,8 +83,7 @@ def main():
     #                'mt_lep1', 'mt_lep1+mt_lep2', 'MTauTau', 'mll', 'Rll', 'METOverHTLep']
     varexp_list = ['met_Et', 'nJet30', 'nBJet20_MV2c10', 'DPhiJ1Met', 'minDPhiAllJetsMet', 'lep1Pt', 'lep2Pt',
                    'mt_lep1', 'MTauTau', 'mll', 'Rll', 'METOverHTLep']
-    # m12_list = [350, 400, 500, 600, 700, 800]
-    m12_list = [600, 700]
+    m12_list = [350, 400, 500, 600, 700, 800]
     # plot_distribution_in_SR(600, 'METOverHTLep', True, False)
     # plot_distribution_in_SR(600, 'MTauTau', False, True)
     # plot_N_minus_one_distribution_in_SR(600, 'MTauTau', True, False)
@@ -124,7 +123,8 @@ def create_histogram(tree_name, varexp):
     if varexp == "met_Et":
         xtitle = "E^{miss}_{T} [GeV]"
         ytitle = "Events / 20 GeV"
-        nbins, xmin, xmax = 30, 0., 600.
+        # nbins, xmin, xmax = 30, 0., 600.
+        nbins, xmin, xmax = 50, 0., 1000.
     elif varexp == "nJet30":
         xtitle = "N^{pT>30GeV}_{jets}"
         ytitle = "Events / 1"
@@ -144,11 +144,13 @@ def create_histogram(tree_name, varexp):
     elif varexp == "lep1Pt":
         xtitle = "p_{T}(#font[12]{l}_{1}) [GeV]"
         ytitle = "Events / 5 GeV"
-        nbins, xmin, xmax = 12, 0., 60.
+        # nbins, xmin, xmax = 12, 0., 60.
+        nbins, xmin, xmax = 40, 0., 200.
     elif varexp == "lep2Pt":
         xtitle = "p_{T}(#font[12]{l}_{2}) [GeV]"
         ytitle = "Events / 2 GeV"
-        nbins, xmin, xmax = 30, 0., 60.
+        # nbins, xmin, xmax = 30, 0., 60.
+        nbins, xmin, xmax = 50, 0., 100.
     elif varexp == "mt_lep1":
         xtitle = "m_{T}(#font[12]{l}_{1}) [GeV]"
         ytitle = "Events / 10 GeV"
@@ -262,31 +264,31 @@ def get_histogram(file, tree_name, varexp, lep_EEOS, lep_MMOS):
                 correct_weight = get_correct_weight(genWeight, eventWeight, leptonWeight, jvtWeight, pileupWeight, bTagWeight, FFWeight)
 
                 value = 0
-                if varexp is "met_Et":
+                if varexp == "met_Et":
                     value = event.met_Et
-                elif varexp is "nJet30":
+                elif varexp == "nJet30":
                     value = event.nJet30
-                elif varexp is "nBJet20_MV2c10":
+                elif varexp == "nBJet20_MV2c10":
                     value = event.nBJet20_MV2c10
-                elif varexp is "DPhiJ1Met":
+                elif varexp == "DPhiJ1Met":
                     value = event.DPhiJ1Met
-                elif varexp is "minDPhiAllJetsMet":
+                elif varexp == "minDPhiAllJetsMet":
                     value = event.minDPhiAllJetsMet
-                elif varexp is "lep1Pt":
+                elif varexp == "lep1Pt":
                     value = event.lep1Pt
-                elif varexp is "lep2Pt":
+                elif varexp == "lep2Pt":
                     value = event.lep2Pt
-                elif varexp is "mt_lep1":
+                elif varexp == "mt_lep1":
                     value = mt_lep1
-                elif varexp is "mt_lep1+mt_lep2":
+                elif varexp == "mt_lep1+mt_lep2":
                     value = event.mt_lep1 + event.mt_lep2
-                elif varexp is "MTauTau":
+                elif varexp == "MTauTau":
                     value = event.MTauTau
-                elif varexp is "mll":
+                elif varexp == "mll":
                     value = event.mll
-                elif varexp is "Rll":
+                elif varexp == "Rll":
                     value = event.Rll
-                elif varexp is "METOverHTLep":
+                elif varexp == "METOverHTLep":
                     value = event.METOverHTLep
 
                 if lep_EEOS is True:
@@ -371,91 +373,91 @@ def get_N_minus_one_histogram(file, tree_name, varexp, lep_EEOS, lep_MMOS):
 
                 value = -9999.
 
-                if varexp is "met_Et":
+                if varexp == "met_Et":
                     if ((mll < 3 or mll > 3.2) and
                         jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.met_Et
-                elif varexp is "nJet30":
+                elif varexp == "nJet30":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.nJet30
-                elif varexp is "nBJet20_MV2c10":
+                elif varexp == "nBJet20_MV2c10":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.nBJet20_MV2c10
-                elif varexp is "DPhiJ1Met":
+                elif varexp == "DPhiJ1Met":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.DPhiJ1Met
-                elif varexp is "minDPhiAllJetsMet":
+                elif varexp == "minDPhiAllJetsMet":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.minDPhiAllJetsMet
-                elif varexp is "lep1Pt":
+                elif varexp == "lep1Pt":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.lep1Pt
-                elif varexp is "lep2Pt":
+                elif varexp == "lep2Pt":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.lep2Pt
-                elif varexp is "mt_lep1":
+                elif varexp == "mt_lep1":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 # select_hg
                         ):
                         value = mt_lep1
-                # elif varexp is "mt_lep1+mt_lep2":
+                # elif varexp == "mt_lep1+mt_lep2":
                 #     if ((mll < 3 or mll > 3.2) and
                 #         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                 #         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) # common_SR
                 #         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                 #         ):
                 #         value = event.mt_lep1 + event.mt_lep2
-                elif varexp is "MTauTau":
+                elif varexp == "MTauTau":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.MTauTau
-                elif varexp is "mll":
+                elif varexp == "mll":
                     if (
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and Rll < 2.0 and mt_lep1 < 70 # select_hg
                         ):
                         value = event.mll
-                elif varexp is "Rll":
+                elif varexp == "Rll":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
                         METOverHTLep > max(5., 15. - 2.*mll) and mt_lep1 < 70 # select_hg
                         ):
                         value = event.Rll
-                elif varexp is "METOverHTLep":
+                elif varexp == "METOverHTLep":
                     if ((mll < 3 or mll > 3.2) and
                         met_Et > 200 and jetPt[0] > 100 and minDPhiAllJetsMet > 0.4 and mll > 1 and mll < 60 and lep1Pt > 5 and Rll > 0.05 and
                         nBJet20_MV2c10 == 0 and DPhiJ1Met > 2.0 and (MTauTau > 160 or MTauTau < 0) and # common_SR
@@ -865,6 +867,10 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
     # hstack.SetMinimum(0.)
     hstack.SetMaximum(h_SM.GetMaximum() * 2.6)
     hstack.GetHistogram().SetXTitle("") # suppress Xtitle
+    if varexp == "met_Et":
+        hstack.GetXaxis().SetRangeUser(0, 600)
+    elif varexp == "lep1Pt" or varexp == "lep2Pt":
+        hstack.GetXaxis().SetRangeUser(0, 60)
     hstack.GetXaxis().SetLabelSize(0)
     hstack.GetHistogram().SetYTitle(h_data.GetYaxis().GetTitle())
     hstack.GetYaxis().SetLabelSize(0.04)
@@ -980,6 +986,10 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
 
     pad2_X_min = h_data.GetXaxis().GetXmin()
     pad2_X_max = h_data.GetXaxis().GetXmax()
+    if varexp == "met_Et":
+        pad2_X_max = 600.
+    elif varexp == "lep1Pt" or varexp == "lep2Pt":
+        pad2_X_max = 60.
     pad2_Y_min = 0.
     pad2_Y_max = 2.
     pad2_X_title = h_data.GetXaxis().GetTitle()
@@ -1041,7 +1051,8 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
         arrow.SetFillStyle(1001)
         # If draw arrow at here, then only the last arrow is drawn.
         # So put arrow object into a list and draw them later.
-        arrow_list.append(arrow)
+        if x < pad2_X_max:
+            arrow_list.append(arrow)
     for arrow in arrow_list:
         arrow.Draw()
 

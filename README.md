@@ -2,6 +2,10 @@
 The NUHM2 Higgsino study
 
 ---
+### v45. Modify script
+* `plot_distributions_in_SR.py`: modify histogram xmax range
+
+
 ### v44. Modify scripts
 * `reweight_mc_event_weight.C`: change plot style
 * `reweight_truth3_mll.C`:
