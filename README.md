@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v46. Modify script
+* `truth3_mll_study.py`:
+  * Fix the typo in efficiency
+  * Use the accurate value for BRs
+* `plot_distributions_in_SR.py`:
+  * Use thicker line size for NUHM2
+  * NUHM2 yields are multiply by 10 before making plot
+
+
 ### v45. Modify script
 * `plot_distributions_in_SR.py`: modify histogram xmax range
 

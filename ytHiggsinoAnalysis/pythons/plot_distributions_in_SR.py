@@ -759,6 +759,7 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
     # signal
     h_nuhm2 = get_N_minus_one_histogram(path + files['sigFile'], "MGPy8EG_A14N23LO_NUHM2_m12_" + str(m12) +"_weak_NoSys", varexp, lep_EEOS, lep_MMOS)
     h_nuhm2.SetLineColor(ROOT.kRed)
+    h_nuhm2.SetLineWidth(2)
     # h_nuhm2.SetFillColor(ROOT.kRed)
     integral_nuhm2 = h_nuhm2.Integral()
 
@@ -883,6 +884,7 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
     h_SM.Draw("hist,same")
     h_SM_err.Draw("E2,same")
     h_data.Draw("E,same")
+    h_nuhm2.Scale(10.) # multiply by 10 on the Nsig because Nsig is to small
     h_nuhm2.Draw("hist,same")
 
     x1, x2, dx = 0., 0., 0.
@@ -1075,7 +1077,8 @@ def plot_N_minus_one_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
         output += "_MMOS"
     if lep_EEOS is True and lep_MMOS is True:
         output += "_SFOS"
-    output += "_N_minus_one_distribution_in_SR.pdf"
+    # output += "_N_minus_one_distribution_in_SR.pdf"
+    output += "_N_minus_one_distribution_in_SR_times_10_on_Nsig.pdf"
 
     c1.SaveAs(output)
 

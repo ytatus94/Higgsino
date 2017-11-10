@@ -675,7 +675,7 @@ def compare_n2_decay():
     # Filter efficiency
     eff_run_12p = 0.605510
     eff_run_12m = 0.619579
-    eff_run_13p = 0.0009555
+    eff_run_13p = 0.009555
     eff_run_13m = 0.010037
     eff_run_14p = 0.029174
     eff_run_14m = 0.028922
@@ -728,15 +728,16 @@ def compare_n2_decay():
     # print "integral910=", integral910
     # h910.Scale(1/integral910)
 
-    br_run_12 = 1.07E-01
-    br_run_13 = 2.19E-01
-    br_run_14 = 6.65E-01
-    br_run_15 = 4.47E-03
-
     # Above calculation is based on the assumption that BR=100% for that specific n2 decay
     # The integral value is the number of events when the BR=100%
     # But we have to consider the real situation that BR is not equal to 100%, i.e. scale to BR
     # For example, if N=5 when BR=100%, then N=1 when BR=20%
+
+    br_run_12 = 0.1069829426 # 1.07E-01
+    br_run_13 = 0.2192035690 # 2.19E-01
+    br_run_14 = 0.6654233643 # 6.65E-01
+    br_run_15 = 0.00447339029# 4.47E-03
+
     h34.Scale(br_run_12)
     h56.Scale(br_run_13)
     h78.Scale(br_run_14)
