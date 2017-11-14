@@ -85,13 +85,19 @@ function run_cutflow() {
     Run cutflow analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_SM_Higgsino_170_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
     Run cutflow analysis_type=MC sample_type=signals sample=MGPy8EG_A14N23LO_SM_Higgsino_190_150_2LMET50_MadSpin_SusySkimHiggsino_v1.9_SUSY16_tree_NoSys.root
     # NUHM2
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
-    Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    # Run cutflow analysis_type=MC sample_type=NUHM2 sample=MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=350
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=400
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=500
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=600
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=700
+    Run cutflow analysis_type=MC sample_type=NUHM2 sample=AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root m12=800
 }
 
 if [ $1 != "" ]; then

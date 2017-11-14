@@ -49,6 +49,7 @@ int main( int argc, char* argv[] )
     string analysis_type;
     string sample_type;
     string sample;
+    string m12;
 
     bool use_Condor = false;
     bool use_Grid = false;
@@ -69,6 +70,8 @@ int main( int argc, char* argv[] )
             sample_type = val;
         if (strcmp(key, "sample") == 0)
             sample = val;
+        if (strcmp(key, "m12") == 0)
+            m12 = val;
         //
         //
         // Specify the driver to run.
@@ -125,7 +128,8 @@ int main( int argc, char* argv[] )
             SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
         }
         else if (sample_type == "NUHM2") {
-            inputFilePath = "../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree"; // no slash (/) at the end
+            // inputFilePath = "../MC/SusySkimHiggsino_v1.9b_SUSY16_Signal_NUHM2_tree"; // no slash (/) at the end
+            inputFilePath = "/afs/cern.ch/work/j/jeliu/public/HiggsinoFitterTrees/v1_9"; // no slash (/) at the end
             SH::ScanDir().filePattern(sample).scan(sh, inputFilePath);
         }
         else if (sample_type == "backgrounds") {
@@ -145,20 +149,33 @@ int main( int argc, char* argv[] )
         tree_name = "data";
     }
     else if (sample_type == "NUHM2") {
-        if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_NoSys";
-        else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
-            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_NoSys";
+        // if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_300_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_2LMET50_MadSpin_NoSys";
+        // else if (sample == "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_SusySkimHiggsino_v1.9b_SUSY16_tree_NoSys.root")
+        //     tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_2LMET50_MadSpin_NoSys";
+        if (m12 == "350")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_350_weak_NoSys";
+        else if (m12 == "400")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_400_weak_NoSys";
+        else if (m12 == "500")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_500_weak_NoSys";
+        else if (m12 == "600")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_600_weak_NoSys";
+        else if (m12 == "700")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_700_weak_NoSys";
+        else if (m12 == "800")
+            tree_name = "MGPy8EG_A14N23LO_NUHM2_m12_800_weak_NoSys";
+        submitDir += "_m12_" + m12;
     }
     else if (sample_type == "signals") {
         // NUHM2

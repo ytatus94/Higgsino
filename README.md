@@ -2,6 +2,15 @@
 The NUHM2 Higgsino study
 
 ---
+### v47. Modify the cutflow to fit the internal note
+* `yt_cutflows.h` and `yt_cutflows.cxx`: Add codes for cutflow table in the note.
+* `ytEventSelection.cxx`:
+  * Add codes for cutflow table in the note.
+  * Add `bTagWeight` and `FFWeight` in the weight calculation.
+* `Run.cxx` and `Run.sh`:
+  * Use `/afs/cern.ch/work/j/jeliu/public/HiggsinoFitterTrees/v1_9/AllSignals_SusySkimHiggsino_v1.9b_SUSY16_tree_AllSys.root`.
+
+
 ### v46. Modify script
 * `truth3_mll_study.py`:
   * Fix the typo in efficiency

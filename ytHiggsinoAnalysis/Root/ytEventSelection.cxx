@@ -749,7 +749,7 @@ EL::StatusCode ytEventSelection :: execute ()
     float weight = 1;
     if (isMC) {
         // Note: genWeight = (xs * filtEffic * lumi) / (N sum of weights)
-        weight = genWeight* eventWeight * leptonWeight * jvtWeight * pileupWeight;
+        weight = genWeight* eventWeight * leptonWeight * jvtWeight * bTagWeight * pileupWeight * FFWeight;
         // cout << "weight=" << weight << endl;
         // cout << "luminosity * weight=" << luminosity * weight << endl;
         weight *= luminosity;
@@ -920,56 +920,151 @@ EL::StatusCode ytEventSelection :: execute ()
         //
         // Sequential (after cleaning)
         //
-        bool cut_seq1 = m_cutflows->pass_seq_at_least_two_baseline_leptons(nLep_base);
-        m_cutflows->update(seq_at_least_two_baseline_leptons, cut_seq1, weight);
-        if (!cut_seq1) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq2 = m_cutflows->pass_seq_at_least_two_signal_leptons(nLep_signal);
-        m_cutflows->update(seq_at_least_two_signal_leptons, cut_seq2, weight);
-        if (!cut_seq2) return EL::StatusCode::SUCCESS;
+        // This part is used for cutflow comparison
+        // bool cut_seq1 = m_cutflows->pass_seq_at_least_two_baseline_leptons(nLep_base);
+        // m_cutflows->update(seq_at_least_two_baseline_leptons, cut_seq1, weight);
+        // if (!cut_seq1) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq3 = m_cutflows->pass_seq_SFOS(lep1Charge, lep2Charge, lep1Flavor, lep2Flavor);
-        m_cutflows->update(seq_SFOS, cut_seq3, weight);
-        if (!cut_seq3) return EL::StatusCode::SUCCESS;
+        // bool cut_seq2 = m_cutflows->pass_seq_at_least_two_signal_leptons(nLep_signal);
+        // m_cutflows->update(seq_at_least_two_signal_leptons, cut_seq2, weight);
+        // if (!cut_seq2) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq4 = m_cutflows->pass_seq_leading_lepton_pT_less_than_50_GeV(lep1Pt);
-        m_cutflows->update(seq_leading_lepton_pT_less_than_50_GeV, cut_seq4, weight);
-        if (!cut_seq4) return EL::StatusCode::SUCCESS;
+        // bool cut_seq3 = m_cutflows->pass_seq_SFOS(lep1Charge, lep2Charge, lep1Flavor, lep2Flavor);
+        // m_cutflows->update(seq_SFOS, cut_seq3, weight);
+        // if (!cut_seq3) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq5 = m_cutflows->pass_seq_at_least_one_signal_jet(nJet30);
-        m_cutflows->update(seq_at_least_one_signal_jet, cut_seq5, weight);
-        if (!cut_seq5) return EL::StatusCode::SUCCESS;
+        // bool cut_seq4 = m_cutflows->pass_seq_leading_lepton_pT_less_than_50_GeV(lep1Pt);
+        // m_cutflows->update(seq_leading_lepton_pT_less_than_50_GeV, cut_seq4, weight);
+        // if (!cut_seq4) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq6 = false;
+        // bool cut_seq5 = m_cutflows->pass_seq_at_least_one_signal_jet(nJet30);
+        // m_cutflows->update(seq_at_least_one_signal_jet, cut_seq5, weight);
+        // if (!cut_seq5) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq6 = false;
+        // if (jetPt->size() > 0) {
+        //     cut_seq6 = m_cutflows->pass_seq_leading_jet_pT_greater_than_150_GeV(jetPt->at(0));
+        // }
+        // m_cutflows->update(seq_leading_jet_pT_greater_than_150_GeV, cut_seq6, weight);
+        // if (!cut_seq6) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq7 = m_cutflows->pass_seq_bjet_veto(nBJet30_MV2c10);
+        // m_cutflows->update(seq_bjet_veto, cut_seq7, weight);
+        // if (!cut_seq7) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq8 = m_cutflows->pass_seq_MET_greater_than_150_GeV(met_Et);
+        // m_cutflows->update(seq_MET_greater_than_150_GeV, cut_seq8, weight);
+        // if (!cut_seq8) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq9 = m_cutflows->pass_seq_Dphi_jet_MET_greater_than_2dot5(DPhiJ1Met);
+        // m_cutflows->update(seq_Dphi_jet_MET_greater_than_2dot5, cut_seq9, weight);
+        // if (!cut_seq9) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq10 = m_cutflows->pass_seq_mll_less_than_50_GeV(mll);
+        // m_cutflows->update(seq_mll_less_than_50_GeV, cut_seq10, weight);
+        // if (!cut_seq10) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq11 = m_cutflows->pass_seq_Rll_less_than_1dot5(Rll);
+        // m_cutflows->update(seq_Rll_less_than_1dot5, cut_seq11, weight);
+        // if (!cut_seq11) return EL::StatusCode::SUCCESS;
+
+        // bool cut_seq12 = m_cutflows->pass_seq_mtt_less_than_0(MTauTau);
+        // m_cutflows->update(seq_mtt_less_than_zero, cut_seq12, weight);
+        // if (!cut_seq12) return EL::StatusCode::SUCCESS;
+
+
+        // This part is used for the cutflow table in the note
+        bool cut_tab1 = m_cutflows->pass_table_met_trigger(trigMatch_metTrig);
+        m_cutflows->update(table_met_trigger, cut_tab1, weight);
+        if (!cut_tab1) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab2 = m_cutflows->pass_table_Stau_veto(FS);
+        m_cutflows->update(table_Stau_veto, cut_tab2, weight);
+        if (!cut_tab2) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab3 = m_cutflows->pass_table_two_baseline_leptons(nLep_base);
+        m_cutflows->update(table_N_baseline_lepton_is_2, cut_tab3, weight);
+        if (!cut_tab3) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab4 = m_cutflows->pass_table_two_signal_leptons(nLep_signal);
+        m_cutflows->update(table_N_signal_lepton_is_2, cut_tab4, weight);
+        if (!cut_tab4) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab5 = m_cutflows->pass_table_same_flavor(lep1Flavor, lep2Flavor);
+        m_cutflows->update(table_Same_flavor, cut_tab5, weight);
+        if (!cut_tab5) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab6 = m_cutflows->pass_table_opposit_charge(lep1Charge, lep2Charge);
+        m_cutflows->update(table_Opposite_charge, cut_tab6, weight);
+        if (!cut_tab6) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab7 = m_cutflows->pass_table_lepton_truth_matching(lep1TruthMatched, lep2TruthMatched, DatasetNumber);
+        m_cutflows->update(table_Lepton_truth_matching, cut_tab7, weight);
+        if (!cut_tab7) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab8 = m_cutflows->pass_table_lepton_author_16_veto(lep1Author, lep2Author);
+        m_cutflows->update(table_Lepton_author_16_veto, cut_tab8, weight);
+        if (!cut_tab8) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab9 = m_cutflows->pass_table_met_greater_than_200(met_Et);
+        m_cutflows->update(table_met_gt_200_GeV, cut_tab9, weight);
+        if (!cut_tab9) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab10 = m_cutflows->pass_table_bjet_veto(nBJet20_MV2c10);
+        m_cutflows->update(table_Bjet_veto, cut_tab10, weight);
+        if (!cut_tab10) return EL::StatusCode::SUCCESS;
+
         if (jetPt->size() > 0) {
-            cut_seq6 = m_cutflows->pass_seq_leading_jet_pT_greater_than_150_GeV(jetPt->at(0));
+            bool cut_tab11 = m_cutflows->pass_table_leading_jet_pT_greater_than_100(jetPt->at(0));
+            m_cutflows->update(table_jet1PT_gt_100_GeV, cut_tab11, weight);
+            if (!cut_tab11) return EL::StatusCode::SUCCESS;
         }
-        m_cutflows->update(seq_leading_jet_pT_greater_than_150_GeV, cut_seq6, weight);
-        if (!cut_seq6) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq7 = m_cutflows->pass_seq_bjet_veto(nBJet30_MV2c10);
-        m_cutflows->update(seq_bjet_veto, cut_seq7, weight);
-        if (!cut_seq7) return EL::StatusCode::SUCCESS;
+        bool cut_tab12 = m_cutflows->pass_table_Dphi_jet_MET_greater_than_2(DPhiJ1Met);
+        m_cutflows->update(table_DphiJ1MET_gt_2, cut_tab12, weight);
+        if (!cut_tab12) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq8 = m_cutflows->pass_seq_MET_greater_than_150_GeV(met_Et);
-        m_cutflows->update(seq_MET_greater_than_150_GeV, cut_seq8, weight);
-        if (!cut_seq8) return EL::StatusCode::SUCCESS;
+        bool cut_tab13 = m_cutflows->pass_table_min_Dphi_greater_than_0dot4(minDPhiAllJetsMet);
+        m_cutflows->update(table_minDphiAlljetMET_gt_0dot4, cut_tab13, weight);
+        if (!cut_tab13) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq9 = m_cutflows->pass_seq_Dphi_jet_MET_greater_than_2dot5(DPhiJ1Met);
-        m_cutflows->update(seq_Dphi_jet_MET_greater_than_2dot5, cut_seq9, weight);
-        if (!cut_seq9) return EL::StatusCode::SUCCESS;
+        bool cut_tab14 = m_cutflows->pass_table_mtautau_veto(MTauTau);
+        m_cutflows->update(table_veto_0_lt_mtautau_lt_160, cut_tab14, weight);
+        if (!cut_tab14) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq10 = m_cutflows->pass_seq_mll_less_than_50_GeV(mll);
-        m_cutflows->update(seq_mll_less_than_50_GeV, cut_seq10, weight);
-        if (!cut_seq10) return EL::StatusCode::SUCCESS;
+        bool cut_tab15 = m_cutflows->pass_table_lep1Pt_greater_than_5(lep1Pt);
+        m_cutflows->update(table_lep1Pt_gt_5_GeV, cut_tab15, weight);
+        if (!cut_tab15) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq11 = m_cutflows->pass_seq_Rll_less_than_1dot5(Rll);
-        m_cutflows->update(seq_Rll_less_than_1dot5, cut_seq11, weight);
-        if (!cut_seq11) return EL::StatusCode::SUCCESS;
+        bool cut_tab16 = m_cutflows->pass_table_mll_greater_than_1(mll);
+        m_cutflows->update(table_mll_gt_1_GeV, cut_tab16, weight);
+        if (!cut_tab16) return EL::StatusCode::SUCCESS;
 
-        bool cut_seq12 = m_cutflows->pass_seq_mtt_less_than_0(MTauTau);
-        m_cutflows->update(seq_mtt_less_than_zero, cut_seq12, weight);
-        if (!cut_seq12) return EL::StatusCode::SUCCESS;
+        bool cut_tab17 = m_cutflows->pass_table_veto_mll_3_to_3dot2(mll);
+        m_cutflows->update(table_veto_3_lt_mll_lt_3dot2, cut_tab17, weight);
+        if (!cut_tab17) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab18 = m_cutflows->pass_table_mll_less_than_60(mll);
+        m_cutflows->update(table_mll_lt_60_GeV, cut_tab18, weight);
+        if (!cut_tab18) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab19 = m_cutflows->pass_table_Rll_greater_than_0dot05(Rll);
+        m_cutflows->update(table_dRll_gt_0dot05, cut_tab19, weight);
+        if (!cut_tab19) return EL::StatusCode::SUCCESS;
+
+        // SRll-mll selection
+        bool cut_tab20 = m_cutflows->pass_table_METOverHT(METOverHTLep, mll);
+        m_cutflows->update(table_METOverHTLep, cut_tab20, weight);
+        if (!cut_tab20) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab21 = m_cutflows->pass_table_Rll_less_then_2(Rll);
+        m_cutflows->update(table_dRll_lt_2, cut_tab21, weight);
+        if (!cut_tab21) return EL::StatusCode::SUCCESS;
+
+        bool cut_tab22 = m_cutflows->pass_table_lep1_mT_less_than_70(mt_lep1);
+        m_cutflows->update(table_lep1mT_lt_70_GeV, cut_tab22, weight);
+        if (!cut_tab22) return EL::StatusCode::SUCCESS;
     }
 
     //
