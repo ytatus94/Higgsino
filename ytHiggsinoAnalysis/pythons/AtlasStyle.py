@@ -53,6 +53,7 @@ def myText(x, y, text, color, tsize):
     l = ROOT.TLatex()
     # l.SetTextAlign(12)
     l.SetTextSize(tsize)
+    l.SetTextFont(42)
     l.SetNDC()
     l.SetTextColor(color)
     l.DrawLatex(x, y, text)

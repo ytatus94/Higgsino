@@ -2,6 +2,12 @@
 The NUHM2 Higgsino study
 
 ---
+### v48. Script for upper limit plot
+* `AtlasStyle.py`: Set font
+* `NUHM2_Weak.txt`: New SUSYTools cross-section file
+* `upperlimit_xsec.py`: New script to make cross-section upper limit plot.
+
+
 ### v47. Modify the cutflow to fit the internal note
 * `yt_cutflows.h` and `yt_cutflows.cxx`: Add codes for cutflow table in the note.
 * `ytEventSelection.cxx`:
