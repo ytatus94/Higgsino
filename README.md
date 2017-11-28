@@ -2,6 +2,16 @@
 The NUHM2 Higgsino study
 
 ---
+### v49. Add new csv files
+* Add new csv files:
+  * `NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv`
+  * `NUHM2_all_points_upperlimit_upperlimit_only_reweighting_AllSys_doNewFFs.csv`
+  * `NUHM2_all_points_upperlimit_upperlimit_only_reweighting_NoSys_doNewFFs.csv`
+* `upperlimit_xsec.py`:
+  * re-draw y-axis to show ticks
+  * Instead of using `j = i + 1`, use `m12` to find the correct element in list
+
+
 ### v48. Script for upper limit plot
 * `AtlasStyle.py`: Set font
 * `NUHM2_Weak.txt`: New SUSYTools cross-section file

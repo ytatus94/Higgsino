@@ -10,7 +10,10 @@ import os, array
 def main():
     xsecs = read_cross_section('/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2_Weak.txt')
     sum_xsecs = sum_cross_section(xsecs)
-    uls = read_upper_limit('/Users/ytshen/Desktop/UL_PLOT/test/UL_HF/NUHM2_all_points_upperlimit_upperlimit_only.csv')
+    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_NoSys_doNewFFs.csv')
+    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_AllSys_doNewFFs.csv')
+    uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv')
+    # uls = read_upper_limit('../misc/test.csv')
     masses = read_masses('/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/')
     plot_upper_limit(sum_xsecs, uls, masses, True)
 
@@ -168,28 +171,29 @@ def plot_upper_limit(sum_xsecs, uls, masses, UL_label):
     # Fill the TGraph
     n = len(uls) # n = 6, from 350
     m = len(sum_xsecs) # m = 7, from 300
-    if n + 1 != m:
-        print 'Error: len(uls)=', len(uls), ' != len(sum_xsecs)=', len(sum_xsecs)
-        exit()
+
     for i in range(0, n):
-        j = i + 1 # i starts from 350 but j starts from 300
+        # j = i + 1 # i starts from 350 but j starts from 300
         # print 'm12=', uls[i]['m12'], 'mu_SIG=', uls[i]['ul_obs'], 'xsec=', sum_xsecs[j]['sum_xsec'], 'xsec*mu_SIG=', uls[i]['ul_obs'] * sum_xsecs[j]['sum_xsec']
-        gul_obs.SetPoint(i, uls[i]['m12'], uls[i]['ul_obs'] * sum_xsecs[j]['sum_xsec'])
-        gul_exp.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
+        for j in range(0, m):
+            if uls[i]['m12'] == sum_xsecs[j]['m12']:
+                gul_obs.SetPoint(i, uls[i]['m12'], uls[i]['ul_obs'] * sum_xsecs[j]['sum_xsec'])
+                gul_exp.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
 
-        eyl_1s = abs( (uls[i]['ul_expm1s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
-        eyh_1s = abs( (uls[i]['ul_expp1s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
-        gul_exp1s.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
-        gul_exp1s.SetPointError(i, 0., 0., eyl_1s, eyh_1s)
+                eyl_1s = abs( (uls[i]['ul_expm1s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
+                eyh_1s = abs( (uls[i]['ul_expp1s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
+                gul_exp1s.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
+                gul_exp1s.SetPointError(i, 0., 0., eyl_1s, eyh_1s)
 
-        eyl_2s = abs( (uls[i]['ul_expm2s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
-        eyh_2s = abs( (uls[i]['ul_expp2s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
-        gul_exp2s.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
-        gul_exp2s.SetPointError(i, 0., 0., eyl_2s, eyh_2s)
+                eyl_2s = abs( (uls[i]['ul_expm2s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
+                eyh_2s = abs( (uls[i]['ul_expp2s'] - uls[i]['ul_exp']) * sum_xsecs[j]['sum_xsec'] )
+                gul_exp2s.SetPoint(i, uls[i]['m12'], uls[i]['ul_exp'] * sum_xsecs[j]['sum_xsec'])
+                gul_exp2s.SetPointError(i, 0., 0., eyl_2s, eyh_2s)
 
-        g_xsec.SetPoint(i, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec'])
-        g_xsec_up.SetPoint(i, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec_up'])
-        g_xsec_down.SetPoint(i, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec_down'])
+    for j in range(0, m):
+        g_xsec.SetPoint(j, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec'])
+        g_xsec_up.SetPoint(j, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec_up'])
+        g_xsec_down.SetPoint(j, sum_xsecs[j]['m12'], sum_xsecs[j]['sum_xsec_down'])
 
     # Set the TGraph
     color_obs = ROOT.TColor.GetColor("#aa000")
@@ -315,21 +319,25 @@ def plot_upper_limit(sum_xsecs, uls, masses, UL_label):
         label.SetTextAngle(45)
         # label.SetNDC()
         for i in range(0, n): # n = len(uls)
-            j = i + 1 # i starts from 350 but j starts from 300
-            x_value = uls[i]['m12']
-            y_value = uls[i]['ul_obs'] * sum_xsecs[j]['sum_xsec']
-            label_text = '{:04.2f}'.format(y_value)
-            if x_value == 350:
-                x_value += 10
-            if x_value == 800:
-                x_value -= 15
-            label.DrawLatex(x_value, y_value+0.5, label_text)
+            for j in range(0, m):
+                if uls[i]['m12'] == sum_xsecs[j]['m12']:
+                    x_value = uls[i]['m12']
+                    y_value = uls[i]['ul_obs'] * sum_xsecs[j]['sum_xsec']
+                    label_text = '{:04.2f}'.format(y_value)
+                    if x_value == 350:
+                        x_value += 10
+                    if x_value == 800:
+                        x_value -= 15
+                    label.DrawLatex(x_value, y_value+0.5, label_text)
+
+    # 1 and 2 sigma bands cover the y ticks.
+    # we need to redraw the axis to show the ticks
+    pad1.Update()
+    pad1.RedrawAxis()
 
     # Draw the dm axis on pad2
     pad2.cd()
     
-    # l = ROOT.TLine(0.13, 0.7, 0.95, 0.7)
-    # l.Draw()
     # Draw an axis without ticks and labels.
     # This is used for a axis line and title only
     gaxis = ROOT.TGaxis(left_margin, 0.7, 1 - right_margin, 0.7, 0, 1, 0, "")
