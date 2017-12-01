@@ -2,6 +2,13 @@
 The NUHM2 Higgsino study
 
 ---
+### v50. Add new csv files
+* Add new csv files:
+  * `NUHM2_all_points_upperlimit_upperlimit_only_MCprod_NoSys_doNewFFs.csv`
+  * `NUHM2_all_points_upperlimit_upperlimit_only_MCprod_AllSys_doNewFFs.csv`
+* `upperlimit_xsec.py`: change input file
+
+
 ### v49. Add new csv files
 * Add new csv files:
   * `NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv`

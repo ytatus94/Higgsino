@@ -12,8 +12,10 @@ def main():
     sum_xsecs = sum_cross_section(xsecs)
     # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_NoSys_doNewFFs.csv')
     # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_AllSys_doNewFFs.csv')
-    uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv')
-    # uls = read_upper_limit('../misc/test.csv')
+    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv')
+    # uls = read_upper_limit('../misc/test_NoSys.csv')
+    uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_NoSys_doNewFFs.csv')
+    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_AllSys_doNewFFs.csv')
     masses = read_masses('/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/')
     plot_upper_limit(sum_xsecs, uls, masses, True)
 
