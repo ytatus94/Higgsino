@@ -2,6 +2,18 @@
 The NUHM2 Higgsino study
 
 ---
+### v51. Align the files on lxplus
+* Add new files:
+  * `ytHiggsinoAnalysis/misc/NUHM2_Strong.txt`
+  * `ytHiggsinoAnalysis/misc/NUHM2_Strong_SUSYTools.txt`
+  * `ytHiggsinoAnalysis/misc/NUHM2_Weak_SUSYTools.txt`
+* Add new folders:
+  * `ytHiggsinoAnalysis/misc/NUHM2/`
+  * `ytHiggsinoAnalysis/misc/StrongSLHA/`
+  * `ytHiggsinoAnalysis/misc/WeakSLHA/`
+* Modify script: `ytHiggsinoAnalysis/pythons/plot_truth3_kinematics.py`
+
+
 ### v50. Add new csv files
 * Add new csv files:
   * `NUHM2_all_points_upperlimit_upperlimit_only_MCprod_NoSys_doNewFFs.csv`

@@ -313,17 +313,25 @@ def plot_making(var, normalize, h1, h2, h3, h4, h5, h6, h7, h8):
         logY = True
         ROOT.gPad.SetLogy()
 
-    h1.SetLineColor(ROOT.kOrange)
-    h1.SetFillColor(ROOT.kOrange)
+    #h1.SetLineColor(ROOT.kOrange)
+    #h1.SetFillColor(ROOT.kOrange)
+    h1.SetLineColor(ROOT.kGreen+2)
+    h1.SetFillColor(ROOT.kGreen+2)
     h1.SetFillStyle(1001) # Solid
-    h2.SetLineColor(ROOT.kOrange-4)
-    h2.SetFillColor(ROOT.kOrange-4)
+    #h2.SetLineColor(ROOT.kOrange-4)
+    #h2.SetFillColor(ROOT.kOrange-4)
+    h2.SetLineColor(ROOT.kAzure+7)
+    h2.SetFillColor(ROOT.kAzure+7)
     h2.SetFillStyle(1001) # Solid
-    h3.SetLineColor(ROOT.kOrange-6)
-    h3.SetFillColor(ROOT.kOrange-6)
+    #h3.SetLineColor(ROOT.kOrange-6)
+    #h3.SetFillColor(ROOT.kOrange-6)
+    h3.SetLineColor(ROOT.kYellow-9)
+    h3.SetFillColor(ROOT.kYellow-9)
     h3.SetFillStyle(1001) # Solid
-    h4.SetLineColor(ROOT.kOrange-8)
-    h4.SetFillColor(ROOT.kOrange-8)
+    #h4.SetLineColor(ROOT.kOrange-8)
+    #h4.SetFillColor(ROOT.kOrange-8)
+    h4.SetLineColor(17)
+    h4.SetFillColor(17)
     h4.SetFillStyle(1001) # Solid
 
     if normalize:
@@ -441,7 +449,7 @@ def plot_making(var, normalize, h1, h2, h3, h4, h5, h6, h7, h8):
 
     hs_nuhm2.Draw("hist,same,noclear")
 
-    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.88)
+    legend = ROOT.TLegend(0.65, 0.6, 0.9, 0.88)
     legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
     legend.AddEntry(h2, "Higgsino_C1C1_170_150", "f")
     legend.AddEntry(h3, "Higgsino_N2C1p_170_150", "f")
