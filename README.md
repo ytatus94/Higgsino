@@ -2,6 +2,10 @@
 The NUHM2 Higgsino study
 
 ---
+### v52. Modify script 
+* Modify `reweight_truth3_mll.C` so it can make Higgsino and NUHM2 mll comparison plot as shown in Fig1 in paper.
+
+
 ### v51. Align the files on lxplus
 * Add new files:
   * `ytHiggsinoAnalysis/misc/NUHM2_Strong.txt`
