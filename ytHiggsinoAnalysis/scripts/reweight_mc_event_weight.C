@@ -95,7 +95,7 @@ void reweight_mc_event_weight(int n2, int n1, int m12, bool normalize = false)
     // for (auto &var : var_type_float) {
     // for (auto &var : vars_type_vector_float) {
         // cout << var << endl;
-        plot(var, n2, n1, m12, false);
+        // plot(var, n2, n1, m12, false);
     }
     // plot("pTLep1", n2, n1, m12, false);
     // plot("pTLep2", n2, n1, m12, false);
@@ -110,7 +110,8 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     double dm_Higgsino = n2 - n1;
 
     // Higgsino TRUTH3
-    string path_Higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    // string path_Higgsino = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    string path_Higgsino = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170817/";
 
     string n2_n1 = to_string(n2) + "_" + to_string(n1);
 
@@ -145,7 +146,7 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     h_Higgsino_combined_original->SetTitle("");
     h_Higgsino_combined_original->SetXTitle( (get_x_title(var)).c_str() );
     h_Higgsino_combined_original->SetYTitle( (get_y_title(var)).c_str() );
-    h_Higgsino_combined_original->SetLineColor(kGreen);
+    h_Higgsino_combined_original->SetLineColor(kGreen+2);
 
     is_reweight = true;
     TH1F *h_Higgsino_N2N1_reweight = tree_reader(file_Higgsino_N2N1, var, n1, n2, m12, is_reweight);
@@ -174,7 +175,8 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     h_Higgsino_combined_reweight->SetLineColor(kRed);
 
     // NUHM2 TRUTH3
-    string path_NUHM2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    // string path_NUHM2 = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170817/";
+    string path_NUHM2 = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170817/";
 
     string file_NUHM2_N2N1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_N2N1.TestJob.root";
     // string file_NUHM2_C1C1  = path_NUHM2 + "user.yushen.run_" + to_string(m12) + "_C1C1.TestJob.root";
@@ -206,16 +208,20 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     h_NUHM2_combined->SetTitle("");
     h_NUHM2_combined->SetXTitle( (get_x_title(var)).c_str() );
     h_NUHM2_combined->SetYTitle( (get_y_title(var)).c_str() );
-    h_NUHM2_combined->SetLineColor(kBlue);
+    h_NUHM2_combined->SetLineColor(kAzure+7);
 
-    TH1F *h_ratio_NUHM2_original_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
-    h_ratio_NUHM2_original_Higgsino->Divide(h_Higgsino_combined_original);
-    h_ratio_NUHM2_original_Higgsino->SetLineColor(kGreen);
-    h_ratio_NUHM2_original_Higgsino->SetMarkerColor(kGreen);
+    // TH1F *h_ratio_NUHM2_original_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
+    // h_ratio_NUHM2_original_Higgsino->Divide(h_Higgsino_combined_original);
+    TH1F *h_ratio_NUHM2_original_Higgsino = (TH1F *)h_Higgsino_combined_original->Clone();
+    h_ratio_NUHM2_original_Higgsino->Divide(h_NUHM2_combined);
+    h_ratio_NUHM2_original_Higgsino->SetLineColor(kGreen+2);
+    h_ratio_NUHM2_original_Higgsino->SetMarkerColor(kGreen+2);
     h_ratio_NUHM2_original_Higgsino->SetMarkerStyle(kFullCircle);
 
-    TH1F *h_ratio_NUHM2_reweight_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
-    h_ratio_NUHM2_reweight_Higgsino->Divide(h_Higgsino_combined_reweight);
+    // TH1F *h_ratio_NUHM2_reweight_Higgsino = (TH1F *)h_NUHM2_combined->Clone();
+    // h_ratio_NUHM2_reweight_Higgsino->Divide(h_Higgsino_combined_reweight);
+    TH1F *h_ratio_NUHM2_reweight_Higgsino = (TH1F *)h_Higgsino_combined_reweight->Clone();
+    h_ratio_NUHM2_reweight_Higgsino->Divide(h_NUHM2_combined);
     h_ratio_NUHM2_reweight_Higgsino->SetLineColor(kRed);
     h_ratio_NUHM2_reweight_Higgsino->SetMarkerColor(kRed);
     h_ratio_NUHM2_reweight_Higgsino->SetMarkerStyle(kFullCircle);
@@ -296,10 +302,14 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     h_Higgsino_combined_original->GetYaxis()->SetLabelOffset(0.015);
     h_Higgsino_combined_original->SetMaximum(y_max);
     h_Higgsino_combined_original->SetStats(0);
+    h_Higgsino_combined_original->SetFillStyle(3004);
+    h_Higgsino_combined_original->SetFillColor(kGreen+2);
     h_Higgsino_combined_original->Draw("hist");
 
     h_Higgsino_combined_reweight->Draw("hist,same");
 
+    h_NUHM2_combined->SetFillStyle(3003);
+    h_NUHM2_combined->SetFillColor(kAzure+7);
     h_NUHM2_combined->Draw("hist,same");
 
     // cout << "h_Higgsino_combined_original->Integral()=" << h_Higgsino_combined_original->Integral() << endl;
@@ -353,17 +363,23 @@ void plot(string var, int n2, int n1, int m12, bool normalize = false)
     // Put legend on pad1
     pad1->cd();
 
-    ATLASLabel(0.2, 0.83, "internal", kBlack);
+    // ATLASLabel(0.2, 0.83, "internal", kBlack);
+
+    string mass = "m(#tilde{#chi}^{0}_{2}, #tilde{#chi}^{0}_{1})=(" + to_string(n2) + "," + to_string(n1) + ") GeV";
 
     TLegend *legend = new TLegend(0.5, 0.45, 0.7, 0.88);
-    legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
-    legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(h_Higgsino_combined_reweight, ("Reweight Higgsino_" + n2_n1).c_str(), "l");
-    legend->AddEntry(h_ratio_NUHM2_original_Higgsino, "ratio = NUHM2 / Higgsino", "lpe");
-    legend->AddEntry(h_ratio_NUHM2_reweight_Higgsino, "ratio = NUHM2 / reweight Higgsino", "lpe");
+    // legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
+    // legend->AddEntry(h_Higgsino_combined_reweight, ("Reweight Higgsino_" + n2_n1).c_str(), "l");
+    legend->AddEntry(h_Higgsino_combined_original, ("Higgsino " + mass).c_str(), "l");
+	legend->AddEntry(h_Higgsino_combined_reweight, ("Reweight Higgsino " + mass).c_str(), "l");
+	legend->AddEntry(h_NUHM2_combined, ("NUHM2 m_{1/2}=" + to_string(m12) + " GeV").c_str(), "l");
+    // legend->AddEntry(h_ratio_NUHM2_original_Higgsino, "ratio = NUHM2 / Higgsino", "lpe");
+    // legend->AddEntry(h_ratio_NUHM2_reweight_Higgsino, "ratio = NUHM2 / reweight Higgsino", "lpe");
+    legend->AddEntry(h_ratio_NUHM2_original_Higgsino, "ratio = Higgsino / NUHM2", "lpe");
+	legend->AddEntry(h_ratio_NUHM2_reweight_Higgsino, "ratio = Reweight Higgsino / NUHM2", "lpe");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
-    legend->SetTextSize(0.04);
+    legend->SetTextSize(0.03);
     legend->SetFillColor(0);
     legend->SetFillStyle(0);
     legend->Draw();
@@ -431,7 +447,7 @@ TH1F *tree_reader(string f, string var, int n1, int n2, int m12, bool is_reweigh
     func_Higgsino->SetParameter(2, -1*n2);
     func_Higgsino->FixParameter(1, n1);
     func_Higgsino->FixParameter(2, -1*n2);
-    func_Higgsino->SetLineColor(kGreen);
+    func_Higgsino->SetLineColor(kGreen+2);
     func_Higgsino->SetLineStyle(2);
 
     // NUHM2 curve

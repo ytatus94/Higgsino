@@ -2,6 +2,20 @@
 The NUHM2 Higgsino study
 
 ---
+### v54. New scripts for making plots
+* Add Judita's version cross-section file `NUHM2_Weak_Judita.txt`
+* Add new scripts:
+  * `plot_METOverHT_vs_mll.py`
+  * `plot_eemumu_invariant_mass.py`
+* Modify the scripts for making plots in the dissertation
+  * `plot_distributions_in_SR.py`
+  * `plot_truth3_kinematics.py`
+  * `truth3_mll_study.py`
+  * `upperlimit_xsec.py`
+  * `reweight_mc_event_weight.C`
+  * `reweight_truth3_mll.C`
+
+
 ### v53. New script for TMVA distributions
 * Add `plot_TMVA_BDT_distributions.py`
 

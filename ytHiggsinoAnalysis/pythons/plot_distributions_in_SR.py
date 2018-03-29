@@ -617,7 +617,7 @@ def plot_distribution_in_SR(m12, varexp, lep_EEOS, lep_MMOS):
     h_nuhm2.Draw("hist,same")
 
     AtlasStyle.ATLASLabel(0.2, 0.83, "Internal", ROOT.kBlack)
-    AtlasStyle.myText(0.2, 0.78, "13 TeV, 36.1 fb^{-1}", ROOT.kBlack, 0.04)
+    AtlasStyle.myText(0.2, 0.78, "#sqrt{s} = 13 TeV, 36.1 fb^{-1}", ROOT.kBlack, 0.04)
     if lep_EEOS is True:
         AtlasStyle.myText(0.2, 0.75, "SRee-iMLLg ee", ROOT.kBlack, 0.02)
     if lep_MMOS is True:

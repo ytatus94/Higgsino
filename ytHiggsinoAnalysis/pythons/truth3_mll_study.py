@@ -570,7 +570,8 @@ def compare_pythia_madgraph_madspin():
 #----------------------------#
 
 def compare_n2_decay():
-    path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/"
+    # path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/"
+    path = "/UserDisk2/yushen/Higgsino/SimpleAnalysis_old/Results/"
     f_Higgsino_N2C1p = path + "20170628/user.yushen.SM_N2C1p_170_150_2LMET50.root"
     f_Higgsino_N2C1m = path + "20170628/user.yushen.SM_N2C1m_170_150_2LMET50.root"
     f_run_12p = path + "20170708/user.yushen.run_12p.TestJob.root"
@@ -845,12 +846,12 @@ def compare_n2_decay():
 
     h12.Draw("hist,same")
 
-    legend = ROOT.TLegend(0.57, 0.6, 0.77, 0.87)
-    legend.AddEntry(h12, "Higgsino_N2C1p/m_170_150", "l")
-    legend.AddEntry(h34, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{l}^{+} #font[12]{l}^{-} #tilde{\chi}^{0}_{1})", "fl")
-    legend.AddEntry(h56, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #nu #bar{#nu} #tilde{\chi}^{0}_{1})", "fl")
-    legend.AddEntry(h78, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{q} #bar{#font[12]{q}} #tilde{\chi}^{0}_{1})", "fl")
-    legend.AddEntry(h910, "NUHM2_m12_600 (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{f} #font[12]{f} #tilde{\chi}^{#pm}_{1})", "fl")
+    legend = ROOT.TLegend(0.5, 0.6, 0.77, 0.87)
+    legend.AddEntry(h12, "Higgsino #tilde{#chi}^{0}_{2}#tilde{#chi}^{#pm}_{1} m(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})=(170,150) GeV", "l")
+    legend.AddEntry(h34, "NUHM2 m_{1/2}=600 GeV (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{l}^{+} #font[12]{l}^{-} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h56, "NUHM2 m_{1/2}=600 GeV (#tilde{\chi}^{0}_{2} #rightarrow #nu #bar{#nu} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h78, "NUHM2 m_{1/2}=600 GeV (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{q} #bar{#font[12]{q}} #tilde{\chi}^{0}_{1})", "fl")
+    legend.AddEntry(h910, "NUHM2 m_{1/2}=600 GeV (#tilde{\chi}^{0}_{2} #rightarrow #font[12]{f} #font[12]{f} #tilde{\chi}^{#pm}_{1})", "fl")
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
     legend.SetTextSize(0.02);
@@ -858,7 +859,7 @@ def compare_n2_decay():
     legend.SetFillStyle(0);
     legend.Draw()
 
-    AtlasStyle.ATLASLabel(0.2, 0.83, "internal", ROOT.kBlack)
+    # AtlasStyle.ATLASLabel(0.2, 0.83, "internal", ROOT.kBlack)
 
     output = var + ".pdf"
     canvas.SaveAs(output)

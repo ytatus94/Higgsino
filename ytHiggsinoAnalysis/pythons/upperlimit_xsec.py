@@ -8,16 +8,22 @@ import os, array
 #------------------------------
 
 def main():
-    xsecs = read_cross_section('/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2_Weak.txt')
+    # xsecs = read_cross_section('/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/ytHiggsinoAnalysis/misc/NUHM2_Weak.txt')
+    xsecs = read_cross_section('../misc/NUHM2_Weak_Judita.txt')
     sum_xsecs = sum_cross_section(xsecs)
-    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_NoSys_doNewFFs.csv')
-    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_AllSys_doNewFFs.csv')
     # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_Judita_MCprod_AllSys_doNewFFs.csv')
     # uls = read_upper_limit('../misc/test_NoSys.csv')
-    uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_NoSys_doNewFFs.csv')
-    # uls = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_AllSys_doNewFFs.csv')
-    masses = read_masses('/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/')
-    plot_upper_limit(sum_xsecs, uls, masses, True)
+    uls_rew_NoSys = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_NoSys_doNewFFs.csv')
+    uls_rew_AllSys = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_reweighting_AllSys_doNewFFs.csv')
+    uls_mcprod_NoSys = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_NoSys_doNewFFs.csv')
+    uls_mcprod_AllSys = read_upper_limit('../misc/NUHM2_all_points_upperlimit_upperlimit_only_MCprod_AllSys_doNewFFs.csv')
+    # masses = read_masses('/Users/ytshen/Documents/Working/OU/HEP/Abe/WeakSLHA/')
+    masses = read_masses('../misc/WeakSLHA/')
+    # plot_upper_limit(sum_xsecs, uls, masses, True)
+    plot_upper_limit(sum_xsecs, uls_rew_NoSys, masses, True, 'nuhm2_UL_rew_NoSys.pdf')
+    plot_upper_limit(sum_xsecs, uls_rew_AllSys, masses, True, 'nuhm2_UL_rew_AllSys.pdf')
+    plot_upper_limit(sum_xsecs, uls_mcprod_NoSys, masses, True, 'nuhm2_UL_mcprod_NoSys.pdf')
+    plot_upper_limit(sum_xsecs, uls_mcprod_AllSys, masses, True, 'nuhm2_UL_mcprod_AllSys.pdf')
 
 #------------------------------
 
@@ -148,7 +154,7 @@ def read_masses(input_dir):
 
 #------------------------------
 
-def plot_upper_limit(sum_xsecs, uls, masses, UL_label):
+def plot_upper_limit(sum_xsecs, uls, masses, UL_label, outputfile = None):
     xmin = 350
     xmax = 800
     ymin = 0.9
@@ -306,7 +312,7 @@ def plot_upper_limit(sum_xsecs, uls, masses, UL_label):
     g_xsec_down.Draw("L")
     leg.Draw()
 
-    AtlasStyle.ATLASLabel(0.18, 0.80, "Internal", ROOT.kBlack)
+    # AtlasStyle.ATLASLabel(0.18, 0.80, "Internal", ROOT.kBlack)
     AtlasStyle.myText(0.18, 0.73, "#sqrt{s} = 13 TeV, 36.1 fb^{-1}", ROOT.kBlack, 0.04)
 
     AtlasStyle.myText(0.61, 0.62, "All limits at 95% CL", ROOT.kBlack, 0.03)
@@ -392,7 +398,10 @@ def plot_upper_limit(sum_xsecs, uls, masses, UL_label):
     for tick_label in list_labels:
         tick_label.Draw()
 
-    c.SaveAs("nuhm2_UL.pdf")
+    if outputfile is None:
+        c.SaveAs("nuhm2_UL.pdf")
+    else:
+        c.SaveAs(outputfile)
 
 #------------------------------
 

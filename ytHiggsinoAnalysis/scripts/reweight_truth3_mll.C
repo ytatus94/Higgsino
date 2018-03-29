@@ -258,15 +258,15 @@ void plot_Lorenzo(int n2, int n1, int m12, bool plot_for_thesis = false)
 
     h_NUHM2_combined->Draw("hist,same");
 
-    if (plot_for_thesis)
-        ATLASLabel(0.2, 0.83, "Simulation", kBlack);
-    else
-        ATLASLabel(0.2, 0.83, "internal", kBlack);
+    // if (plot_for_thesis)
+    //     ATLASLabel(0.2, 0.83, "Simulation", kBlack);
+    // else
+    //     ATLASLabel(0.2, 0.83, "internal", kBlack);
     
+    string m_n2_n1 = "m(#tilde{#chi}^{0}_{2}, #tilde{#chi}^{0}_{1})=(" + to_string(n2) + ", " + to_string(n1) + ") GeV";
 
     TLegend *legend = 0;
     if (plot_for_thesis) {
-        string m_n2_n1 = "m(#tilde{#chi}^{0}_{2}, #tilde{#chi}^{0}_{1})=(" + to_string(n2) + ", " + to_string(n1) + ") GeV";
         string nuhm2_m_n2_n1 = "m(#tilde{#chi}^{0}_{2}, #tilde{#chi}^{0}_{1})=(159.7, 137.6) GeV";
 
         legend = new TLegend(0.40, 0.65, 0.77, 0.80);
@@ -276,12 +276,12 @@ void plot_Lorenzo(int n2, int n1, int m12, bool plot_for_thesis = false)
         legend->AddEntry(func_NUHM2, "Theoretical m(#tilde{#chi}^{0}_{2}) #times m(#tilde{#chi}^{0}_{2}) >0", "l");
     }
     else {
-        legend = new TLegend(0.57, 0.65, 0.77, 0.87);
-        legend->AddEntry(h_Higgsino_combined_original, ("Higgsino_" + n2_n1).c_str(), "l");
-        legend->AddEntry(func_Higgsino, ("Theoritical Higgsino_" + n2_n1).c_str(), "l");
-        legend->AddEntry(h_Higgsino_combined_reweight, ("reweight Higgsino_" + n2_n1).c_str(), "l");
-        legend->AddEntry(h_NUHM2_combined, ("NUHM2 m12=" + to_string(m12)).c_str(), "l");
-        legend->AddEntry(func_NUHM2, ("Theoritical NUHM2 m12=" + to_string(m12)).c_str(), "l");
+        legend = new TLegend(0.40, 0.65, 0.77, 0.87);
+        legend->AddEntry(h_Higgsino_combined_original, ("Higgsino " + m_n2_n1).c_str(), "l");
+        legend->AddEntry(func_Higgsino, ("Theoritical Higgsino " + m_n2_n1).c_str(), "l");
+        legend->AddEntry(h_Higgsino_combined_reweight, ("reweight Higgsino " + m_n2_n1).c_str(), "l");
+        legend->AddEntry(h_NUHM2_combined, ("NUHM2 m_{1/2}=" + to_string(m12) + " GeV").c_str(), "l");
+        legend->AddEntry(func_NUHM2, ("Theoritical NUHM2 m_{1/2}=" + to_string(m12) + " GeV").c_str(), "l");
     }
     
     legend->SetBorderSize(0);
@@ -299,7 +299,7 @@ void plot_Lorenzo(int n2, int n1, int m12, bool plot_for_thesis = false)
     c->SaveAs(output.c_str());
     c->Close();
 }
-
+/*
 void plot_Mike(int n2, int n1, int m12)
 {
     double dm_Higgsino = n2 - n1;
@@ -478,7 +478,7 @@ void plot_Mike(int n2, int n1, int m12)
     c->SaveAs(output.c_str());
     c->Close();
 }
-
+*/
 void tree_reader(string f, double dm, TH1F *h1, TH1F *h2 = NULL, TF1 *func1 = NULL, TF1 *func2 = NULL)
 {
     // string tree_name = "EwkHiggsino2016__ntuple";

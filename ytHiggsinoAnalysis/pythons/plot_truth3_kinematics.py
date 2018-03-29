@@ -7,7 +7,8 @@ We use Higgsino_170_150 because the dM=20 and close to dM(NUHM2 m12=600)~22
 import ROOT
 import AtlasStyle
 
-path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170926b/"
+# path = "/Users/ytshen/Documents/Working/OU/HEP/my_codes/Higgsino/data/truth3_Results/20170926b/"
+path = "/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170926b/"
 NUHM2 = ["NUHM2_m12_600_N2N1.root",
          "NUHM2_m12_600_C1C1.root",
          "NUHM2_m12_600_N2C1p.root",
@@ -449,15 +450,15 @@ def plot_making(var, normalize, h1, h2, h3, h4, h5, h6, h7, h8):
 
     hs_nuhm2.Draw("hist,same,noclear")
 
-    legend = ROOT.TLegend(0.65, 0.6, 0.9, 0.88)
-    legend.AddEntry(h1, "Higgsino_N2N1_170_150", "f")
-    legend.AddEntry(h2, "Higgsino_C1C1_170_150", "f")
-    legend.AddEntry(h3, "Higgsino_N2C1p_170_150", "f")
-    legend.AddEntry(h4, "Higgsino_N2C1m_170_150", "f")
-    legend.AddEntry(h5, "NUHM2_N2N1", "l")
-    legend.AddEntry(h6, "NUHM2_C1C1", "l")
-    legend.AddEntry(h7, "NUHM2_N2C1p", "l")
-    legend.AddEntry(h8, "NUHM2_N2C1m", "l")
+    legend = ROOT.TLegend(0.5, 0.6, 0.9, 0.88)
+    legend.AddEntry(h1, "Higgsino #tilde{#chi}^{0}_{2}#tilde{#chi}^{0}_{1} m(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})=(170,150) GeV", "f")
+    legend.AddEntry(h2, "Higgsino #tilde{#chi}^{#pm}_{1}#tilde{#chi}^{#mp}_{1} m(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})=(170,150) GeV", "f")
+    legend.AddEntry(h3, "Higgsino #tilde{#chi}^{0}_{2}#tilde{#chi}^{+}_{1} m(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})=(170,150) GeV", "f")
+    legend.AddEntry(h4, "Higgsino #tilde{#chi}^{0}_{2}#tilde{#chi}^{-}_{1} m(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})=(170,150) GeV", "f")
+    legend.AddEntry(h5, "NUHM2 m_{1/2}=600 GeV #tilde{#chi}^{0}_{2}#tilde{#chi}^{0}_{1}", "l")
+    legend.AddEntry(h6, "NUHM2 m_{1/2}=600 GeV #tilde{#chi}^{#pm}_{1}#tilde{#chi}^{#mp}_{1}", "l")
+    legend.AddEntry(h7, "NUHM2 m_{1/2}=600 GeV #tilde{#chi}^{0}_{2}#tilde{#chi}^{+}_{1}", "l")
+    legend.AddEntry(h8, "NUHM2 m_{1/2}=600 GeV #tilde{#chi}^{0}_{2}#tilde{#chi}^{-}_{1}", "l")
 
     legend.SetBorderSize(0);
     legend.SetTextFont(42);
@@ -466,7 +467,7 @@ def plot_making(var, normalize, h1, h2, h3, h4, h5, h6, h7, h8):
     legend.SetFillStyle(0);
     legend.Draw()
 
-    AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
+    # AtlasStyle.ATLASLabel(0.15, 0.85, "internal", ROOT.kBlack)
 
     output = var + ".pdf"
     canvas.SaveAs(output)
