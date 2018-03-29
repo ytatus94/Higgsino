@@ -18,10 +18,6 @@ def create_histogram(tree_name, varexp, xtitle = 'xtitle', ytitle = 'ytitle', nb
     '''
     create empty histogram
     '''
-    # xtitle = ""
-    # ytitle = ""
-    # nbins, xmin, xmax = 0, 0., 0.
-
     h_name = "h_" + tree_name
     hist = None
 

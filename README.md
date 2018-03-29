@@ -7,6 +7,7 @@ The NUHM2 Higgsino study
 * Add new scripts:
   * `plot_METOverHT_vs_mll.py`
   * `plot_eemumu_invariant_mass.py`
+  * `plot_VRSS.py`
 * Modify the scripts for making plots in the dissertation
   * `plot_distributions_in_SR.py`
   * `plot_truth3_kinematics.py`
