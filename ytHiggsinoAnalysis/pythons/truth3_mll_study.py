@@ -10,6 +10,7 @@ def main():
     # mll_shape()
     # compare_pythia_madgraph_madspin()
     compare_n2_decay()
+    compare_mll_shape()
 
 #----------------------------#
 
@@ -863,6 +864,165 @@ def compare_n2_decay():
 
     output = var + ".pdf"
     canvas.SaveAs(output)
+
+#----------------------------#
+
+def compare_mll_shape():
+    path = '/afs/cern.ch/user/y/yushen/afsWorkingArea/private/Higgsino/SimpleAnalysis/Results/20170926b/'
+    file1 = 'NUHM2_m12_600_N2N1.root'
+    file2 = 'NUHM2_m12_600_N2C1p.root'
+    file3 = 'NUHM2_m12_600_N2C1m.root'
+    file4 = 'NUHM2_m12_600_C1C1.root'
+
+    var = "mll"
+    nbins, xmin, xmax = 50, 0., 50.
+    cut = "mll>0"
+
+    f1 = ROOT.TFile(path + file1)
+    t1 = f1.Get("EwkNUHM22016__ntuple")
+    h1 = ROOT.TH1F("h1_" + var, var, nbins, xmin, xmax)
+    t1.Project("h1_" + var, var, cut)
+    print h1.Integral()
+    h1.Scale(1/h1.Integral())
+    h1.SetDirectory(ROOT.gROOT)
+
+    f2 = ROOT.TFile(path + file2)
+    t2 = f2.Get("EwkNUHM22016__ntuple")
+    h2 = ROOT.TH1F("h2_" + var, var, nbins, xmin, xmax)
+    t2.Project("h2_" + var, var, cut)
+    print h2.Integral()
+    h2.Scale(1/h2.Integral())
+    h2.SetDirectory(ROOT.gROOT)
+
+    f3 = ROOT.TFile(path + file3)
+    t3 = f3.Get("EwkNUHM22016__ntuple")
+    h3 = ROOT.TH1F("h3_" + var, var, nbins, xmin, xmax)
+    t3.Project("h3_" + var, var, cut+"&&met>50")
+    print h3.Integral()
+    h3.Scale(1/h3.Integral())
+    h3.SetDirectory(ROOT.gROOT)
+
+    f4 = ROOT.TFile(path + file4)
+    t4 = f4.Get("EwkNUHM22016__ntuple")
+    h4 = ROOT.TH1F("h4_" + var, var, nbins, xmin, xmax)
+    t4.Project("h4_" + var, var, cut+"&&met>50")
+    print h4.Integral()
+    h4.Scale(1/h4.Integral())
+    h4.SetDirectory(ROOT.gROOT)
+
+    # m12 = 600
+    cross_section_N2N1  = 0.6657
+    cross_section_N2C1p = 0.3930
+    cross_section_N2C1m = 0.6791
+    cross_section_C1C1  = 0.6745
+
+    br_N2N1  = 0.1076
+    br_N2C1p = 0.1076
+    br_N2C1m = 0.1076
+    br_C1C1  = 0.3332
+
+    eff_N2N1  = 0.1535
+    eff_N2C1p = 0.1693
+    eff_N2C1m = 0.1687
+    eff_C1C1  = 0.1000
+
+    ROOT.gROOT.cd()
+
+    print "***"
+    print h1.Integral()
+    print h2.Integral()
+    print h3.Integral()
+    print h4.Integral()
+
+    # h1.Scale(cross_section_N2N1  * br_N2N1  * eff_N2N1)
+    # h2.Scale(cross_section_N2C1p * br_N2C1p * eff_N2C1p)
+    # h3.Scale(cross_section_N2C1m * br_N2C1m * eff_N2C1m)
+    # h4.Scale(cross_section_C1C1  * br_C1C1  * eff_C1C1)
+    h1.Scale(br_N2N1  * eff_N2N1)
+    h2.Scale(br_N2C1p * eff_N2C1p)
+    h3.Scale(br_N2C1m * eff_N2C1m)
+    h4.Scale(br_C1C1  * eff_C1C1)
+
+    print "*** CS x BR x EFF"
+    print h1.Integral()
+    print h2.Integral()
+    print h3.Integral()
+    print h4.Integral()
+
+    integral_1 = h1.Integral()
+    integral_2 = h2.Integral()
+    integral_3 = h3.Integral()
+    integral_4 = h4.Integral()
+
+    integral_total = integral_1 + integral_2 + integral_3 + integral_4
+
+    h1.Scale(1/integral_total)
+    h2.Scale(1/integral_total)
+    h3.Scale(1/integral_total)
+    h4.Scale(1/integral_total)
+
+    print "*** 1/total"
+    print h1.Integral()
+    print h2.Integral()
+    print h3.Integral()
+    print h4.Integral()
+
+    h1.SetLineColor(17)
+    h1.SetFillColor(17)
+    h1.SetFillStyle(1001)
+
+    h2.SetLineColor(ROOT.kAzure+7)
+    h2.SetFillColor(ROOT.kAzure+7)
+    h2.SetFillStyle(1001)
+
+    h3.SetLineColor(ROOT.kGreen+2)
+    h3.SetFillColor(ROOT.kGreen+2)
+    h3.SetFillStyle(1001) # Solid
+
+    h4.SetLineColor(ROOT.kYellow-9)
+    h4.SetFillColor(ROOT.kYellow-9)
+    h4.SetFillStyle(1001)
+
+    hs = ROOT.THStack()
+    hs.Add(h1)
+    hs.Add(h2)
+    hs.Add(h3)
+    hs.Add(h4)
+
+    canvas = ROOT.TCanvas("c","", 600,600)
+    canvas.SetLeftMargin(0.12)
+    ROOT.gPad.SetLogy()
+    ROOT.gPad.SetLeftMargin(0.15)
+    ROOT.gPad.SetBottomMargin(0.15)
+
+    hs.Draw("hist")
+    # hs.SetStats(0)
+    hs.SetTitle("")
+    hs.GetHistogram().SetXTitle("m(#font[12]{l}#font[12]{l}) [GeV]")
+    hs.GetHistogram().SetYTitle("Normalized events / 1 GeV")
+    hs.SetMaximum(1.0)
+    hs.SetMinimum(0.0001)
+    hs.GetXaxis().SetTitleOffset(1.5)
+    hs.GetYaxis().SetTitleOffset(1.7)
+    # hs.SetLineColor(ROOT.kRed)
+    # hs.SetLineWidth(2)
+    # hs.SetFillColor(ROOT.kRed)
+    # hs.SetFillStyle(0)
+    hs.Draw("hist")
+
+    legend = ROOT.TLegend(0.5, 0.6, 0.77, 0.87)
+    legend.AddEntry(h1, "NUHM2 m_{1/2}=600 GeV #tilde{\chi}^{0}_{2}#tilde{\chi}^{0}_{1}", "fl")
+    legend.AddEntry(h2, "NUHM2 m_{1/2}=600 GeV #tilde{\chi}^{0}_{2}#tilde{\chi}^{+}_{1}", "fl")
+    legend.AddEntry(h3, "NUHM2 m_{1/2}=600 GeV #tilde{\chi}^{0}_{2}#tilde{\chi}^{-}_{1}", "fl")
+    legend.AddEntry(h4, "NUHM2 m_{1/2}=600 GeV #tilde{\chi}^{#pm}_{1}#tilde{\chi}^{#mp}_{1}", "fl")
+    legend.SetBorderSize(0);
+    legend.SetTextFont(42);
+    legend.SetTextSize(0.02);
+    legend.SetFillColor(0);
+    legend.SetFillStyle(0);
+    legend.Draw()
+
+    canvas.SaveAs("mll_shape.pdf")
 
 #----------------------------#
 

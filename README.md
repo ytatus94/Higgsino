@@ -2,6 +2,11 @@
 The NUHM2 Higgsino study
 
 ---
+### v55. New functionfor mll shape plot
+* Add new function in `truth3_mll_study.py`
+  * `compare_mll_shape()`
+
+
 ### v54. New scripts for making plots
 * Add Judita's version cross-section file `NUHM2_Weak_Judita.txt`
 * Add new scripts:
