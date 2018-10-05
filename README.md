@@ -2,6 +2,9 @@
 The NUHM2 Higgsino study
 
 ---
+###
+* Add jupyter notebook
+
 ### v55. New functionfor mll shape plot
 * Add new function in `truth3_mll_study.py`
   * `compare_mll_shape()`
